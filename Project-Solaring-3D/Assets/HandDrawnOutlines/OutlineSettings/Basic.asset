@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e37a159898d644991adf6cf0ce4585, type: 3}
+  m_Name: Basic
+  m_EditorClassIdentifier: 
+  _Color: {r: 0, g: 0, b: 0, a: 1}
+  NumberOfContours: 3
+  Frequency: 80
+  Amplitude: 0.00161
+  UseNoise: 1
+  NoiseTex: {fileID: 2800000, guid: f22a1b9c939636c41be03e78874d6cad, type: 3}
+  NoiseAmount: 0.0054
+  NoiseTilling: 0
+  TimeMultiplier: 13.7
+  Synchronize: 0
+  UseNoiseAlpha: 0
+  NoiseAlpha: {fileID: 2800000, guid: 4faafa49d40cbde45b57c88f6bdab463, type: 3}
+  NoiseScaleAlpha: 98.7
+  MultiplierAlpha: 5
+  UseFlow: 0
+  SpeedXAlpha: 16.5
+  SpeedYAlpha: 6
+  UseRandomization: 0
+  TimeMultiplierAlpha: 38.74
+  Width: 0.36
+  DepthThreshold: 5
+  NormalThreshold: 0.54
+  EdgeDetectionMaterial: {fileID: 0}
+  OutlineMaterial: {fileID: 0}
