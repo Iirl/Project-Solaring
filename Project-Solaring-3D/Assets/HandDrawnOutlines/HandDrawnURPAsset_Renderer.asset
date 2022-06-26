@@ -76,7 +76,7 @@ MonoBehaviour:
   ID: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 39
+    m_Bits: 37
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 267a03e3033d1984fb2e2495e933c903,
     type: 2}

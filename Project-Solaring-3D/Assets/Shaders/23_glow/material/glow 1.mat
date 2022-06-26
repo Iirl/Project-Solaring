@@ -21,11 +21,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: glow 1
-  m_Shader: {fileID: -6465566751694194690, guid: fe51722219d62724eb4564617a3d3559,
+  m_Shader: {fileID: -6465566751694194690, guid: dede07aabd8ad9441a841a501006ae89,
     type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _NORMALMAP_TANGENT_SPACE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -42,7 +41,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_3977A1BD:
-        m_Texture: {fileID: 2800000, guid: 3ba61b963021d884ba2f7266dfdf69ca, type: 3}
+        m_Texture: {fileID: 2800000, guid: 05499b82fbe27734f965bbc06b22bb75, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_4076EC35:
@@ -161,6 +160,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _mormal_map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texture:
+        m_Texture: {fileID: 2800000, guid: 059d0105179285b4cadc709c5d6be070, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -175,7 +182,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_175D0329: 3.9
+    - Vector1_175D0329: 1.8
     - Vector1_1A3282DB: -1.52
     - Vector1_1D382313: 1
     - Vector1_1DFDF9B7: 1
@@ -185,14 +192,16 @@ Material:
     - Vector1_53B45937: -16
     - Vector1_56495FED: 0.239
     - Vector1_6AC0FCA: 1
-    - Vector1_7834F05F: 0.525
+    - Vector1_7834F05F: 0
     - Vector1_7FFCBCA4: 0
     - Vector1_9CF95ED1: 0.083
     - Vector1_A7AE73F0: 5
+    - Vector1_ABD1713E: 0.529
     - Vector1_B4FDD9B: 0.274
     - Vector1_C0D1572: 0.686
     - Vector1_D7D2D86: 0.9
-    - Vector1_EB08E6A3: 0.387
+    - Vector1_EB08E6A3: 0
+    - Vector1_F4D3A67B: 1.4
     - Vector1_FE821E4C: 100
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -269,6 +278,8 @@ Material:
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
@@ -313,15 +324,21 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
+    - _metallic: 0
+    - _smooth: 0
+    - float_alpha: 0.1
     - ice_level: 0
     - is_selected: 1
     m_Colors:
     - Color_11936B7C: {r: 30.209383, g: 26.571604, b: 14.551116, a: 0}
-    - Color_335D905F: {r: 4.237095, g: 3.549399, b: 0, a: 0}
+    - Color_335D905F: {r: 3.4199293, g: 0.48978987, b: 0, a: 0}
     - Color_3F3F2BEF: {r: 30.209383, g: 26.571604, b: 14.551116, a: 0}
+    - Color_4641AC47: {r: 1.443137, g: 4, b: 0, a: 0}
+    - Color_62DC5747: {r: 7.129739, g: 0.06710897, b: 0, a: 0}
     - Color_6F365877: {r: 0, g: 1.20261, b: 1.367365, a: 0}
-    - Color_C9A10623: {r: 1, g: 1, b: 1, a: 0}
+    - Color_C9A10623: {r: 1, g: 0.17823102, b: 0, a: 0}
     - Color_C9AD2068: {r: 0.0036642822, g: 0.0049115275, b: 0.0050117923, a: 0}
+    - Color_FB151A2: {r: 11.984312, g: 2.4662874, b: 0, a: 0}
     - Color_FF25E5FB: {r: 1.8010964, g: 2.670157, b: 2.6636355, a: 0}
     - Vector2_7A17492F: {r: 2, g: 2, b: 0, a: 0}
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}

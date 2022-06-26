@@ -15,12 +15,12 @@ MonoBehaviour:
   _Color: {r: 0, g: 0, b: 0, a: 1}
   NumberOfContours: 3
   Frequency: 80
-  Amplitude: 0.00161
+  Amplitude: 0.0011
   UseNoise: 1
   NoiseTex: {fileID: 2800000, guid: 059d0105179285b4cadc709c5d6be070, type: 3}
-  NoiseAmount: 0.0002
-  NoiseTilling: 0
-  TimeMultiplier: 13.7
+  NoiseAmount: 0.0018
+  NoiseTilling: 0.75
+  TimeMultiplier: 20
   Synchronize: 0
   UseNoiseAlpha: 0
   NoiseAlpha: {fileID: 2800000, guid: 4faafa49d40cbde45b57c88f6bdab463, type: 3}
@@ -31,8 +31,8 @@ MonoBehaviour:
   SpeedYAlpha: 6
   UseRandomization: 0
   TimeMultiplierAlpha: 38.74
-  Width: 0.36
+  Width: 0.48
   DepthThreshold: 5
-  NormalThreshold: 0.54
+  NormalThreshold: 0.47
   EdgeDetectionMaterial: {fileID: 0}
   OutlineMaterial: {fileID: 0}

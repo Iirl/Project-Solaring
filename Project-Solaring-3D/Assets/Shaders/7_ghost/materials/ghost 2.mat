@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ghost 2
-  m_Shader: {fileID: -6465566751694194690, guid: dede07aabd8ad9441a841a501006ae89,
+  m_Shader: {fileID: -6465566751694194690, guid: 25d127f2f9de2bf46b6f6465a8a6996d,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,7 +21,19 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_29229796:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_360266D8:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_9C3E50C3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9F1D41DC:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,7 +70,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texture:
-        m_Texture: {fileID: 2800000, guid: 3ba61b963021d884ba2f7266dfdf69ca, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e119da675c4f7e4aabbc54df588aab7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texture_alpha:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texture_occlusion:
@@ -84,9 +100,12 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_1D9A2AE: 0.01
+    - Vector1_2D71AB60: 0
     - Vector1_393DE20C: 0
     - Vector1_40249D74: -1
+    - Vector1_98034DE0: 0
     - Vector1_ABD1713E: 0.2
+    - Vector1_CA5DE183: 1.27
     - Vector1_EFE64959: 100
     - Vector1_F4D3A67B: 0.5
     - Vector1_FEFF47F1: 0.44
@@ -115,7 +134,9 @@ Material:
     - _float_alpha_clip_threshold: 0
     - _float_metallic: 0
     - _float_occlusion: 1
+    - _float_smooth: 0
     - _float_smoothness: 0
+    - _float_speed: 0.41
     - _metallic: 0
     - _noise_scale: 100
     - _smooth: 0.079
@@ -124,6 +145,7 @@ Material:
     - float_statue_level: 1
     - float_statue_threhold: 1
     m_Colors:
+    - Color_25961078: {r: 1, g: 1, b: 1, a: 0}
     - Color_4641AC47: {r: 0, g: 10.784121, b: 21.361254, a: 0}
     - Color_62DC5747: {r: 76.15007, g: 76.15007, b: 76.15007, a: 0}
     - Color_6DF76E71: {r: 1024, g: 936.22864, b: 0, a: 0}
@@ -134,8 +156,10 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _color_emission: {r: 0, g: 0, b: 0, a: 0}
+    - _color_emission_hologram: {r: 0, g: 1, b: 0.2048914, a: 0}
     - _color_texture: {r: 1, g: 1, b: 1, a: 0}
     - _disslove_color: {r: 13.766364, g: 6.775069, b: 0, a: 1}
+    - _tiling: {r: 1, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8585724327985891145
 MonoBehaviour:
