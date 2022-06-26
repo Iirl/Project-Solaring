@@ -17,8 +17,8 @@ MonoBehaviour:
   Frequency: 80
   Amplitude: 0.00161
   UseNoise: 1
-  NoiseTex: {fileID: 2800000, guid: f22a1b9c939636c41be03e78874d6cad, type: 3}
-  NoiseAmount: 0.0054
+  NoiseTex: {fileID: 2800000, guid: 059d0105179285b4cadc709c5d6be070, type: 3}
+  NoiseAmount: 0.0002
   NoiseTilling: 0
   TimeMultiplier: 13.7
   Synchronize: 0

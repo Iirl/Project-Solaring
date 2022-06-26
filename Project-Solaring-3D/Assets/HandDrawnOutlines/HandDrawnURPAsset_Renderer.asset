@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 2
   layerMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 0
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 5a9fb795eb7b09c4481928e0af3bf3ff,
     type: 2}
@@ -40,6 +40,26 @@ MonoBehaviour:
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: ec9a07c388853554a8ce4beea50acdda,
     type: 2}
+--- !u!114 &-4241549747712144836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
+  m_Name: HandDrawnOutlinesFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  ID: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  UseDepthMask: 1
+  handDrawnOutlinesSettings: {fileID: 11400000, guid: f858805933b517a43bca08dc29f59486,
+    type: 2}
 --- !u!114 &-1252976147078801703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,14 +70,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
-  m_Name: NewHandDrawnOutlinesFeature
+  m_Name: HandDrawnOutlinesFeature
   m_EditorClassIdentifier: 
   m_Active: 1
   ID: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
-  UseDepthMask: 0
+    m_Bits: 39
+  UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 267a03e3033d1984fb2e2495e933c903,
     type: 2}
 --- !u!114 &-667374007634946835
@@ -76,9 +96,9 @@ MonoBehaviour:
   ID: 4
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
-  UseDepthMask: 0
-  handDrawnOutlinesSettings: {fileID: 11400000, guid: 2457749af44d3e448a98aa3debec602c,
+    m_Bits: 64
+  UseDepthMask: 1
+  handDrawnOutlinesSettings: {fileID: 11400000, guid: f858805933b517a43bca08dc29f59486,
     type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -97,7 +117,8 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1252976147078801703}
-  m_RendererFeatureMap: d9965431d5889cee
+  - {fileID: -4241549747712144836}
+  m_RendererFeatureMap: d9965431d5889cee3c4a7826fafc22c5
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -174,7 +195,7 @@ MonoBehaviour:
   ID: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 55
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 267a03e3033d1984fb2e2495e933c903,
     type: 2}

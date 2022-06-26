@@ -21,8 +21,8 @@ MonoBehaviour:
   NoiseAmount: 0.02
   NoiseTilling: 12.91
   TimeMultiplier: 1
-  Synchronize: 1
-  UseNoiseAlpha: 1
+  Synchronize: 0
+  UseNoiseAlpha: 0
   NoiseAlpha: {fileID: 2800000, guid: b159aee9d8cef6943990b0b117286c80, type: 3}
   NoiseScaleAlpha: 12.1
   MultiplierAlpha: 1.63
