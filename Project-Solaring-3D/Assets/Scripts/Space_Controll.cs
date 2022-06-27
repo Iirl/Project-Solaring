@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 此程式放在物件群組當中，用來調整物件空間的移動。
+/// </summary>
 public class Space_Controll : MonoBehaviour
 {
     #region 空間變數
-    [SerializeField] 
-    private bool rotated = false;  //空間是否旋轉
+    static bool rotated = false;  //空間是否旋轉
     #endregion
 
 
