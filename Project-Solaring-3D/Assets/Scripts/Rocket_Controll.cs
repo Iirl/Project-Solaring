@@ -9,7 +9,6 @@ public class Rocket_Controll : MonoBehaviour
     #region 屬性
     ParticleSystem particle_fire;
     Rigidbody rb_Rocket;
-    BoxCollider _boxBorder;
     #endregion
     #region #序列化屬性
     [SerializeField, Header("燃料"),Range(100,200)]
@@ -23,13 +22,18 @@ public class Rocket_Controll : MonoBehaviour
     #region 方法
     private void UpForce()
     {
-        if (particle_fire.isPlaying) rb_Rocket.AddForce(Vector3.up * Time.deltaTime * 5f);
+        if (particle_fire.isPlaying) rb_Rocket.AddForce(Vector3.up * Time.deltaTime * 10f);
     }
+    /// <summary>
+    /// 移動控制
+    /// </summary>
+    /// <param name="horizon">水平移動向量</param>
+    /// <param name="vertial">垂直移動向量</param>
     private void MoveControll(float horizon, float vertial)
     {
         float aSpeed = ( Input.GetKeyDown(KeyCode.F)) ? speed_a : 0;
         if (Mathf.Abs(horizon) < 0.005f) horizon = 0;
-        if (Mathf.Abs(vertial) < 0.005f) vertial = 0;
+        if (Mathf.Abs(vertial) < 0.005f || !particle_fire.isPlaying) vertial = 0;
         float xSpeed = (speed_v * horizon) * Time.deltaTime;
         float ySpeed = (speed_v * vertial) * Time.deltaTime;
         Vector3 v3 = new Vector3(xSpeed , ySpeed, 0);
@@ -37,20 +41,19 @@ public class Rocket_Controll : MonoBehaviour
 
 
     }
+    /// <summary>
+    ///  點火控制
+    /// </summary>
+    /// <param name="isFire">判斷是否啟動引擎</param>
+    private void ignix_fire(bool isFire)
+    {
+        if (isFire) particle_fire.Stop();
+        else particle_fire.Play();
+    }
     private void VisiableWall()
     {
     }
 
-    /// <summary>
-    /// 程式啟動時或者調整大小時要呼叫此函數調整邊界。
-    /// </summary>
-    private void Box_border()
-    {
-        float w = _boxBorder.GetComponentInChildren<Camera>().aspect * 10;     //width
-        float h = (1 / _boxBorder.GetComponentInChildren<Camera>().aspect) * w; //heigh
-        _boxBorder.size = new Vector2(w, h);
-
-    }
     #endregion
 
     #region 事件
@@ -58,27 +61,25 @@ public class Rocket_Controll : MonoBehaviour
     {
         particle_fire = GetComponentInChildren<ParticleSystem>();
         rb_Rocket = GetComponent<Rigidbody>();
-        _boxBorder = GameObject.Find("Border").GetComponent<BoxCollider>();
-        Box_border();
     }
     void Start()
     {
         
     }
+    /// <summary>
+    /// 更新事件
+    /// </summary>
     void Update()
     {
         MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (Input.GetKey(KeyCode.Space)) ignix_fire(particle_fire.isPlaying);
         //VisiableWall();
     }
     private void FixedUpdate()
     {
         UpForce();
     }
-    private void OnTriggerExit(Collider other)
-    {
-        print(other.gameObject.name);
 
-    }
     #endregion
     #region ##
     #endregion
