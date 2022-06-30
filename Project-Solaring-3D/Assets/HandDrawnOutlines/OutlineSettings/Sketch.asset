@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Color: {r: 0, g: 0, b: 0, a: 1}
   NumberOfContours: 2
-  Frequency: 18.8
+  Frequency: 19.8
   Amplitude: 0.00223
   UseNoise: 1
   NoiseTex: {fileID: 2800000, guid: 1809ee081375e7b42bcf3921f312ce7a, type: 3}
