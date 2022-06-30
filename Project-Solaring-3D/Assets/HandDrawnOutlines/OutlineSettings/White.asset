@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: White
   m_EditorClassIdentifier: 
   _Color: {r: 2, g: 2, b: 2, a: 1}
-  NumberOfContours: 3
+  NumberOfContours: 1
   Frequency: 0
   Amplitude: 0
   UseNoise: 0
@@ -31,8 +31,8 @@ MonoBehaviour:
   SpeedYAlpha: 6.8
   UseRandomization: 0
   TimeMultiplierAlpha: 54.8
-  Width: 1.02
-  DepthThreshold: 5
-  NormalThreshold: 0.7
+  Width: 1
+  DepthThreshold: 20
+  NormalThreshold: 0.5
   EdgeDetectionMaterial: {fileID: 0}
   OutlineMaterial: {fileID: 0}

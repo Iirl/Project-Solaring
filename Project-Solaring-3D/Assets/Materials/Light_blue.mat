@@ -131,7 +131,7 @@ Material:
     - is_selected: 1
     m_Colors:
     - Color_25961078: {r: 1, g: 1, b: 1, a: 0}
-    - Color_335D905F: {r: 0.5329023, g: 0.50604206, b: 3.460675, a: 0}
+    - Color_335D905F: {r: 0.25036216, g: 0.11653754, b: 8.235334, a: 0}
     - Color_C9A10623: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
