@@ -19,7 +19,7 @@ public class System_function : MonoBehaviour
     /// </summary>
     private void _auto_move()
     {
-        scene_move_rt.position += Vector3.up * Time.deltaTime;
+        scene_move_rt.position += Vector3.up * Time.deltaTime * 10;
     } 
     /// <summary>
     /// 設定UI的提示
