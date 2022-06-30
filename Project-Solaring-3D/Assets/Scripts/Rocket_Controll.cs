@@ -57,7 +57,7 @@ public class Rocket_Controll : MonoBehaviour
             else  ignix_fire(true);
         }
 
-        print(r3);
+        //print(particle_fire.isPlaying);
 
     }
     /// <summary>
