@@ -101,11 +101,11 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_49F337A7: 0
-    - Vector1_4C850B07: 1
+    - Vector1_4C850B07: 0.25
     - Vector1_5219B157: 0
     - Vector1_64B788AD: 5.9
     - Vector1_662430A8: 1
-    - Vector1_67744406: 1
+    - Vector1_67744406: 0.35
     - Vector1_BF1D8819: 0
     - Vector1_C8EA831A: 0
     - Vector1_DE4A209B: 0
