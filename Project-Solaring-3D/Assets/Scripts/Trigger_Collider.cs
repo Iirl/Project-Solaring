@@ -12,12 +12,19 @@ public class Trigger_Collider : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //print(other.gameObject.name);
-        if (other.gameObject.tag != "Player") Destroy(other.gameObject,1);
-        if (other.gameObject.tag == "Player") other.GetComponent<Rigidbody>().velocity =
-            new Vector2(Input.GetAxis("Horizontal")* -5, 
-            Input.GetAxis("Vertical") * -5
-            );
+        if (other.gameObject.tag != "Player") Destroy(other.gameObject, 1);
+        if (other.gameObject.tag == "Player") Bound_Object(other.gameObject);
     }
     #region ¸I¼²
+    #endregion
+    #region ¤èªk
+    private void Bound_Object(GameObject gameob)
+    {
+        gameob.GetComponent<Rigidbody>().velocity =
+        new Vector2(Input.GetAxis("Horizontal") * -5,
+        Input.GetAxis("Vertical") * -5
+        );
+    }
+
     #endregion
 }
