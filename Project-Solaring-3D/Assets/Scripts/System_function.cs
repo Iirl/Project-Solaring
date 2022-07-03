@@ -6,27 +6,21 @@ using TMPro;
 public class System_function : MonoBehaviour
 {
     #region 屬性
-    RectTransform scene_move_rt;
     BoxCollider _boxBorder;
     [SerializeField]
     TMP_Text ui_Dist, ui_fuel;
     [SerializeField]
-    private int UI_moveDistane = 0, UI_fuel=100;    
+    private int UI_moveDistane = 0, UI_fuel=100;
+    [SerializeField, Header("取得元件")]
+    GameObject Border;
     #endregion
     #region 方法
-    /// <summary>
-    /// 畫面移動
-    /// </summary>
-    private void _auto_move()
-    {
-        scene_move_rt.position += Vector3.up * Time.deltaTime * 10;
-    } 
     /// <summary>
     /// 設定UI的提示
     /// </summary>
     private void _show_UI()
     {
-        UI_moveDistane = (int)( scene_move_rt.position.y);
+        UI_moveDistane = (int)(Border.transform.position.y);
         if (ui_Dist != null) ui_Dist.text = $"Distance:{UI_moveDistane}";
         if (ui_fuel != null) ui_fuel.text = $"Fuel:{UI_fuel}";
     }
@@ -38,7 +32,7 @@ public class System_function : MonoBehaviour
     {
         float w = _boxBorder.GetComponentInChildren<Camera>().aspect * 10;     //width
         float h = (1 / _boxBorder.GetComponentInChildren<Camera>().aspect) * w; //heigh
-        _boxBorder.size = new Vector3(w+2, h+2, w+h/2);
+        _boxBorder.size = new Vector3(w+2, w+h/2, h+2);
 
     }
     #endregion
@@ -57,13 +51,11 @@ public class System_function : MonoBehaviour
     #region 事件
     private void Awake()
     {
-        scene_move_rt = GameObject.Find("Border").GetComponent<RectTransform>();
         _boxBorder = GameObject.Find("Border").GetComponent<BoxCollider>();
         Box_border();
     }
     private void Update()
     {
-        _auto_move();
         _show_UI();
     }
     private void FixedUpdate()
