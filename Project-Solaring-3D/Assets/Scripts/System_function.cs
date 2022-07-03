@@ -32,7 +32,7 @@ public class System_function : MonoBehaviour
     {
         float w = _boxBorder.GetComponentInChildren<Camera>().aspect * 10;     //width
         float h = (1 / _boxBorder.GetComponentInChildren<Camera>().aspect) * w; //heigh
-        _boxBorder.size = new Vector3(w+2, w+h/2, h+2);
+        _boxBorder.size = new Vector3(w+1, h, h+2);
 
     }
     #endregion
