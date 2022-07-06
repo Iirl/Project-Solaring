@@ -100,6 +100,18 @@ namespace solar_a
 
         #endregion
 
+        #region 取得資訊
+        /// <summary>
+        /// 調用火箭資訊方法
+        /// </summary>
+        /// <returns>x=燃料；y=速度；z=加速度</returns>
+        public Vector3 GetRocketInfo()
+        {
+            return new Vector3(fuel, speed_v, speed_a);
+        }
+
+        #endregion
+
         #region 事件
         private void Awake()
         {
@@ -117,7 +129,7 @@ namespace solar_a
         void Update()
         {
             MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
-
+            fuel -= Time.deltaTime;
         }
         private void FixedUpdate()
         {

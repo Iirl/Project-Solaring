@@ -9,7 +9,7 @@ namespace solar_a
     {
 
         #region 屬性
-        System_function sysFuntion;
+        //SceneStage_Control Scene_ctl;
 
         [SerializeField, Header("生成位置")]
         Object MainObject;
@@ -20,7 +20,7 @@ namespace solar_a
         [SerializeField, Tooltip("指定物件旋轉")]
         Quaternion Generate_rot = Quaternion.identity;
 
-        #region 類別
+        #region 產生器類別
         class Generater
         {
             private float x { get; set; }

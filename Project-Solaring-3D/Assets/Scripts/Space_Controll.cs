@@ -8,7 +8,7 @@ namespace solar_a
 {
     public class Space_Controll : MonoBehaviour
     {
-        #region 空間變數
+        #region 變數
         static bool rotated, rot_left, rot_right;  //空間是否旋轉
         [SerializeField, Header("旋轉設定"), Tooltip("原點")]
         private float rot_angle = 0;
@@ -17,29 +17,17 @@ namespace solar_a
         [SerializeField, Tooltip("右轉向角度(R)"), Range(0, 179)]
         private float Right_angle = 45;
         #endregion
-        #region 整體空間(Border)範圍
-        [SerializeField, Header("整體空間定義")]
-        GameObject SPACE;
-        RectTransform Space_RT;
-        [SerializeField, Space]
-        private float Space_speed = 10;
+
+        #region 欄位
 
         #endregion
 
         #region 空間方法
         /// <summary>
-        /// 畫面移動
-        /// </summary>
-        private void _auto_move()
-        {
-            if (Space_RT.position.x != 0) Space_RT.position = new Vector2(0, Space_RT.position.y);
-            Space_RT.position += Vector3.up * Time.deltaTime * Space_speed;
-        }
-        /// <summary>
         ///  選轉整個空間 +-X度
         /// </summary>
         /// 參數請從屬性面板調整，左轉向
-        public void _Spine()
+        private void _Spine()
         {
             float center_loc = Mathf.Floor(transform.eulerAngles.y);
             //print (transform.localEulerAngles);
@@ -58,7 +46,7 @@ namespace solar_a
             }
             //print($"Name:= {y_loc}  / rot{rot_angle}");
         }
-        public void _Spine(int vect)
+        private void _Spine(int vect)
         {
             // 1 右轉  -1 左轉
             if (vect != 0)
@@ -76,17 +64,6 @@ namespace solar_a
                 }
             }
         }
-        public void _2DSpine()
-        {
-
-        }
-        /// <summary>
-        ///  2維座標判定
-        /// </summary>
-        public void _location()
-        {
-
-        }
 
         #endregion
 
@@ -95,7 +72,6 @@ namespace solar_a
         private void Awake()
         {
             rotated = false; rot_left = false; rot_right = false;
-            Space_RT = SPACE.GetComponent<RectTransform>();
             //物理空間參數
             Physics.gravity = new Vector3(0, -0.1F, 0);
         }
@@ -106,8 +82,6 @@ namespace solar_a
 
         private void FixedUpdate()
         {
-            // 場景移動
-            _auto_move();
 
             // 旋轉空間
             if (Input.GetAxisRaw("Left_Spine") == 1) _Spine(-1);
