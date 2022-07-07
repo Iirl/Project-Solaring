@@ -10,6 +10,8 @@ namespace solar_a
 
         private void Start()
         {
+            mgCenter.canvas_select = GetComponent<CanvasGroup>();
+            mgCenter.InvokeRepeating("FadeIn", 0, 0.1f);
         }
     }
 }

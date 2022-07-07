@@ -14,6 +14,8 @@ namespace solar_a
         Rocket_Controll rocket_ctl;
         [SerializeField, Tooltip("場景管理系統")]
         SceneStage_Control ss_ctl;
+        [SerializeField, Tooltip("產生器類別")]
+        Object_Generator gener_class;        
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
         [SerializeField, Header("介面UI控制"), Tooltip("UI 距離顯示")]
@@ -26,7 +28,7 @@ namespace solar_a
 
 
         #region 共用欄位 (Public Feild)
-
+        public CanvasGroup canvas_select;
         #endregion
 
         #region 共用方法 (Public Method)
@@ -43,38 +45,52 @@ namespace solar_a
             return f;
         }
 
+        ///////////// 產生物件
+
+        public void AutoGenerate()
+        {            
+            //gener_class.Static_gen(ss_ctl.transform.position.y);
+            gener_class.Random_gen(ss_ctl.transform.position.y, false);
+        }
+        public void AutoGenerate(int i)
+        {
+            //gener_class.Static_gen(ss_ctl.transform.position.y);
+            gener_class = GameObject.Find("BOXGenerator").GetComponent<Object_Generator>();
+            gener_class.Random_gen(ss_ctl.transform.position.y, true);
+        }
+
+
         ///////////// 選單變化相關
         /// <summary>
         /// 淡入動畫
         /// </summary>
-        /// <param name="cg">請放入含有 CanvasGroup 的UI畫布</param>
-        public void FadeIn(CanvasGroup cg)
+        public void FadeIn()
         {
-            if (cg.alpha <1) {
-                cg.alpha += 0.1f;
+            if (canvas_select.alpha <1) {
+                canvas_select.alpha += 0.1f;
             } else
             {
-                cg.alpha = 1;
-                cg.interactable = true;
-                cg.blocksRaycasts = true;
+                canvas_select.alpha = 1;
+                canvas_select.interactable = true;
+                canvas_select.blocksRaycasts = true;
+                CancelInvoke("FadeIn");
             }
 
         }
         /// <summary>
         /// 淡出動畫
         /// </summary>
-        /// <param name="cg">請放入含有 CanvasGroup 的UI畫布</param>
-        public void FadeOut(CanvasGroup cg)
+        public void FadeOut()
         {
-            if (cg.alpha > 0)
+            if (canvas_select.alpha > 0)
             {
-                cg.alpha -= 0.1f;
+                canvas_select.alpha -= 0.1f;
             }
             else
             {
-                cg.alpha = 0;
-                cg.interactable = false;
-                cg.blocksRaycasts = false;
+                canvas_select.alpha = 0;
+                canvas_select.interactable = false;
+                canvas_select.blocksRaycasts = false;
             }
 
         }

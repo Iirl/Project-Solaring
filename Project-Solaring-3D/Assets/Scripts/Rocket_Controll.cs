@@ -27,6 +27,8 @@ namespace solar_a
         float fire_min_y = 1f, fire_max_x = 1f, fire_max_y = 3f;
         [SerializeField, Range(0, 5f)]
         float fire_boost_x = 0, fire_boost_y = 1;
+        [SerializeField, Header("更新控制項")]
+        public bool isControl = true;
         #endregion
 
         #region 方法
@@ -130,12 +132,20 @@ namespace solar_a
         /// </summary>
         void Update()
         {
-            MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
+            if (isControl)
+            {
+                MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
+
+            }
         }
         private void FixedUpdate()
         {
-            UpForce();
-            fuel = mgCenter.fuelChange(fuel);
+
+            if (isControl)
+            {
+                UpForce();
+                fuel = mgCenter.fuelChange(fuel);
+            }
         }
 
         #endregion
