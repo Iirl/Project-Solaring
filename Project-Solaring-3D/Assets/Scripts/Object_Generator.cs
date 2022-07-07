@@ -19,9 +19,11 @@ namespace solar_a
         Vector3 Generate_pos = Vector3.zero;
         [SerializeField, Tooltip("指定物件旋轉")]
         Quaternion Generate_rot = Quaternion.identity;
+        [SerializeField, Header("指定物件生成數量上限")]
+        int Generate_limit =10;
 
         #region 產生器類別
-        class Generater
+        public class Generater
         {
             private float x { get; set; }
             private float y { get; set; }
@@ -51,8 +53,18 @@ namespace solar_a
                 Ob_Parent = parent;
                 Parent = GameObject.Find(parent.name);
                 Target = GameObject.Find(target.name);
-                Create_v3 = Parent.transform.position;
-                Create_r3 = Parent.transform.rotation;
+                Create_v3 = new Vector3(Random.Range(-20,20), Random.Range(9, 14));
+                Create_r3 = Quaternion.identity;
+
+            }
+            public Generater(Object parent, Object target, Vector3 pos, Quaternion rot)
+            {
+                Ob_Target = target;
+                Ob_Parent = parent;
+                Parent = GameObject.Find(parent.name);
+                Target = GameObject.Find(target.name);
+                Create_v3 = pos;
+                Create_r3 = rot;
 
             }
 
@@ -66,13 +78,23 @@ namespace solar_a
                 Instantiate(target, Create_v3, Create_r3, parent_trs);
             }
 
-
+            /// <summary>
+            /// 物件產生的訊息，除錯用。
+            /// </summary>
             public void Print_ObjectMessege()
             {
                 Object target = Ob_Target;
                 Object parent = Ob_Parent;
                 print($"The target is {target.name} that will be generate in {Create_v3}, {Create_r3}");
                 print($"Will be generate in the {parent.name}.");
+            }
+            public GameObject GetParent()
+            {
+                return Parent;
+            }
+            public GameObject GetTarget()
+            {
+                return Target;
             }
 
         }
@@ -86,22 +108,17 @@ namespace solar_a
 
         public void Static_gen()
         {
-            string obj = "UFO_clone";
-            //float gener_pos_x = Random.Range(-sysFuntion.stage_x, sysFuntion.stage_x);
-            //float gener_pos_y = Random.Range(0, sysFuntion.stage_y);
-            //////
-
             Generater sgen;
             if (Generate != null && MainObject != null)
             {
                 sgen = new Generater(MainObject, Generate);
-                sgen.Create_v3 = Generate_pos;
-                sgen.Create_r3 = Generate_rot;
                 sgen.Print_ObjectMessege();
                 sgen.Generates();
+                sgen.Create_v3 = Generate_pos;
+                sgen.Create_r3 = Generate_rot;
             }
-
-
+            int totals = GameObject.Find(MainObject.name).transform.childCount;
+            print(totals);
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace solar_a
         public Vector3 stage_position;
 
         [SerializeField, Header("場景相關可調變數"), Tooltip("移動速度"), Space]
-        private float Space_speed = 10;
+        public float Space_speed = 10;
         [SerializeField, Header("判定區域顏色")]
         private Color box_color = Color.cyan;
         [SerializeField, Header("判定區域大小")]

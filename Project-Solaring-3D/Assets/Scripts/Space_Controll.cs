@@ -12,10 +12,12 @@ namespace solar_a
         static bool rotated, rot_left, rot_right;  //空間是否旋轉
         [SerializeField, Header("旋轉設定"), Tooltip("原點")]
         private float rot_angle = 0;
-        [SerializeField, Tooltip("左轉向角度(L)"), Range(180, 359)]
-        private float Left_angle = 315;
-        [SerializeField, Tooltip("右轉向角度(R)"), Range(0, 179)]
+        [SerializeField, Tooltip("左轉向角度(L)"), Range(5f, 90f)]
+        private float Left_angle = 45;
+        [SerializeField, Tooltip("右轉向角度(R)"), Range(0f, 90f)]
         private float Right_angle = 45;
+        [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
+        float spine = 2f; //旋轉速度
         #endregion
 
         #region 欄位
@@ -30,10 +32,11 @@ namespace solar_a
         private void _Spine()
         {
             float center_loc = Mathf.Floor(transform.eulerAngles.y);
+            float left_loc = rot_angle>Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle;
+            float right_loc = rot_angle + Right_angle < 360? rot_angle + Right_angle : 360 - rot_angle + Right_angle;
             //print (transform.localEulerAngles);
-            float spine = 2f; //旋轉速度
-            if (center_loc >= Right_angle && center_loc < Right_angle + spine * 2) rot_right = false;
-            if (center_loc >= Left_angle && center_loc < Left_angle + spine * 2) rot_left = false;
+            if (center_loc >= right_loc && center_loc < right_loc + spine * 2) rot_right = false;
+            if (center_loc >= left_loc && center_loc < left_loc + spine * 2) rot_left = false;
 
             if (rotated)
             {
@@ -41,8 +44,8 @@ namespace solar_a
                 else if (rot_right) transform.Rotate(eulers: Vector2.up * spine);
                 // 停駐點，左轉度數極限和右轉度數極限及原點。
                 if (center_loc > rot_angle - spine && center_loc < rot_angle + spine) rotated = false;
-                else if (center_loc > Left_angle - spine && center_loc < Left_angle + spine) { rotated = false; }
-                else if (center_loc > Right_angle - spine && center_loc < Right_angle + spine) { rotated = false; }
+                else if (center_loc > left_loc - spine && center_loc < left_loc + spine) { rotated = false; }
+                else if (center_loc > right_loc - spine && center_loc < right_loc + spine) { rotated = false; }
             }
             //print($"Name:= {y_loc}  / rot{rot_angle}");
         }
@@ -74,6 +77,7 @@ namespace solar_a
             rotated = false; rot_left = false; rot_right = false;
             //物理空間參數
             Physics.gravity = new Vector3(0, -0.1F, 0);
+            transform.Rotate(new Vector3(0,rot_angle,0));
         }
 
         private void Start()

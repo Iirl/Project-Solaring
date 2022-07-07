@@ -14,6 +14,8 @@ namespace solar_a
         Rocket_Controll rocket_ctl;
         [SerializeField, Tooltip("場景管理系統")]
         SceneStage_Control ss_ctl;
+        [SerializeField, Tooltip("結束管理")]
+        ManageEnd mEnd;
         [SerializeField, Header("介面UI控制"), Tooltip("UI 距離顯示")]
         TMP_Text ui_Dist;
         [SerializeField, Tooltip("UI 燃料顯示")]
@@ -29,6 +31,53 @@ namespace solar_a
 
         #region 共用方法 (Public Method)
 
+        ///////////// 火箭控制相關
+        /// <summary>
+        /// 燃料變化
+        /// </summary>
+        /// <param name="f">輸入目前燃料</param>
+        /// <returns></returns>
+        public float fuelChange(float f)
+        {
+            f -= Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
+            return f;
+        }
+
+        ///////////// 選單變化相關
+        /// <summary>
+        /// 淡入動畫
+        /// </summary>
+        /// <param name="cg">請放入含有 CanvasGroup 的UI畫布</param>
+        public void FadeIn(CanvasGroup cg)
+        {
+            if (cg.alpha <1) {
+                cg.alpha += 0.1f;
+            } else
+            {
+                cg.alpha = 1;
+                cg.interactable = true;
+                cg.blocksRaycasts = true;
+            }
+
+        }
+        /// <summary>
+        /// 淡出動畫
+        /// </summary>
+        /// <param name="cg">請放入含有 CanvasGroup 的UI畫布</param>
+        public void FadeOut(CanvasGroup cg)
+        {
+            if (cg.alpha > 0)
+            {
+                cg.alpha -= 0.1f;
+            }
+            else
+            {
+                cg.alpha = 0;
+                cg.interactable = false;
+                cg.blocksRaycasts = false;
+            }
+
+        }
         #endregion
 
         #region 本地控制方法
@@ -42,7 +91,6 @@ namespace solar_a
             if (ui_Dist != null) ui_Dist.text = $"Distance:{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"Fuel:{UI_fuel}";
         }
-
         #endregion
 
         #region 事件調用

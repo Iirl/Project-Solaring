@@ -11,9 +11,11 @@ namespace solar_a
         #region 屬性
         ParticleSystem particle_fire;
         Rigidbody rb_Rocket;
+        [SerializeField, Header("中控系統")]
+        ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("燃料"), Range(100, 200)]
+        [SerializeField, Header("燃料"), Range(100, 200), Tooltip("每單位消耗0.25燃料")]
         float fuel = 100;
         [SerializeField, Header("移動速度"), Range(2.0f, 12f)]
         float speed_v = 4f;
@@ -129,11 +131,11 @@ namespace solar_a
         void Update()
         {
             MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
-            fuel -= Time.deltaTime;
         }
         private void FixedUpdate()
         {
             UpForce();
+            fuel = mgCenter.fuelChange(fuel);
         }
 
         #endregion
