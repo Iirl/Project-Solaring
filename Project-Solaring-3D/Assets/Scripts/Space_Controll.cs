@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 /// <summary>
@@ -10,14 +11,18 @@ namespace solar_a
     {
         #region 變數
         static bool rotated, rot_left, rot_right;  //空間是否旋轉
-        [SerializeField, Header("旋轉設定"), Tooltip("原點")]
+        [SerializeField, Header("旋轉設定"), Tooltip("原點：除非必要，否則應避免設定小數點。\n" +
+            "小於直角範圍的話左右轉向到底會停止；大於直角範圍則回形成一個迴圈，目前稍微測試應該是沒問題，" +
+            "但不確定是否某些數值會有BUG，請謹慎設定。")]
         private float rot_angle = 0;
         [SerializeField, Tooltip("左轉向角度(L)"), Range(5f, 90f)]
         private float Left_angle = 45;
         [SerializeField, Tooltip("右轉向角度(R)"), Range(0f, 90f)]
         private float Right_angle = 45;
         [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
-        float spine = 2f; //旋轉速度
+        float spine = 2.0f;
+        [SerializeField, Tooltip("旋轉指數")]
+        float spine_log = 10;
         #endregion
 
         #region 欄位
@@ -31,23 +36,13 @@ namespace solar_a
         /// 參數請從屬性面板調整，左轉向
         private void _Spine()
         {
-            float center_loc = Mathf.Floor(transform.eulerAngles.y);
-            float left_loc = rot_angle>Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle;
-            float right_loc = rot_angle + Right_angle < 360? rot_angle + Right_angle : 360 - rot_angle + Right_angle;
-            //print (transform.localEulerAngles);
-            if (center_loc >= right_loc && center_loc < right_loc + spine * 2) rot_right = false;
-            if (center_loc >= left_loc && center_loc < left_loc + spine * 2) rot_left = false;
-
-            if (rotated)
-            {
-                if (rot_left) transform.Rotate(eulers: Vector2.down * spine);
-                else if (rot_right) transform.Rotate(eulers: Vector2.up * spine);
-                // 停駐點，左轉度數極限和右轉度數極限及原點。
-                if (center_loc > rot_angle - spine && center_loc < rot_angle + spine) rotated = false;
-                else if (center_loc > left_loc - spine && center_loc < left_loc + spine) { rotated = false; }
-                else if (center_loc > right_loc - spine && center_loc < right_loc + spine) { rotated = false; }
-            }
-            //print($"Name:= {y_loc}  / rot{rot_angle}");
+            float center_loc = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
+            float left_loc = rot_angle > Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle; // Y軸逆旋位置
+            float right_loc = rot_angle + Right_angle < 360 ? rot_angle + Right_angle : 360 - rot_angle + Right_angle; // Y軸正旋位置
+            // 判斷是否停止轉動
+            if (center_loc >= right_loc && center_loc < 180) rot_right = false;
+            if (center_loc <= left_loc && center_loc > 180) rot_left = false;
+            if (rotated)  FadeSpine(center_loc, left_loc, right_loc);
         }
         private void _Spine(int vect)
         {
@@ -67,7 +62,76 @@ namespace solar_a
                 }
             }
         }
+        /// <summary>
+        /// 漸變速度方法
+        /// </summary>
+        /// <param name="c">目前軸心的角度</param>
+        /// <param name="l">左邊界角度</param>
+        /// <param name="r">右邊界角度</param>
+        private void FadeSpine(float c, float l, float r)
+        {
+            float r_angle = (Mathf.DeltaAngle(c, r));
+            float l_angle = (Mathf.DeltaAngle(c, l));
+            float i_spine = spine, i = 1;
+            float pos = l_angle + r_angle; // 取得目前位置
+            int r_spine = PosFix(pos, l, r);
+            switch (r_spine)
+            {
+                case 0: i = pos; break;
+                case 2: i = r_angle; break;
+                case -2: i = l_angle; break;
+                default: break;
+            }
+            /// 選轉速度調整：
+            /// 目前使用Log函數調整轉速，若要更變移動曲線請在此修正
+            i_spine *= Mathf.Log(Mathf.Abs(i + 1), spine_log);
+            /// ----
+            if (i_spine <= 0) i_spine = 1f;
+            if (rot_left) transform.Rotate(Vector2.down * i_spine);
+            else if (rot_right) transform.Rotate(Vector2.up * i_spine);
+            //print(r_angle);
+            //print($"POS:{pos}, spine:{i_spine}"); // 檢查位置，轉速
+            //print($"{rotated} L{rot_left} R{rot_right}"); // 檢查旋轉開關
 
+        }
+        /// <summary>
+        /// 用來校正移動座標，請參閱_Spine()函數
+        /// </summary>
+        /// <param name="p">目前位置</param>
+        /// <param name="l">左旋位置</param>
+        /// <param name="r">右旋位置</param>
+        private int PosFix(float p, float l, float r)
+        {
+            p = Mathf.Floor(p);
+            int n = 0;
+            if (p >= -spine&& p <= spine)
+            {
+                rotated = false;
+                n = 0;
+            }
+            else if (p >= Left_angle + Right_angle) // + 
+            {
+                //print("左邊界線");
+                rotated = false;
+                n = -1;
+            }
+            else if (p <= -Left_angle - Right_angle) // -
+            {
+                //print("右邊界線");
+                rotated = false;
+                n = 1;
+            }
+            else if (p > 0 && p < Left_angle) // Left spinning
+            {
+                n = -2;
+            }
+            else if (p < 0 && 360 + p > Right_angle) // Right spinning
+            {
+                n = 2;
+            }
+
+            return n;
+        }
         #endregion
 
         #region 事件觸發
@@ -77,7 +141,7 @@ namespace solar_a
             rotated = false; rot_left = false; rot_right = false;
             //物理空間參數
             Physics.gravity = new Vector3(0, -0.1F, 0);
-            transform.Rotate(new Vector3(0,rot_angle,0));
+            transform.Rotate(new Vector3(0, rot_angle, 0));
         }
 
         private void Start()

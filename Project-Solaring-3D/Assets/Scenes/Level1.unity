@@ -562,7 +562,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.778781, y: 1}
+    m_SensorSize: {x: 1.7760181, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2255,7 +2255,8 @@ MonoBehaviour:
   rot_angle: 0
   Left_angle: 90
   Right_angle: 0
-  spine: 2
+  spine: 5
+  spine_log: 100
 --- !u!224 &1611875247
 RectTransform:
   m_ObjectHideFlags: 0
