@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0074706785, g: 0.0038080043, b: 0.00209596, a: 1}
+  m_IndirectSpecularColor: {r: 0.007490262, g: 0.0038065, b: 0.0020900136, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -562,7 +562,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.778781, y: 1}
+    m_SensorSize: {x: 1.7784946, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2252,10 +2252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e943902237b2846418cb71e6c1c4d96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rot_angle: 0
-  Left_angle: 90
-  Right_angle: 0
-  spine: 2
+  rot_angle: 45
+  Left_angle: 85
+  Right_angle: 85
+  spine: 5
 --- !u!224 &1611875247
 RectTransform:
   m_ObjectHideFlags: 0

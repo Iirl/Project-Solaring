@@ -6,6 +6,7 @@ using System.Collections;
 /// </summary>
 namespace solar_a
 {
+    [AddComponentMenu("Transform/物件產生器")]
     public class Object_Generator : MonoBehaviour
     {
 

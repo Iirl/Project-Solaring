@@ -8,7 +8,7 @@ namespace solar_a
     /// </summary>
     public class ManageCenter : MonoBehaviour
     {
-        [SerializeField, Header("╰参匡虫"), Tooltip("北╰参")]
+        [SerializeField, Header("╰参羆"), Tooltip("北╰参")]
         Space_Controll space_ctl;
         [SerializeField, Tooltip("絙北╰参")]
         Rocket_Controll rocket_ctl;
@@ -26,6 +26,7 @@ namespace solar_a
         private int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
 
+        
 
         #region ノ逆 (Public Feild)
         public CanvasGroup canvas_select;

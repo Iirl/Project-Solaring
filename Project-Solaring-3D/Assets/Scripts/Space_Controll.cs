@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 /// <summary>
@@ -17,7 +18,7 @@ namespace solar_a
         [SerializeField, Tooltip("右轉向角度(R)"), Range(0f, 90f)]
         private float Right_angle = 45;
         [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
-        float spine = 2f; //旋轉速度
+        float spine = 2.0f; //旋轉速度
         #endregion
 
         #region 欄位
@@ -31,21 +32,23 @@ namespace solar_a
         /// 參數請從屬性面板調整，左轉向
         private void _Spine()
         {
-            float center_loc = Mathf.Floor(transform.eulerAngles.y);
-            float left_loc = rot_angle>Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle;
-            float right_loc = rot_angle + Right_angle < 360? rot_angle + Right_angle : 360 - rot_angle + Right_angle;
-            //print (transform.localEulerAngles);
-            if (center_loc >= right_loc && center_loc < right_loc + spine * 2) rot_right = false;
-            if (center_loc >= left_loc && center_loc < left_loc + spine * 2) rot_left = false;
+            float center_loc = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
+            float left_loc = rot_angle > Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle; // Y軸逆旋位置
+            float right_loc = rot_angle + Right_angle < 360 ? rot_angle + Right_angle : 360 - rot_angle + Right_angle; // Y軸正旋位置
+            // 判斷是否停止轉動
+            if (center_loc >= right_loc && center_loc < 180) rot_right = false;
+            if (center_loc <= left_loc && center_loc > 180) rot_left = false;
 
             if (rotated)
             {
-                if (rot_left) transform.Rotate(eulers: Vector2.down * spine);
-                else if (rot_right) transform.Rotate(eulers: Vector2.up * spine);
-                // 停駐點，左轉度數極限和右轉度數極限及原點。
-                if (center_loc > rot_angle - spine && center_loc < rot_angle + spine) rotated = false;
-                else if (center_loc > left_loc - spine && center_loc < left_loc + spine) { rotated = false; }
-                else if (center_loc > right_loc - spine && center_loc < right_loc + spine) { rotated = false; }
+                FadeSpine(center_loc, left_loc, right_loc);
+                if (rot_left) { }//transform.Rotate(eulers: Vector2.down * spine);
+                else if (rot_right) { } //transform.Rotate(eulers: Vector2.up * spine);
+                                        // 停駐點，左轉度數極限和右轉度數極限及原點。
+                //if (center_loc == rot_angle) rotated = false;
+                //else if (center_loc > left_loc - spine && center_loc < left_loc + spine) { rotated = false; }
+                //else if (center_loc > right_loc - spine && center_loc < right_loc + spine) { rotated = false; }
+
             }
             //print($"Name:= {y_loc}  / rot{rot_angle}");
         }
@@ -68,6 +71,51 @@ namespace solar_a
             }
         }
 
+        private void FadeSpine(float c, float l, float r)
+        {
+            float r_angle = (Mathf.DeltaAngle(c, r));
+            float l_angle = (Mathf.DeltaAngle(c, l));
+            float i_spine = spine;
+            float pos = l_angle + r_angle; // 取得目前位置
+            if (pos == rot_angle)
+            {
+                rotated = false;
+            } else if (pos > 0 && pos < Left_angle)
+            {
+
+            } else if (pos < 0 && 360 + pos > Right_angle)
+            {
+            }
+            else if (pos >= Left_angle + Right_angle) // +
+            {
+                print("左邊");
+                rotated = false;
+            }
+            else if (pos <= -Left_angle - Right_angle)
+            { // -
+                print("右邊");
+                rotated = false;
+            }
+            //print(-l_angle - r_angle);
+            //print(pos);
+            //print(Mathf.Pow(Left_angle-l_angle, 1));
+            //i_spine = spine * (l_angle - 1) / Left_angle;
+            //i_spine = spine * (r_angle + 1) / Right_angle;
+            print($"{rotated} L{rot_left} R{rot_right}");
+
+            if (Mathf.Abs(i_spine) < 0.5f) i_spine = 0.5f;
+
+            if (rot_left)
+            {
+                transform.Rotate(Vector2.down * i_spine);
+            }
+
+            else if (rot_right)
+            {
+                transform.Rotate(Vector2.up * i_spine);
+            }
+
+        }
         #endregion
 
         #region 事件觸發
@@ -77,7 +125,7 @@ namespace solar_a
             rotated = false; rot_left = false; rot_right = false;
             //物理空間參數
             Physics.gravity = new Vector3(0, -0.1F, 0);
-            transform.Rotate(new Vector3(0,rot_angle,0));
+            transform.Rotate(new Vector3(0, rot_angle, 0));
         }
 
         private void Start()
