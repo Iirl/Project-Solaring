@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using TMPro;
 using Cinemachine;
 
@@ -72,14 +71,6 @@ namespace solar_a
         #endregion
 
         #region 全域控制方法
-        /// <summary>
-        /// 重讀場景
-        /// </summary>
-        public void ReloadCurrentScene()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
         /// <summary>
         /// 取得畫面邊界：程式啟動時或者調整大小時要呼叫此函數調整邊界。
         /// </summary>
