@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BlueCrystal16
-  m_Shader: {fileID: -6465566751694194690, guid: 9f655156a95c9c440a609956704b4140,
+  m_Shader: {fileID: -6465566751694194690, guid: a5c0cd8aaee11774a9e24b5755908596,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -64,6 +64,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_6DF96978:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_70FA5412:
+        m_Texture: {fileID: 2800000, guid: 6f719c3bb48788e439c27891aa28f61f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_9718881B:
@@ -188,13 +192,16 @@ Material:
     - Vector1_2D71AB60: 0
     - Vector1_3AA29E2: 0.385
     - Vector1_424ACF7B: 0
+    - Vector1_49F337A7: 5
     - Vector1_4C850B07: 0.1
+    - Vector1_5219B157: 0
     - Vector1_5559E92E: 10
     - Vector1_598C799B: 0
     - Vector1_5a6961615d124f6b897655aa91dc0d66: 1
     - Vector1_61E32E41: 5
     - Vector1_63698BA9: 0.1
     - Vector1_64B788AD: 32
+    - Vector1_662430A8: 3.46
     - Vector1_671c991e71d74872a666856fee088fee: 0.5
     - Vector1_67744406: 0.7
     - Vector1_68ED0C3: 79
@@ -210,7 +217,9 @@ Material:
     - Vector1_A7C617BC: 10
     - Vector1_B00EF6DA: 0.1
     - Vector1_B7523AFA: 100
+    - Vector1_BF1D8819: 0
     - Vector1_C8B3DF2F: 0
+    - Vector1_C8EA831A: 0
     - Vector1_CA5DE183: 3.28
     - Vector1_CB57B7A1: 0
     - Vector1_CCF8BF39: 0.5
@@ -218,6 +227,7 @@ Material:
     - Vector1_CDE92659: 16.1
     - Vector1_D405F4F7: 0
     - Vector1_D89367FE: 2.8
+    - Vector1_DE4A209B: 0
     - Vector1_E3F57BE1: 0
     - Vector1_EB08E6A3: 1
     - Vector1_F4D3A67B: 4.33
@@ -286,6 +296,7 @@ Material:
     - Color_59296C78: {r: 1, g: 1, b: 1, a: 0}
     - Color_6F365877: {r: 1.8255397, g: 1.8255397, b: 1.8255397, a: 0}
     - Color_94EECAF5: {r: 16, g: 16, b: 16, a: 1}
+    - Color_A32D2F49: {r: 1.1183902, g: 0.6710341, b: 42.722507, a: 0}
     - Color_A96C309B: {r: 1, g: 1, b: 1, a: 0}
     - Color_B37A51A2: {r: 1, g: 1, b: 1, a: 0}
     - Color_C9A10623: {r: 1, g: 1, b: 1, a: 0}
