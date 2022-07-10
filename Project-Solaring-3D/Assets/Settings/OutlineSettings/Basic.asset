@@ -33,6 +33,6 @@ MonoBehaviour:
   TimeMultiplierAlpha: 38.74
   Width: 1.48
   DepthThreshold: 0.2
-  NormalThreshold: 0.8
+  NormalThreshold: 1.06
   EdgeDetectionMaterial: {fileID: 0}
   OutlineMaterial: {fileID: 0}

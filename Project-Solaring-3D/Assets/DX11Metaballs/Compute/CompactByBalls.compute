@@ -1,0 +1,70 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+
+#define NUMTHREADS_X 128
+StructuredBuffer<int3> gridHashBuffer;
+RWStructuredBuffer<int3> ballCompactBuffer;
+
+RWStructuredBuffer<int> voxelSumBuffer;
+
+uniform uint hashBufferGridElemsPerBucket;
+
+static groupshared uint intraGroupPrefixSums[2][NUMTHREADS_X];
+static groupshared uint groupElemOffset;
+
+
+
+uint performInclusiveSum(const uint numElems, const uint intraGroupIndex)
+{
+    //Scan prefix sums
+    intraGroupPrefixSums[0][intraGroupIndex] = numElems;
+    intraGroupPrefixSums[1][intraGroupIndex] = 0;
+    GroupMemoryBarrierWithGroupSync();
+    
+    //produces INCLUSIVE SUM (but we want exclusive)
+    [unroll]
+    for (uint s = 1, iter = 0; s <= NUMTHREADS_X; s *= 2, iter++)
+    {
+        uint2 adder = uint2(0, 0);
+        if (intraGroupIndex >= s)
+        {
+            adder = intraGroupPrefixSums[iter % 2][intraGroupIndex - s];
+        }
+        intraGroupPrefixSums[(iter + 1) % 2][intraGroupIndex] = intraGroupPrefixSums[iter % 2][intraGroupIndex] + adder;
+        GroupMemoryBarrierWithGroupSync();
+    }
+    return iter % 2;
+
+}
+
+void atomicWriteGroupSum(const uint3 tid, const uint sumBufferIndex, const uint intraGroupIndex)
+{
+    //Should always be the LAST thread  so prefix sum array location contains the full sum
+    if (tid.x == NUMTHREADS_X -1)
+    {
+        InterlockedAdd(voxelSumBuffer[0], intraGroupPrefixSums[sumBufferIndex][intraGroupIndex].x, groupElemOffset);
+    }
+    GroupMemoryBarrierWithGroupSync();
+}
+
+
+[numthreads(NUMTHREADS_X,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID, uint3 tid : SV_GroupThreadID)
+{
+    int num = min(hashBufferGridElemsPerBucket, gridHashBuffer[id.x * (hashBufferGridElemsPerBucket + 1)].x);
+    uint intraGroupIndex = tid.x;
+
+    uint sumBufferIdx = performInclusiveSum(num, intraGroupIndex);
+
+    atomicWriteGroupSum(tid, sumBufferIdx, intraGroupIndex);
+
+    intraGroupPrefixSums[sumBufferIdx][intraGroupIndex] -= num;
+
+    
+    for (int i = 0; i < num; i++)
+    {
+        ballCompactBuffer[groupElemOffset + intraGroupPrefixSums[sumBufferIdx][intraGroupIndex] + i] = gridHashBuffer[(hashBufferGridElemsPerBucket + 1) * id.x + 1 + i];
+    }
+
+}
