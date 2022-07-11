@@ -34,7 +34,39 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_29229796:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_360266D8:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_5CB6B5FB:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_70FA5412:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9C3E50C3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9F1D41DC:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_BEA9BA92:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_C8C9609E:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e0c3afd01036448e9ca345b0ca5d9d8e:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,8 +98,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _mormal_map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texture_alpha:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _texure:
-        m_Texture: {fileID: 2800000, guid: 0338e944a0be08749baf4ad264a8f048, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -84,13 +128,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_23fbc864b9a04d1189c035c8a8b87348: 15
+    - Vector1_2D71AB60: 0
+    - Vector1_3AA29E2: 0.3
     - Vector1_49F337A7: 15
+    - Vector1_4C850B07: 0.1
     - Vector1_5219B157: 1
+    - Vector1_598C799B: 0
+    - Vector1_63698BA9: 0.5
+    - Vector1_64B788AD: 32
     - Vector1_662430A8: 1
+    - Vector1_67744406: 0.7
+    - Vector1_68ED0C3: 100
+    - Vector1_7BE3C3CF: 0.5
+    - Vector1_92F48B48: 0
+    - Vector1_98034DE0: 0
+    - Vector1_ABD1713E: 0.5
+    - Vector1_B00EF6DA: 0.5
     - Vector1_BF1D8819: 1
+    - Vector1_C8B3DF2F: 0
     - Vector1_C8EA831A: 0.29
     - Vector1_DB9741DA: 0.2
     - Vector1_DE4A209B: 0
+    - Vector1_F4D3A67B: 10
+    - Vector1_a213b705a25c439a81664fbbe48b7540: 2
+    - Vector1_b9d7d960d43a400a89adabc3387ffb50: 1
+    - Vector1_cb576d4e37e54fa3bf8243b6dee2e864: 10
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -103,6 +166,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.0078
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -113,15 +177,41 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _ambient_occlusion: 0
+    - _blend_opacity: 0.493
     - _float_alpha_clip_threshold: 0
+    - _float_metallic: 0
+    - _float_smooth: 0
+    - _float_speed: 0.2
+    - _is_show_outline: 1
+    - _metallic: 0
+    - _noise_scale: 5
+    - _smooth: 0
+    - _threshold: 0.15
+    - float_alpha: 0.0491
+    - float_statue_level: 0
     m_Colors:
+    - Color_1EA86684: {r: 4, g: 4, b: 4, a: 0}
+    - Color_2BEA265B: {r: 1, g: 1, b: 1, a: 0}
+    - Color_4641AC47: {r: 1.443137, g: 4, b: 0, a: 0}
+    - Color_4B4CE890: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
+    - Color_4B9AABFA: {r: 1, g: 1, b: 1, a: 0}
+    - Color_62DC5747: {r: 7.129739, g: 0.06710897, b: 0, a: 0}
     - Color_741A6013: {r: 28.51895, g: 0, b: 9.028523, a: 0}
+    - Color_92A843C1: {r: 0, g: 0, b: 0, a: 0}
+    - Color_94EECAF5: {r: 1, g: 0, b: 0, a: 0}
     - Color_A32D2F49: {r: 5.992157, g: 5.992157, b: 5.992157, a: 0}
+    - Color_A96C309B: {r: 1, g: 1, b: 1, a: 0}
+    - Color_F150E237: {r: 0, g: 1, b: 0.2762072, a: 0}
+    - Color_FB151A2: {r: 0, g: 11.98431, b: 8.282353, a: 0}
+    - Vector2_4E715410: {r: 4, g: 4, b: 0, a: 0}
     - Vector2_D0FA5062: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _color_emission: {r: 0, g: 0.97608465, b: 22.627417, a: 1}
-    - _color_texture: {r: 1, g: 1, b: 1, a: 0}
+    - _color_emission: {r: 0.059585262, g: 0.1004866, b: 0.122641504, a: 1}
+    - _color_emission_hologram: {r: 0.12709148, g: 0.3601985, b: 0.5283019, a: 0}
+    - _color_texture: {r: 0.24083303, g: 0.41509432, b: 0.4063899, a: 0}
+    - _tiling: {r: 1, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
