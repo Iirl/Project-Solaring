@@ -135,8 +135,8 @@ Material:
     m_Colors:
     - Color_330D15D6: {r: 0.1509434, g: 0.10293446, b: 0.024919897, a: 0}
     - Color_6D19BA3F: {r: 0, g: 5.0261774, b: 31.999996, a: 0}
-    - Vector2_A2317308: {r: -2, g: -2, b: 0, a: 0}
-    - Vector2_D8DCF17E: {r: 2, g: 2, b: 0, a: 0}
+    - Vector2_A2317308: {r: 0, g: -1, b: 0, a: 0}
+    - Vector2_D8DCF17E: {r: 1, g: 0, b: 0, a: 0}
     - Vector2_F5F8B313: {r: -10, g: 10, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

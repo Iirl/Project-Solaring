@@ -21,6 +21,8 @@ namespace solar_a
         Vector3 Generate_pos = Vector3.zero;
         [SerializeField, Tooltip("指定物件旋轉")]
         Quaternion Generate_rot = Quaternion.identity;
+        [SerializeField, Tooltip("指定物件生成半徑，僅在隨機生成套用")]
+        Vector3 Generate_posRaidus = new Vector3(20,10,20);
         [SerializeField, Header("指定物件生成數量上限")]
         int Generate_limit = 10;
         ArrayList gener_list = new ArrayList();
@@ -40,7 +42,7 @@ namespace solar_a
             public float X_rot_gen { get { return xr; } set { xr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public float Y_rot_gen { get { return yr; } set { yr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public float Z_rot_gen { get { return zr; } set { zr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
-            public Vector3 Create_v3 = new(Random.Range(-20, 20), Random.Range(8.0f, 13.2f), Random.Range(-20, 20));
+            public Vector3 Create_v3 = Vector3.one;
             public Quaternion Create_r3 = Quaternion.identity;
             private GameObject Parent, Target;
             private Object OBParent, OBTarget;
@@ -71,7 +73,7 @@ namespace solar_a
             /// <param name="parent">主物件，要在哪個物件上生成</param>
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
             /// <param name="pos">目標物件的三維座標</param>
-            /// <param name="rot">目標物件的旋轉座標</param>
+            /// <param name="rot">目標物件的旋轉座標，輸入0表示套用預設值</param>
             public Generater(Object parent, Object target, Vector3 pos, Quaternion rot)
             {
                 Ob_Target = target;
@@ -108,7 +110,7 @@ namespace solar_a
             }
             public GameObject GetParent()
             {
-                return Parent.gameObject;
+                return Parent;
             }
             public GameObject GetTarget()
             {
@@ -121,44 +123,13 @@ namespace solar_a
         #endregion
         #endregion
 
-        #region 固定物件方法
-        private void readList()
+
+        private void ReadList()
         {
             foreach (GameObject item in gener_list)
             {
-                if (item != null ) print(item.name);
+                if (item != null) print(item.name);
             }
-        }
-        /// <summary>
-        /// 根據面板屬性產生物件。
-        /// </summary>
-        public void Static_gen()
-        {
-            Generater sgen = new Generater(MainObject, Generate, Generate_pos , Generate_rot);
-            sgen.Generates();
-            Destroys(sgen.GetParent());
-        }
-
-        /// <summary>
-        /// 根據面板指定生成位置。
-        /// </summary>
-        /// <param name="locY">加上目前場景的位置</param>
-        public void Static_gen(float locY)
-        {
-            Generater sgen;
-            Object sgen_o;
-            if (Generate != null && MainObject != null)
-            {
-                sgen = new Generater(MainObject, Generate);
-                //sgen.ObjectMessegeInfo();
-                sgen.Create_v3 = Generate_pos;
-                sgen.Create_v3.y += locY;
-                sgen.Create_r3 = Generate_rot;
-                sgen_o = sgen.Generates();
-                gener_list.Add(sgen_o);
-                Destroys(sgen.GetParent());
-            }
-            readList();
         }
         /// <summary>
         /// 刪除指定的子類別
@@ -173,31 +144,57 @@ namespace solar_a
                 Destroy(t);
             }
         }
-        #endregion
 
-        #region 隨機產生方法
+        #region 固定物件方法
+        /// <summary>
+        /// 根據面板屬性產生物件。
+        /// </summary>
+        public void Static_gen()
+        {
+            Generater generob = new Generater(MainObject, Generate, Generate_pos , Generate_rot);
+            gener_list.Add(generob.Generates());
+            Destroys(generob.GetParent());
+        }
 
-        #endregion
-
-        public void Random_gen(float locY, bool isRotated)
+        /// <summary>
+        /// 根據面板指定生成位置。
+        /// </summary>
+        /// <param name="locY">加上目前場景的位置</param>
+        /// <param name="x">指定 x 軸座標位置</param>
+        /// <param name="y">指定 y 軸座標位置</param>
+        public void Static_gen(float locY, float x, float y)
         {
             Generater sgen;
-            Object sgen_o;
             if (Generate != null && MainObject != null)
             {
                 sgen = new Generater(MainObject, Generate);
+                //sgen.ObjectMessegeInfo();
                 sgen.Create_v3.y += locY;
-                if (isRotated) sgen.Create_r3 = Random.rotation;
-                sgen_o = sgen.Generates();
-                gener_list.Add(sgen_o);
+                sgen.Create_v3 = Generate_pos;
+                sgen.Create_r3 = Generate_rot;
+                gener_list.Add(sgen.Generates());
                 Destroys(sgen.GetParent());
             }
-            print(gener_list.Count);
         }
+        #endregion
 
-
-        #region 補給品方法
-
+        #region 隨機產生方法
+        public void Random_gen(float locY, bool isRotated)
+        {
+            Generater sgen;
+            Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
+                Random.Range(0f, Generate_posRaidus.y), 
+                Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
+            );
+            if (Generate != null && MainObject != null)
+            {
+                sgen = new Generater(MainObject, Generate, random_v3, Generate_rot);
+                sgen.Create_v3.y += locY;
+                if (isRotated) sgen.Create_r3 = Random.rotation;
+                gener_list.Add(sgen.Generates());
+                Destroys(sgen.GetParent());
+            }
+        }
         #endregion
 
         #region 事件

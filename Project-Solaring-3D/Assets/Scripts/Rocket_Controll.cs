@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-///  此程式是控制玩家相關的操作方法
+///  此程式是控制玩家相關的操作方法，建議放在玩家物件上。
 /// </summary>
 namespace solar_a
 {
@@ -9,8 +9,6 @@ namespace solar_a
     {
 
         #region 屬性
-        ParticleSystem particle_fire;
-        Rigidbody rb_Rocket;
         [SerializeField, Header("中控系統")]
         ManageCenter mgCenter;
         #endregion
@@ -27,14 +25,30 @@ namespace solar_a
         float fire_min_y = 1f, fire_max_x = 1f, fire_max_y = 3f;
         [SerializeField, Range(0, 5f)]
         float fire_boost_x = 0, fire_boost_y = 1;
+        [SerializeField, Tooltip("火焰音量"), Range(0.1f, 1f),Space]
+        float fire_volume = 0.6f;
         [SerializeField, Header("更新控制項")]
         public bool isControl = true;
+        //
+        ParticleSystem particle_fire;
+        Rigidbody Rocket_Rig;
+        AudioSource Rocket_sound;
+        private bool isMove;
         #endregion
 
         #region 方法
         private void UpForce()
         {
-            if (particle_fire.isPlaying) rb_Rocket.AddForce(Vector3.up * Time.deltaTime * 10f);
+            if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
+        }
+        /// <summary>
+        /// 移動檢查
+        /// </summary>
+        private void MoveCheck()
+        {
+            if (Input.GetAxisRaw("Horizontal") !=0  || Input.GetAxisRaw("Vertical") !=0) isMove = true;
+            else isMove = false;
+
         }
         /// <summary>
         /// 移動控制
@@ -50,12 +64,12 @@ namespace solar_a
             float aSpeed = speed_a * 1000;
             // 移動控制
             Vector3 v3 = new Vector3(xSpeed, ySpeed, 0);
-            rb_Rocket.velocity += v3;
+            Rocket_Rig.velocity += v3;
             // 加速度控制
             Vector3 r3 = new Vector3(horizon * aSpeed, vertial * aSpeed, 0);
-            if (boost) rb_Rocket.AddForce(r3);
+            if (boost) Rocket_Rig.AddForce(r3);
             // 翻轉回復
-            rb_Rocket.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
+            Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
             //print($"H+V:{Mathf.Abs(horizon) + Mathf.Abs(vertial)};");
             // 火焰控制
@@ -82,7 +96,6 @@ namespace solar_a
             }
 
             //print(particle_fire.isPlaying);
-
         }
         /// <summary>
         ///  點火控制
@@ -100,6 +113,31 @@ namespace solar_a
                 //particle_fire.gameObject.SetActive(false);
                 particle_fire.Pause();
             }
+        }
+        /// <summary>
+        /// 火箭音效淡入
+        /// </summary>
+        private void SoundFadeIn()
+        {
+            float v = Rocket_sound.volume;
+            if (v < fire_volume)
+            {
+                Rocket_sound.volume += 0.05f;
+            }
+            else { CancelInvoke("SoundFadIn"); }
+        }
+        /// <summary>
+        /// 火箭音效淡出
+        /// </summary>
+        private void SoundFadeOut()
+        {
+            float v = Rocket_sound.volume;
+            if (v >= 0.1f)
+            {
+                Rocket_sound.volume -= 0.05f;
+            }
+            else { CancelInvoke("SoundFadeOut"); }
+
         }
 
         #endregion
@@ -120,7 +158,8 @@ namespace solar_a
         private void Awake()
         {
             particle_fire = GetComponentInChildren<ParticleSystem>();
-            rb_Rocket = GetComponent<Rigidbody>();
+            Rocket_Rig = GetComponent<Rigidbody>();
+            Rocket_sound = GetComponent<AudioSource>();
             ignix_fire(true);
         }
         void Start()
@@ -134,8 +173,19 @@ namespace solar_a
         {
             if (isControl)
             {
-                MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
-
+                MoveCheck();
+                if (isMove)
+                {
+                    bool boost = Input.GetKey(KeyCode.Space);
+                    if (boost) Rocket_sound.pitch = 1.5f;
+                    else Rocket_sound.pitch = 1;
+                    if (Rocket_sound.volume < fire_volume) Invoke("SoundFadeIn", 0.2f);
+                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), boost);
+                }
+                else
+                {
+                    if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
+                }
             }
         }
         private void FixedUpdate()
