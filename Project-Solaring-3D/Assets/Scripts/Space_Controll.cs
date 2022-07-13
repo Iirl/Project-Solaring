@@ -15,21 +15,98 @@ namespace solar_a
             "小於直角範圍的話左右轉向到底會停止；大於直角範圍則回形成一個迴圈，目前稍微測試應該是沒問題，" +
             "但不確定是否某些數值會有BUG，請謹慎設定。")]
         private float rot_angle = 0;
+        [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
+        float spine = 2.0f;
+        #endregion
+
+        #region 欄位
+        float Coordinate;
+        #endregion
+
+        #region 90度固定旋轉空間
+        private void DirectCheck()
+        {
+
+        }
+        private void PositionCheck(int direct)
+        {
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
+            int quadrant = Int32.Parse( y_axis.ToString()) / 90;  //所在象限
+            float next_axis = (direct == 1)? 90 * (1 + quadrant): 90 * (quadrant); // 下一個Y軸座標
+            float Distane2axis = (Mathf.DeltaAngle(y_axis, next_axis)); // 到達下一個Y軸座標的距離
+
+            //print($"Now:{y_axis}, quadrant:{quadrant}");
+            //print($"Next Y:{next_axis}, dist:{Distane2axis}");
+        }
+        private void Spine()
+        {
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
+            float iSpine = Mathf.Pow(spine, Coordinate / y_axis);
+            transform.Rotate(Vector2.up * iSpine);
+            if (y_axis == Coordinate)
+            {
+                rotated = false;
+                CancelInvoke("Spine");
+            }
+        }
+        private void StopCheck()
+        {
+
+        }
+        #endregion
+
+        #region 事件觸發
+
+        private void Awake()
+        {
+            rotated = false; rot_left = false; rot_right = false;
+            //物理空間參數
+            Physics.gravity = new Vector3(0, -0.1F, 0);
+            transform.Rotate(new Vector3(0, rot_angle, 0));
+        }
+
+        private void Start()
+        {
+        }
+
+        private void FixedUpdate()
+        {
+
+            // 旋轉空間
+            if (Input.GetAxisRaw("Left_Spine") == 1) { rot_left = true; }
+            else if (Input.GetAxisRaw("Right_Spine") == 1) { rot_right = true; }
+            PositionCheck(-1);
+
+        }
+        #endregion
+    }
+}
+
+
+#region 筆記
+/*
+    迴轉流程：
+    1. 按鍵判定：左、右鍵偵測
+        按鍵測定的構思：按下按鍵後，僅只是啟動轉向判定，真正執行旋轉的判定應該要在位置判定之後，才不會按鍵影響旋轉。
+
+    2. 位置判定：目前在哪個座標上
+
+    3. 旋轉判定：一旦開始旋轉，沒有到目標點不會停
+        旋轉方法：
+        這次直接做旋轉的模式，至於甚麼時候旋轉，甚麼時候停止則不再這個程式中決定。
+        需要用到的變數主要有 Y軸目前的位置 與 下一個座標點的位置。
+        尤其下一個座標位置不能隨程式執行而變動，不然才剛抵達就切到下一個座標，就會轉不停。
+
+    4. 定點判定：旋轉是否抵達定點，抵達後結束程式
+ 
+
+
+//// 下面是原本的寫法，想要寫成扇形旋轉，但沒有成功。
+        #region 空間方法(捨棄)
         [SerializeField, Tooltip("左轉向角度(L)"), Range(5f, 90f)]
         private float Left_angle = 45;
         [SerializeField, Tooltip("右轉向角度(R)"), Range(0f, 90f)]
         private float Right_angle = 45;
-        [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
-        float spine = 2.0f;
-        [SerializeField, Tooltip("旋轉指數")]
-        float spine_log = 10;
-        #endregion
-
-        #region 欄位
-
-        #endregion
-
-        #region 空間方法
         /// <summary>
         ///  選轉整個空間 +-X度
         /// </summary>
@@ -133,30 +210,5 @@ namespace solar_a
             return n;
         }
         #endregion
-
-        #region 事件觸發
-
-        private void Awake()
-        {
-            rotated = false; rot_left = false; rot_right = false;
-            //物理空間參數
-            Physics.gravity = new Vector3(0, -0.1F, 0);
-            transform.Rotate(new Vector3(0, rot_angle, 0));
-        }
-
-        private void Start()
-        {
-        }
-
-        private void FixedUpdate()
-        {
-
-            // 旋轉空間
-            if (Input.GetAxisRaw("Left_Spine") == 1) _Spine(-1);
-            else if (Input.GetAxisRaw("Right_Spine") == 1) _Spine(1);
-            _Spine();
-
-        }
-        #endregion
-    }
-}
+*/
+#endregion
