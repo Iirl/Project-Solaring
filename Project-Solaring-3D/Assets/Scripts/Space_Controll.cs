@@ -20,31 +20,67 @@ namespace solar_a
         #endregion
 
         #region 欄位
-        float Coordinate;
+        float Coordinate = 360;
         #endregion
 
         #region 90度固定旋轉空間
         private void DirectCheck()
         {
+            if (!rotated)
+            {
+                if (rot_left)
+                {
+                    Coordinate = PositionCheck(1); //Q
 
+                }
+                else if (rot_right)
+                {
+                    Coordinate = PositionCheck(-1); //E
+                }
+                if (rot_right || rot_left)
+                {
+                    InvokeRepeating("Spine", 0, 0.05f);
+                    rotated = true;
+                }
+            }
+            else
+            {
+                print("還在旋轉");
+            }
         }
-        private void PositionCheck(int direct)
+        private float PositionCheck(int direct)
         {
-            float y_axis = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
-            int quadrant = Int32.Parse( y_axis.ToString()) / 90;  //所在象限
-            float next_axis = (direct == 1)? 90 * (1 + quadrant): 90 * (quadrant); // 下一個Y軸座標
-            float Distane2axis = (Mathf.DeltaAngle(y_axis, next_axis)); // 到達下一個Y軸座標的距離
-
-            //print($"Now:{y_axis}, quadrant:{quadrant}");
-            //print($"Next Y:{next_axis}, dist:{Distane2axis}");
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
+            int quadrant = (Int32.Parse(y_axis.ToString()) / 90);  //所在象限
+            if (quadrant == 0 && direct == -1) quadrant = 4;
+            float next_axis = (direct == 1) ? 90 * (quadrant + 1) : 90 * (quadrant-1); // 下一個Y軸座標
+            if (quadrant == 3 && direct == 1) next_axis %= 360;
+            print($"Now:{y_axis}, quadrant:{quadrant}");
+            print($"Next Y:{next_axis}");
+            return Mathf.Round(next_axis);
         }
         private void Spine()
         {
-            float y_axis = Mathf.Floor(transform.eulerAngles.y); // Y軸軸心位置
-            float iSpine = Mathf.Pow(spine, Coordinate / y_axis);
-            transform.Rotate(Vector2.up * iSpine);
-            if (y_axis == Coordinate)
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
+            float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離
+
+            print(Distane2axis);
+            //print(Mathf.Pow(5, (Coordinate+1)/ (i+1)));
+
+            if (Mathf.Round(Distane2axis) != 0)
             {
+                float upper = 1;
+                if (upper < 0.01f) upper = 0.01f;
+                float iSpine = Mathf.Pow(5, upper);
+                //if (y_axis < Coordinate) iSpine *= -1;
+                if (rot_left) transform.Rotate(Vector3.up * iSpine);
+                if (rot_right) transform.Rotate(Vector3.down * iSpine);
+                if (iSpine == Mathf.Infinity) print(upper);
+            }
+            else
+            {
+                rot_right = false;
+                rot_left = false;
                 rotated = false;
                 CancelInvoke("Spine");
             }
@@ -73,10 +109,14 @@ namespace solar_a
         {
 
             // 旋轉空間
-            if (Input.GetAxisRaw("Left_Spine") == 1) { rot_left = true; }
-            else if (Input.GetAxisRaw("Right_Spine") == 1) { rot_right = true; }
-            PositionCheck(-1);
 
+            if (!rotated)
+            {
+                if (Input.GetAxisRaw("Left_Spine") == 1) { rot_left = true; }
+                else if (Input.GetAxisRaw("Right_Spine") == 1) { rot_right = true; }
+            }
+            DirectCheck();
+            //PositionCheck(-1);
         }
         #endregion
     }
@@ -98,7 +138,16 @@ namespace solar_a
         尤其下一個座標位置不能隨程式執行而變動，不然才剛抵達就切到下一個座標，就會轉不停。
 
     4. 定點判定：旋轉是否抵達定點，抵達後結束程式
- 
+        到達定點的做法：
+        (1) 讀取定點的位置
+        (2) 取距離公式:Mathf.DeltaAngle
+        (3) 如果小於一定值，有兩個做法，影響的層級不同
+            A. 停止   B. 卡上去
+        (4) 回傳停止訊號 or 指定條件停止
+
+    PS: 函式跟變數的差異？
+        函式可以傳入參數，也可以回傳參數，乍看之下其實跟變數相同，但是最大的差別就在函式只要呼叫就會執行內部的程式碼，變數只有在設定欄位時
+        才會執行內容。
 
 
 //// 下面是原本的寫法，想要寫成扇形旋轉，但沒有成功。
