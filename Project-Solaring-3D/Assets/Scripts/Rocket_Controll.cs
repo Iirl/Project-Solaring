@@ -19,14 +19,18 @@ namespace solar_a
         float speed_v = 4f;
         [SerializeField, Header("移動加速度"), Range(0.2f, 1.5f)]
         float speed_a = 0.2f;
-        [SerializeField, Header("火焰控制項"), Range(0.5f, 8f)]
-        float fire_min_x = 0.5f;
-        [SerializeField, Range(0.5f, 8f)]
-        float fire_min_y = 1f, fire_max_x = 1f, fire_max_y = 3f;
-        [SerializeField, Range(0, 5f)]
-        float fire_boost_x = 0, fire_boost_y = 1;
-        [SerializeField, Tooltip("火焰音量"), Range(0.1f, 1f),Space]
+        [SerializeField, Header("火焰控制項")]
+        Vector2 fireLenght_min = new Vector2(0.5f, 1f);
+        [SerializeField, Tooltip("盡量不要超過預設值太多")]
+        Vector2 fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
+        [SerializeField, Header("火焰最大音量"), Range(0.1f, 1f)]
         float fire_volume = 0.6f;
+        [SerializeField, Header("火箭大小")]
+        Vector3 rocketBox = new Vector3(1f, 3f,0);
+        [SerializeField, Tooltip("火箭位移")]
+        Vector3 rocketOffset = new Vector3(0, -1f,0);
+        [SerializeField, Tooltip("火箭顏色")]
+        Color rocketColor = Color.white;
         [SerializeField, Header("更新控制項")]
         public bool isControl = true;
         //
@@ -77,22 +81,21 @@ namespace solar_a
             {
                 float x_var = Mathf.Abs(horizon);
                 float y_var = Mathf.Abs(vertial);
-                float xFire = fire_min_x - 0.1f;
-                if (horizon != 0) xFire = Mathf.Pow(fire_max_x, x_var);
+                //// set Fire X axis lenght.橫軸長度
+                float xFire = fireLenght_min.x - 0.1f;
+                if (horizon != 0) xFire = Mathf.Pow(fireLenght_max.x, x_var);
                 //else if (horizon < 0) xFire = Mathf.Pow(fire_min_x, x_var);
-
-                float yFire = fire_min_y - 0.1f;
-                if (vertial > 0) yFire = Mathf.Pow(fire_max_y, y_var);
-                else if (vertial < 0) yFire = Mathf.Abs(Mathf.Pow(fire_min_y, y_var));
-
-                if (boost) yFire += fire_boost_y;
-                if (boost) xFire += fire_boost_x;
-
+                //// set Fire Y axis lenght.縱軸長度
+                float yFire = fireLenght_min.y - 0.1f;
+                if (vertial > 0) yFire += Mathf.Pow(fireLenght_max.y, y_var);
+                else if (vertial < 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, y_var));
+                //// set Fire Boost.衝刺長度
+                if (boost) yFire += fireBoost.y;
+                if (boost) xFire += fireBoost.x;
+                //// set Horizon Move yFire.
+                if (yFire < fireLenght_min.y && x_var > 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, x_var));
 
                 particle_fire.transform.localScale = new Vector2(xFire, yFire);
-
-                if (particle_fire.transform.localScale.x < fire_min_x && particle_fire.transform.localScale.y < fire_min_y) ignix_fire(false);
-                else ignix_fire(true);
             }
 
             //print(particle_fire.isPlaying);
@@ -101,18 +104,19 @@ namespace solar_a
         ///  點火控制
         /// </summary>
         /// <param name="isFire">判斷是否啟動引擎</param>
-        private void ignix_fire(bool isFire)
-        {
-            if (isFire)
+        private void ignix_fire()
+        {            
+            if (isMove)
             {
-                //particle_fire.gameObject.SetActive(true);
                 particle_fire.Play();
             }
             else
             {
-                //particle_fire.gameObject.SetActive(false);
-                particle_fire.Pause();
+                particle_fire.Pause();                
+                particle_fire.transform.localScale = new Vector2(1, 1);
+                CancelInvoke("ignix_fire");
             }
+
         }
         /// <summary>
         /// 火箭音效淡入
@@ -139,6 +143,9 @@ namespace solar_a
             else { CancelInvoke("SoundFadeOut"); }
 
         }
+        /////////////////////////////////////////////
+        /// 碰撞區域
+        /// 
 
         #endregion
 
@@ -160,7 +167,6 @@ namespace solar_a
             particle_fire = GetComponentInChildren<ParticleSystem>();
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
-            ignix_fire(true);
         }
         void Start()
         {
@@ -176,16 +182,15 @@ namespace solar_a
                 MoveCheck();
                 if (isMove)
                 {
-                    bool boost = Input.GetKey(KeyCode.Space);
-                    if (boost) Rocket_sound.pitch = 1.5f;
-                    else Rocket_sound.pitch = 1;
+                    Rocket_sound.pitch = Input.GetKey(KeyCode.Space) ? 1.5f: 1;
                     if (Rocket_sound.volume < fire_volume) Invoke("SoundFadeIn", 0.2f);
-                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), boost);
+                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
                 }
                 else
                 {
                     if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
                 }
+                Invoke("ignix_fire",0.1f);
             }
         }
         private void FixedUpdate()
@@ -197,7 +202,17 @@ namespace solar_a
                 fuel = mgCenter.fuelChange(fuel);
             }
         }
-
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = rocketColor;
+            Gizmos.DrawCube(transform.position + rocketOffset , rocketBox);
+            
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
+            print($"(Rocket_Controll)飛船所在的位置:{transform.position}");
+        }
         #endregion
         #region ##
         #endregion

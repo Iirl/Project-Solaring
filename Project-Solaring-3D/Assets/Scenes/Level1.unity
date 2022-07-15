@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17673972, g: 0.1739392, b: 0.18083565, a: 1}
+  m_IndirectSpecularColor: {r: 0.17674372, g: 0.17393899, b: 0.18082334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -577,7 +577,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7772828, y: 1}
+    m_SensorSize: {x: 1.777027, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1270,13 +1270,13 @@ MonoBehaviour:
   fuel: 100
   speed_v: 4
   speed_a: 0.2
-  fire_min_x: 0.5
-  fire_min_y: 1
-  fire_max_x: 1
-  fire_max_y: 3
-  fire_boost_x: 0
-  fire_boost_y: 1
+  fireLenght_min: {x: 0.5, y: 1}
+  fireLenght_max: {x: 1, y: 3}
+  fireBoost: {x: 0, y: 1}
   fire_volume: 0.6
+  rocketBox: {x: 1, y: 2, z: 0}
+  rocketOffset: {x: 0, y: 0.5, z: 0}
+  rocketColor: {r: 1, g: 1, b: 1, a: 1}
   isControl: 1
 --- !u!136 &784496987
 CapsuleCollider:
@@ -2465,7 +2465,7 @@ PrefabInstance:
     - target: {fileID: 3440182302614595371, guid: 82532aec4caa6b844829becf0c4a9590,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3440182302614595371, guid: 82532aec4caa6b844829becf0c4a9590,
         type: 3}
@@ -3926,6 +3926,11 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 540160581764557942, guid: 297f40b505f465a40bc14dfae124f968,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2503807629574911622, guid: 297f40b505f465a40bc14dfae124f968,
         type: 3}
       propertyPath: m_Name
@@ -4159,6 +4164,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197364061578765024, guid: 269e7d7004257e54da3b9b47cfd73965,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5197364061578765025, guid: 269e7d7004257e54da3b9b47cfd73965,
         type: 3}

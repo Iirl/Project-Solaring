@@ -115,7 +115,7 @@ namespace solar_a
         {
             rotated = false; rot_left = false; rot_right = false;
             //物理空間參數
-            Physics.gravity = new Vector3(0, -0.1F, 0);
+            Physics.gravity = new Vector3(0, -1F, 0);
             transform.Rotate(new Vector3(0, rot_angle, 0));
         }
 
@@ -135,6 +135,7 @@ namespace solar_a
                 DirectCheck();
             }
             //PositionCheck(-1);
+            print($"(Space_Controll)到達螢幕邊緣的距離：{Vector3.Distance(transform.position, GameObject.Find("Stage").transform.position)}");
         }
         #endregion
     }
