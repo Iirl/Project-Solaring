@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using TMPro;
 
 namespace solar_a
@@ -53,8 +54,11 @@ namespace solar_a
 
         public void AutoGenerate()
         {
-            //gener_class.Static_gen(ss_ctl.transform.position.y);
-            gener_class.Random_gen(ss_ctl.transform.position.y, false);
+            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, false);
+        }
+        public void AutoGenerate(bool rotate)
+        {
+            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, rotate);
         }
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
@@ -64,20 +68,46 @@ namespace solar_a
         /// 1. 產生 箱子 。
         /// 2. 產生 瓶子 。
         /// </param>
-        public void AutoGenerate(int i)
+        public void AsignGenerate(int i)
         {
+            string name;
             switch (i)
             {
-                case 0: gener_class = GameObject.Find("UFOGenerator").GetComponent<Object_Generator>(); break;
-                case 1: gener_class = GameObject.Find("BOXGenerator").GetComponent<Object_Generator>(); break;
-                case 2: gener_class = GameObject.Find("BottleGenerator").GetComponent<Object_Generator>(); break;
-                default: gener_class = null; break;
+                case 0: name = "UFOGenerator"; break;
+                case 1: name = "BOXGenerator"; break;
+                case 2: name = "BottleGenerator"; break;
+                case 11: name = "meteorite01Gen"; break;
+                case 12: name = "meteorite02Gen"; break;
+                case 13: name = "meteorite03Gen"; break;
+                case 14: name = "meteorite04Gen"; break;
+                default: name = null; break;
             }
-
-            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, true);
+            gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
+            print($"「{name}」 was Selected.");
         }
         /// <summary>
-        /// 預先產生物件方法，會依照目前的場景放置物件
+        /// 產生附帶子物件的程式。
+        /// 會先用一般生成的方式生成物件後，取得該物件的ID再依此生成子物件。
+        /// 但如果使用預置物的話，物件會生成在子物件上。
+        /// </summary>
+        /// <param name="tg">哪種子物件要被生成</param>
+        public void MeteoGenerate(GameObject tg)
+        {
+            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false);
+            gener_class.Random_Metro(Gid, tg);
+        }
+        public void MeteoGenerate(int tgi)
+        {
+            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false);
+            GameObject tg = ((Transform)EditorUtility.InstanceIDToObject(tgi)).gameObject;
+            ////
+            string[] subBlocks = { "BlueCrystalPack01", "RedCrystalPack01"};
+            ////
+            gener_class.Random_Metro(Gid, tg);
+        }
+        /// <summary>
+        /// 預先產生物件方法，會依照目前的場景放置物件。
+        /// i 代表目前的場景編號，可以在這裡指定場景為哪個時，用何種方式生成何種物件。
         /// </summary>
         public void PreOrderGen()
         {
@@ -88,7 +118,14 @@ namespace solar_a
                 default: break;
             }
         }
-
+        public void LoadNowOB()
+        {
+            gener_class.ReadList();
+        }
+        public void DeleteOB(int i)
+        {
+            gener_class.Destroys(i);
+        }
         ///////////// 選單變化相關
         /// <summary>
         /// 淡入動畫

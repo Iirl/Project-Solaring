@@ -123,6 +123,10 @@ namespace solar_a
             Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);
             Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range);
         }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Block") Destroy(other);
+        }
         #endregion
     }
 }

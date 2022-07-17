@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 /// <summary>
@@ -14,7 +15,7 @@ namespace solar_a
         //SceneStage_Control Scene_ctl;
 
         [SerializeField, Header("生成位置")]
-        Object MainObject;
+        GameObject MainObject;
         [SerializeField, Header("生成物件"), Tooltip("放入指定的物件，最好是有 Prefabs 過的檔案")]
         Object Generate;
         [SerializeField, Tooltip("指定物件位置")]
@@ -22,7 +23,7 @@ namespace solar_a
         [SerializeField, Tooltip("指定物件旋轉")]
         Quaternion Generate_rot = Quaternion.identity;
         [SerializeField, Tooltip("指定物件生成半徑，僅在隨機生成套用")]
-        Vector3 Generate_posRaidus = new Vector3(20,10,20);
+        Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
         [SerializeField, Header("指定物件生成數量上限")]
         int Generate_limit = 10;
         ArrayList gener_list = new ArrayList();
@@ -42,30 +43,20 @@ namespace solar_a
             public float X_rot_gen { get { return xr; } set { xr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public float Y_rot_gen { get { return yr; } set { yr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public float Z_rot_gen { get { return zr; } set { zr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
-            public Vector3 Create_v3 = Vector3.one;
+            public Vector3 Create_v3 = Vector3.zero;
             public Quaternion Create_r3 = Quaternion.identity;
-            private GameObject Parent, Target;
-            private Object OBParent, OBTarget;
-            public Object Ob_Parent
-            {
-                get { return OBParent; }
-                set { OBParent = value; Parent = GameObject.Find(value.name); }
-            }
-            public Object Ob_Target
-            {
-                get { return OBTarget; }
-                set { OBTarget = value; Target = GameObject.Find(value.name); }
-            }
+            private GameObject Parent;
+            public Object OBTarget, OBCloned;
 
             /// <summary>
             /// 製作物件時會自動指定主物件、生成物以及位置和旋轉狀態
             /// </summary>
             /// <param name="parent">主物件，要在哪個物件上生成</param>
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
-            public Generater(Object parent, Object target)
+            public Generater(GameObject parent, Object target)
             {
-                Ob_Target = target;
-                Ob_Parent = parent;
+                OBTarget = target;
+                Parent = parent;
             }
             /// <summary>
             /// 製作物件時手動指定主物件、生成物以及位置和旋轉狀態
@@ -74,12 +65,10 @@ namespace solar_a
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
             /// <param name="pos">目標物件的三維座標</param>
             /// <param name="rot">目標物件的旋轉座標，輸入0表示套用預設值</param>
-            public Generater(Object parent, Object target, Vector3 pos, Quaternion rot)
+            public Generater(GameObject parent, Object target, Vector3 pos, Quaternion rot)
             {
-                Ob_Target = target;
-                Ob_Parent = parent;
-                Parent = GameObject.Find(parent.name);
-                Target = GameObject.Find(target.name);
+                OBTarget = target;
+                Parent = parent;
                 Create_v3 = pos;
                 Create_r3 = rot;
 
@@ -90,9 +79,8 @@ namespace solar_a
             /// </summary>
             public Object Generates()
             {
-                Object target = Ob_Target;
-                Transform parent_trs = Parent.transform;
-                Object cloned = Instantiate(target, Create_v3, Create_r3, parent_trs);
+                Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
+                OBCloned = cloned;
                 return cloned;
             }
 
@@ -102,8 +90,8 @@ namespace solar_a
             /// </summary>
             public void ObjectMessegeInfo()
             {
-                Object target = Ob_Target;
-                Object parent = Ob_Parent;
+                Object target = OBTarget;
+                Object parent = Parent;
                 print($"The target is {target.name} that will be generate in {Create_v3}, {Create_r3}");
                 print($"Will be generate in the {parent.name}.");
 
@@ -112,27 +100,37 @@ namespace solar_a
             {
                 return Parent;
             }
-            public GameObject GetTarget()
-            {
-                return Target;
-            }
 
         }
 
 
         #endregion
+
         #endregion
 
 
-        private void ReadList()
+        public void ReadList()
         {
+            int count = 0;
             foreach (GameObject item in gener_list)
             {
                 if (item != null) print(item.name);
+                count++;
             }
         }
+        public GameObject ReadList(int target)
+        {
+            int count = 0;
+            GameObject idx = null;
+            foreach (GameObject item in gener_list)
+            {
+                if (item != null && count == target) idx = item;
+                count++;
+            }
+            return idx;
+        }
         /// <summary>
-        /// 刪除指定的子類別
+        /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
         /// <param name="target">父物件名稱</param>
         public void Destroys(GameObject target)
@@ -144,14 +142,22 @@ namespace solar_a
                 Destroy(t);
             }
         }
-
+        public void Destroys(int idx)
+        {
+            if (gener_list.Count > 0)
+            {
+                GameObject t = ReadList(idx);
+                gener_list.RemoveAt(idx);
+                Destroy(t);
+            }
+        }
         #region 固定物件方法
         /// <summary>
         /// 根據面板屬性產生物件。
         /// </summary>
         public void Static_gen()
         {
-            Generater generob = new Generater(MainObject, Generate, Generate_pos , Generate_rot);
+            Generater generob = new Generater(MainObject, Generate, Generate_pos, Generate_rot);
             gener_list.Add(generob.Generates());
             Destroys(generob.GetParent());
         }
@@ -160,8 +166,8 @@ namespace solar_a
         /// 根據面板指定生成位置。
         /// </summary>
         /// <param name="locY">加上目前場景的位置</param>
-        /// <param name="x">指定 x 軸座標位置</param>
-        /// <param name="y">指定 y 軸座標位置</param>
+        /// <param name="x">指定 x 軸座標位移</param>
+        /// <param name="y">指定 y 軸座標位移</param>
         public void Static_gen(float locY, float x, float y)
         {
             Generater sgen;
@@ -169,8 +175,9 @@ namespace solar_a
             {
                 sgen = new Generater(MainObject, Generate);
                 //sgen.ObjectMessegeInfo();
-                sgen.Create_v3.y += locY;
                 sgen.Create_v3 = Generate_pos;
+                sgen.Create_v3.y += locY + y;
+                sgen.Create_v3.x += x;
                 sgen.Create_r3 = Generate_rot;
                 gener_list.Add(sgen.Generates());
                 Destroys(sgen.GetParent());
@@ -179,11 +186,17 @@ namespace solar_a
         #endregion
 
         #region 隨機產生方法
-        public void Random_gen(float locY, bool isRotated)
+        /// <summary>
+        /// 將物件隨機生成在畫面中
+        /// </summary>
+        /// <param name="locY">目前空間的Y軸</param>
+        /// <param name="isRotated">物件是否隨機旋轉</param>
+        /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
+        public int Random_gen(float locY, bool isRotated)
         {
             Generater sgen;
             Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
-                Random.Range(0f, Generate_posRaidus.y), 
+                Random.Range(0f, Generate_posRaidus.y),
                 Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
             );
             if (Generate != null && MainObject != null)
@@ -193,12 +206,48 @@ namespace solar_a
                 if (isRotated) sgen.Create_r3 = Random.rotation;
                 gener_list.Add(sgen.Generates());
                 Destroys(sgen.GetParent());
+                return sgen.OBCloned.GetInstanceID();
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 物件中的物件生成
+        /// </summary>
+        /// <param name="PA"></param>
+        /// <param name="TG"></param>
+        public void Random_Metro(int PAID, GameObject TG)
+        {
+
+            // 子物件計算：父物件到子物件的ID距離=2+4+10=16(0),20(1),24(2),28(3),32(4)。
+            int sub_count = 16, i =1;
+            int sub_max = sub_count + (4 * 4);
+            GameObject PA = null;
+            while (sub_count <= sub_max)
+            {
+                try
+                {
+                    // 轉換ID到父物件
+
+                    PA = ((Transform)EditorUtility.InstanceIDToObject(PAID - 2)).gameObject;
+                    PA = PA.transform.GetChild(i).gameObject;
+                    // 子物件
+
+                }
+                catch (System.Exception)
+                {
+                    break;
+                }
+
+                // 生成物件
+                Generater sgen = new(PA, TG, PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right)) ;
+                gener_list.Add(sgen.Generates());
+                if (gener_list.Count > Generate_limit )Destroys(0);
+                sub_count += 4; i++;
             }
         }
         #endregion
 
-        #region 事件
-        #endregion
     }
 
 
