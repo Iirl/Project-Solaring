@@ -62,7 +62,7 @@ namespace solar_a
                         case 3: c_rig.velocity += Vector3.left; break; 
                         default: break;
                     }
-                } else  if (col.tag.Contains("Enemy"))
+                } else  if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
                     Destroy(col.gameObject,2);
                 }

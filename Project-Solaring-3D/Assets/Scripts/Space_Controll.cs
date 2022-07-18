@@ -68,12 +68,12 @@ namespace solar_a
             if (rotated)
             {
                 StopCheck();
-                float upper = 1;
-                if (upper < 0.01f) upper = 0.01f;
+                // 旋轉曲線: x^0-1
+                float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper);
                 // 收束方法
-                if (Mathf.Abs(Distane2axis) < 5) iSpine = 0.5f;
-                if (Mathf.Abs(Distane2axis) < 2) iSpine = 0.1f;
+                if (Mathf.Abs(Distane2axis) < 10) iSpine = 0.5f;
+                if (Mathf.Abs(Distane2axis) < 3) iSpine = 0.1f;
 
                 // 執行旋轉函式
                 if (rot_left) transform.Rotate(Vector3.up * iSpine);

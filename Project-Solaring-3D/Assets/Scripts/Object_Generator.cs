@@ -151,6 +151,13 @@ namespace solar_a
                 Destroy(t);
             }
         }
+        public void Destroys()
+        {
+            if (gener_list.Count < Generate_limit)
+            {
+                gener_list.RemoveAt(0);                
+            }
+        }
         #region 固定物件方法
         /// <summary>
         /// 根據面板屬性產生物件。
