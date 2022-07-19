@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texture:
-        m_Texture: {fileID: 2800000, guid: 35151a61b55f15847a1a8e4eb1c7c3ba, type: 3}
+        m_Texture: {fileID: 2800000, guid: a70ed6d19f7cb9d40a1ce586e7d0e9fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -102,13 +102,13 @@ Material:
     - Vector1_175D0329: 0.642
     - Vector1_1D382313: 1
     - Vector1_2D71AB60: 0
-    - Vector1_671c991e71d74872a666856fee088fee: 0.506
+    - Vector1_671c991e71d74872a666856fee088fee: 1
     - Vector1_7834F05F: 0.045
     - Vector1_7FFCBCA4: -0.06
     - Vector1_98034DE0: 0
     - Vector1_CA5DE183: 0.5
-    - Vector1_CD2A02F5: -3.02
-    - Vector1_D89367FE: 6.1
+    - Vector1_CD2A02F5: -3.51
+    - Vector1_D89367FE: 5.9
     - Vector1_EB08E6A3: 1
     - Vector1_FE821E4C: 13
     - _AlphaClip: 0
@@ -150,7 +150,7 @@ Material:
     - Color_1AF82FCF: {r: 1, g: 1, b: 1, a: 0}
     - Color_25961078: {r: 1, g: 1, b: 1, a: 0}
     - Color_335D905F: {r: 0.015574936, g: 0.040542692, b: 0.6603774, a: 0}
-    - Color_542B5A6E: {r: 0.4, g: 0.41672257, b: 0.85882354, a: 0}
+    - Color_542B5A6E: {r: 0.07609471, g: 0.07609471, b: 0.3584906, a: 0}
     - Color_6F365877: {r: 0, g: 0.37883568, b: 1.3673651, a: 0}
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector3_2CBA6538: {r: 0, g: 1, b: 0, a: 0}
