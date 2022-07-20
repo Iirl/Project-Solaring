@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CometTrail
+  m_Name: CometTrail02
   m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _EMISSION
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
@@ -103,7 +104,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 9d465484b6e6b8f40a20d8cd84c403ef, type: 3}
+        m_Texture: {fileID: 2800000, guid: c74d1d78b16ec4b48ac51187bc856361, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -127,7 +128,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f22a1b9c939636c41be03e78874d6cad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -234,7 +235,7 @@ Material:
     - Vector1_b9d7d960d43a400a89adabc3387ffb50: 1
     - Vector1_cb576d4e37e54fa3bf8243b6dee2e864: 10
     - Vector1_dc20169d7dcf40d587ec3dd2e2a9533c: 0.026
-    - _AlphaClip: 0
+    - _AlphaClip: 1
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
@@ -327,11 +328,11 @@ Material:
     - Vector2_E103CB4D: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_f2aed08371b1460f8c260073d88d2758: {r: -0.01, g: 0.01, b: 0, a: 0}
     - Vector2_f2aed08371b1460f8c260073d88d2758_1: {r: -0.01, g: 0.01, b: 0, a: 0}
-    - _BaseColor: {r: 0.3726415, g: 0.5136598, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.37264147, g: 0.5136598, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 1.160734, b: 2.6082377, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 5.2987304, b: 63.25359, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _color_emission: {r: 2, g: 2, b: 2, a: 0}
