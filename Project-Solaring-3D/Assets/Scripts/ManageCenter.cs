@@ -54,14 +54,16 @@ namespace solar_a
 
         public void AutoGenerate()
         {
-            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, false);
+            if (gener_class != null) gener_class.Static_gen();
         }
         public void AutoGenerate(bool rotate)
         {
-            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, rotate);
+            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, rotate, 0);
         }
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
+        /// 這裡是設定要使用何種類別。
+        /// 由於換個寫法，這裡暫時空置
         /// </summary>
         /// <param name="i">指定產生器內容，目前有的產生器如下：
         /// 0. 預設，產生 UFO 。
@@ -70,20 +72,7 @@ namespace solar_a
         /// </param>
         public void AsignGenerate(int i)
         {
-            string name;
-            switch (i)
-            {
-                case 0: name = "UFOGenerator"; break;
-                case 1: name = "BOXGenerator"; break;
-                case 2: name = "BottleGenerator"; break;
-                case 11: name = "meteorite01Gen"; break;
-                case 12: name = "meteorite02Gen"; break;
-                case 13: name = "meteorite03Gen"; break;
-                case 14: name = "meteorite04Gen"; break;
-                default: name = null; break;
-            }
-            gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
-            print($"「{name}」 was Selected.");
+
         }
         /// <summary>
         /// 產生附帶子物件的程式。
@@ -93,18 +82,10 @@ namespace solar_a
         /// <param name="tg">哪種子物件要被生成</param>
         public void MeteoGenerate(GameObject tg)
         {
-            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false);
+            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false,0);
             gener_class.Random_Metro(Gid, tg);
         }
-        public void MeteoGenerate(int tgi)
-        {
-            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false);
-            GameObject tg = ((Transform)EditorUtility.InstanceIDToObject(tgi)).gameObject;
-            ////
-            string[] subBlocks = { "BlueCrystalPack01", "RedCrystalPack01"};
-            ////
-            gener_class.Random_Metro(Gid, tg);
-        }
+        /////////////////////場 景//////////////////////////////
         /// <summary>
         /// 預先產生物件方法，會依照目前的場景放置物件。
         /// i 代表目前的場景編號，可以在這裡指定場景為哪個時，用何種方式生成何種物件。

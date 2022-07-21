@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// 此為在區域空間中產生物件的程式
@@ -15,9 +16,9 @@ namespace solar_a
         //SceneStage_Control Scene_ctl;
 
         [SerializeField, Header("生成位置")]
-        GameObject MainObject;
+        List<GameObject> MainObject = new List<GameObject>();
         [SerializeField, Header("生成物件"), Tooltip("放入指定的物件，最好是有 Prefabs 過的檔案")]
-        Object Generate;
+        List<Object> Generate = new List<Object>();
         [SerializeField, Tooltip("指定物件位置")]
         Vector3 Generate_pos = Vector3.zero;
         [SerializeField, Tooltip("指定物件旋轉")]
@@ -155,8 +156,31 @@ namespace solar_a
         {
             if (gener_list.Count < Generate_limit)
             {
-                gener_list.RemoveAt(0);                
+                gener_list.RemoveAt(0);
             }
+        }
+        /// <summary>
+        /// 初始生成函數，如果甚麼都不傳入的話，至少要傳入目前Y的位置，才會在畫面上看到。
+        /// </summary>
+        /// <param name="yWorld">目前場景的座標</param>
+        /// <param name="i"></param>
+        /// <param name="isPos"></param>
+        /// <param name="isRoate"></param>
+        /// <returns></returns>
+        private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
+        {
+            Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
+                Random.Range(0f, Generate_posRaidus.y),
+                Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
+            );
+            Generater generob = new Generater(MainObject[i], Generate[i], Generate_pos, Generate_rot);
+            generob.Create_v3 += worldOffset;                     // 調整到世界位置
+            if (isPos) generob.Create_v3 = random_v3;          // 物件生成位置是否隨機，預設為是。
+            if (isRoate) generob.Create_r3 = Random.rotation;  // 物件生成方向是否隨機，預設為否。
+            gener_list.Add(generob.Generates());               // 加入生成列表。
+            Destroys(generob.GetParent());
+            return generob;
+
         }
         #region 固定物件方法
         /// <summary>
@@ -164,9 +188,7 @@ namespace solar_a
         /// </summary>
         public void Static_gen()
         {
-            Generater generob = new Generater(MainObject, Generate, Generate_pos, Generate_rot);
-            gener_list.Add(generob.Generates());
-            Destroys(generob.GetParent());
+            Generator_EMP(transform.position);
         }
 
         /// <summary>
@@ -175,19 +197,18 @@ namespace solar_a
         /// <param name="locY">加上目前場景的位置</param>
         /// <param name="x">指定 x 軸座標位移</param>
         /// <param name="y">指定 y 軸座標位移</param>
-        public void Static_gen(float locY, float x, float y)
+        public void Static_gen(float locY, float x, float y, int i)
         {
             Generater sgen;
-            if (Generate != null && MainObject != null)
+            Vector3 stage = new Vector3(0, locY, 0);
+            if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                sgen = new Generater(MainObject, Generate);
+                sgen = Generator_EMP(stage, i);
                 //sgen.ObjectMessegeInfo();
                 sgen.Create_v3 = Generate_pos;
                 sgen.Create_v3.y += locY + y;
                 sgen.Create_v3.x += x;
                 sgen.Create_r3 = Generate_rot;
-                gener_list.Add(sgen.Generates());
-                Destroys(sgen.GetParent());
             }
         }
         #endregion
@@ -199,20 +220,13 @@ namespace solar_a
         /// <param name="locY">目前空間的Y軸</param>
         /// <param name="isRotated">物件是否隨機旋轉</param>
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
-        public int Random_gen(float locY, bool isRotated)
+        public int Random_gen(float locY, bool isRotated, int i)
         {
             Generater sgen;
-            Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
-                Random.Range(0f, Generate_posRaidus.y),
-                Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
-            );
-            if (Generate != null && MainObject != null)
+            Vector3 stage = new Vector3(0, locY, 0);
+            if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                sgen = new Generater(MainObject, Generate, random_v3, Generate_rot);
-                sgen.Create_v3.y += locY;
-                if (isRotated) sgen.Create_r3 = Random.rotation;
-                gener_list.Add(sgen.Generates());
-                Destroys(sgen.GetParent());
+                sgen = Generator_EMP(stage, i, isRotated);
                 return sgen.OBCloned.GetInstanceID();
             }
             return -1;
@@ -221,13 +235,13 @@ namespace solar_a
         /// <summary>
         /// 物件中的物件生成
         /// </summary>
-        /// <param name="PA"></param>
-        /// <param name="TG"></param>
+        /// <param name="PAID">父物件的ID</param>
+        /// <param name="TG">要生成的物件</param>
         public void Random_Metro(int PAID, GameObject TG)
         {
 
             // 子物件計算：父物件到子物件的ID距離=2+4+10=16(0),20(1),24(2),28(3),32(4)。
-            int sub_count = 16, i =1;
+            int sub_count = 16, i = 1;
             int sub_max = sub_count + (4 * 4);
             GameObject PA = null;
             while (sub_count <= sub_max)
@@ -247,9 +261,7 @@ namespace solar_a
                 }
 
                 // 生成物件
-                Generater sgen = new(PA, TG, PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right)) ;
-                gener_list.Add(sgen.Generates());
-                if (gener_list.Count > Generate_limit )Destroys(0);
+                Generater sgen = new(PA, TG, PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
                 sub_count += 4; i++;
             }
         }
