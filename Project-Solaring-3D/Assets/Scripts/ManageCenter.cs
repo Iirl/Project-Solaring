@@ -52,9 +52,9 @@ namespace solar_a
 
         ///////////// 產生物件
 
-        public void AutoGenerate()
+        public void AutoGenerate(int i)
         {
-            if (gener_class != null) gener_class.Static_gen();
+            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i);
         }
         public void AutoGenerate(bool rotate)
         {
@@ -72,7 +72,14 @@ namespace solar_a
         /// </param>
         public void AsignGenerate(int i)
         {
-
+            string name = "";
+            switch (i)
+            {
+                case 0: name = "ObjectGenerator"; break;
+                case 1: name = "ObjectGenerator2"; break;
+                default:break;
+            }
+            gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
         }
         /// <summary>
         /// 產生附帶子物件的程式。
@@ -99,13 +106,10 @@ namespace solar_a
                 default: break;
             }
         }
-        public void LoadNowOB()
+
+        public void test()
         {
-            gener_class.ReadList();
-        }
-        public void DeleteOB(int i)
-        {
-            gener_class.Destroys(i);
+            gener_class.r();
         }
         ///////////// 選單變化相關
         /// <summary>

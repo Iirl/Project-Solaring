@@ -8,7 +8,6 @@ using System.Collections.Generic;
 /// </summary>
 namespace solar_a
 {
-    [AddComponentMenu("Transform/物件產生器")]
     public class Object_Generator : MonoBehaviour
     {
 
@@ -27,9 +26,12 @@ namespace solar_a
         Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
         [SerializeField, Header("指定物件生成數量上限")]
         int Generate_limit = 10;
-        ArrayList gener_list = new ArrayList();
+        public ObjectArray gener_list = new();
 
         #region 產生器類別 class Generater
+        /// <summary>
+        /// Instantiate 方法的加強版類別
+        /// </summary>
         public class Generater
         {
             private float x { get; set; }
@@ -80,9 +82,13 @@ namespace solar_a
             /// </summary>
             public Object Generates()
             {
-                Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
-                OBCloned = cloned;
-                return cloned;
+                if (OBTarget != null && Parent != null)
+                {
+                    Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
+                    OBCloned = cloned;
+                    return cloned;
+                }
+                return null;
             }
 
 
@@ -106,18 +112,77 @@ namespace solar_a
 
 
         #endregion
+        #region 陣列清單類別
+        /// <summary>
+        /// 修改將物件對清單操作時的一些基本資訊
+        /// </summary>
+        public class ObjectArray : ArrayList
+        {
+            /// <summary>
+            /// 追加第二維陣列
+            /// 相關資訊如下：
+            /// 0   InstanceID
+            /// 1   Parent Object self
+            /// 2   Object'name
+            /// 3   Position
+            /// 4   Rotation
+            /// 5   Scale
+            /// </summary>
+            /// <param name="o"></param>
+            /// <returns></returns>
+            public override int Add(object o)
+            {
+                Object uo = (Object)o;
+                Transform uot = FindObjectOfType<Transform>();
+                // 加入 Object 為一陣列。
+                ArrayList newlist = new();
+                newlist.Add(uo.GetInstanceID());
+                newlist.Add(uo);
+                newlist.Add(uo.name);
+                newlist.Add(uot.localPosition);
+                newlist.Add(uot.localRotation);
+                newlist.Add(uot.localScale);
+
+                int i = base.Add(newlist);
+                return i;
+            }
+            public override void RemoveAt(int i)
+            {
+                ArrayList al = (ArrayList)this[i];
+                if (al != null)
+                {
+                }
+
+                base.RemoveAt(i);
+
+            }
+            /// <summary>
+            /// 測試用讀取清單函數
+            /// </summary>
+            public void ReadList()
+            {
+                foreach (ArrayList item in this)
+                {
+                    if (item != null) print(item);
+                    foreach (var item2 in item) print(item2);
+                }
+            }
+            public int ReadList(int i)
+            {
+                ArrayList item = (ArrayList)this[i];
+                if (item != null) return (int)item[0];
+                return -1;
+            }
+        }
+        #endregion
 
         #endregion
 
-
-        public void ReadList()
+        public void r()
         {
-            int count = 0;
-            foreach (GameObject item in gener_list)
-            {
-                if (item != null) print(item.name);
-                count++;
-            }
+            // 測試讀取陣列清單的內容
+            gener_list.ReadList();
+            print(gener_list.Count);
         }
         public GameObject ReadList(int target)
         {
@@ -138,9 +203,7 @@ namespace solar_a
         {
             if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
             {
-                GameObject t = target.transform.GetChild(0).gameObject;
                 gener_list.RemoveAt(0);
-                Destroy(t);
             }
         }
         public void Destroys(int idx)
@@ -153,11 +216,11 @@ namespace solar_a
             }
         }
         public void Destroys()
-        {
-            if (gener_list.Count < Generate_limit)
-            {
-                gener_list.RemoveAt(0);
-            }
+        {   
+            int id = gener_list.ReadList(0);
+            Object obj = EditorUtility.InstanceIDToObject(id);
+            gener_list.RemoveAt(0);
+            Destroy(obj);
         }
         /// <summary>
         /// 初始生成函數，如果甚麼都不傳入的話，至少要傳入目前Y的位置，才會在畫面上看到。
@@ -173,22 +236,24 @@ namespace solar_a
                 Random.Range(0f, Generate_posRaidus.y),
                 Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
             );
-            Generater generob = new Generater(MainObject[i], Generate[i], Generate_pos, Generate_rot);
-            generob.Create_v3 += worldOffset;                     // 調整到世界位置
-            if (isPos) generob.Create_v3 = random_v3;          // 物件生成位置是否隨機，預設為是。
-            if (isRoate) generob.Create_r3 = Random.rotation;  // 物件生成方向是否隨機，預設為否。
+            Generater generob = new(MainObject[i], Generate[i]);
+            generob.Create_v3 = (isPos) ? random_v3 + worldOffset : Generate_pos + worldOffset; // 物件生成位置是否隨機，預設為是。
+            generob.Create_r3 = (isRoate) ? Random.rotation : Generate_rot;                     // 物件生成方向是否隨機，預設為否。
             gener_list.Add(generob.Generates());               // 加入生成列表。
-            Destroys(generob.GetParent());
-            return generob;
+            //Destroys(generob.GetParent());
+            if (gener_list.Count > 0 && gener_list.Count > Generate_limit) Destroys();
+            if (gener_list.Count > 0 && gener_list.Count > Generate_limit) print("OVER");
 
+            return generob;
         }
         #region 固定物件方法
         /// <summary>
         /// 根據面板屬性產生物件。
         /// </summary>
-        public void Static_gen()
+        public void Static_gen(float locY)
         {
-            Generator_EMP(transform.position);
+            Vector3 stage = new Vector3(0, locY, 0);
+            Generator_EMP(stage);
         }
 
         /// <summary>
@@ -197,7 +262,7 @@ namespace solar_a
         /// <param name="locY">加上目前場景的位置</param>
         /// <param name="x">指定 x 軸座標位移</param>
         /// <param name="y">指定 y 軸座標位移</param>
-        public void Static_gen(float locY, float x, float y, int i)
+        public void Static_gen(float locY, int i)
         {
             Generater sgen;
             Vector3 stage = new Vector3(0, locY, 0);
@@ -205,10 +270,6 @@ namespace solar_a
             {
                 sgen = Generator_EMP(stage, i);
                 //sgen.ObjectMessegeInfo();
-                sgen.Create_v3 = Generate_pos;
-                sgen.Create_v3.y += locY + y;
-                sgen.Create_v3.x += x;
-                sgen.Create_r3 = Generate_rot;
             }
         }
         #endregion
@@ -228,7 +289,9 @@ namespace solar_a
             {
                 sgen = Generator_EMP(stage, i, isRotated);
                 return sgen.OBCloned.GetInstanceID();
+
             }
+
             return -1;
         }
 
@@ -271,3 +334,14 @@ namespace solar_a
 
 
 }
+
+#region 筆記
+/*
+  物件的銷毀：
+    1. 不可以直接用 Destory 移除物件，這樣生成上限就沒辦法控制。
+    2. 物件銷毀最好搭配 RemoveAt 使用。
+    3. 清除順序：物件->清單->?
+
+
+*/
+#endregion
