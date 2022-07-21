@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -268,6 +268,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 999269983}
+  - {fileID: 1016063363}
   - {fileID: 1651800665}
   - {fileID: 654708607}
   - {fileID: 1810340793}
@@ -575,7 +576,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7759104, y: 1}
+    m_SensorSize: {x: 1.7768924, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -758,7 +759,7 @@ MonoBehaviour:
         m_MethodName: MeteoGenerate
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8182273969630464794, guid: 1a9a28d6b3f11b048bf861fe3725eabd,
+          m_ObjectArgument: {fileID: 4321400938711116941, guid: ef7417e4245c0c141b0838850cc23cdf,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 42878
@@ -893,7 +894,7 @@ MonoBehaviour:
         m_MethodName: MeteoGenerate
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4141986617050824883, guid: d157ffe111acdc147aeba8576058899d,
+          m_ObjectArgument: {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 42878
@@ -1219,7 +1220,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 11
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1450,7 +1451,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 62497107}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2430,6 +2431,69 @@ MonoBehaviour:
   - {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   - {fileID: 5555376908612167630, guid: 8f9f66c03768aee419ff22829c24c82b, type: 3}
   - {fileID: 2503807629574911622, guid: 297f40b505f465a40bc14dfae124f968, type: 3}
+  Generate_pos: {x: 0, y: 3.51, z: 0}
+  Generate_rot: {x: 0, y: 0, z: 0, w: 1}
+  Generate_posRaidus: {x: 20, y: 10, z: 20}
+  Generate_limit: 10
+--- !u!1 &1016063362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016063363}
+  - component: {fileID: 1016063364}
+  m_Layer: 5
+  m_Name: ObjectGenerator2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1016063363
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016063362}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2728705, y: 1.2728705, z: 1.2728705}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 62497107}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -515.7571}
+  m_SizeDelta: {x: 100, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1016063364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016063362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3792e9c1c6412b4a9208daa3e7656cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainObject:
+  - {fileID: 1157392068}
+  - {fileID: 1157392068}
+  - {fileID: 1157392068}
+  - {fileID: 1157392068}
+  Generate:
+  - {fileID: 5145902657687562414, guid: 0de2e50343b393b4ebffe17135b75635, type: 3}
+  - {fileID: 5201125286078924894, guid: 2408ec722e4e6d44c88391ce5278ef04, type: 3}
+  - {fileID: 8071078830857240064, guid: 61d3cd08de40fc54c950893de9aecfdd, type: 3}
+  - {fileID: 5383811202184372047, guid: 8b896bb998c39be48b9dd4c4c3baad7a, type: 3}
   Generate_pos: {x: 0, y: 3.51, z: 0}
   Generate_rot: {x: 0, y: 0, z: 0, w: 1}
   Generate_posRaidus: {x: 20, y: 10, z: 20}
@@ -3927,7 +3991,7 @@ RectTransform:
   - {fileID: 1765040908}
   - {fileID: 384221635}
   m_Father: {fileID: 62497107}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4047,7 +4111,7 @@ MonoBehaviour:
         m_MethodName: MeteoGenerate
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 416814112201472361, guid: 3916a598181895d428781eeb8cc63a04,
+          m_ObjectArgument: {fileID: 5273672730452747357, guid: 70f5ed2a02e56e94eba5fe423d4628ad,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 42878
@@ -4124,7 +4188,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 62497107}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
