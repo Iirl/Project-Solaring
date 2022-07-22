@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6513965a7636c544c9972207e2ec0211
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - settings: {instanceID: 0}
+  - NoiseTex: {instanceID: 0}
+  - NoiseAlpha: {instanceID: 0}
+  - EdgeDetectionMaterial: {instanceID: 0}
+  - OutlineMaterial: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
