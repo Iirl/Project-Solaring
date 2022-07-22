@@ -169,9 +169,23 @@ namespace solar_a
             }
             public int ReadList(int i)
             {
-                ArrayList item = (ArrayList)this[i];
-                if (item != null) return (int)item[0];
+                if (i <= this.Count) { 
+                    ArrayList item = (ArrayList)this[i];
+                    if (item != null) return (int)item[0];
+                }
                 return -1;
+            }
+            public int FindKeys(int id)
+            {
+                int key = 0;
+                foreach (ArrayList item in this)
+                {
+                    int j = (int)item[0];
+                    if (j == id) break;
+                    key++;
+                }
+                if (key == this.Count) return -1;
+                return key;
             }
         }
         #endregion
@@ -184,27 +198,18 @@ namespace solar_a
             gener_list.ReadList();
             print(gener_list.Count);
         }
-        public GameObject ReadList(int target)
-        {
-            int count = 0;
-            GameObject idx = null;
-            foreach (GameObject item in gener_list)
-            {
-                if (item != null && count == target) idx = item;
-                count++;
-            }
-            return idx;
-        }
         /// <summary>
         /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
-        /// <param name="target">父物件名稱</param>
+        /// <param name="target">觸發銷毀的物件</param>
         public void Destroys(GameObject target)
         {
-            if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
-            {
-                gener_list.RemoveAt(0);
-            }
+            // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
+            int id = target.GetInstanceID();
+            int key = gener_list.FindKeys(id);
+            if(key != -1) gener_list.RemoveAt(key);
+            Destroy(target);
+            print(key);
         }
         public void Destroys(bool clear)
         {
@@ -213,7 +218,6 @@ namespace solar_a
         public void Destroys()
         {   
             int id = gener_list.ReadList(0);
-            print(id);
             Object obj = EditorUtility.InstanceIDToObject(id);
             gener_list.RemoveAt(0);
             Destroy(obj);
@@ -277,6 +281,7 @@ namespace solar_a
         /// </summary>
         /// <param name="locY">目前空間的Y軸</param>
         /// <param name="isRotated">物件是否隨機旋轉</param>
+        /// <param name="i">生成物件編號</param>
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
         public int Random_gen(float locY, bool isRotated, int i)
         {
@@ -291,21 +296,21 @@ namespace solar_a
 
             return -1;
         }
-
-        /// <summary>
-        /// 物件中的物件生成
-        /// </summary>
-        /// <param name="PAID">父物件的ID</param>
-        /// <param name="TG">要生成的物件</param>
-        public void Random_Metro(int PAID, GameObject TG)
+            /// <summary>
+            /// 物件中的物件生成
+            /// </summary>
+            /// <param name="PAID">父物件的ID</param>
+            /// <param name="TG">要生成的物件</param>
+            public void Random_Metro(int PAID, List<Object> TG)
         {
-
-            // 子物件計算：父物件到子物件的ID距離=2+4+10=16(0),20(1),24(2),28(3),32(4)。
-            int sub_count = 16, i = 1;
-            int sub_max = sub_count + (4 * 4);
+            //print($"id:{PAID}, GTB:{TG}");
+            // 子物件計算：父物件到子物件的ID距離=2+10+10=22
+            int sub_count = 22, i = 1;
+            int sub_max = sub_count + (4 * 7);
             GameObject PA = null;
             while (sub_count <= sub_max)
             {
+                int rnd = Random.Range(0, 3);
                 try
                 {
                     // 轉換ID到父物件
@@ -317,11 +322,13 @@ namespace solar_a
                 }
                 catch (System.Exception)
                 {
+                    print("Fial");
                     break;
                 }
 
                 // 生成物件
-                Generater sgen = new(PA, TG, PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
+                Generater sgen = new(PA, TG[rnd], PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
+                sgen.Generates();
                 sub_count += 4; i++;
             }
         }

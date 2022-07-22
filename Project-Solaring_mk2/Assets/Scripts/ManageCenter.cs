@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
@@ -87,10 +88,25 @@ namespace solar_a
         /// 但如果使用預置物的話，物件會生成在子物件上。
         /// </summary>
         /// <param name="tg">哪種子物件要被生成</param>
-        public void MeteoGenerate(GameObject tg)
+        public void MeteoGenerate()
         {
-            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false,0);
-            gener_class.Random_Metro(Gid, tg);
+            int obj = Random.Range(0, 3);
+            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false,obj); // Fist: Generate SubObject.
+            // Second: Load Insub Prefabs.
+            List<Object> pfabs = new()
+            {
+                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/Empty.prefab", typeof(Object)),
+                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal01.prefab", typeof(Object)),
+                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal02.prefab", typeof(Object)),
+                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_PurpCrystal01.prefab", typeof(Object))
+            };
+            
+            // Third: Input on the subobject.
+            gener_class.Random_Metro(Gid, pfabs);
+        }
+        public void ObjectDestory(GameObject obj)
+        {
+            gener_class.Destroys(obj);
         }
         /////////////////////場 景//////////////////////////////
         /// <summary>
@@ -148,6 +164,16 @@ namespace solar_a
             }
 
         }
+        /// <summary>
+        /// 遊戲結束處理情況
+        /// </summary>
+        public void GameOver()
+        {
+            mEnd.enabled = true;
+            rocket_ctl.enabled = false;
+            rocket_ctl.GetComponent<Rigidbody>().isKinematic = true;
+            ss_ctl.enabled = false;
+        }
         #endregion
 
         #region 本地控制方法或事件
@@ -158,6 +184,7 @@ namespace solar_a
         {
             UI_moveDistane = (int)ss_ctl.stage_position.y;
             UI_fuel = (int)rocket_ctl.GetRocketInfo().x;
+            if (UI_fuel <= 0) GameOver(); //結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"Distance:{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"Fuel:{UI_fuel}";
         }

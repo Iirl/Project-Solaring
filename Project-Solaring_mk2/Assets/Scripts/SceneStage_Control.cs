@@ -5,9 +5,14 @@ using Cinemachine;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 場景控制系統，邊界判定及場景內容的變化
+    /// </summary>
     public class SceneStage_Control : MonoBehaviour
     {
         #region 屬性
+        [SerializeField, Header("中控系統")]
+        ManageCenter mgCenter;
         BoxCollider Stage_boxBorder;
         RectTransform Space_Rect;
         [SerializeField, Header("場景資訊"), Tooltip("場景大小(Read Only)")]
@@ -39,7 +44,7 @@ namespace solar_a
             stage_position = transform.position;
         }
         /// <summary>
-        /// 場景邊緣判定
+        /// 場景邊緣判定，玩家：回推；物件：破壞。
         /// </summary>
         /// <param name="colliders">碰撞區域</param>
         /// <param name="i">編號，沒有特別意義，只有程式內部會說明用途</param>
@@ -56,15 +61,15 @@ namespace solar_a
                     /// 2 往右
                     /// 3 往左
                     switch (i) {  
-                        case 0: c_rig.velocity += Vector3.down; break;
-                        case 1: c_rig.velocity += Vector3.up; break;
-                        case 2: c_rig.velocity += Vector3.right; break;
-                        case 3: c_rig.velocity += Vector3.left; break; 
+                        case 0: c_rig.velocity += Vector3.down /2 ; break;
+                        case 1: c_rig.velocity += Vector3.up /2; break;
+                        case 2: c_rig.velocity += Vector3.right/2; break;
+                        case 3: c_rig.velocity += Vector3.left/2; break; 
                         default: break;
                     }
                 } else  if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    Destroy(col.gameObject,2);
+                    mgCenter.ObjectDestory(col.gameObject);
                 }
             } 
         }
