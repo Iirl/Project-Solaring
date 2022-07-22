@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e37a159898d644991adf6cf0ce4585, type: 3}
+  m_Name: Funny
+  m_EditorClassIdentifier: 
+  _Color: {r: 1, g: 1, b: 1, a: 1}
+  NumberOfContours: 3
+  Frequency: 0
+  Amplitude: 0
+  UseNoise: 1
+  NoiseTex: {fileID: 2800000, guid: b159aee9d8cef6943990b0b117286c80, type: 3}
+  NoiseAmount: 0.02
+  NoiseTilling: 12.91
+  TimeMultiplier: 1
+  Synchronize: 1
+  UseNoiseAlpha: 1
+  NoiseAlpha: {fileID: 2800000, guid: b159aee9d8cef6943990b0b117286c80, type: 3}
+  NoiseScaleAlpha: 12.1
+  MultiplierAlpha: 1.63
+  UseFlow: 1
+  SpeedXAlpha: -1
+  SpeedYAlpha: 0.5
+  UseRandomization: 0
+  TimeMultiplierAlpha: 1
+  Width: 1.03
+  DepthThreshold: 10
+  NormalThreshold: 0.55
+  EdgeDetectionMaterial: {fileID: 0}
+  OutlineMaterial: {fileID: 0}
