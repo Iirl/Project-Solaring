@@ -112,7 +112,7 @@ namespace solar_a
 
 
         #endregion
-        #region 陣列清單類別
+        #region 陣列清單類別 ObjectArray
         /// <summary>
         /// 修改將物件對清單操作時的一些基本資訊
         /// </summary>
@@ -169,9 +169,24 @@ namespace solar_a
             }
             public int ReadList(int i)
             {
-                ArrayList item = (ArrayList)this[i];
-                if (item != null) return (int)item[0];
+                if (i <= this.Count)
+                {
+                    ArrayList item = (ArrayList)this[i];
+                    if (item != null) return (int)item[0];
+                }
                 return -1;
+            }
+            public int FindKeys(int id)
+            {
+                int key = 0;
+                foreach (ArrayList item in this)
+                {
+                    int j = (int)item[0];
+                    if (j == id) break;
+                    key++;
+                }
+                if (key == this.Count) return -1;
+                return key;
             }
         }
         #endregion
@@ -184,54 +199,82 @@ namespace solar_a
             gener_list.ReadList();
             print(gener_list.Count);
         }
-        public GameObject ReadList(int target)
-        {
-            int count = 0;
-            GameObject idx = null;
-            foreach (GameObject item in gener_list)
-            {
-                if (item != null && count == target) idx = item;
-                count++;
-            }
-            return idx;
-        }
         /// <summary>
         /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
-        /// <param name="target">父物件名稱</param>
+        /// <param name="target">觸發銷毀的物件</param>
         public void Destroys(GameObject target)
         {
-            if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
+            // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
+            int id = target.GetInstanceID();
+            int key = gener_list.FindKeys(id);
+            if (key != -1) gener_list.RemoveAt(key);
+            Destroy(target);
+        }
+        /// <summary>
+        /// 清空物件系統
+        /// </summary>
+        /// <param name="clear">第二重保護，True 才會啟動清除</param>
+        public void Destroys(bool clear)
+        {
+            if (!clear) return;
+            int max = gener_list.Count;
+            for (int i = 0; i < max; i++)
             {
+                ArrayList al = (ArrayList)gener_list[0];
+                Object obj = (Object)al[1];
+                Destroy(obj);
                 gener_list.RemoveAt(0);
             }
         }
-        public void Destroys(int idx)
+
+        /// <summary>
+        /// 若場上有未清除的物件，執行這段程式消除。
+        /// 1. 超過生成上限。
+        /// 2. 清單未存放資料，但已存在於場上。
+        /// 3. 超過畫面一定距離。
+        /// </summary>
+        /// <param name="i"></param>
+        public void DestroysOnBug(int i)
         {
-            if (gener_list.Count > 0)
+            if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
             {
-                GameObject t = ReadList(idx);
-                gener_list.RemoveAt(idx);
-                Destroy(t);
+                Object obj = EditorUtility.InstanceIDToObject(gener_list.ReadList(0));
+                gener_list.RemoveAt(0);
+                Destroy(obj);
             }
-        }
-        public void Destroys()
-        {   
-            int id = gener_list.ReadList(0);
-            Object obj = EditorUtility.InstanceIDToObject(id);
-            gener_list.RemoveAt(0);
-            Destroy(obj);
+            else if (gener_list.Count < 1 && MainObject[i].transform.childCount > 0)
+            {
+                int max = MainObject[i].transform.childCount;
+                for (int bug_i = 0; bug_i < max; bug_i++) Destroy(MainObject[i].transform.GetChild(bug_i).gameObject);
+
+            }
+
+            for (int bug_i = 0; bug_i < MainObject[i].transform.childCount; bug_i++)
+            {
+                GameObject child_gob = MainObject[i].transform.GetChild(bug_i).gameObject;
+                float dis = Vector3.Distance(child_gob.transform.position, MainObject[i].transform.position);
+                if (dis > 50)
+                {
+                    try { gener_list.RemoveAt(gener_list.FindKeys(child_gob.GetInstanceID())); }
+                    catch (System.Exception) { }
+                    Destroy(child_gob);
+                }
+            }
+
         }
         /// <summary>
         /// 初始生成函數，如果甚麼都不傳入的話，至少要傳入目前Y的位置，才會在畫面上看到。
         /// </summary>
-        /// <param name="yWorld">目前場景的座標</param>
-        /// <param name="i"></param>
-        /// <param name="isPos"></param>
-        /// <param name="isRoate"></param>
+        /// <param name="worldOffset">目前場景的座標</param>
+        /// <param name="i">指定生成列表的物件</param>
+        /// <param name="isPos">是否隨機位置</param>
+        /// <param name="isRoate">是否隨機旋轉</param>
         /// <returns></returns>
         private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
         {
+            DestroysOnBug(i);
+            //show
             Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
                 Random.Range(0f, Generate_posRaidus.y),
                 Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
@@ -240,15 +283,13 @@ namespace solar_a
             generob.Create_v3 = (isPos) ? random_v3 + worldOffset : Generate_pos + worldOffset; // 物件生成位置是否隨機，預設為是。
             generob.Create_r3 = (isRoate) ? Random.rotation : Generate_rot;                     // 物件生成方向是否隨機，預設為否。
             gener_list.Add(generob.Generates());               // 加入生成列表。
-            //Destroys(generob.GetParent());
-            if (gener_list.Count > 0 && gener_list.Count > Generate_limit) Destroys();
-            if (gener_list.Count > 0 && gener_list.Count > Generate_limit) print("OVER");
-
+                                                               //Destroys(generob.GetParent());
             return generob;
+
         }
         #region 固定物件方法
         /// <summary>
-        /// 根據面板屬性產生物件。
+        /// 簡易產生物件方法。
         /// </summary>
         public void Static_gen(float locY)
         {
@@ -260,15 +301,18 @@ namespace solar_a
         /// 根據面板指定生成位置。
         /// </summary>
         /// <param name="locY">加上目前場景的位置</param>
+        /// <param name="i">生成物件的編號</param>
         /// <param name="x">指定 x 軸座標位移</param>
         /// <param name="y">指定 y 軸座標位移</param>
-        public void Static_gen(float locY, int i)
+        public void Static_gen(float locY, int i, float x = 0, float y = 0, bool rot = false)
         {
             Generater sgen;
             Vector3 stage = new Vector3(0, locY, 0);
+            if (x != 0 || y != 0) Generate_pos = new Vector3(x, y, 0);
+            if (rot) Generate_rot = new Quaternion(x, y, 0, 0);
             if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                sgen = Generator_EMP(stage, i);
+                sgen = Generator_EMP(stage, i, false);
                 //sgen.ObjectMessegeInfo();
             }
         }
@@ -280,6 +324,7 @@ namespace solar_a
         /// </summary>
         /// <param name="locY">目前空間的Y軸</param>
         /// <param name="isRotated">物件是否隨機旋轉</param>
+        /// <param name="i">生成物件編號</param>
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
         public int Random_gen(float locY, bool isRotated, int i)
         {
@@ -287,28 +332,28 @@ namespace solar_a
             Vector3 stage = new Vector3(0, locY, 0);
             if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                sgen = Generator_EMP(stage, i, isRotated);
-                return sgen.OBCloned.GetInstanceID();
+                sgen = Generator_EMP(stage, i, true, isRotated);
+                if (sgen != null) return sgen.OBCloned.GetInstanceID();
 
             }
 
             return -1;
         }
-
         /// <summary>
         /// 物件中的物件生成
         /// </summary>
         /// <param name="PAID">父物件的ID</param>
         /// <param name="TG">要生成的物件</param>
-        public void Random_Metro(int PAID, GameObject TG)
+        public void Random_Metro(int PAID, List<Object> TG)
         {
-
-            // 子物件計算：父物件到子物件的ID距離=2+4+10=16(0),20(1),24(2),28(3),32(4)。
-            int sub_count = 16, i = 1;
-            int sub_max = sub_count + (4 * 4);
+            //print($"id:{PAID}, GTB:{TG}");
+            // 子物件計算：父物件到子物件的ID距離=2+10+10=22
+            int sub_count = 22, i = 1;
+            int sub_max = sub_count + (4 * 6);
             GameObject PA = null;
             while (sub_count <= sub_max)
             {
+                int rnd = Random.Range(0, 3);
                 try
                 {
                     // 轉換ID到父物件
@@ -320,11 +365,13 @@ namespace solar_a
                 }
                 catch (System.Exception)
                 {
+                    print("Fial");
                     break;
                 }
 
                 // 生成物件
-                Generater sgen = new(PA, TG, PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
+                Generater sgen = new(PA, TG[rnd], PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
+                sgen.Generates();
                 sub_count += 4; i++;
             }
         }

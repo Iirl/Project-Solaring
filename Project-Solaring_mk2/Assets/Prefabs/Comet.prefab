@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 383459142286987812}
   - component: {fileID: 1576408422639830854}
   - component: {fileID: 9151899600322453022}
+<<<<<<< HEAD
   - component: {fileID: 8835000773139813662}
+=======
+>>>>>>> 684c26cdad1be7bdefaed0667616d9634969cfc7
   m_Layer: 0
   m_Name: meteorite03
   m_TagString: Untagged
@@ -84,6 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<< HEAD
 --- !u!136 &8835000773139813662
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -98,6 +102,8 @@ CapsuleCollider:
   m_Height: 0.11
   m_Direction: 2
   m_Center: {x: 0.0035516813, y: 0.0020256042, z: -0.0052158}
+=======
+>>>>>>> 684c26cdad1be7bdefaed0667616d9634969cfc7
 --- !u!1 &4500105600670665182
 GameObject:
   m_ObjectHideFlags: 0

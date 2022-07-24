@@ -4871,7 +4871,11 @@ GameObject:
   - component: {fileID: 4856511285698302692}
   m_Layer: 0
   m_Name: meteorite02
+<<<<<<< HEAD
   m_TagString: Block
+=======
+  m_TagString: Enemy
+>>>>>>> 684c26cdad1be7bdefaed0667616d9634969cfc7
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
