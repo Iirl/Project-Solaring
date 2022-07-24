@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f9c7ed1c9c21da4dbe8a0ff66b193bc
+guid: b430769e81c50b44c9f7be13f0dab995
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Corporate Logo Medium
-  fallbackFontReferences: []
+  - Mamelon
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 19457f3f11a90b04f861e26a40f8fda7, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

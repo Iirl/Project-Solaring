@@ -255,8 +255,12 @@ namespace solar_a
                     if (kAtl && kO)
                     {
                         //print("Debug");
-                        GameObject testOB = ((Transform)Resources.InstanceIDToObject(27318)).gameObject;
-                        testOB.SetActive(!testOB.activeSelf);
+                        //GameObject testOB = ((Transform)Resources.InstanceIDToObject(27318)).gameObject;
+                        CanvasGroup testOB = GameObject.Find("TestObject").GetComponent<CanvasGroup>();
+                        testOB.alpha = testOB.alpha != 0 ? 0:1;
+                        testOB.interactable = !testOB.interactable;
+                        testOB.blocksRaycasts = !testOB.blocksRaycasts;
+
                     }
                     else if (kB) print("B button");
                     else if (kM) print("M button");

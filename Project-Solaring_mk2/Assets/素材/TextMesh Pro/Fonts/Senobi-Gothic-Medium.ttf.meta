@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f9c7ed1c9c21da4dbe8a0ff66b193bc
+guid: 53320a6e1ce24be469cb65a218c12a60
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Corporate Logo Medium
-  fallbackFontReferences: []
+  - Senobi Gothic
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 7a623de0026171247b98b64ac24f7885, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

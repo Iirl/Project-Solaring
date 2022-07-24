@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f9c7ed1c9c21da4dbe8a0ff66b193bc
+guid: 8a66e85736e871e42ba902fb1f583645
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Corporate Logo Medium
-  fallbackFontReferences: []
+  - 03SmartFontUI
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ed4dcb3b53614f947be7b1d570f365fe, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
