@@ -13,12 +13,15 @@ namespace solar_a
         ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("燃料"), Range(100, 200), Tooltip("每單位消耗0.25燃料")]
+        [SerializeField, Header("燃料"), Range(50, 200), Tooltip("每單位消耗0.25燃料")]
         float fuel = 100;
         [SerializeField, Header("移動速度"), Range(2.0f, 12f)]
         float speed_v = 4f;
+        float orgspd_v = 4f;
         [SerializeField, Header("移動加速度"), Range(0.2f, 1.5f)]
         float speed_a = 0.2f;
+        float orgspd_a = 0.2f;
+        public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
         [SerializeField, Header("火焰控制項")]
         Vector2 fireLenght_min = new Vector2(0.5f, 1f);
         [SerializeField, Tooltip("盡量不要超過預設值太多")]
@@ -26,9 +29,9 @@ namespace solar_a
         [SerializeField, Header("火焰最大音量"), Range(0.1f, 1f)]
         float fire_volume = 0.6f;
         [SerializeField, Header("火箭大小")]
-        Vector3 rocketBox = new Vector3(1f, 3f,0);
+        Vector3 rocketBox = new Vector3(1f, 3f, 0);
         [SerializeField, Tooltip("火箭位移")]
-        Vector3 rocketOffset = new Vector3(0, -1f,0);
+        Vector3 rocketOffset = new Vector3(0, -1f, 0);
         [SerializeField, Tooltip("火箭顏色")]
         Color rocketColor = Color.white;
         [SerializeField, Header("更新控制項")]
@@ -38,6 +41,38 @@ namespace solar_a
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
         private bool isMove;
+        #endregion
+
+        #region 公用方法
+        /// <summary>
+        /// 存取火箭資訊方法。
+        /// </summary>
+        /// <returns>x=燃料；y=速度；z=加速度</returns>
+        public Vector3 PutRocketSyn(float x, float y = -1, float z = -1)
+        {
+            fuel -= x;
+            speed_v = y >= 0 ? y : speed_v;
+            speed_a = z >= 0 ? z : speed_a;
+            return RocketS1;
+        }
+        public float GetBasicSPD()
+        {
+            return orgspd_v;
+        }
+        public float GetBasicASPD()
+        {
+            return orgspd_a;
+        }
+        /// <summary>
+        /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
+        /// </summary>
+        public bool ControlChange()
+        {
+            if (Rocket_sound.isPlaying) Rocket_sound.Stop(); else Rocket_sound.Play();
+            Rocket_Rig.isKinematic = !Rocket_Rig.isKinematic;
+            isControl = !isControl;
+            return isControl;
+        }
         #endregion
 
         #region 方法
@@ -50,7 +85,7 @@ namespace solar_a
         /// </summary>
         private void MoveCheck()
         {
-            if (Input.GetAxisRaw("Horizontal") !=0  || Input.GetAxisRaw("Vertical") !=0) isMove = true;
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) isMove = true;
             else isMove = false;
 
         }
@@ -103,16 +138,15 @@ namespace solar_a
         /// <summary>
         ///  點火控制
         /// </summary>
-        /// <param name="isFire">判斷是否啟動引擎</param>
         private void ignix_fire()
-        {            
+        {
             if (isMove)
             {
                 particle_fire.Play();
             }
             else
             {
-                particle_fire.Pause();                
+                particle_fire.Pause();
                 particle_fire.transform.localScale = new Vector2(1, 1);
                 CancelInvoke("ignix_fire");
             }
@@ -143,27 +177,21 @@ namespace solar_a
             else { CancelInvoke("SoundFadeOut"); }
 
         }
+
         /////////////////////////////////////////////
         /// 碰撞區域
         /// 
-
-        #endregion
-
-        #region 取得資訊
-        /// <summary>
-        /// 調用火箭資訊方法
-        /// </summary>
-        /// <returns>x=燃料；y=速度；z=加速度</returns>
-        public Vector3 GetRocketInfo()
+        private void InvokEnd()
         {
-            return new Vector3(fuel, speed_v, speed_a);
+            mgCenter.CheckGame(true);
         }
-
         #endregion
+
 
         #region 事件
         private void Awake()
         {
+            orgspd_v = speed_v; orgspd_a = speed_a;
             particle_fire = GetComponentInChildren<ParticleSystem>();
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
@@ -182,7 +210,7 @@ namespace solar_a
                 MoveCheck();
                 if (isMove)
                 {
-                    Rocket_sound.pitch = Input.GetKey(KeyCode.Space) ? 1.5f: 1;
+                    Rocket_sound.pitch = Input.GetKey(KeyCode.Space) ? 1.5f : 1;
                     if (Rocket_sound.volume < fire_volume) Invoke("SoundFadeIn", 0.2f);
                     MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
                 }
@@ -190,7 +218,7 @@ namespace solar_a
                 {
                     if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
                 }
-                Invoke("ignix_fire",0.1f);
+                Invoke("ignix_fire", 0.1f);
             }
         }
         private void FixedUpdate()
@@ -199,19 +227,29 @@ namespace solar_a
             if (isControl)
             {
                 UpForce();
-                fuel = mgCenter.fuelChange(fuel);
             }
         }
         private void OnDrawGizmos()
         {
             Gizmos.color = rocketColor;
-            Gizmos.DrawCube(transform.position + rocketOffset , rocketBox);
-            
+            Gizmos.DrawCube(transform.position + rocketOffset, rocketBox);
+
         }
         private void OnTriggerEnter(Collider other)
         {
             print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
-            print($"(Rocket_Controll)飛船所在的位置:{transform.position}");
+            print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
+            if (other.tag.Contains("Enemy"))
+            {
+                InvokEnd();
+            } else if (other.tag.Contains("Block"))
+            {
+
+            }
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            InvokEnd();
         }
         #endregion
         #region ##

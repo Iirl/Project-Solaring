@@ -13,16 +13,12 @@ namespace solar_a
         #region 屬性
         [SerializeField, Header("中控系統")]
         ManageCenter mgCenter;
-        BoxCollider Stage_boxBorder;
-        RectTransform Space_Rect;
         [SerializeField, Header("場景資訊"), Tooltip("場景大小(Read Only)")]
-        private Vector3 stage_container;
+        public Vector3 stage_container;
         [SerializeField, Tooltip("場景位址(Read Only)")]
         public Vector3 stage_position;
 
-        [SerializeField, Header("場景相關可調變數"), Tooltip("移動速度"), Space]
-        public float Space_speed = 10;
-        [SerializeField, Header("判定區域顏色")]
+        [SerializeField, Header("場景相關可調變數"), Tooltip("判定區域顏色")]
         private Color box_color = Color.cyan;
         [SerializeField, Header("判定區域大小")]
         private Vector3 box_range = Vector3.zero;
@@ -31,6 +27,8 @@ namespace solar_a
         Vector3 nbox_range;
 
         CinemachineVirtualCamera cinemachine;
+        BoxCollider Stage_boxBorder;
+        RectTransform Space_Rect;
         #endregion
 
         #region 方法
@@ -40,8 +38,8 @@ namespace solar_a
         private void _auto_move()
         {
             if (Space_Rect.position.x != 0) Space_Rect.position = new Vector2(0, Space_Rect.position.y);
-            Space_Rect.position += Vector3.up * Time.deltaTime * Space_speed;
-            stage_position = transform.position;
+            mgCenter.MoveAction();
+            stage_position = transform.position; // 場景資訊
         }
         /// <summary>
         /// 場景邊緣判定，玩家：回推；物件：破壞。
@@ -112,7 +110,7 @@ namespace solar_a
         {
             // 場景邊緣動作
             _borderVelocity(Physics.OverlapBox(stage_position + box_offset, box_range, Quaternion.identity), 0);
-            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range, Quaternion.identity), 1);
+            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 1f), box_range, Quaternion.identity), 1);
             _borderVelocity(Physics.OverlapBox(stage_position + Vector3.left * box_offset.x, nbox_range, Quaternion.identity), 2);
             _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
 

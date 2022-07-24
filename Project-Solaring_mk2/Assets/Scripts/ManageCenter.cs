@@ -32,6 +32,7 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         private int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
+        private bool isEnd = false;
 
         #region 共用欄位 (Public Feild)
         public CanvasGroup canvas_select;
@@ -40,36 +41,45 @@ namespace solar_a
         #region 共用方法 (Public Method)
 
         ///////////// 火箭控制相關
+        // Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
+
         /// <summary>
-        /// 燃料變化
+        /// 火箭與場景移動，速度的快慢不會影響抵達距離，越快可以越早抵達目的。
         /// </summary>
-        /// <param name="f">輸入目前燃料</param>
-        /// <returns></returns>
-        public float fuelChange(float f)
+        public void MoveAction()
         {
-            f -= Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
-            return f;
+            float unit = Time.deltaTime * rocket_ctl.RocketS1.y; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
+            ss_ctl.transform.position += Vector3.up * unit; // 場景移動
+            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(unit * 0.2f); // 燃料變化
+            else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicSPD() / 2);         // 燃料用盡，移動懲罰
+
+        }
+        /// <summary>
+        /// 燃料補充系統
+        /// </summary>
+        /// <param name="f">指定要補的值</param>
+        public void FuelReplen(int f)
+        {
+            if (isEnd && rocket_ctl.RocketS1.x > 0) { CancelInvoke(); return; }
+            rocket_ctl.PutRocketSyn(-f, rocket_ctl.GetBasicSPD());
         }
 
         ///////////// 產生物件
 
-        public void AutoGenerate(int i)
+        public void TestGener(int i)
         {
-            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i);
+            AutoGenerate(i, false);
         }
-        public void AutoGenerate(bool rotate)
-        {
-            if (gener_class != null) gener_class.Random_gen(ss_ctl.transform.position.y, rotate, 0);
-        }
+
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
         /// 這裡是設定要使用何種類別。
         /// 由於換個寫法，這裡暫時空置
         /// </summary>
         /// <param name="i">指定產生器內容，目前有的產生器如下：
-        /// 0. 預設，產生 UFO 。
-        /// 1. 產生 箱子 。
-        /// 2. 產生 瓶子 。
+        /// 0. 預設，產生 一般物件類別 。
+        /// 1. 產生 隕石類別 。
+        /// 2. 產生 敵機類別 。
         /// </param>
         public void AsignGenerate(int i)
         {
@@ -78,20 +88,30 @@ namespace solar_a
             {
                 case 0: name = "ObjectGenerator"; break;
                 case 1: name = "ObjectGenerator2"; break;
-                default:break;
+                default: break;
             }
             gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
+        }
+        /// <summary>
+        /// 調用自動產生補給品系統
+        /// </summary>
+        /// <param name="i">補給品類別</param>
+        /// <param name="rotate">是否隨機生成轉向</param>
+        public void AutoGenerate(int i, bool rotate = false)
+        {
+            AsignGenerate(0); //切換成 補品類別
+            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, Random.Range(0, 3), Random.value * 15, Random.value * 7);
         }
         /// <summary>
         /// 產生附帶子物件的程式。
         /// 會先用一般生成的方式生成物件後，取得該物件的ID再依此生成子物件。
         /// 但如果使用預置物的話，物件會生成在子物件上。
         /// </summary>
-        /// <param name="tg">哪種子物件要被生成</param>
         public void MeteoGenerate()
         {
+            AsignGenerate(1); //切換成 隕石類別
             int obj = Random.Range(0, 3);
-            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false,obj); // Fist: Generate SubObject.
+            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y, false, obj); // Fist: Generate SubObject.
             // Second: Load Insub Prefabs.
             List<Object> pfabs = new()
             {
@@ -100,10 +120,15 @@ namespace solar_a
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal02.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_PurpCrystal01.prefab", typeof(Object))
             };
-            
+
             // Third: Input on the subobject.
             gener_class.Random_Metro(Gid, pfabs);
         }
+        /// <summary>
+        /// 清除物件系統。
+        /// 所有物件從畫面上移除都要經過這個函式。
+        /// </summary>
+        /// <param name="obj"></param>
         public void ObjectDestory(GameObject obj)
         {
             gener_class.Destroys(obj);
@@ -125,7 +150,7 @@ namespace solar_a
 
         public void test()
         {
-            gener_class.r();
+            gener_class.Destroys(true);
         }
         ///////////// 選單變化相關
         /// <summary>
@@ -164,15 +189,20 @@ namespace solar_a
             }
 
         }
+
         /// <summary>
-        /// 遊戲結束處理情況
+        /// 遊戲結束判定系統
+        /// 1. 沒有燃料
+        /// 2. 撞到任何物體
         /// </summary>
-        public void GameOver()
+        /// <param name="end"></param>
+        public void CheckGame(bool end = false, float times=0.2f)
         {
-            mEnd.enabled = true;
-            rocket_ctl.enabled = false;
-            rocket_ctl.GetComponent<Rigidbody>().isKinematic = true;
-            ss_ctl.enabled = false;
+            if (end && !isEnd)
+            {
+                Invoke("GameOver", times);
+            }
+
         }
         #endregion
 
@@ -180,19 +210,90 @@ namespace solar_a
         /// <summary>
         /// 設定UI的提示
         /// </summary>
-        private void _show_UI()
+        private void show_UI()
         {
             UI_moveDistane = (int)ss_ctl.stage_position.y;
-            UI_fuel = (int)rocket_ctl.GetRocketInfo().x;
-            if (UI_fuel <= 0) GameOver(); //結束遊戲條件之一
+            UI_fuel = (int)rocket_ctl.RocketS1.x;
+            if (UI_fuel <= 0 && !isEnd) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"Distance:{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"Fuel:{UI_fuel}";
         }
+        /// <summary>
+        /// 遊戲結束處理情況
+        /// </summary>
+        private void GameOver()
+        {
+            mEnd.enabled = true;
+            rocket_ctl.ControlChange();
+            rocket_ctl.enabled = false;
+            ss_ctl.enabled = false;
+            isEnd = true;
+            CancelInvoke();
+        }
+        /// <summary>
+        /// 特殊指令，當玩家輸入快速鍵的時候會出現的封弊功能。
+        /// </summary>
+        private void SpecialistKeyInput(bool isCtrl, bool isAtl, bool isLS)
+        {
+            if (!isCtrl && !isAtl && !isLS) return;
+            else
+            {
+                bool kCtrl = Input.GetKey(KeyCode.LeftControl);
+                bool kAtl = Input.GetKey(KeyCode.LeftAlt);
+                bool kLS = Input.GetKey(KeyCode.LeftShift);
+                bool kB = Input.GetKeyDown(KeyCode.B);
+                bool kC = Input.GetKeyDown(KeyCode.C);
+                bool kN = Input.GetKeyDown(KeyCode.N);
+                bool kM = Input.GetKeyDown(KeyCode.M);
+                bool kO = Input.GetKeyDown(KeyCode.O);
+                bool kP = Input.GetKeyDown(KeyCode.P);
+                bool kQ = Input.GetKeyDown(KeyCode.Q);
+                bool kR = Input.GetKeyDown(KeyCode.R);
+                bool kU = Input.GetKeyDown(KeyCode.U);
+                if (isCtrl)
+                {
+                    if (kAtl && kO)
+                    {
+                        //print("Debug");
+                        GameObject testOB = ((Transform)Resources.InstanceIDToObject(27318)).gameObject;
+                        testOB.SetActive(!testOB.activeSelf);
+                    }
+                    else if (kB) print("B button");
+                    else if (kM) print("M button");
+                    else if (kO) print("O button");
+                    else if (kP) print("P button");
+                    else if (kQ) print("Q button");
+                }
+                else if (isAtl)
+                {
+                    if (kN) print("N button");
+                    if (kR) print("R button");
+                }
+                else if (isLS)
+                {
+                    if (kC) print("C button");
+                    if (kU) print("U button");
+                }
+            }
+
+        }
         private void Update()
         {
-            _show_UI();
+            show_UI();
+            SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
+                Input.GetKey(KeyCode.LeftAlt),
+                Input.GetKey(KeyCode.LeftShift)
+                );
         }
         #endregion
 
+        #region 彩蛋相關
+        /*Ctrl+b 開啟黑洞隨機跳關：需要黑洞生成的動畫或圖片
+        Shift+c 火箭換成貨機：需要一架貨機
+        Shift+u 火箭換飛碟
+        Alt+n 火箭隱形
+        Alt+r 重新生成補給與障礙物*/
+
+        #endregion
     }
 }
