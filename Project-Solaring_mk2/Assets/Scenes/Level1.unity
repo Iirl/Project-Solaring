@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -409,7 +409,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7774936, y: 1}
+    m_SensorSize: {x: 1.7790476, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4587,7 +4587,7 @@ MonoBehaviour:
   stage_position: {x: 0, y: 0, z: 0}
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
   box_range: {x: 46, y: 2, z: 27}
-  box_offset: {x: 21.75, y: 14.5, z: 0}
+  box_offset: {x: 24, y: 14.6, z: 0}
 --- !u!4 &543450653037835211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3023216524804090940, guid: 297f40b505f465a40bc14dfae124f968,
