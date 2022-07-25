@@ -31,9 +31,10 @@ namespace solar_a
         [SerializeField, Tooltip("UI 燃料顯示")]
         TMP_Text ui_fuel;
         [SerializeField, Tooltip("UI 相關(Read Only)")]
-        private int UI_moveDistane = 0, UI_fuel = 100;
+        public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
         private bool isEnd = false;
+        private bool isGen = false;
 
         #region 共用欄位 (Public Feild)
         public CanvasGroup canvas_select;
@@ -41,6 +42,10 @@ namespace solar_a
 
         #region 共用方法 (Public Method)
 
+        public Vector3 GetStagePOS()
+        {
+            return ss_ctl.transform.position;
+        }
         ///////////// 火箭控制相關
         // Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
 
@@ -56,20 +61,32 @@ namespace solar_a
 
         }
         /// <summary>
-        /// 燃料補充系統
+        /// 燃料補充函數，輸入定值增加燃料。
         /// </summary>
         /// <param name="f">指定要補的值</param>
         public void FuelReplen(int f)
         {
             if (isEnd && rocket_ctl.RocketS1.x > 0) { CancelInvoke(); return; }
             rocket_ctl.PutRocketSyn(-f, rocket_ctl.GetBasicSPD());
+            rocket_ctl.ADOClipControl(0);
         }
 
         ///////////// 產生物件
 
-        public void TestGener(int i)
+        /// <summary>
+        /// 物件生成系統
+        /// 指定距離隨機生成物件
+        /// </summary>
+        /// <param name="i"></param>
+        public void GenerAuto()
         {
-            AutoGenerate(i, false);
+            if (!isGen)
+            {
+                AutoGenerate(0, true);
+                isGen = true;
+            }
+
+            CancelInvoke("GenerAuto");
         }
 
         /// <summary>
@@ -94,14 +111,14 @@ namespace solar_a
             gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
         }
         /// <summary>
-        /// 調用自動產生補給品系統
+        /// 調用自動產生補給品
         /// </summary>
         /// <param name="i">補給品類別</param>
         /// <param name="rotate">是否隨機生成轉向</param>
         public void AutoGenerate(int i, bool rotate = false)
         {
             AsignGenerate(0); //切換成 補品類別
-            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, Random.Range(0, 3), Random.value * 15, Random.value * 7);
+            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, Random.Range(-12,15), Random.Range(-2, 9), rotate);
         }
         /// <summary>
         /// 產生附帶子物件的程式。
@@ -128,7 +145,7 @@ namespace solar_a
             gener_class.Random_Metro(Gid, pfabs);
         }
         /// <summary>
-        /// 清除物件系統。
+        /// 清除物件函數。
         /// 所有物件從畫面上移除都要經過這個函式。
         /// </summary>
         /// <param name="obj"></param>
@@ -291,6 +308,9 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
+            if (UI_moveDistane % 20 == 0 && !isGen) Invoke("GenerAuto", 1);
+            else isGen = false;
+            print(isGen);
         }
         #endregion
 

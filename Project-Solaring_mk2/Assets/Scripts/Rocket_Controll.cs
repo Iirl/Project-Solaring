@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 ///  此程式是控制玩家相關的操作方法，建議放在玩家物件上。
@@ -28,6 +29,8 @@ namespace solar_a
         Vector2 fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
         [SerializeField, Header("火焰最大音量"), Range(0.1f, 1f)]
         float fire_volume = 0.6f;
+        [SerializeField]
+        List<AudioClip> rocket_Clip = new List<AudioClip>();
         [SerializeField, Header("火箭大小")]
         Vector3 rocketBox = new Vector3(1f, 3f, 0);
         [SerializeField, Tooltip("火箭位移")]
@@ -178,6 +181,16 @@ namespace solar_a
 
         }
 
+        /// <summary>
+        /// 火箭音效設定：
+        /// 0. 碰到補給品
+        /// 1. 碰到敵人或自爆
+        /// </summary>
+        public void ADOClipControl(int i)
+        {
+            Rocket_sound.volume = 1;
+            Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
+        }
         /////////////////////////////////////////////
         /// 碰撞區域
         /// 
@@ -185,6 +198,19 @@ namespace solar_a
         {
             mgCenter.CheckGame(true);
         }
+
+
+        private void SupplyEvent(GameObject ongob)
+        {
+            int addFuel = 0;
+            if (ongob.name.Contains("box")) addFuel = 5;
+            if (ongob.name.Contains("Bottle")) addFuel = 10;
+            //////////
+            ///
+            mgCenter.ObjectDestory(ongob);
+            mgCenter.FuelReplen(addFuel);
+        }
+
         #endregion
 
 
@@ -237,25 +263,27 @@ namespace solar_a
         }
         private void OnTriggerEnter(Collider other)
         {
-            print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
-            print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
+            //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
+            //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
             if (other.tag.Contains("Enemy"))
             {
+                ADOClipControl(1);
                 InvokEnd();
             } else if (other.tag.Contains("Block"))
             {
-
+                SupplyEvent(other.gameObject);
             }
         }
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.transform.tag.Contains("Enemy"))
             {
+                ADOClipControl(1);
                 InvokEnd();
             }
             else if (collision.transform.tag.Contains("Block"))
             {
-
+                SupplyEvent(collision.gameObject);
             }
         }
         #endregion

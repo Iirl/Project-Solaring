@@ -272,12 +272,14 @@ namespace solar_a
         /// <returns></returns>
         private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
         {
+            i = (i >= Generate.Count) ? Generate.Count - 1 : i;
             DestroysOnBug(i);
             //show
             Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
                 Random.Range(0f, Generate_posRaidus.y),
                 Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
             );
+            
             Generater generob = new(MainObject[i], Generate[i]);
             generob.Create_v3 = (isPos) ? random_v3 + worldOffset : Generate_pos + worldOffset; // 物件生成位置是否隨機，預設為是。
             generob.Create_r3 = (isRoate) ? Random.rotation : Generate_rot;                     // 物件生成方向是否隨機，預設為否。

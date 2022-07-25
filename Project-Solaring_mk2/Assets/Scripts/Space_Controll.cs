@@ -57,7 +57,7 @@ namespace solar_a
             return Mathf.Round(next_axis);
         }
         /// <summary>
-        /// 旋轉程式
+        /// 旋轉程式，採調用法呼叫程式。
         /// </summary>
         private void Spine()
         {
@@ -127,15 +127,13 @@ namespace solar_a
         {
 
             // 旋轉空間
-
             if (!rotated)
             {
                 rot_left = Input.GetAxisRaw("Left_Spine") == 1;
                 rot_right = Input.GetAxisRaw("Right_Spine") == 1;
                 DirectCheck();
             }
-            //PositionCheck(-1);
-            print($"(Space_Controll)到達螢幕邊緣的距離：{Vector3.Distance(transform.position, GameObject.Find("Stage").transform.position)}");
+
         }
         #endregion
     }
