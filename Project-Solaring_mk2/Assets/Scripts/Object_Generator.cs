@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -239,7 +238,7 @@ namespace solar_a
         {
             if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
             {
-                Object obj = EditorUtility.InstanceIDToObject(gener_list.ReadList(0));
+                Object obj = Resources.InstanceIDToObject(gener_list.ReadList(0));
                 gener_list.RemoveAt(0);
                 Destroy(obj);
             }
@@ -358,7 +357,7 @@ namespace solar_a
                 {
                     // 轉換ID到父物件
 
-                    PA = ((Transform)EditorUtility.InstanceIDToObject(PAID - 2)).gameObject;
+                    PA = ((Transform)Resources.InstanceIDToObject(PAID - 2)).gameObject;
                     PA = PA.transform.GetChild(i).gameObject;
                     // 子物件
 

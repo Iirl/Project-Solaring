@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using TMPro;
-
 namespace solar_a
 {
     /// <summary>
@@ -115,10 +116,12 @@ namespace solar_a
             // Second: Load Insub Prefabs.
             List<Object> pfabs = new()
             {
+#if UNITY_EDITOR
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/Empty.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal01.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal02.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_PurpCrystal01.prefab", typeof(Object))
+#endif
             };
 
             // Third: Input on the subobject.
