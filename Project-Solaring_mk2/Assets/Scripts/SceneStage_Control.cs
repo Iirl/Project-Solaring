@@ -53,18 +53,20 @@ namespace solar_a
                 if (col.tag.Contains("Player"))
                 {                    
                     Rigidbody c_rig = col.GetComponent<Rigidbody>();
+                    Vector3 bound = c_rig.velocity;
                     // 根據編號來決定反彈的方向：
                     /// 0 往下
                     /// 1 往上
                     /// 2 往右
                     /// 3 往左
                     switch (i) {  
-                        case 0: c_rig.velocity += Vector3.down /2 ; break;
-                        case 1: c_rig.velocity += Vector3.up /2; break;
-                        case 2: c_rig.velocity += Vector3.right/2; break;
-                        case 3: c_rig.velocity += Vector3.left/2; break; 
+                        case 0: bound.y = -0.3f; break;
+                        case 1: bound.y = 0.3f; break;
+                        case 2: bound.x = 0.3f; break;
+                        case 3: bound.x = -0.3f; break; 
                         default: break;
                     }
+                    c_rig.velocity = bound;
                 } else  if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
                     mgCenter.ObjectDestory(col.gameObject);

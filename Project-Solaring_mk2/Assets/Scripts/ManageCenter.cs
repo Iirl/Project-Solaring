@@ -215,8 +215,8 @@ namespace solar_a
             UI_moveDistane = (int)ss_ctl.stage_position.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             if (UI_fuel <= 0 && !isEnd) { CheckGame(true, 5f); }//結束遊戲條件之一
-            if (ui_Dist != null) ui_Dist.text = $"Distance:{UI_moveDistane}";
-            if (ui_fuel != null) ui_fuel.text = $"Fuel:{UI_fuel}";
+            if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
+            if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
         /// <summary>
         /// 遊戲結束處理情況
