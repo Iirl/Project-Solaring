@@ -249,7 +249,14 @@ namespace solar_a
         }
         private void OnCollisionEnter(Collision collision)
         {
-            InvokEnd();
+            if (collision.transform.tag.Contains("Enemy"))
+            {
+                InvokEnd();
+            }
+            else if (collision.transform.tag.Contains("Block"))
+            {
+
+            }
         }
         #endregion
         #region ##
