@@ -14,9 +14,9 @@ namespace solar_a
         [SerializeField, Header("中控系統")]
         ManageCenter mgCenter;
         [SerializeField, Header("場景資訊"), Tooltip("場景大小(Read Only)")]
-        public Vector3 stage_container;
+        private Vector3 stage_container;
         [SerializeField, Tooltip("場景位址(Read Only)")]
-        public Vector3 stage_position;
+        private Vector3 stage_position;
 
         [SerializeField, Header("場景相關可調變數"), Tooltip("判定區域顏色")]
         private Color box_color = Color.cyan;
@@ -69,7 +69,7 @@ namespace solar_a
                     c_rig.velocity = bound;
                 } else  if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    mgCenter.ObjectDestory(col.gameObject);
+                    if (i!=0) mgCenter.ObjectDestory(col.gameObject);
                 }
             } 
         }

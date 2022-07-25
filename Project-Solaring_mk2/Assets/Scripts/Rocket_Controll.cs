@@ -203,8 +203,8 @@ namespace solar_a
         private void SupplyEvent(GameObject ongob)
         {
             int addFuel = 0;
-            if (ongob.name.Contains("box")) addFuel = 5;
-            if (ongob.name.Contains("Bottle")) addFuel = 10;
+            if (ongob.name.Contains("Box")) addFuel = 10;
+            if (ongob.name.Contains("Bottle")) addFuel = 5;
             //////////
             ///
             mgCenter.ObjectDestory(ongob);

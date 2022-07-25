@@ -366,7 +366,7 @@ namespace solar_a
                 }
                 catch (System.Exception)
                 {
-                    print("Fial");
+                    print("SubgenID Fail");
                     break;
                 }
 

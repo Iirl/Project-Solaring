@@ -34,7 +34,7 @@ namespace solar_a
         public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
         private bool isEnd = false;
-        private bool isGen = false;
+        private bool isGen_sup = false, isGen_mto = false;
 
         #region 共用欄位 (Public Feild)
         public CanvasGroup canvas_select;
@@ -80,10 +80,15 @@ namespace solar_a
         /// <param name="i"></param>
         public void GenerAuto()
         {
-            if (!isGen)
+            if (!isGen_sup)
             {
                 AutoGenerate(0, true);
-                isGen = true;
+                isGen_sup = true;
+            }
+            if (!isGen_mto)
+            {
+                MeteoGenerate();
+                isGen_mto = true;
             }
 
             CancelInvoke("GenerAuto");
@@ -118,7 +123,8 @@ namespace solar_a
         public void AutoGenerate(int i, bool rotate = false)
         {
             AsignGenerate(0); //切換成 補品類別
-            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, Random.Range(-12,15), Random.Range(-2, 9), rotate);
+            Vector3 st_border = ss_ctl.GetBoxborder();
+            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, Random.Range(-st_border.x/2, st_border.x / 2), Random.Range(st_border.y, st_border.y*2), rotate);
         }
         /// <summary>
         /// 產生附帶子物件的程式。
@@ -232,7 +238,8 @@ namespace solar_a
         /// </summary>
         private void show_UI()
         {
-            UI_moveDistane = (int)ss_ctl.stage_position.y;
+            Vector3 stage_pos = GetStagePOS();
+            UI_moveDistane = (int)stage_pos.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             if (UI_fuel <= 0 && !isEnd) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
@@ -282,6 +289,7 @@ namespace solar_a
                         testOB.blocksRaycasts = !testOB.blocksRaycasts;
 
                     }
+                    if (kLS) print("C+S button");
                     else if (kB) print("B button");
                     else if (kM) print("M button");
                     else if (kO) print("O button");
@@ -290,13 +298,14 @@ namespace solar_a
                 }
                 else if (isAtl)
                 {
-                    if (kN) print("N button");
-                    if (kR) print("R button");
+                    if (kLS) print("A+S button");
+                    else if (kN) print("N button");
+                    else if (kR) print("R button");
                 }
                 else if (isLS)
                 {
                     if (kC) print("C button");
-                    if (kU) print("U button");
+                    else if (kU) print("U button");
                 }
             }
 
@@ -308,9 +317,10 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-            if (UI_moveDistane % 20 == 0 && !isGen) Invoke("GenerAuto", 1);
-            else isGen = false;
-            print(isGen);
+            if (UI_moveDistane % 20 == 0 && !isGen_sup) Invoke("GenerAuto", 1);  // 隨機生成補品
+            else isGen_sup = false;
+            if (UI_moveDistane % 30 == 1 && !isGen_mto) Invoke("GenerAuto", 1);  // 隨機生成障礙物
+            else isGen_mto = false;
         }
         #endregion
 
