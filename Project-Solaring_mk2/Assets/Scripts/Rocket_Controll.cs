@@ -97,7 +97,7 @@ namespace solar_a
         /// </summary>
         /// <param name="horizon">水平移動向量</param>
         /// <param name="vertial">垂直移動向量</param>
-        private void MoveControll(float horizon, float vertial, bool boost)
+        private void MoveControll(float horizon, float vertial, float boost)
         {
             if (Mathf.Abs(horizon) < 0.005f) horizon = 0;
             if (Mathf.Abs(vertial) < 0.005f) vertial = 0;
@@ -109,7 +109,7 @@ namespace solar_a
             Rocket_Rig.velocity += v3;
             // 加速度控制
             Vector3 r3 = new Vector3(horizon * aSpeed, vertial * aSpeed, 0);
-            if (boost) Rocket_Rig.AddForce(r3);
+            if (boost > 0) Rocket_Rig.AddForce(r3);
             // 翻轉回復
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
@@ -128,8 +128,8 @@ namespace solar_a
                 if (vertial > 0) yFire += Mathf.Pow(fireLenght_max.y, y_var);
                 else if (vertial < 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, y_var));
                 //// set Fire Boost.衝刺長度
-                if (boost) yFire += fireBoost.y;
-                if (boost) xFire += fireBoost.x;
+                if (boost > 0) yFire += fireBoost.y;
+                if (boost > 0) xFire += fireBoost.x;
                 //// set Horizon Move yFire.
                 if (yFire < fireLenght_min.y && x_var > 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, x_var));
 
@@ -236,9 +236,9 @@ namespace solar_a
                 MoveCheck();
                 if (isMove)
                 {
-                    Rocket_sound.pitch = Input.GetKey(KeyCode.Space) ? 1.5f : 1;
+                    Rocket_sound.pitch = Input.GetAxis("Force") > 0 ? 1.5f : 1;
                     if (Rocket_sound.volume < fire_volume) Invoke("SoundFadeIn", 0.2f);
-                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetKey(KeyCode.Space));
+                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
                 }
                 else
                 {
@@ -269,7 +269,8 @@ namespace solar_a
             {
                 ADOClipControl(1);
                 InvokEnd();
-            } else if (other.tag.Contains("Block"))
+            }
+            else if (other.tag.Contains("Block"))
             {
                 SupplyEvent(other.gameObject);
             }

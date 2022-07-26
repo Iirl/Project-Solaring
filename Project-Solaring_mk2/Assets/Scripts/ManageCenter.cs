@@ -24,8 +24,14 @@ namespace solar_a
         ManageScene ss_mag;
         [SerializeField, Tooltip("預設產生器類別，請指定一個產生器物件")]
         Object_Generator gener_class;
+        [SerializeField, Tooltip("暫停選單")]
+        CanvasGroup menus;
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
+
+        /// <summary>
+        /// GameUI Interface.
+        /// </summary>
         [SerializeField, Header("介面UI控制"), Tooltip("UI 距離顯示")]
         TMP_Text ui_Dist;
         [SerializeField, Tooltip("UI 燃料顯示")]
@@ -245,6 +251,13 @@ namespace solar_a
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
+        private void show_Menu()
+        {
+            float isPause = menus.alpha;
+            canvas_select = menus;
+            if (isPause == 0) InvokeRepeating("FadeIn", 0, 0.1f);
+            else InvokeRepeating("FadeOut", 0, 0.1f);
+        }
         /// <summary>
         /// 遊戲結束處理情況
         /// </summary>
@@ -313,10 +326,12 @@ namespace solar_a
         private void Update()
         {
             show_UI();
+            if (Input.GetAxisRaw("Menu") != 0) show_Menu();
             SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
+            //// ---路徑自動生成物件---
             if (UI_moveDistane % 20 == 0 && !isGen_sup) Invoke("GenerAuto", 1);  // 隨機生成補品
             else isGen_sup = false;
             if (UI_moveDistane % 30 == 1 && !isGen_mto) Invoke("GenerAuto", 1);  // 隨機生成障礙物
