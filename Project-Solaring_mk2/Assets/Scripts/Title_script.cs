@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -12,14 +13,12 @@ namespace solar_a
         #region 屬性
         [SerializeField, Header("場景處理系統")]
         ManageScene SceneSTG;
-        [SerializeField, Header("Object Obtain")]
-        private AudioClip acp_down;
+        [SerializeField, Header("播放音效")]
+        private List<AudioClip> sound_effect;
         [SerializeField]
         private AudioSource audioSrc;
-        [SerializeField]
-        private GameObject btn_str, btn_opt, btn_open;
-        [SerializeField]
-        private RectTransform bg_space, bg_earth;
+        [SerializeField, Header("選單按鈕控制")]
+        private List<GameObject> menuButton;
         [SerializeField, Header("Property Adjust")]
         private float bg_move_speed = 0.5f;
         // 其他屬性(欄位)
@@ -48,28 +47,22 @@ namespace solar_a
 
         }
         /// <summary>
-        /// 選單事件：第一層->第二層
+        /// 選單音效效果
+        /// 音效註解：
         /// </summary>
-        public void Menu1to2()
+        public void MenuSound(int i)
         {
-            audioSrc.PlayOneShot(acp_down);
-            btn_open.SetActive(false);
-            if (!btn_str.activeSelf) btn_str.SetActive(true);
-            if (!btn_opt.activeSelf) btn_opt.SetActive(true);
-        }
-        public void Menu2_Start()
-        { 
-            SceneSTG.LoadScenes(1);
+            if (sound_effect[i] != null) audioSrc.PlayOneShot(sound_effect[i]);
         }
         #endregion
 
         #region 觸發事件
         private void Awake()
         {
+            bg_move = false;
             audioSrc = GameObject.Find("Audio Source").GetComponent<AudioSource>();
             // 直接讀取按鈕
-            btn_str.SetActive(false);
-            btn_opt.SetActive(false);
+
 
         }
 
@@ -80,13 +73,11 @@ namespace solar_a
 
         private void FixedUpdate()
         {
-            if (bg_space != null && bg_move) Move2Center(bg_space, transform.position.y / 2);
-            if (bg_earth != null && bg_move) Move2Center(bg_earth, transform.position.y / 4);
+
         }
         private void Update()
         {
             if (Input.GetAxisRaw("Menu") > 0 && reload_scene) SceneSTG.ReloadCurrentScene(); // 重讀場景
-            if (Input.anyKeyDown && btn_open.activeSelf) Menu1to2(); // 鍵盤觸發進入下一層選單事件
 
         }
 
