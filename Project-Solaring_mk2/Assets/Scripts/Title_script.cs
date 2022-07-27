@@ -85,7 +85,7 @@ namespace solar_a
         }
         private void Update()
         {
-            if (Input.GetAxisRaw("Bbutton") > 0 && reload_scene) SceneSTG.ReloadCurrentScene(); // 重讀場景
+            if (Input.GetAxisRaw("Menu") > 0 && reload_scene) SceneSTG.ReloadCurrentScene(); // 重讀場景
             if (Input.anyKeyDown && btn_open.activeSelf) Menu1to2(); // 鍵盤觸發進入下一層選單事件
 
         }

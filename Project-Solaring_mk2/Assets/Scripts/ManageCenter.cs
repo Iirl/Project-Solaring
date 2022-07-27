@@ -39,7 +39,8 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
-        private bool isEnd = false;
+        private bool uiLoad = false;
+        private bool isEnd = false, isPause = false;
         private bool isGen_sup = false, isGen_mto = false;
 
         #region 共用欄位 (Public Feild)
@@ -193,12 +194,14 @@ namespace solar_a
             if (canvas_select.alpha < 1)
             {
                 canvas_select.alpha += 0.1f;
+                uiLoad = true;
             }
             else
             {
                 canvas_select.alpha = 1;
                 canvas_select.interactable = true;
                 canvas_select.blocksRaycasts = true;
+                uiLoad = false;
                 CancelInvoke("FadeIn");
             }
 
@@ -211,12 +214,14 @@ namespace solar_a
             if (canvas_select.alpha > 0)
             {
                 canvas_select.alpha -= 0.1f;
+                uiLoad = true;
             }
             else
             {
                 canvas_select.alpha = 0;
                 canvas_select.interactable = false;
                 canvas_select.blocksRaycasts = false;
+                uiLoad = false;
                 CancelInvoke("FadeOut");
             }
 
@@ -253,16 +258,26 @@ namespace solar_a
         }
         private void show_Menu()
         {
-            float isPause = menus.alpha;
             canvas_select = menus;
-            if (isPause == 0) InvokeRepeating("FadeIn", 0, 0.1f);
-            else InvokeRepeating("FadeOut", 0, 0.1f);
+            if (!isPause)
+            {
+                // 顯現
+                isPause = true;
+                InvokeRepeating("FadeIn", 0, 0.1f);
+            }
+            else
+            {
+                // 淡出
+                InvokeRepeating("FadeOut", 0, 0.1f); 
+                isPause = false;
+            }
         }
         /// <summary>
         /// 遊戲結束處理情況
         /// </summary>
         private void GameOver()
         {
+            if (isPause) show_Menu();
             mEnd.enabled = true;
             rocket_ctl.ControlChange();
             rocket_ctl.enabled = false;
@@ -326,7 +341,7 @@ namespace solar_a
         private void Update()
         {
             show_UI();
-            if (Input.GetAxisRaw("Menu") != 0) show_Menu();
+            if (Input.GetAxisRaw("Menu") == 1 && !uiLoad && !isEnd) show_Menu();
             SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
