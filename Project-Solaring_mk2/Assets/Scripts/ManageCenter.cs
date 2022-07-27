@@ -73,7 +73,7 @@ namespace solar_a
         /// <param name="f">指定要補的值</param>
         public void FuelReplen(int f)
         {
-            if (isEnd && rocket_ctl.RocketS1.x > 0) { CancelInvoke(); return; }
+            if (isEnd && rocket_ctl.RocketS1.x > 0) { CancelInvoke("GameOver"); return; }
             rocket_ctl.PutRocketSyn(-f, rocket_ctl.GetBasicSPD());
             rocket_ctl.ADOClipControl(0);
         }
@@ -173,7 +173,7 @@ namespace solar_a
         /// </summary>
         public void PreOrderGen()
         {
-            int i = ss_mag.LoadScenes();
+            int i = ss_mag.GetScenes();
             switch (i)
             {
                 case 0: break;
@@ -198,13 +198,11 @@ namespace solar_a
             }
             else
             {
-                canvas_select.alpha = 1;
-                canvas_select.interactable = true;
-                canvas_select.blocksRaycasts = true;
                 uiLoad = false;
+                CanvasCtrl(canvas_select,true);
                 CancelInvoke("FadeIn");
+                Time.timeScale = 0.05f;
             }
-
         }
         /// <summary>
         /// 淡出動畫
@@ -213,15 +211,13 @@ namespace solar_a
         {
             if (canvas_select.alpha > 0)
             {
-                canvas_select.alpha -= 0.1f;
+                canvas_select.alpha -= 0.01f;
                 uiLoad = true;
             }
             else
             {
-                canvas_select.alpha = 0;
-                canvas_select.interactable = false;
-                canvas_select.blocksRaycasts = false;
                 uiLoad = false;
+                CanvasCtrl(canvas_select);
                 CancelInvoke("FadeOut");
             }
 
@@ -237,6 +233,11 @@ namespace solar_a
         {
             if (end && !isEnd)
             {
+                if (menus.alpha != 0)
+                {
+                    isPause = false;
+                    CanvasCtrl(menus);
+                }
                 Invoke("GameOver", times);
             }
 
@@ -244,6 +245,29 @@ namespace solar_a
         #endregion
 
         #region 本地控制方法或事件
+        /// <summary>
+        /// 畫布群組開關
+        /// </summary>
+        /// <param name="cvs"></param>
+        /// <param name="on"></param>
+        private void CanvasCtrl(CanvasGroup cvs, bool on = false)
+        {
+            if (on)
+            {
+                cvs.alpha = 1;
+                cvs.interactable = true;
+                cvs.blocksRaycasts = true;
+
+            }
+            else
+            {
+                cvs.alpha = 0;
+                cvs.interactable = false;
+                cvs.blocksRaycasts = false;
+
+            }
+
+        }
         /// <summary>
         /// 設定UI的提示
         /// </summary>
@@ -256,28 +280,38 @@ namespace solar_a
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
+        /// <summary>
+        /// 暫停選單開關
+        /// </summary>
         private void show_Menu()
         {
-            canvas_select = menus;
-            if (!isPause)
+            print(Time.timeScale);
+            if (menus != null)
             {
-                // 顯現
-                isPause = true;
-                InvokeRepeating("FadeIn", 0, 0.1f);
-            }
-            else
-            {
-                // 淡出
-                InvokeRepeating("FadeOut", 0, 0.1f); 
-                isPause = false;
+                canvas_select = menus;
+                if (!isPause)
+                {
+                    // 顯現
+                    isPause = true;
+                    InvokeRepeating("FadeIn", 0, 0.05f);
+                }
+                else
+                {
+                    // 淡出
+                    Time.timeScale = 1f;
+                    InvokeRepeating("FadeOut", 0, 0.001f);
+                    isPause = false;
+                }
+                rocket_ctl.ControlChange();
+                //ss_ctl.enabled = !ss_ctl.enabled;
+                space_ctl.enabled = !space_ctl.enabled;
             }
         }
         /// <summary>
         /// 遊戲結束處理情況
         /// </summary>
         private void GameOver()
-        {
-            if (isPause) show_Menu();
+        {            
             mEnd.enabled = true;
             rocket_ctl.ControlChange();
             rocket_ctl.enabled = false;
