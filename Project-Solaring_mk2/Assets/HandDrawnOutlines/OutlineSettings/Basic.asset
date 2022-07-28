@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Color: {r: 0, g: 0, b: 0, a: 1}
   NumberOfContours: 1
-  Frequency: 0
+  Frequency: 80
   Amplitude: 0
   UseNoise: 0
   NoiseTex: {fileID: 0}
@@ -33,6 +33,6 @@ MonoBehaviour:
   TimeMultiplierAlpha: 38.74
   Width: 1
   DepthThreshold: 0.2
-  NormalThreshold: 0.69
+  NormalThreshold: 0.54
   EdgeDetectionMaterial: {fileID: 0}
   OutlineMaterial: {fileID: 0}

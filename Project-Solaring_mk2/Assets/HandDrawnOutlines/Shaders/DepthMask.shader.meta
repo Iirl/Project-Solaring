@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Project-Solaring_mk2/Assets/HandDrawnOutlines/Shaders/DepthMask.shader.meta
 guid: be7b9c45598c77e4eb1a87b10147bdb3
-========
-guid: b3320f037fa4c924c80bb873d569a6e5
->>>>>>>> 684c26cdad1be7bdefaed0667616d9634969cfc7:Project-Solaring_mk2/Assets/HandDrawnOutlines/Shaders/NormalsDepth.shader.meta
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []

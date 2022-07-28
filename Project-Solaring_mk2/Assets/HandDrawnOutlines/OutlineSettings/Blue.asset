@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e37a159898d644991adf6cf0ce4585, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
-  _Color: {r: 0, g: 0.045587063, b: 1, a: 1}
+  _Color: {r: 0, g: 0, b: 0, a: 1}
   NumberOfContours: 2
-  Frequency: 3.8
-  Amplitude: 0.00239
-  UseNoise: 1
+  Frequency: 0
+  Amplitude: 0
+  UseNoise: 0
   NoiseTex: {fileID: 2800000, guid: 6a699e1fad2824b4baa31010b7c30cfa, type: 3}
-  NoiseAmount: 0.0072
+  NoiseAmount: 0
   NoiseTilling: 6.75
   TimeMultiplier: 47.3
   Synchronize: 1
