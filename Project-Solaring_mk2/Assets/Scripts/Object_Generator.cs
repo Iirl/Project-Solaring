@@ -3,33 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// ¦¹¬°¦b°Ï°ìªÅ¶¡¤¤²£¥Íª«¥óªºµ{¦¡
+/// æ­¤ç‚ºåœ¨å€åŸŸç©ºé–“ä¸­ç”¢ç”Ÿç‰©ä»¶çš„ç¨‹å¼
 /// </summary>
 namespace solar_a
 {
     public class Object_Generator : MonoBehaviour
     {
 
-        #region Äİ©Ê
+        #region å±¬æ€§
         //SceneStage_Control Scene_ctl;
 
-        [SerializeField, Header("¥Í¦¨¦ì¸m")]
+        [SerializeField, Header("ç”Ÿæˆä½ç½®")]
         List<GameObject> MainObject = new List<GameObject>();
-        [SerializeField, Header("¥Í¦¨ª«¥ó"), Tooltip("©ñ¤J«ü©wªºª«¥ó¡A³Ì¦n¬O¦³ Prefabs ¹LªºÀÉ®×")]
+        [SerializeField, Header("ç”Ÿæˆç‰©ä»¶"), Tooltip("æ”¾å…¥æŒ‡å®šçš„ç‰©ä»¶ï¼Œæœ€å¥½æ˜¯æœ‰ Prefabs éçš„æª”æ¡ˆ")]
         List<Object> Generate = new List<Object>();
-        [SerializeField, Tooltip("«ü©wª«¥ó¦ì¸m")]
+        [SerializeField, Tooltip("æŒ‡å®šç‰©ä»¶ä½ç½®")]
         Vector3 Generate_pos = Vector3.zero;
-        [SerializeField, Tooltip("«ü©wª«¥ó±ÛÂà")]
+        [SerializeField, Tooltip("æŒ‡å®šç‰©ä»¶æ—‹è½‰")]
         Quaternion Generate_rot = Quaternion.identity;
-        [SerializeField, Tooltip("«ü©wª«¥ó¥Í¦¨¥b®|¡A¶È¦bÀH¾÷¥Í¦¨®M¥Î")]
+        [SerializeField, Tooltip("æŒ‡å®šç‰©ä»¶ç”ŸæˆåŠå¾‘ï¼Œåƒ…åœ¨éš¨æ©Ÿç”Ÿæˆå¥—ç”¨")]
         Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
-        [SerializeField, Header("«ü©wª«¥ó¥Í¦¨¼Æ¶q¤W­­")]
+        [SerializeField, Header("æŒ‡å®šç‰©ä»¶ç”Ÿæˆæ•¸é‡ä¸Šé™")]
         int Generate_limit = 10;
         public ObjectArray gener_list = new();
 
-        #region ²£¥Í¾¹Ãş§O class Generater
+        #region ç”¢ç”Ÿå™¨é¡åˆ¥ class Generater
         /// <summary>
-        /// Instantiate ¤èªkªº¥[±jª©Ãş§O
+        /// Instantiate æ–¹æ³•çš„åŠ å¼·ç‰ˆé¡åˆ¥
         /// </summary>
         public class Generater
         {
@@ -49,24 +49,26 @@ namespace solar_a
             public Quaternion Create_r3 = Quaternion.identity;
             private GameObject Parent;
             public Object OBTarget, OBCloned;
+            //  ç¨‹å¼å…§éƒ¨è®Šæ•¸
+            int countGene=0;
 
             /// <summary>
-            /// »s§@ª«¥ó®É·|¦Û°Ê«ü©w¥Dª«¥ó¡B¥Í¦¨ª«¥H¤Î¦ì¸m©M±ÛÂàª¬ºA
+            /// è£½ä½œç‰©ä»¶æ™‚æœƒè‡ªå‹•æŒ‡å®šä¸»ç‰©ä»¶ã€ç”Ÿæˆç‰©ä»¥åŠä½ç½®å’Œæ—‹è½‰ç‹€æ…‹
             /// </summary>
-            /// <param name="parent">¥Dª«¥ó¡A­n¦b­ş­Óª«¥ó¤W¥Í¦¨</param>
-            /// <param name="target">¥Ø¼Ğª«¥ó¡A¬Æ»ò Object ·|³Q¥Í¦¨</param>
+            /// <param name="parent">ä¸»ç‰©ä»¶ï¼Œè¦åœ¨å“ªå€‹ç‰©ä»¶ä¸Šç”Ÿæˆ</param>
+            /// <param name="target">ç›®æ¨™ç‰©ä»¶ï¼Œç”šéº¼ Object æœƒè¢«ç”Ÿæˆ</param>
             public Generater(GameObject parent, Object target)
             {
                 OBTarget = target;
                 Parent = parent;
             }
             /// <summary>
-            /// »s§@ª«¥ó®É¤â°Ê«ü©w¥Dª«¥ó¡B¥Í¦¨ª«¥H¤Î¦ì¸m©M±ÛÂàª¬ºA
+            /// è£½ä½œç‰©ä»¶æ™‚æ‰‹å‹•æŒ‡å®šä¸»ç‰©ä»¶ã€ç”Ÿæˆç‰©ä»¥åŠä½ç½®å’Œæ—‹è½‰ç‹€æ…‹
             /// </summary>
-            /// <param name="parent">¥Dª«¥ó¡A­n¦b­ş­Óª«¥ó¤W¥Í¦¨</param>
-            /// <param name="target">¥Ø¼Ğª«¥ó¡A¬Æ»ò Object ·|³Q¥Í¦¨</param>
-            /// <param name="pos">¥Ø¼Ğª«¥óªº¤Tºû®y¼Ğ</param>
-            /// <param name="rot">¥Ø¼Ğª«¥óªº±ÛÂà®y¼Ğ¡A¿é¤J0ªí¥Ü®M¥Î¹w³]­È</param>
+            /// <param name="parent">ä¸»ç‰©ä»¶ï¼Œè¦åœ¨å“ªå€‹ç‰©ä»¶ä¸Šç”Ÿæˆ</param>
+            /// <param name="target">ç›®æ¨™ç‰©ä»¶ï¼Œç”šéº¼ Object æœƒè¢«ç”Ÿæˆ</param>
+            /// <param name="pos">ç›®æ¨™ç‰©ä»¶çš„ä¸‰ç¶­åº§æ¨™</param>
+            /// <param name="rot">ç›®æ¨™ç‰©ä»¶çš„æ—‹è½‰åº§æ¨™ï¼Œè¼¸å…¥0è¡¨ç¤ºå¥—ç”¨é è¨­å€¼</param>
             public Generater(GameObject parent, Object target, Vector3 pos, Quaternion rot)
             {
                 OBTarget = target;
@@ -77,7 +79,7 @@ namespace solar_a
             }
 
             /// <summary>
-            /// ¦Û°Ê²£¥Íª«¥ó¡A·|®Ú¾Ú¬J¦³Äæ¦ì¨M©w¥Í¦¨ªº¤º®e
+            /// è‡ªå‹•ç”¢ç”Ÿç‰©ä»¶ï¼Œæœƒæ ¹æ“šæ—¢æœ‰æ¬„ä½æ±ºå®šç”Ÿæˆçš„å…§å®¹
             /// </summary>
             public Object Generates()
             {
@@ -85,6 +87,7 @@ namespace solar_a
                 {
                     Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
                     OBCloned = cloned;
+                    countGene++;
                     return cloned;
                 }
                 return null;
@@ -92,7 +95,7 @@ namespace solar_a
 
 
             /// <summary>
-            /// ª«¥ó²£¥Íªº°T®§¡A°£¿ù¥Î¡C
+            /// ç‰©ä»¶ç”¢ç”Ÿçš„è¨Šæ¯ï¼Œé™¤éŒ¯ç”¨ã€‚
             /// </summary>
             public void ObjectMessegeInfo()
             {
@@ -106,20 +109,27 @@ namespace solar_a
             {
                 return Parent;
             }
+            
+            /// <summary>
+            /// å–å¾—ç¨‹å¼é‹è¡Œçš„æ¬¡æ•¸ã€‚
+            /// </summary>
+            public int GetGeneCount()
+            {
+                return countGene;
+            }
 
         }
-
-
         #endregion
-        #region °}¦C²M³æÃş§O ObjectArray
+        
+        #region é™£åˆ—æ¸…å–®é¡åˆ¥ ObjectArray
         /// <summary>
-        /// ­×§ï±Nª«¥ó¹ï²M³æ¾Ş§@®Éªº¤@¨Ç°ò¥»¸ê°T
+        /// ä¿®æ”¹å°‡ç‰©ä»¶å°æ¸…å–®æ“ä½œæ™‚çš„ä¸€äº›åŸºæœ¬è³‡è¨Š
         /// </summary>
         public class ObjectArray : ArrayList
         {
             /// <summary>
-            /// °l¥[²Ä¤Gºû°}¦C
-            /// ¬ÛÃö¸ê°T¦p¤U¡G
+            /// è¿½åŠ ç¬¬äºŒç¶­é™£åˆ—
+            /// ç›¸é—œè³‡è¨Šå¦‚ä¸‹ï¼š
             /// 0   InstanceID
             /// 1   Parent Object self
             /// 2   Object'name
@@ -133,7 +143,7 @@ namespace solar_a
             {
                 Object uo = (Object)o;
                 Transform uot = FindObjectOfType<Transform>();
-                // ¥[¤J Object ¬°¤@°}¦C¡C
+                // åŠ å…¥ Object ç‚ºä¸€é™£åˆ—ã€‚
                 ArrayList newlist = new();
                 newlist.Add(uo.GetInstanceID());
                 newlist.Add(uo);
@@ -145,6 +155,9 @@ namespace solar_a
                 int i = base.Add(newlist);
                 return i;
             }
+            /// <summary>
+            /// ç§»é™¤æ¸…å–®æ™‚çš„æ“ä½œ
+            /// </summary>
             public override void RemoveAt(int i)
             {
                 ArrayList al = (ArrayList)this[i];
@@ -156,7 +169,7 @@ namespace solar_a
 
             }
             /// <summary>
-            /// ´ú¸Õ¥ÎÅª¨ú²M³æ¨ç¼Æ
+            /// æ¸¬è©¦ç”¨è®€å–æ¸…å–®å‡½æ•¸
             /// </summary>
             public void ReadList()
             {
@@ -194,26 +207,26 @@ namespace solar_a
 
         public void r()
         {
-            // ´ú¸ÕÅª¨ú°}¦C²M³æªº¤º®e
+            // æ¸¬è©¦è®€å–é™£åˆ—æ¸…å–®çš„å…§å®¹
             gener_list.ReadList();
             print(gener_list.Count);
         }
         /// <summary>
-        /// ¦Û°Ê§R°£«ü©wªº¤lÃş§O¡Aª«¥ó¥Í¦¨®É¦Û°Ê§P©w¬O§_¶W¹L¥Í¦¨¤W­­¡C
+        /// è‡ªå‹•åˆªé™¤æŒ‡å®šçš„å­é¡åˆ¥ï¼Œç‰©ä»¶ç”Ÿæˆæ™‚è‡ªå‹•åˆ¤å®šæ˜¯å¦è¶…éç”Ÿæˆä¸Šé™ã€‚
         /// </summary>
-        /// <param name="target">Ä²µo¾P·´ªºª«¥ó</param>
+        /// <param name="target">è§¸ç™¼éŠ·æ¯€çš„ç‰©ä»¶</param>
         public void Destroys(GameObject target)
         {
-            // ¥ıÅª¨úID¡AµM«á§ä¨ì²M³æ¤¤¬Û¦PID¡A§R°£¸Ó²M³æ½s¸¹¡C
+            // å…ˆè®€å–IDï¼Œç„¶å¾Œæ‰¾åˆ°æ¸…å–®ä¸­ç›¸åŒIDï¼Œåˆªé™¤è©²æ¸…å–®ç·¨è™Ÿã€‚
             int id = target.GetInstanceID();
             int key = gener_list.FindKeys(id);
             if (key != -1) gener_list.RemoveAt(key);
             Destroy(target);
         }
         /// <summary>
-        /// ²MªÅª«¥ó¨t²Î
+        /// æ¸…ç©ºç‰©ä»¶ç³»çµ±
         /// </summary>
-        /// <param name="clear">²Ä¤G­««OÅ@¡ATrue ¤~·|±Ò°Ê²M°£</param>
+        /// <param name="clear">ç¬¬äºŒé‡ä¿è­·ï¼ŒTrue æ‰æœƒå•Ÿå‹•æ¸…é™¤</param>
         public void Destroys(bool clear)
         {
             if (!clear) return;
@@ -228,10 +241,10 @@ namespace solar_a
         }
 
         /// <summary>
-        /// ­Y³õ¤W¦³¥¼²M°£ªºª«¥ó¡A°õ¦æ³o¬qµ{¦¡®ø°£¡C
-        /// 1. ¶W¹L¥Í¦¨¤W­­¡C
-        /// 2. ²M³æ¥¼¦s©ñ¸ê®Æ¡A¦ı¤w¦s¦b©ó³õ¤W¡C
-        /// 3. ¶W¹Lµe­±¤@©w¶ZÂ÷¡C
+        /// è‹¥å ´ä¸Šæœ‰æœªæ¸…é™¤çš„ç‰©ä»¶ï¼ŒåŸ·è¡Œé€™æ®µç¨‹å¼æ¶ˆé™¤ã€‚
+        /// 1. è¶…éç”Ÿæˆä¸Šé™ã€‚
+        /// 2. æ¸…å–®æœªå­˜æ”¾è³‡æ–™ï¼Œä½†å·²å­˜åœ¨æ–¼å ´ä¸Šã€‚(ä¿®æ”¹æˆè¶…éç”Ÿæˆé™åˆ¶çš„åŠæ•¸)
+        /// 3. è¶…éç•«é¢ä¸€å®šè·é›¢ã€‚
         /// </summary>
         /// <param name="i"></param>
         public void DestroysOnBug(int i)
@@ -242,7 +255,7 @@ namespace solar_a
                 gener_list.RemoveAt(0);
                 Destroy(obj);
             }
-            else if (gener_list.Count < 1 && MainObject[i].transform.childCount > 0)
+            else if (gener_list.Count < 1 && MainObject[i].transform.childCount > Generate_limit/2)
             {
                 int max = MainObject[i].transform.childCount;
                 for (int bug_i = 0; bug_i < max; bug_i++) Destroy(MainObject[i].transform.GetChild(bug_i).gameObject);
@@ -253,7 +266,7 @@ namespace solar_a
             {
                 GameObject child_gob = MainObject[i].transform.GetChild(bug_i).gameObject;
                 float dis = Vector3.Distance(child_gob.transform.position, MainObject[i].transform.position);
-                if (dis > 50)
+                if (dis > 100)
                 {
                     try { gener_list.RemoveAt(gener_list.FindKeys(child_gob.GetInstanceID())); }
                     catch (System.Exception) { }
@@ -263,12 +276,13 @@ namespace solar_a
 
         }
         /// <summary>
-        /// ªì©l¥Í¦¨¨ç¼Æ¡A¦pªG¬Æ»ò³£¤£¶Ç¤Jªº¸Ü¡A¦Ü¤Ö­n¶Ç¤J¥Ø«eYªº¦ì¸m¡A¤~·|¦bµe­±¤W¬İ¨ì¡C
+        /// ç‰©ä»¶ç”Ÿæˆç¸½ç³»çµ±ã€‚
+        /// å¦‚æœç”šéº¼éƒ½ä¸å‚³å…¥çš„è©±ï¼Œè‡³å°‘è¦å‚³å…¥ç›®å‰Yçš„ä½ç½®ï¼Œæ‰æœƒåœ¨ç•«é¢ä¸Šçœ‹åˆ°ã€‚
         /// </summary>
-        /// <param name="worldOffset">¥Ø«e³õ´ºªº®y¼Ğ</param>
-        /// <param name="i">«ü©w¥Í¦¨¦Cªíªºª«¥ó</param>
-        /// <param name="isPos">¬O§_ÀH¾÷¦ì¸m</param>
-        /// <param name="isRoate">¬O§_ÀH¾÷±ÛÂà</param>
+        /// <param name="worldOffset">ç›®å‰å ´æ™¯çš„åº§æ¨™</param>
+        /// <param name="i">æŒ‡å®šç”Ÿæˆåˆ—è¡¨çš„ç‰©ä»¶</param>
+        /// <param name="isPos">æ˜¯å¦éš¨æ©Ÿä½ç½®</param>
+        /// <param name="isRoate">æ˜¯å¦éš¨æ©Ÿæ—‹è½‰</param>
         /// <returns></returns>
         private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
         {
@@ -280,17 +294,18 @@ namespace solar_a
                 Random.Range(-Generate_posRaidus.z, Generate_posRaidus.z)
             );
             
-            Generater generob = new(MainObject[i], Generate[i]);
-            generob.Create_v3 = (isPos) ? random_v3 + worldOffset : Generate_pos + worldOffset; // ª«¥ó¥Í¦¨¦ì¸m¬O§_ÀH¾÷¡A¹w³]¬°¬O¡C
-            generob.Create_r3 = (isRoate) ? Random.rotation : Generate_rot;                     // ª«¥ó¥Í¦¨¤è¦V¬O§_ÀH¾÷¡A¹w³]¬°§_¡C
-            gener_list.Add(generob.Generates());               // ¥[¤J¥Í¦¨¦Cªí¡C
+            Generater generob = new(MainObject[i], Generate[i]);                                // åœ¨æŒ‡å®šçš„ä½ç½®[M]ç”¢ç”ŸæŒ‡å®šçš„ç‰©ä»¶[G]
+            generob.Create_v3 = (isPos) ? random_v3 + worldOffset : Generate_pos + worldOffset; // ç‰©ä»¶ç”Ÿæˆä½ç½®æ˜¯å¦éš¨æ©Ÿï¼Œé è¨­ç‚ºæ˜¯ã€‚
+            generob.Create_r3 = (isRoate) ? Random.rotation : Generate_rot;                     // ç‰©ä»¶ç”Ÿæˆæ–¹å‘æ˜¯å¦éš¨æ©Ÿï¼Œé è¨­ç‚ºå¦ã€‚
+            gener_list.Add(generob.Generates());               // åŠ å…¥ç”Ÿæˆåˆ—è¡¨ã€‚
                                                                //Destroys(generob.GetParent());
+            //generob.ObjectMessegeInfo();
             return generob;
 
         }
-        #region ©T©wª«¥ó¤èªk
+        #region å›ºå®šç‰©ä»¶æ–¹æ³•
         /// <summary>
-        /// Â²©ö²£¥Íª«¥ó¤èªk¡C
+        /// ç°¡æ˜“ç”¢ç”Ÿç‰©ä»¶æ–¹æ³•ã€‚
         /// </summary>
         public void Static_gen(float locY)
         {
@@ -299,12 +314,12 @@ namespace solar_a
         }
 
         /// <summary>
-        /// ®Ú¾Ú­±ªO«ü©w¥Í¦¨¦ì¸m¡C
+        /// æ ¹æ“šé¢æ¿æŒ‡å®šç”Ÿæˆä½ç½®ã€‚
         /// </summary>
-        /// <param name="locY">¥[¤W¥Ø«e³õ´ºªº¦ì¸m</param>
-        /// <param name="i">¥Í¦¨ª«¥óªº½s¸¹</param>
-        /// <param name="x">«ü©w x ¶b®y¼Ğ¦ì²¾</param>
-        /// <param name="y">«ü©w y ¶b®y¼Ğ¦ì²¾</param>
+        /// <param name="locY">åŠ ä¸Šç›®å‰å ´æ™¯çš„ä½ç½®</param>
+        /// <param name="i">ç”Ÿæˆç‰©ä»¶çš„ç·¨è™Ÿ</param>
+        /// <param name="x">æŒ‡å®š x è»¸åº§æ¨™ä½ç§»</param>
+        /// <param name="y">æŒ‡å®š y è»¸åº§æ¨™ä½ç§»</param>
         public void Static_gen(float locY, int i, float x = 0, float y = 0, bool rot = false)
         {
             Generater sgen;
@@ -314,19 +329,18 @@ namespace solar_a
             if (Generate.Count > 0 && MainObject.Count > 0)
             {
                 sgen = Generator_EMP(stage, i, false);
-                //sgen.ObjectMessegeInfo();
             }
         }
         #endregion
 
-        #region ÀH¾÷²£¥Í¤èªk
+        #region éš¨æ©Ÿç”¢ç”Ÿæ–¹æ³•
         /// <summary>
-        /// ±Nª«¥óÀH¾÷¥Í¦¨¦bµe­±¤¤
+        /// å°‡ç‰©ä»¶éš¨æ©Ÿç”Ÿæˆåœ¨ç•«é¢ä¸­
         /// </summary>
-        /// <param name="locY">¥Ø«eªÅ¶¡ªºY¶b</param>
-        /// <param name="isRotated">ª«¥ó¬O§_ÀH¾÷±ÛÂà</param>
-        /// <param name="i">¥Í¦¨ª«¥ó½s¸¹</param>
-        /// <returns>¦^¶Ç¬°¥Í¦¨ª«¥ó¡A¥Î§@°õ¦æ¤U¤@­Ó°Ê§@¨Ï¥Î¡C</returns>
+        /// <param name="locY">ç›®å‰ç©ºé–“çš„Yè»¸</param>
+        /// <param name="isRotated">ç‰©ä»¶æ˜¯å¦éš¨æ©Ÿæ—‹è½‰</param>
+        /// <param name="i">ç”Ÿæˆç‰©ä»¶ç·¨è™Ÿ</param>
+        /// <returns>å›å‚³ç‚ºç”Ÿæˆç‰©ä»¶ï¼Œç”¨ä½œåŸ·è¡Œä¸‹ä¸€å€‹å‹•ä½œä½¿ç”¨ã€‚</returns>
         public int Random_gen(float locY, bool isRotated, int i)
         {
             Generater sgen;
@@ -341,14 +355,14 @@ namespace solar_a
             return -1;
         }
         /// <summary>
-        /// ª«¥ó¤¤ªºª«¥ó¥Í¦¨
+        /// ç‰©ä»¶ä¸­çš„ç‰©ä»¶ç”Ÿæˆ
         /// </summary>
-        /// <param name="PAID">¤÷ª«¥óªºID</param>
-        /// <param name="TG">­n¥Í¦¨ªºª«¥ó</param>
+        /// <param name="PAID">çˆ¶ç‰©ä»¶çš„ID</param>
+        /// <param name="TG">è¦ç”Ÿæˆçš„ç‰©ä»¶</param>
         public void Random_Metro(int PAID, List<Object> TG)
         {
             //print($"id:{PAID}, GTB:{TG}");
-            // ¤lª«¥ó­pºâ¡G¤÷ª«¥ó¨ì¤lª«¥óªºID¶ZÂ÷=2+10+10=22
+            // å­ç‰©ä»¶è¨ˆç®—ï¼šsub_countç‚ºçˆ¶ç‰©ä»¶åˆ°å­ç‰©ä»¶çš„IDè·é›¢(æ¯å¤šä¸€å€‹å…ƒä»¶æ•¸å€¼å°±æœƒæ”¹è®Š...)
             int sub_count = 22, i = 1;
             int sub_max = sub_count + (4 * 6);
             GameObject PA = null;
@@ -357,12 +371,10 @@ namespace solar_a
                 int rnd = Random.Range(0, 3);
                 try
                 {
-                    // Âà´«ID¨ì¤÷ª«¥ó
-
+                    // è½‰æ›IDåˆ°çˆ¶ç‰©ä»¶
                     PA = ((Transform)Resources.InstanceIDToObject(PAID - 2)).gameObject;
                     PA = PA.transform.GetChild(i).gameObject;
-                    // ¤lª«¥ó
-
+                    // å­ç‰©ä»¶
                 }
                 catch (System.Exception)
                 {
@@ -370,7 +382,7 @@ namespace solar_a
                     break;
                 }
 
-                // ¥Í¦¨ª«¥ó
+                // ç”Ÿæˆç‰©ä»¶
                 Generater sgen = new(PA, TG[rnd], PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
                 sgen.Generates();
                 sub_count += 4; i++;
@@ -383,13 +395,14 @@ namespace solar_a
 
 }
 
-#region µ§°O
+#region ç­†è¨˜
 /*
-  ª«¥óªº¾P·´¡G
-    1. ¤£¥i¥Hª½±µ¥Î Destory ²¾°£ª«¥ó¡A³o¼Ë¥Í¦¨¤W­­´N¨S¿ìªk±±¨î¡C
-    2. ª«¥ó¾P·´³Ì¦n·f°t RemoveAt ¨Ï¥Î¡C
-    3. ²M°£¶¶§Ç¡Gª«¥ó->²M³æ->?
-
+    ç‰©ä»¶çš„éŠ·æ¯€ï¼š
+    1. ä¸å¯ä»¥ç›´æ¥ç”¨ Destory ç§»é™¤ç‰©ä»¶ï¼Œé€™æ¨£ç”Ÿæˆä¸Šé™å°±æ²’è¾¦æ³•æ§åˆ¶ã€‚
+    2. ç‰©ä»¶éŠ·æ¯€æœ€å¥½æ­é… RemoveAt ä½¿ç”¨ã€‚
+    3. æ¸…é™¤é †åºï¼šç‰©ä»¶->æ¸…å–®->?
+    ç¨‹å¼å•é¡Œæå‡ºï¼š
+    Q ç•¶ç¨‹å¼é›¢é–‹é è¨­çš„ç”Ÿæˆä½ç½®æ™‚ï¼Œå°±ç„¡æ³•è‡ªå‹•ç”¢ç”Ÿç‰©ä»¶ï¼Ÿ
 
 */
 #endregion
