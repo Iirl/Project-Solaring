@@ -4,21 +4,23 @@ using UnityEngine.SceneManagement;
 namespace solar_a
 {
     /// <summary>
-    /// ³õ´ººŞ²z¨t²Î
-    /// ¥u­n³B²z³õ´º¨Æ¥óªº¤èªk½Ğ¨Ì¦¹Ãş§O³B²z¡C
+    /// å ´æ™¯ç®¡ç†ç³»çµ±
+    /// åªè¦è™•ç†å ´æ™¯äº‹ä»¶çš„æ–¹æ³•è«‹ä¾æ­¤é¡åˆ¥è™•ç†ã€‚
     /// </summary>
     public class ManageScene : MonoBehaviour
     {
         /// <summary>
-        /// ¨ú±o¥Ø«e³õ´ºªº½s¸¹
+        /// å–å¾—ç›®å‰å ´æ™¯çš„ç·¨è™Ÿã€‚
+        /// è¼¸å…¥åƒæ•¸ä¸€å¯ä»¥å–å¾—ç›®å‰å ´æ™¯çš„ä¸Šé™ã€‚
         /// </summary>
-        /// <returns>¦^¶Ç¤@­Ó int ªº index ¡C</returns>
-        public int GetScenes()
+        /// <returns>å›å‚³ä¸€å€‹ int çš„ index ã€‚</returns>
+        public int GetScenes(bool isMax=false)
         {
-            return SceneManager.GetActiveScene().buildIndex;
+            if (isMax) return SceneManager.GetActiveScene().buildIndex;
+            else return SceneManager.sceneCountInBuildSettings;
         }
         /// <summary>
-        /// ­«Åª³õ´º
+        /// é‡è®€å ´æ™¯
         /// </summary>
         public void ReloadCurrentScene()
         {
@@ -26,13 +28,29 @@ namespace solar_a
             SceneManager.LoadScene(GetScenes());
         }        
         /// <summary>
-        /// ¸ü¤J«ü©w½s¸¹ªº³õ´º
+        /// è¼‰å…¥æŒ‡å®šç·¨è™Ÿçš„å ´æ™¯
         /// </summary>
-        /// <param name="idx">½Ğ¿é¤J³õ´º½s¸¹</param>
+        /// <param name="idx">è«‹è¼¸å…¥å ´æ™¯ç·¨è™Ÿ</param>
         public void LoadScenes(int idx)
         {
             if (Time.timeScale != 1) Time.timeScale = 1;
             SceneManager.LoadScene(idx);
-        }
+        }        
+        /// <summary>
+        /// è®€å–å‰ä¸€å€‹æˆ–ä¸‹ä¸€å€‹å ´æ™¯
+        /// </summary>
+        public void LoadScenesPreOrder(bool next)
+        {
+            int now = GetScenes();
+            int next = now +1;
+            int prev = now -1;
+            if ( next ) {
+                if ( next == SceneManager.sceneCount) retrun;
+                LoadScenes(now +1);
+            } else {
+                if (prev <0) retrun;
+                LoadScenes(now -1);
+            }
+        }   
     }
 }
