@@ -25,6 +25,8 @@ namespace solar_a
         [SerializeField, Header("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
         Vector3 nbox_range;
+        [SerializeField, Header("重力調整")]
+        private Vector3 gravity3 = new(0,-9.8f,0);
 
         CinemachineVirtualCamera cinemachine;
         BoxCollider Stage_boxBorder;
@@ -60,10 +62,10 @@ namespace solar_a
                     /// 2 往右
                     /// 3 往左
                     switch (i) {  
-                        case 0: bound.y = -0.3f; break;
-                        case 1: bound.y = 0.3f; break;
-                        case 2: bound.x = 0.3f; break;
-                        case 3: bound.x = -0.3f; break; 
+                        case 0: bound.y = -0.1f; break;
+                        case 1: bound.y = 0.1f; break;
+                        case 2: bound.x = 0.1f; break;
+                        case 3: bound.x = -0.1f; break; 
                         default: break;
                     }
                     c_rig.velocity = bound;
@@ -95,6 +97,7 @@ namespace solar_a
         #region 事件
         private void Awake()
         {
+            Physics.gravity = gravity3;
             cinemachine = GetComponentInChildren<CinemachineVirtualCamera>();
             Stage_boxBorder = GetComponent<BoxCollider>();
             Space_Rect = GetComponent<RectTransform>();
@@ -130,7 +133,17 @@ namespace solar_a
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag == "Block") Destroy(other);
+            if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
+            if (other.tag.Contains("Player"))
+            {
+                // 第二層防止衝破大氣層保險
+                Vector3 check = (other.transform.position);
+                if (check.x > stage_container.x / 2-2) check.x = stage_container.x /2 -2 + transform.position.x;
+                else if (check.x < -stage_container.x / 2+2) check.x = -stage_container.x / 2+2 + transform.position.x;
+                if (check.y < -stage_container.y/2+1 + transform.position.y) check.y = transform.position.y - stage_container.y / 2;
+                else if (check.y > stage_container.y/2 + transform.position.y) check.y = stage_container.y / 2 + transform.position.y;
+                other.transform.position = check;
+            }
         }
         #endregion
     }

@@ -247,7 +247,7 @@ namespace solar_a
         /// 3. 超過畫面一定距離。
         /// </summary>
         /// <param name="i"></param>
-        public void DestroysOnBug(int i)
+        public void DestroysOnBug(int i, Vector3 w_dist)
         {
             if (gener_list.Count > 0 && gener_list.Count > Generate_limit)
             {
@@ -259,13 +259,12 @@ namespace solar_a
             {
                 int max = MainObject[i].transform.childCount;
                 for (int bug_i = 0; bug_i < max; bug_i++) Destroy(MainObject[i].transform.GetChild(bug_i).gameObject);
-
             }
-
+            //// 此條判定容易造成產生器誤判，所以如果要和場景不同移動，要記得指定場景的位置...。
             for (int bug_i = 0; bug_i < MainObject[i].transform.childCount; bug_i++)
             {
                 GameObject child_gob = MainObject[i].transform.GetChild(bug_i).gameObject;
-                float dis = Vector3.Distance(child_gob.transform.position, MainObject[i].transform.position);
+                float dis = Vector3.Distance(child_gob.transform.position, w_dist);
                 if (dis > 100)
                 {
                     try { gener_list.RemoveAt(gener_list.FindKeys(child_gob.GetInstanceID())); }
@@ -287,7 +286,7 @@ namespace solar_a
         private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
         {
             i = (i >= Generate.Count) ? Generate.Count - 1 : i;
-            DestroysOnBug(i);
+            DestroysOnBug(i, worldOffset);
             //show
             Vector3 random_v3 = new(Random.Range(-Generate_posRaidus.x, Generate_posRaidus.x),
                 Random.Range(0f, Generate_posRaidus.y),
@@ -322,13 +321,12 @@ namespace solar_a
         /// <param name="y">指定 y 軸座標位移</param>
         public void Static_gen(float locY, int i, float x = 0, float y = 0, bool rot = false)
         {
-            Generater sgen;
             Vector3 stage = new Vector3(0, locY, 0);
             if (x != 0 || y != 0) Generate_pos = new Vector3(x, y, 0);
             if (rot) Generate_rot = new Quaternion(x, y, 0, 0);
             if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                sgen = Generator_EMP(stage, i, false);
+                Generator_EMP(stage, i, false);
             }
         }
         #endregion
@@ -403,6 +401,7 @@ namespace solar_a
     3. 清除順序：物件->清單->?
     程式問題提出：
     Q 當程式離開預設的生成位置時，就無法自動產生物件？
+    A 清除多餘物件程式的Y軸判定設錯，應該要取產生物及「場景Y軸」的距離。
 
 */
 #endregion

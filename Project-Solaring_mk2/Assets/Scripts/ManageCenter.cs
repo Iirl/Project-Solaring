@@ -22,12 +22,14 @@ namespace solar_a
         SceneStage_Control ss_ctl;
         [SerializeField, Tooltip("場景系統")]
         ManageScene ss_mag;
-        [SerializeField, Tooltip("預設產生器類別，請指定一個產生器物件")]
-        Object_Generator gener_class;
         [SerializeField, Tooltip("暫停選單")]
         CanvasGroup menus;
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
+        [SerializeField, Header("預設產生器類別，請指定一個產生器物件")]
+        Object_Generator gener_class;
+        [SerializeField, Tooltip("設定產生器物件")]
+        private string[] objectName = { "補給品", "隕石"};
 
         /// <summary>
         /// GameUI Interface.
@@ -113,14 +115,10 @@ namespace solar_a
         /// </param>
         public void AsignGenerate(int i)
         {
-            string name = "";
-            switch (i)
-            {
-                case 0: name = "ObjectGenerator"; break;
-                case 1: name = "ObjectGenerator2"; break;
-                default: break;
-            }
-            gener_class = GameObject.Find(name).GetComponent<Object_Generator>();
+
+            try { gener_class = GameObject.Find(objectName[i]).GetComponent<Object_Generator>(); }
+            catch { print("類別物件不存在，請重新設定"); }
+            
         }
         /// <summary>
         /// 調用自動產生補給品
@@ -183,7 +181,7 @@ namespace solar_a
 
         public void test()
         {
-            gener_class.Destroys(true);
+            // Change Asign Object to List String.
         }
         ///////////// 選單變化相關
         /// <summary>
@@ -233,7 +231,7 @@ namespace solar_a
         {
             if (end && !isEnd)
             {
-                if (menus.alpha != 0)
+                if (menus.alpha != 0 && menus != null)
                 {
                     isPause = false;
                     CanvasCtrl(menus);
@@ -285,7 +283,6 @@ namespace solar_a
         /// </summary>
         private void show_Menu()
         {
-            print(Time.timeScale);
             if (menus != null)
             {
                 canvas_select = menus;
