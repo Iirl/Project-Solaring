@@ -35,7 +35,7 @@ namespace solar_a
         private void Move2Center(RectTransform rts, float end)
         {
             float y = rts.position.y;
-            if (Mathf.Ceil(y) != Mathf.Ceil(end))
+            if (Mathf.Ceil(y) != Mathf.Ceil(end) && !bg_move)
             {
                 rts.Translate(new Vector2(0, end - y) * Time.deltaTime * bg_move_speed);
             }

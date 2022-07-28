@@ -11,10 +11,8 @@ namespace solar_a
     {
         #region 變數
         static bool rotated, rot_left, rot_right;  //空間是否旋轉
-        [SerializeField, Header("旋轉設定"), Tooltip("原點：除非必要，否則應避免設定小數點。\n" +
-            "小於直角範圍的話左右轉向到底會停止；大於直角範圍則回形成一個迴圈，目前稍微測試應該是沒問題，" +
-            "但不確定是否某些數值會有BUG，請謹慎設定。")]
-        private float rot_angle = 0;
+        [SerializeField, Header("旋轉設定")]
+        Vector3 spaceOffset;
         [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
         float spine = 2.0f;
         #endregion
@@ -25,7 +23,7 @@ namespace solar_a
 
         #region 90度固定旋轉空間
         /// <summary>
-        /// 方向(轉向)判定
+        /// 1. 方向(轉向)判定
         /// </summary>
         private void DirectCheck()
         {
@@ -41,7 +39,7 @@ namespace solar_a
             else print("還在旋轉");
         }
         /// <summary>
-        /// 位置判定
+        /// 2. 位置判定
         /// </summary>
         /// <param name="direct">轉向指引，若為真則+90度；假則是-90度</param>
         /// <returns></returns>
@@ -57,7 +55,7 @@ namespace solar_a
             return Mathf.Round(next_axis);
         }
         /// <summary>
-        /// 旋轉程式，採調用法呼叫程式。
+        /// 3. 旋轉程式，採調用法呼叫程式。
         /// </summary>
         private void Spine()
         {
@@ -82,7 +80,7 @@ namespace solar_a
             }
         }
         /// <summary>
-        /// 停止判定，採定點判斷，若無法準確到定點則可能無限旋轉。
+        /// 4. 停止判定，採定點判斷，若無法準確到定點則可能無限旋轉。
         /// </summary>
         private void StopCheck()
         {
@@ -114,9 +112,7 @@ namespace solar_a
         private void Awake()
         {
             rotated = false; rot_left = false; rot_right = false;
-            //物理空間參數
-            Physics.gravity = new Vector3(0, -1F, 0);
-            transform.Rotate(new Vector3(0, rot_angle, 0));
+            transform.position += spaceOffset;
         }
 
         private void Start()
