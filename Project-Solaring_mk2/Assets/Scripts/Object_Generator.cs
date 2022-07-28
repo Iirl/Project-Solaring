@@ -24,7 +24,7 @@ namespace solar_a
         [SerializeField, Tooltip("指定物件生成半徑，僅在隨機生成套用")]
         Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
         [SerializeField, Header("指定物件生成數量上限")]
-        int Generate_limit = 10, Generate_Max = 90;
+        int Generate_limit = 10;
         public ObjectArray gener_list = new();
 
         #region 產生器類別 class Generater

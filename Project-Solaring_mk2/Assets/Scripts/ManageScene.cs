@@ -42,13 +42,13 @@ namespace solar_a
         public void LoadScenesPreOrder(bool next)
         {
             int now = GetScenes();
-            int next = now +1;
-            int prev = now -1;
-            if ( next ) {
-                if ( next == SceneManager.sceneCount) retrun;
+            int nexts = now +1;
+            int prevs = now -1;
+            if (next) {
+                if (nexts == SceneManager.sceneCount) return;
                 LoadScenes(now +1);
             } else {
-                if (prev <0) retrun;
+                if (prevs < 0) return;
                 LoadScenes(now -1);
             }
         }   
