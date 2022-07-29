@@ -211,6 +211,7 @@ namespace solar_a
             gener_list.ReadList();
             print(gener_list.Count);
         }
+        #region 清除程式
         /// <summary>
         /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
@@ -274,6 +275,7 @@ namespace solar_a
             }
 
         }
+        #endregion
         /// <summary>
         /// 物件生成總系統。
         /// 如果甚麼都不傳入的話，至少要傳入目前Y的位置，才會在畫面上看到。
@@ -319,14 +321,14 @@ namespace solar_a
         /// <param name="i">生成物件的編號</param>
         /// <param name="x">指定 x 軸座標位移</param>
         /// <param name="y">指定 y 軸座標位移</param>
-        public void Static_gen(float locY, int i, float x = 0, float y = 0, bool rot = false)
+        public void Static_gen(float locY, int i, Vector3 pos, Quaternion rot, bool setpos = false, bool setrot = false)
         {
             Vector3 stage = new Vector3(0, locY, 0);
-            if (x != 0 || y != 0) Generate_pos = new Vector3(x, y, 0);
-            if (rot) Generate_rot = new Quaternion(x, y, 0, 0);
+            if (setpos) Generate_pos = pos;
+            if (!setrot) Generate_rot = rot;
             if (Generate.Count > 0 && MainObject.Count > 0)
             {
-                Generator_EMP(stage, i, false);
+                Generator_EMP(stage, i, false, setrot);
             }
         }
         #endregion

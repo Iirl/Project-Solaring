@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -313,7 +313,7 @@ MonoBehaviour:
   mEnd: {fileID: 461066558}
   gener_class: {fileID: 999269984}
   objectName:
-  - OBGA
+  - ObjectGenerator
   - ObjectGenerator2
   ui_Dist: {fileID: 654708608}
   ui_fuel: {fileID: 1810340794}
@@ -414,7 +414,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775424, y: 1}
+    m_SensorSize: {x: 1.7772021, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2303,6 +2303,12 @@ CapsuleCollider:
   m_Height: 82
   m_Direction: 2
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!1 &830994278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2503807629574911622, guid: 297f40b505f465a40bc14dfae124f968,
+    type: 3}
+  m_PrefabInstance: {fileID: 3350157041079410679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832521817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,7 +2946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &999269983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3001,7 +3007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1016063363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4511,7 +4517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e943902237b2846418cb71e6c1c4d96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceOffset: {x: 20, y: 0, z: 0}
+  spaceOffset: {x: 0, y: 0, z: 0}
   spine: 6.45
 --- !u!224 &1611875247
 RectTransform:
@@ -5551,6 +5557,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3350157041079410679}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &543450653037835213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830994278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fd1203f6824f44a8e1b2b05ab4e6c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: {x: 90, y: 45, z: 0}
 --- !u!1001 &3350157041079410679
 PrefabInstance:
   m_ObjectHideFlags: 0
