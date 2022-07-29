@@ -2828,7 +2828,11 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: 0, y: 9}
+=======
+  m_AnchoredPosition: {x: 0, y: -14}
+>>>>>>> Stashed changes
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870633471
@@ -2897,7 +2901,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
+<<<<<<< Updated upstream
   m_Transition: 3
+=======
+  m_Transition: 2
+>>>>>>> Stashed changes
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.41985583, g: 0.63369733, b: 0.8018868, a: 1}
@@ -2997,7 +3005,11 @@ Animator:
   m_GameObject: {fileID: 1870633469}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
+<<<<<<< Updated upstream
   m_Controller: {fileID: 9100000, guid: 0680f854818f77e4185183074e3f867a, type: 2}
+=======
+  m_Controller: {fileID: 9100000, guid: 3672185275655ee4982681b6ff40d2c1, type: 2}
+>>>>>>> Stashed changes
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
