@@ -2902,11 +2902,15 @@ MonoBehaviour:
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_Transition: 3
 =======
   m_Transition: 2
 >>>>>>> Stashed changes
+=======
+  m_Transition: 0
+>>>>>>> parent of 5ed41e8 (按鈕)
 =======
   m_Transition: 0
 >>>>>>> parent of 5ed41e8 (按鈕)
