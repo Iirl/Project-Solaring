@@ -6,11 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Project-Solaring_mk2/Assets/Ash/Animation/button_enter.anim
   m_Name: button_enter
-========
-  m_Name: Button
->>>>>>>> parent of 5ed41e8 (按鈕):Project-Solaring_mk2/Assets/Ash/Animation/Button.anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -108,11 +104,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-<<<<<<<< HEAD:Project-Solaring_mk2/Assets/Ash/Animation/button_enter.anim
         time: 0.6666667
-========
-        time: 1
->>>>>>>> parent of 5ed41e8 (按鈕):Project-Solaring_mk2/Assets/Ash/Animation/Button.anim
         value: 1
         inSlope: 0
         outSlope: 0
@@ -162,11 +154,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-<<<<<<<< HEAD:Project-Solaring_mk2/Assets/Ash/Animation/button_enter.anim
     m_StopTime: 0.6666667
-========
-    m_StopTime: 1
->>>>>>>> parent of 5ed41e8 (按鈕):Project-Solaring_mk2/Assets/Ash/Animation/Button.anim
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -269,11 +257,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-<<<<<<<< HEAD:Project-Solaring_mk2/Assets/Ash/Animation/button_enter.anim
         time: 0.6666667
-========
-        time: 1
->>>>>>>> parent of 5ed41e8 (按鈕):Project-Solaring_mk2/Assets/Ash/Animation/Button.anim
         value: 1
         inSlope: 0
         outSlope: 0
