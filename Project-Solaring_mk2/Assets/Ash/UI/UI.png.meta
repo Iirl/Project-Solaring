@@ -142,6 +142,7 @@ TextureImporter:
         serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         x: 17
         y: 922
@@ -156,11 +157,16 @@ TextureImporter:
 =======
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
         x: 10
         y: 919
         width: 370
         height: 94
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 5ed41e8 (按鈕)
+=======
 >>>>>>> parent of 5ed41e8 (按鈕)
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
@@ -183,6 +189,7 @@ TextureImporter:
         serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         x: 26
         y: 802
 <<<<<<< Updated upstream
@@ -195,11 +202,16 @@ TextureImporter:
 =======
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
         x: 21
         y: 798
         width: 261
         height: 45
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 5ed41e8 (按鈕)
+=======
 >>>>>>> parent of 5ed41e8 (按鈕)
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
@@ -243,6 +255,7 @@ TextureImporter:
         serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         x: 29
         y: 747
         width: 244
@@ -254,11 +267,16 @@ TextureImporter:
 =======
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
         x: 21
         y: 740
         width: 250
         height: 47
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 5ed41e8 (按鈕)
+=======
 >>>>>>> parent of 5ed41e8 (按鈕)
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
@@ -275,6 +293,7 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     - serializedVersion: 2
@@ -332,6 +351,8 @@ TextureImporter:
 >>>>>>> parent of 5ed41e8 (按鈕)
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
     outline: []
     physicsShape: []
     bones: []
@@ -350,12 +371,15 @@ TextureImporter:
       UI_0: -1654010883
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       UI_6: 887391388
       UI_5: 531330119
 =======
       UI_5: 310464062
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
 =======
 >>>>>>> parent of 5ed41e8 (按鈕)
 =======
