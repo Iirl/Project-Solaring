@@ -124,7 +124,7 @@ TextureImporter:
         width: 490
         height: 483
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -140,6 +140,7 @@ TextureImporter:
       name: UI_1
       rect:
         serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         x: 17
         y: 922
@@ -151,8 +152,14 @@ TextureImporter:
         width: 358
         height: 89
 >>>>>>> Stashed changes
+=======
+        x: 10
+        y: 919
+        width: 370
+        height: 94
+>>>>>>> parent of 5ed41e8 (按鈕)
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,6 +175,7 @@ TextureImporter:
       name: UI_2
       rect:
         serializedVersion: 2
+<<<<<<< HEAD
         x: 26
         y: 802
 <<<<<<< Updated upstream
@@ -177,8 +185,14 @@ TextureImporter:
         width: 252
         height: 39
 >>>>>>> Stashed changes
+=======
+        x: 21
+        y: 798
+        width: 261
+        height: 45
+>>>>>>> parent of 5ed41e8 (按鈕)
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,12 +208,12 @@ TextureImporter:
       name: UI_3
       rect:
         serializedVersion: 2
-        x: 294
-        y: 802
-        width: 38
-        height: 38
+        x: 290
+        y: 798
+        width: 45
+        height: 45
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,6 +229,7 @@ TextureImporter:
       name: UI_4
       rect:
         serializedVersion: 2
+<<<<<<< HEAD
         x: 29
         y: 747
         width: 244
@@ -223,8 +238,14 @@ TextureImporter:
 =======
         height: 32
 >>>>>>> Stashed changes
+=======
+        x: 21
+        y: 740
+        width: 250
+        height: 47
+>>>>>>> parent of 5ed41e8 (按鈕)
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,6 +257,7 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+<<<<<<< HEAD
     - serializedVersion: 2
       name: UI_5
       rect:
@@ -287,6 +309,8 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
     outline: []
     physicsShape: []
     bones: []
@@ -303,12 +327,15 @@ TextureImporter:
       UI_2: 937400176
       UI_3: -1883006582
       UI_0: -1654010883
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       UI_6: 887391388
       UI_5: 531330119
 =======
       UI_5: 310464062
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 5ed41e8 (按鈕)
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

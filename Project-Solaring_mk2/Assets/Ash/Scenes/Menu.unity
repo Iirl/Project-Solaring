@@ -2901,11 +2901,15 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   m_Transition: 3
 =======
   m_Transition: 2
 >>>>>>> Stashed changes
+=======
+  m_Transition: 0
+>>>>>>> parent of 5ed41e8 (按鈕)
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.41985583, g: 0.63369733, b: 0.8018868, a: 1}
@@ -2915,15 +2919,13 @@ MonoBehaviour:
     m_ColorMultiplier: 1.95
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -128732718, guid: 0e08e1c86f8d7884c801570a64d0a209,
-      type: 3}
+    m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: -128732718, guid: 0e08e1c86f8d7884c801570a64d0a209,
-      type: 3}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: btn_Highlighted
+    m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
