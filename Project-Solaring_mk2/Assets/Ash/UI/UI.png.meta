@@ -119,19 +119,19 @@ TextureImporter:
       name: UI_0
       rect:
         serializedVersion: 2
-        x: 534
-        y: 541
-        width: 490
-        height: 483
+        x: 540
+        y: 548
+        width: 477
+        height: 470
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 830e2c7c23b1a384d9951621e0d61050
-      internalID: -1654010883
+      internalID: -1557013538026691241
       vertices: []
       indices: 
       edges: []
@@ -140,45 +140,19 @@ TextureImporter:
       name: UI_1
       rect:
         serializedVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        x: 17
-        y: 922
-        width: 356
-        height: 88
-=======
-        x: 16
-        y: 921
-        width: 358
-        height: 89
->>>>>>> Stashed changes
-=======
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-        x: 10
-        y: 919
-        width: 370
-        height: 94
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
+        x: 0
+        y: 0
+        width: 0
+        height: 0
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0cf273f4006058443804059fb7d9e375
-      internalID: 1013074844
+      spriteID: 78dbda97e36d52100800000000000000
+      internalID: 82707731993968007
       vertices: []
       indices: 
       edges: []
@@ -187,34 +161,10 @@ TextureImporter:
       name: UI_2
       rect:
         serializedVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        x: 26
-        y: 802
-<<<<<<< Updated upstream
-        width: 251
-        height: 38
-=======
-        width: 252
-        height: 39
->>>>>>> Stashed changes
-=======
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-        x: 21
-        y: 798
-        width: 261
-        height: 45
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
+        x: 17
+        y: 922
+        width: 356
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,8 +172,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85e47863ad57f8242a5f601d8c9c8066
-      internalID: 937400176
+      spriteID: be9992900c115304fa2b82579df2fa73
+      internalID: 1638439557
       vertices: []
       indices: 
       edges: []
@@ -232,9 +182,9 @@ TextureImporter:
       name: UI_3
       rect:
         serializedVersion: 2
-        x: 290
-        y: 798
-        width: 45
+        x: 23
+        y: 800
+        width: 255
         height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -243,147 +193,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b81fbfd710d45742bc249b321cc9f58
-      internalID: -1883006582
+      spriteID: 4ef4e664773e87641805a39b923faad7
+      internalID: -303084057
       vertices: []
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: UI_4
-      rect:
-        serializedVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        x: 29
-        y: 747
-        width: 244
-<<<<<<< Updated upstream
-        height: 31
-=======
-        height: 32
->>>>>>> Stashed changes
-=======
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-        x: 21
-        y: 740
-        width: 250
-        height: 47
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3eeb3f5f01295b54cb2837909753ea36
-      internalID: -128732718
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    - serializedVersion: 2
-      name: UI_5
-      rect:
-        serializedVersion: 2
-<<<<<<< Updated upstream
-        x: 304
-=======
-        x: 274
->>>>>>> Stashed changes
-        y: 747
-        width: 29
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-<<<<<<< Updated upstream
-      spriteID: 21aa59747ed40b64ba789259dd44b2d5
-      internalID: 531330119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_6
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 665
-        width: 65
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f8864060c7b35944ba1536432ac0556
-      internalID: 887391388
-=======
-      spriteID: 9bb790305d9dd3146a703386d4613e64
-      internalID: -964172141
->>>>>>> Stashed changes
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 3f2402e869d7f364cb9611a6b104e3fc
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI_1: 1013074844
-      UI_4: -128732718
-      UI_2: 937400176
-      UI_3: -1883006582
-      UI_0: -1654010883
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      UI_6: 887391388
-      UI_5: 531330119
-=======
-      UI_5: 310464062
->>>>>>> Stashed changes
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
-=======
->>>>>>> parent of 5ed41e8 (按鈕)
+      UI_1: 82707731993968007
+      UI_2: 1638439557
+      UI_3: -303084057
+      UI_0: -1557013538026691241
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
