@@ -129,11 +129,7 @@ namespace solar_a
         {
             AsignGenerate(0); //切換成 補品類別
             Vector3 st_border = ss_ctl.GetBoxborder();
-            Vector3 randPos = new(Random.Range(-st_border.x / 2, st_border.x / 2),
-                Random.Range(st_border.y, st_border.y * 2),
-                Random.Range(-st_border.z/2, st_border.z/2));
-            print(randPos);
-            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, randPos,Quaternion.identity, true, rotate);
+            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, Random.Range(-st_border.x/2, st_border.x / 2), Random.Range(st_border.y, st_border.y*2), rotate);
         }
         /// <summary>
         /// 產生附帶子物件的程式。
