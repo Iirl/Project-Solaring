@@ -124,7 +124,7 @@ TextureImporter:
         width: 490
         height: 483
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: UI_1
       rect:
         serializedVersion: 2
-        x: 10
-        y: 919
-        width: 370
-        height: 94
+        x: 17
+        y: 922
+        width: 356
+        height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -161,12 +161,12 @@ TextureImporter:
       name: UI_2
       rect:
         serializedVersion: 2
-        x: 21
-        y: 798
-        width: 261
-        height: 45
+        x: 26
+        y: 802
+        width: 251
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -182,12 +182,12 @@ TextureImporter:
       name: UI_3
       rect:
         serializedVersion: 2
-        x: 290
-        y: 798
-        width: 45
-        height: 45
+        x: 294
+        y: 802
+        width: 38
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -203,12 +203,12 @@ TextureImporter:
       name: UI_4
       rect:
         serializedVersion: 2
-        x: 21
-        y: 740
-        width: 250
-        height: 47
+        x: 29
+        y: 747
+        width: 244
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,6 +216,48 @@ TextureImporter:
       bones: []
       spriteID: 3eeb3f5f01295b54cb2837909753ea36
       internalID: -128732718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_5
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 747
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21aa59747ed40b64ba789259dd44b2d5
+      internalID: 531330119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_6
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 665
+        width: 65
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f8864060c7b35944ba1536432ac0556
+      internalID: 887391388
       vertices: []
       indices: 
       edges: []
@@ -236,6 +278,8 @@ TextureImporter:
       UI_2: 937400176
       UI_3: -1883006582
       UI_0: -1654010883
+      UI_6: 887391388
+      UI_5: 531330119
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
