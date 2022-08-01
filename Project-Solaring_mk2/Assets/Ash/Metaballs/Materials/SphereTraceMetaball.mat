@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SphereTraceMetaball
-  m_Shader: {fileID: -6465566751694194690, guid: f0ab7c2228d751f4ca364672fe5fb923, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f0ab7c2228d751f4ca364672fe5fb923,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -114,7 +115,7 @@ Material:
     - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 1
+    - _Smoothness: 0.58
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -123,10 +124,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Vector3_ff841d114cec48548b0a41259e363307: {r: 0, g: 0, b: 0, a: 0}
-    - _Albedo: {r: 0, g: 0.30317068, b: 1, a: 0}
+    - _Albedo: {r: 0.1702118, g: 0.7075472, b: 0.6909111, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Emission: {r: 0.2756738, g: 0.24230151, b: 0.5188679, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
