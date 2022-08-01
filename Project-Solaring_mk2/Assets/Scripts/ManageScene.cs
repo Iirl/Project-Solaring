@@ -16,7 +16,6 @@ namespace solar_a
         /// <returns>回傳一個 int 的 index 。</returns>
         public int GetScenes(bool isMax=false)
         {
-            print(SceneManager.sceneCount);
             if (!isMax) return SceneManager.GetActiveScene().buildIndex;
             else return SceneManager.sceneCount;
         }
