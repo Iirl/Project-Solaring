@@ -384,7 +384,6 @@ MonoBehaviour:
   rocket_ctl: {fileID: 784496986}
   ss_ctl: {fileID: 2070353152}
   ss_mag: {fileID: 62497110}
-  menus: {fileID: 0}
   mEnd: {fileID: 461066558}
   gener_class: {fileID: 999269984}
   objectName:
@@ -394,6 +393,8 @@ MonoBehaviour:
   ui_fuel: {fileID: 1810340794}
   UI_moveDistane: 0
   UI_fuel: 100
+  pauseUI: {fileID: 0}
+  menus: {fileID: 0}
   canvas_select: {fileID: 62497108}
 --- !u!114 &62497110
 MonoBehaviour:
@@ -3141,9 +3142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mgCenter: {fileID: 62497109}
-  fuel: 100
-  speed_v: 5
-  speed_a: 0.2
+  RocketBasic: {x: 100, y: 4, z: 0.2}
   fireLenght_min: {x: 0.5, y: 1}
   fireLenght_max: {x: 1, y: 3}
   fireBoost: {x: 0, y: 1}
@@ -3277,9 +3276,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Debug_Fuel+20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 31a9caaf918212540ba697ecd17a9b5a, type: 2}
-  m_sharedMaterial: {fileID: -2670244711108399373, guid: 31a9caaf918212540ba697ecd17a9b5a,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4419,9 +4417,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Debug_GOver
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 31a9caaf918212540ba697ecd17a9b5a, type: 2}
-  m_sharedMaterial: {fileID: -2670244711108399373, guid: 31a9caaf918212540ba697ecd17a9b5a,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8274,9 +8271,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Debug_Reload
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 31a9caaf918212540ba697ecd17a9b5a, type: 2}
-  m_sharedMaterial: {fileID: -2670244711108399373, guid: 31a9caaf918212540ba697ecd17a9b5a,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
