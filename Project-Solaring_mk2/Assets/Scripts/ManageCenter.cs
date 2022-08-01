@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -34,8 +35,10 @@ namespace solar_a
         /// </summary>
         [SerializeField, Header("介面UI控制"), Tooltip("UI 距離顯示")]
         TMP_Text ui_Dist;
-        [SerializeField, Tooltip("UI 燃料顯示")]
+        [SerializeField, Tooltip("UI 燃料文字")]
         TMP_Text ui_fuel;
+        [SerializeField, Tooltip("UI 燃料條")]
+        Image ui_fuelbar;
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
@@ -66,8 +69,8 @@ namespace solar_a
         {
             float unit = Time.deltaTime * rocket_ctl.RocketS1.y; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
-            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(-unit * 0.2f); // 燃料變化
-            else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);         // 燃料用盡，移動懲罰
+            if (rocket_ctl.RocketS1.x > 0)  rocket_ctl.PutRocketSyn(-unit * 0.2f);                          // 燃料變化
+            else                            rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);    // 燃料用盡，移動懲罰
 
         }
         /// <summary>
@@ -264,6 +267,7 @@ namespace solar_a
             Vector3 stage_pos = GetStagePOS();
             UI_moveDistane = (int)stage_pos.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
+            ui_fuelbar.fillAmount = UI_fuel / rocket_ctl.RocketBasic.x;
             if (UI_fuel <= 0 && !isEnd) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";

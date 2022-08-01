@@ -51,6 +51,13 @@ namespace solar_a
                 if (prevs < 0) return;
                 LoadScenes(now -1);
             }
-        }   
+        }
+        /// <summary>
+        /// 結束程式函數
+        /// </summary>
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

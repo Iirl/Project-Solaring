@@ -18,8 +18,11 @@ namespace solar_a
             Tooltip("燃料(X)每單位消耗0.25燃料\n" +
             "移動速度(Y)\n移動加速度(Z)")]
         public Vector3 RocketBasic = new Vector3(100,4f,0.2f);
+        [SerializeField]
         float fuel = 100;
+        [SerializeField]
         float speed_v = 4f;
+        [SerializeField]
         float speed_a = 0.2f;
         public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
         [SerializeField, Header("火焰控制項")]
@@ -106,6 +109,7 @@ namespace solar_a
             // 加速度控制
             Vector3 r3 = new Vector3(horizon * aSpeed, vertial * aSpeed, 0);
             if (boost > 0) Rocket_Rig.AddForce(r3);
+            if (boost > 0) PutRocketSyn(-(speed_a) * 0.25f * Time.deltaTime);
             // 翻轉回復
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
