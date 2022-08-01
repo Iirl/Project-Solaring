@@ -281,7 +281,7 @@ namespace solar_a
         /// <summary>
         /// 暫停選單開關
         /// </summary>
-        private void show_Menu()
+        public void show_Menu()
         {
             if (menus != null)
             {
