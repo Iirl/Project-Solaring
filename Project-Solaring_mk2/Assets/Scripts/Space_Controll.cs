@@ -10,7 +10,7 @@ namespace solar_a
     public class Space_Controll : MonoBehaviour
     {
         #region 變數
-        static bool rotated, rot_left, rot_right;  //空間是否旋轉
+        private bool rotated, rot_left, rot_right;  //空間是否旋轉
         [SerializeField, Header("旋轉設定")]
         Vector3 spaceOffset;
         [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
@@ -123,7 +123,7 @@ namespace solar_a
         {
 
             // 旋轉空間
-            if (!rotated)
+            if (!rotated )
             {
                 rot_left = Input.GetAxisRaw("Left_Spine") == 1;
                 rot_right = Input.GetAxisRaw("Right_Spine") == 1;

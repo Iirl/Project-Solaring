@@ -14,14 +14,13 @@ namespace solar_a
         ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("燃料"), Range(50, 200), Tooltip("每單位消耗0.25燃料")]
+        [SerializeField, Header("火箭的基本資訊"), 
+            Tooltip("燃料(X)每單位消耗0.25燃料\n" +
+            "移動速度(Y)\n移動加速度(Z)")]
+        public Vector3 RocketBasic = new Vector3(100,4f,0.2f);
         float fuel = 100;
-        [SerializeField, Header("移動速度"), Range(2.0f, 12f)]
         float speed_v = 4f;
-        float orgspd_v = 4f;
-        [SerializeField, Header("移動加速度"), Range(0.2f, 1.5f)]
         float speed_a = 0.2f;
-        float orgspd_a = 0.2f;
         public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
         [SerializeField, Header("火焰控制項")]
         Vector2 fireLenght_min = new Vector2(0.5f, 1f);
@@ -53,18 +52,15 @@ namespace solar_a
         /// <returns>x=燃料；y=速度；z=加速度</returns>
         public Vector3 PutRocketSyn(float x, float y = -1, float z = -1)
         {
-            fuel -= x;
+            fuel += x;
+            if (fuel > RocketBasic.x) fuel = RocketBasic.x; // 燃料限制在最大值
             speed_v = y >= 0 ? y : speed_v;
             speed_a = z >= 0 ? z : speed_a;
             return RocketS1;
         }
-        public float GetBasicSPD()
+        public Vector3 GetBasicInfo()
         {
-            return orgspd_v;
-        }
-        public float GetBasicASPD()
-        {
-            return orgspd_a;
+            return RocketBasic;
         }
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
@@ -217,7 +213,9 @@ namespace solar_a
         #region 事件
         private void Awake()
         {
-            orgspd_v = speed_v; orgspd_a = speed_a;
+            fuel = RocketBasic.x;
+            speed_v = RocketBasic.y;
+            speed_a = RocketBasic.z;
             particle_fire = GetComponentInChildren<ParticleSystem>();
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
