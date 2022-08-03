@@ -42,13 +42,13 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
-        private bool uiLoad = false;
-        private bool isEnd = false, isPause = false;
         private bool isGen_sup = false, isGen_mto = false;
         [SerializeField, Header("暫停選單")]
         GameObject pauseUI;
         [SerializeField, Tooltip("暫停選單畫布系統")]
         CanvasGroup menus;
+        [SerializeField, Header("淡化速度")]
+        Vector2 fadeSpeed = Vector2.zero+Vector2.one*0.01f;
         #region 共用欄位 (Public Feild)
         public CanvasGroup canvas_select;
         #endregion
@@ -69,8 +69,8 @@ namespace solar_a
         {
             float unit = Time.deltaTime * rocket_ctl.RocketS1.y; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
-            if (rocket_ctl.RocketS1.x > 0)  rocket_ctl.PutRocketSyn(-unit * 0.2f);                          // 燃料變化
-            else                            rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);    // 燃料用盡，移動懲罰
+            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(-unit * 0.2f);                          // 燃料變化
+            else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);    // 燃料用盡，移動懲罰
 
         }
         /// <summary>
@@ -80,7 +80,7 @@ namespace solar_a
         public void FuelReplen(int f)
         {
             float nowFuel = rocket_ctl.RocketS1.x;
-            if (isEnd && nowFuel > 0) { CancelInvoke("GameOver"); return; }
+            if (condition.state != GameCondition.State.End && nowFuel > 0) { CancelInvoke("GameOver"); return; }
             rocket_ctl.PutRocketSyn(f, rocket_ctl.GetBasicInfo().y);
             rocket_ctl.ADOClipControl(0);
         }
@@ -184,42 +184,49 @@ namespace solar_a
             }
         }
 
-        public void test()
+        public void test(int idx = 0)
         {
             // Change Asign Object to List String.
+            print(condition.GetState());
         }
         ///////////// 選單變化相關
+        ///
+        public void GetState()
+        {
+            print(condition.GetState());
+        }
         /// <summary>
-        /// 淡入動畫
+        /// 選單淡入動畫
         /// </summary>
         public void FadeIn()
         {
             if (canvas_select.alpha < 1)
             {
                 canvas_select.alpha += 0.1f;
-                uiLoad = true;
             }
             else
             {
-                uiLoad = false;
+                condition.Next();
+                GameState();
                 CanvasCtrl(canvas_select, true);
                 CancelInvoke("FadeIn");
                 Time.timeScale = 0.05f;
             }
         }
         /// <summary>
-        /// 淡出動畫
+        /// 選單淡出動畫
         /// </summary>
         public void FadeOut()
         {
             if (canvas_select.alpha > 0)
             {
-                canvas_select.alpha -= 0.01f;
-                uiLoad = true;
+                canvas_select.alpha -= 0.1f;
             }
             else
             {
-                uiLoad = false;
+                condition.Previous();
+                GameState();
+                Time.timeScale = 1f;
                 CanvasCtrl(canvas_select);
                 CancelInvoke("FadeOut");
             }
@@ -234,19 +241,21 @@ namespace solar_a
         /// <param name="end"></param>
         public void CheckGame(bool end = false, float times = 0.2f)
         {
-            if (end && !isEnd)
+            if (end && ((int)condition.state) != 4)
             {
+                // 檢查是否正在暫停，若是的話強制結束暫停
                 if (menus.alpha != 0 && menus != null)
                 {
-                    isPause = false;
                     CanvasCtrl(menus);
                 }
-                Invoke("GameOver", times);
+                condition.Dead();
+                Invoke("GameState", times);
             }
 
         }
         #endregion
 
+        GameCondition condition = new GameCondition();
         #region 本地控制方法或事件
         /// <summary>
         /// 畫布群組開關
@@ -268,7 +277,7 @@ namespace solar_a
             UI_moveDistane = (int)stage_pos.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             ui_fuelbar.fillAmount = UI_fuel / rocket_ctl.RocketBasic.x;
-            if (UI_fuel <= 0 && !isEnd) { CheckGame(true, 5f); }//結束遊戲條件之一
+            if (UI_fuel <= 0 && (int)condition.state != 3) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
@@ -280,36 +289,38 @@ namespace solar_a
             if (menus != null)
             {
                 canvas_select = menus;
-                if (!isPause && !uiLoad)
+                if (condition.state == GameCondition.State.Running)
                 {
                     // 顯現
-                    isPause = true;
-                    InvokeRepeating("FadeIn", 0, 0.01f);
+                    condition.Next();
+                    InvokeRepeating("FadeIn", 0, fadeSpeed.x);
                 }
                 else
                 {
                     // 淡出
-                    Time.timeScale = 1f;
-                    InvokeRepeating("FadeOut", 0, 0.01f);
-                    isPause = false;
+                    condition.Previous();
+                    InvokeRepeating("FadeOut", 0, fadeSpeed.y);
                 }
-                if (pauseUI != null) pauseUI.SetActive(isPause);
-                rocket_ctl.ControlChange();
-                //ss_ctl.enabled = !ss_ctl.enabled;
-                space_ctl.enabled = !space_ctl.enabled;
             }
         }
         /// <summary>
-        /// 遊戲結束處理情況
+        /// 遊戲狀態處理情況
         /// </summary>
-        private void GameOver()
+        private void GameState()
         {
-            mEnd.enabled = true;
+            if (condition.GetState() == "End")
+            {// GameOver
+                rocket_ctl.enabled = false;
+                mEnd.enabled = true;
+                ss_ctl.enabled = false;
+            }
+            else if (condition.state != GameCondition.State.Running)
+            {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
+                space_ctl.enabled = !space_ctl.enabled;
+                if (pauseUI != null) pauseUI.SetActive(true);
+            }
             rocket_ctl.ControlChange();
-            rocket_ctl.enabled = false;
-            ss_ctl.enabled = false;
-            isEnd = true;
-            CancelInvoke();
+            CancelInvoke("GameState");
         }
         /// <summary>
         /// 特殊指令，當玩家輸入快速鍵的時候會出現的封弊功能。
@@ -388,5 +399,33 @@ namespace solar_a
         Alt+r 重新生成補給與障礙物*/
 
         #endregion
+    }
+
+    /// <summary>
+    /// 遊戲狀態機
+    /// 目前先設定為：執行中、讀取、暫停及結束遊戲。
+    /// ※與之前的寫法相比，不需要個別設定布林值，狀態變化只要下要變的函數就可以，而且順序可以固定或指定。
+    /// </summary>
+    public class GameCondition
+    {
+        public enum State { Running, Loading, Pause, End }
+        public State state = State.Running;
+
+        public void Next()
+        {
+            if (state < State.End - 1) state ++;
+        }
+        public void Previous()
+        {
+            if (state != 0) state --;
+        }
+        public void Dead()
+        {
+            state = State.End;
+        }
+        public string GetState()
+        {
+            return state.ToString();
+        }
     }
 }

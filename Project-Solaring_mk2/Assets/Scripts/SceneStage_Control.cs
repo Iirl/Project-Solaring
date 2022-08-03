@@ -25,8 +25,10 @@ namespace solar_a
         [SerializeField, Header("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
         Vector3 nbox_range;
+        [SerializeField]
+        private string[] includeTag;
         [SerializeField, Header("重力調整")]
-        private Vector3 gravity3 = new(0,-9.8f,0);
+        private Vector3 gravity3 = new(0, -9.8f, 0);
 
         CinemachineVirtualCamera cinemachine;
         BoxCollider Stage_boxBorder;
@@ -51,9 +53,9 @@ namespace solar_a
         private void _borderVelocity(Collider[] colliders, int i)
         {
             foreach (Collider col in colliders)
-            {                
+            {
                 if (col.tag.Contains("Player"))
-                {                    
+                {
                     Rigidbody c_rig = col.GetComponent<Rigidbody>();
                     Vector3 bound = c_rig.velocity;
                     // 根據編號來決定反彈的方向：
@@ -61,19 +63,21 @@ namespace solar_a
                     /// 1 往上
                     /// 2 往右
                     /// 3 往左
-                    switch (i) {  
+                    switch (i)
+                    {
                         case 0: bound.y = -0.1f; break;
                         case 1: bound.y = 0.1f; break;
                         case 2: bound.x = 0.1f; break;
-                        case 3: bound.x = -0.1f; break; 
+                        case 3: bound.x = -0.1f; break;
                         default: break;
                     }
                     c_rig.velocity = bound;
-                } else  if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
-                {
-                    if (i!=0) mgCenter.ObjectDestory(col.gameObject);
                 }
-            } 
+                else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
+                {
+                    if (i != 0) mgCenter.ObjectDestory(col.gameObject);
+                }
+            }
         }
         #endregion
 
@@ -127,22 +131,28 @@ namespace solar_a
             Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);
             Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);
             // 左右判定
-            Vector3 nbox_range = new Vector3 (box_range.y, box_range.x, box_range.z);
+            Vector3 nbox_range = new Vector3(box_range.y, box_range.x, box_range.z);
             Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);
             Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range);
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
             if (other.tag.Contains("Player"))
             {
                 // 第二層防止衝破大氣層保險
                 Vector3 check = (other.transform.position);
-                if (check.x > stage_container.x / 2-2) check.x = stage_container.x /2 -2 + transform.position.x;
-                else if (check.x < -stage_container.x / 2+2) check.x = -stage_container.x / 2+2 + transform.position.x;
-                if (check.y < -stage_container.y/2+1 + transform.position.y) check.y = transform.position.y - stage_container.y / 2;
-                else if (check.y > stage_container.y/2 + transform.position.y) check.y = stage_container.y / 2 + transform.position.y;
+                if (check.x > stage_container.x / 2 - 2) check.x = stage_container.x / 2 - 2 + transform.position.x;
+                else if (check.x < -stage_container.x / 2 + 2) check.x = -stage_container.x / 2 + 2 + transform.position.x;
+                if (check.y < -stage_container.y / 2 + 1 + transform.position.y) check.y = transform.position.y - stage_container.y / 2;
+                else if (check.y > stage_container.y / 2 + transform.position.y) check.y = stage_container.y / 2 + transform.position.y;
                 other.transform.position = check;
+            }
+            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
+            else
+            {
+                foreach (var e in includeTag)
+                    if (other.tag.Contains(e))
+                        Destroy(other.gameObject, 3);
             }
         }
         #endregion
