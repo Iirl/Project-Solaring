@@ -80,9 +80,9 @@ namespace solar_a
         public void FuelReplen(int f)
         {
             float nowFuel = rocket_ctl.RocketS1.x;
-            if (condition.state != GameCondition.State.End && nowFuel > 0) { CancelInvoke("GameOver"); return; }
             rocket_ctl.PutRocketSyn(f, rocket_ctl.GetBasicInfo().y);
             rocket_ctl.ADOClipControl(0);
+            if (condition.state == GameCondition.State.End && nowFuel > 0)  CancelInvoke("GameState");
         }
 
         ///////////// 產生物件
