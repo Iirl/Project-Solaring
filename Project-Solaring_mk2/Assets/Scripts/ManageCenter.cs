@@ -67,10 +67,10 @@ namespace solar_a
         /// </summary>
         public void MoveAction()
         {
-            float unit = Time.deltaTime * rocket_ctl.RocketS1.y; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
-            ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
-            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(-unit * 0.2f);                          // 燃料變化
-            else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);    // 燃料用盡，移動懲罰
+            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
+            if (!rocket_ctl.rc_dtion.IsStay) ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
+            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime);   // 燃料變化
+            //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
 
         }
         /// <summary>
@@ -319,7 +319,7 @@ namespace solar_a
                 space_ctl.enabled = !space_ctl.enabled;
                 if (pauseUI != null) pauseUI.SetActive(true);
             }
-            rocket_ctl.ControlChange();
+            rocket_ctl.ControlChange(false);
             CancelInvoke("GameState");
         }
         /// <summary>

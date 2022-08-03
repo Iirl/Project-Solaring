@@ -14,10 +14,13 @@ namespace solar_a
         ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("火箭的基本資訊"), 
-            Tooltip("燃料(X)每單位消耗0.25燃料\n" +
+        [SerializeField, Header("火箭的基本資訊"),
+            Tooltip("燃料(X)\n" +
             "移動速度(Y)\n移動加速度(Z)")]
-        public Vector3 RocketBasic = new Vector3(100,4f,0.2f);
+        public Vector3 RocketBasic = new Vector3(100, 4f, 0.2f);
+        [SerializeField, Header("單位消耗燃料")]
+        float unit_fuel;
+        public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
         [SerializeField]
         float fuel = 100;
         [SerializeField]
@@ -40,12 +43,13 @@ namespace solar_a
         [SerializeField, Tooltip("火箭顏色")]
         Color rocketColor = Color.white;
         [SerializeField, Header("更新控制項")]
-        public bool isControl = true;
+        //public bool isControl = true;
+        //public bool isMove;
+        public RocketCondition rc_dtion = new RocketCondition() { state = RocketCondition.State.Stay };
         //
         ParticleSystem particle_fire;
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
-        private bool isMove;
         #endregion
 
         #region 公用方法
@@ -68,12 +72,12 @@ namespace solar_a
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
         /// </summary>
-        public bool ControlChange()
+        public bool ControlChange(bool on=false)
         {
-            if (Rocket_sound.isPlaying) Rocket_sound.Stop(); else Rocket_sound.Play();
-            Rocket_Rig.isKinematic = !Rocket_Rig.isKinematic;
-            isControl = !isControl;
-            return isControl;
+            if (!on) Rocket_sound.Stop(); else Rocket_sound.Play();
+            Rocket_Rig.isKinematic = !on;
+            rc_dtion.ControlChange();
+            return rc_dtion.IsStop;
         }
         #endregion
 
@@ -81,15 +85,6 @@ namespace solar_a
         private void UpForce()
         {
             if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
-        }
-        /// <summary>
-        /// 移動檢查
-        /// </summary>
-        private void MoveCheck()
-        {
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) isMove = true;
-            else isMove = false;
-
         }
         /// <summary>
         /// 移動控制
@@ -143,7 +138,7 @@ namespace solar_a
         /// </summary>
         private void ignix_fire()
         {
-            if (isMove)
+            if (!rc_dtion.IsStay)
             {
                 particle_fire.Play();
             }
@@ -161,7 +156,7 @@ namespace solar_a
         private void SoundFadeIn()
         {
             float v = Rocket_sound.volume;
-            if (v < fire_volume)
+            if (v <= fire_volume)
             {
                 Rocket_sound.volume += 0.05f;
             }
@@ -234,29 +229,40 @@ namespace solar_a
         /// </summary>
         void Update()
         {
-            if (isControl)
+            if (!rc_dtion.IsStop)
             {
-                MoveCheck();
-                if (isMove)
-                {
-                    Rocket_sound.pitch = Input.GetAxis("Force") > 0 ? 1.5f : 1;
+                MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
+                Rocket_sound.pitch = Input.GetAxis("Force") > 0 ? 1.5f : 1;
+                int h = (int)Input.GetAxisRaw("Horizontal");
+                int v = (int)Input.GetAxisRaw("Vertical");
+                if ((h!=0 ||v !=0))
+                {                    
                     if (Rocket_sound.volume < fire_volume) Invoke("SoundFadeIn", 0.2f);
-                    MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
-                }
-                else
+                    rc_dtion.onMove();
+                } else  if (h ==0 && v == 0)
                 {
                     if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
+                    rc_dtion.onStay();
+                } else { 
                 }
+
+
                 Invoke("ignix_fire", 0.1f);
+            }
+            else
+            {
+                Rocket_Rig.velocity = Vector3.zero;
             }
         }
         private void FixedUpdate()
         {
 
-            if (isControl)
+            if (!rc_dtion.IsStop)
             {
                 UpForce();
             }
+            //print($"State: {rc_dtion.state}, IsStop {rc_dtion.IsStop}, IsStay {rc_dtion.IsStay}");
+            //print(rc_dtion.GetState());
         }
         private void OnDrawGizmos()
         {
@@ -293,5 +299,57 @@ namespace solar_a
         #endregion
         #region ##
         #endregion
+    }
+    public class RocketCondition
+    {
+        public enum State { Stay, Move, Float, Crashed, Stop }
+        public State state = State.Stop;
+        public bool IsStay { get { return isStay; } }
+        private bool isStay = true;
+        public bool IsCrashed { get { return isCrashed; } }
+        private bool isCrashed = false;
+        public bool IsStop { get { return isStop; } }
+        private bool isStop = false;
+
+        public void Next()
+        {
+            if (state < State.Crashed - 1) state++;
+            boolChange();
+        }
+        public void Previous()
+        {
+            if (state != 0) state--;
+            boolChange();
+        }
+        public void Dead()
+        {
+            state = State.Crashed;
+            boolChange();
+        }
+        public void onMove()
+        {
+            state = State.Move;
+            boolChange();
+        }
+        public void onStay()
+        {
+            state = State.Stay;
+            boolChange();
+        }
+        public bool ControlChange()
+        {
+            return isStop = !isStop;
+        }
+        public int GetState()
+        {
+            return (int)(state);
+        }
+
+        private void boolChange()
+        {
+            isStay = (int)state == 0 ? true : false;
+            isCrashed = (int)state == 3 ? true : false;
+            isStop = (int)state == 4 ? true : false;
+        }
     }
 }

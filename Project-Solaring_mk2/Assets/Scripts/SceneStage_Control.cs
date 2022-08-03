@@ -25,7 +25,9 @@ namespace solar_a
         [SerializeField, Header("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
         Vector3 nbox_range;
-        [SerializeField]
+        [SerializeField, Header("場景移動速度")]
+        public float speed;
+        [SerializeField, Header("其他標籤觸發消除物件")]
         private string[] includeTag;
         [SerializeField, Header("重力調整")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
@@ -41,7 +43,7 @@ namespace solar_a
         /// </summary>
         private void _auto_move()
         {
-            if (Space_Rect.position.x != 0) Space_Rect.position = new Vector2(0, Space_Rect.position.y);
+            if (Space_Rect.position.x != 0) Space_Rect.position = new Vector2(0, Space_Rect.position.y); // 偏移校正
             mgCenter.MoveAction();
             stage_position = transform.position; // 場景資訊
         }
