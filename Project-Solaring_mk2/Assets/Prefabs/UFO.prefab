@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7019052678850991114}
   - component: {fileID: 6104296676250897278}
   - component: {fileID: 7186364020762045594}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: UFO_001_glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3151465291395604613}
   - component: {fileID: 7220883725448798243}
-  m_Layer: 3
+  m_Layer: 1
   m_Name: LightLine02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3993234568383893658}
   - component: {fileID: 1360591847989537411}
-  m_Layer: 3
+  m_Layer: 1
   m_Name: LightLine03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,6 +697,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LightLine01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785274081899129160, guid: 1316949fee2311d4ebf980e70ef3b770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2785274081899129166, guid: 1316949fee2311d4ebf980e70ef3b770,
         type: 3}

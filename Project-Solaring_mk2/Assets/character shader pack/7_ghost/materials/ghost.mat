@@ -99,9 +99,9 @@ Material:
     - Vector1_1D9A2AE: 0.01
     - Vector1_393DE20C: 0
     - Vector1_40249D74: -1
-    - Vector1_ABD1713E: 0.064
+    - Vector1_ABD1713E: 0.19
     - Vector1_EFE64959: 100
-    - Vector1_F4D3A67B: -0.5
+    - Vector1_F4D3A67B: -2.3
     - Vector1_FEFF47F1: 0.44
     - _AlphaClip: 0
     - _Blend: 0
@@ -133,7 +133,7 @@ Material:
     - _noise_scale: 100
     - _smooth: 0.881
     - _threshold: 0.286
-    - float_alpha: 0.004
+    - float_alpha: 0.007
     - float_statue_level: 1
     - float_statue_threhold: 1
     m_Colors:
@@ -141,7 +141,7 @@ Material:
     - Color_62DC5747: {r: 0, g: 0, b: 0, a: 0}
     - Color_6DF76E71: {r: 1024, g: 936.22864, b: 0, a: 0}
     - Color_9BE22665: {r: 50.833168, g: 35.624916, b: 0, a: 0}
-    - Color_FB151A2: {r: 766.9961, g: 184.72157, b: 0, a: 0}
+    - Color_FB151A2: {r: 40.640614, g: 9.938316, b: 0.35493988, a: 0}
     - Vector2_4E715410: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

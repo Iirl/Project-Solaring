@@ -31,7 +31,7 @@ MonoBehaviour:
   SpeedYAlpha: 6.8
   UseRandomization: 0
   TimeMultiplierAlpha: 54.8
-  Width: 0.82
+  Width: 1.65
   DepthThreshold: 7.7
   NormalThreshold: 1.74
   EdgeDetectionMaterial: {fileID: 0}
