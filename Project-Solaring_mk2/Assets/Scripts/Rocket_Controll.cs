@@ -65,9 +65,9 @@ namespace solar_a
             speed_a = z >= 0 ? z : speed_a;
             return RocketS1;
         }
-        public Vector3 GetBasicInfo()
+        public Vector3 SetBasicInfo(float x, float y , float z)
         {
-            return RocketBasic;
+            return RocketBasic = new Vector3(x,y,z);
         }
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
@@ -204,7 +204,6 @@ namespace solar_a
             ///
             mgCenter.ObjectDestory(ongob);
             mgCenter.FuelReplen(addFuel);
-            print(addFuel);
         }
 
         #endregion
@@ -245,8 +244,6 @@ namespace solar_a
                     rc_dtion.onStay();
                 } else { 
                 }
-
-
                 Invoke("ignix_fire", 0.1f);
             }
             else

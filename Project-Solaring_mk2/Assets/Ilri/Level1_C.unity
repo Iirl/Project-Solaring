@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -438,7 +438,7 @@ MonoBehaviour:
   rocket_ctl: {fileID: 784496986}
   ss_ctl: {fileID: 2070353152}
   ss_mag: {fileID: 62497110}
-  mEnd: {fileID: 461066558}
+  mEnd: {fileID: 307926608}
   gener_class: {fileID: 999269984}
   objectName:
   - ObjectGenerator
@@ -683,7 +683,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775666, y: 1}
+    m_SensorSize: {x: 1.7768013, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: 307926603}
   - component: {fileID: 307926602}
   - component: {fileID: 307926607}
+  - component: {fileID: 307926608}
   m_Layer: 5
   m_Name: UI_Pause
   m_TagString: Untagged
@@ -1139,6 +1140,21 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &307926608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307926600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbcfaec473325745a0d0825735f8add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mgCenter: {fileID: 62497109}
+  weclome: {fileID: 0}
+  messege: []
 --- !u!1 &339894062
 GameObject:
   m_ObjectHideFlags: 0

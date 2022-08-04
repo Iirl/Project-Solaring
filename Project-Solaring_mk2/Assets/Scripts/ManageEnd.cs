@@ -41,7 +41,8 @@ namespace solar_a
         {
             if (weclome!=null) ShowInfo(weclome);
             mgCenter.canvas_select = GetComponent<CanvasGroup>();
-            mgCenter.InvokeRepeating("FadeIn", 0, 0.1f);
+            //mgCenter.CheckGame(true);
+            mgCenter.show_Menu();
         }
     }
 }

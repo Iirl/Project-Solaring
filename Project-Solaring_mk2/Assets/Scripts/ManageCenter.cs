@@ -80,7 +80,7 @@ namespace solar_a
         public void FuelReplen(int f)
         {
             float nowFuel = rocket_ctl.RocketS1.x;
-            rocket_ctl.PutRocketSyn(f, rocket_ctl.GetBasicInfo().y);
+            rocket_ctl.PutRocketSyn(f, rocket_ctl.RocketBasic.y);
             rocket_ctl.ADOClipControl(0);
             if (condition.state == GameCondition.State.End && nowFuel > 0)  CancelInvoke("GameState");
         }
@@ -289,7 +289,7 @@ namespace solar_a
             if (menus != null)
             {
                 canvas_select = menus;
-                if (condition.state == GameCondition.State.Running)
+                if (condition.state != GameCondition.State.Pause)
                 {
                     // 顯現
                     condition.Next();
@@ -308,18 +308,20 @@ namespace solar_a
         /// </summary>
         private void GameState()
         {
+            bool isEnd = false;
             if (condition.GetState() == "End")
             {// GameOver
-                rocket_ctl.enabled = false;
+                isEnd = true;
                 mEnd.enabled = true;
                 ss_ctl.enabled = false;
+                rocket_ctl.enabled = false;
             }
             else if (condition.state != GameCondition.State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
                 space_ctl.enabled = !space_ctl.enabled;
-                if (pauseUI != null) pauseUI.SetActive(true);
             }
-            rocket_ctl.ControlChange(false);
+            if (pauseUI != null) pauseUI.SetActive(true);
+            rocket_ctl.ControlChange(!isEnd);
             CancelInvoke("GameState");
         }
         /// <summary>
