@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +16,7 @@ namespace solar_a
     /// </summary>
     public class ManageCenter : MonoBehaviour
     {
+        #region 管理控制系統
         [SerializeField, Header("系統功能總表"), Tooltip("控制系統")]
         Space_Controll space_ctl;
         [SerializeField, Tooltip("火箭控制系統")]
@@ -25,11 +27,16 @@ namespace solar_a
         ManageScene ss_mag;
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
+        #endregion
+        /// <summary>
+        /// 產生器控制
+        /// </summary>
         [SerializeField, Header("預設產生器類別，請指定一個產生器物件")]
         Object_Generator gener_class;
         [SerializeField, Tooltip("設定產生器物件")]
         private string[] objectName = { "補給品", "隕石" };
-
+        [SerializeField, Tooltip("設定多少距離產生一次物件")]
+        private int[] objectDistance = { 50, 30 };
         /// <summary>
         /// GameUI Interface.
         /// </summary>
@@ -39,18 +46,25 @@ namespace solar_a
         TMP_Text ui_fuel;
         [SerializeField, Tooltip("UI 燃料條")]
         Image ui_fuelbar;
+        [SerializeField]
+        GameObject[] EnergyPlus;
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         public int UI_moveDistane = 0, UI_fuel = 100;
         public int MoveDistance { get { return UI_moveDistane; } }
-        private bool isGen_sup = false, isGen_mto = false;
+        /// <summary>
+        /// 選單畫布控制
+        /// </summary>
         [SerializeField, Header("暫停選單")]
         GameObject pauseUI;
         [SerializeField, Tooltip("暫停選單畫布系統")]
         CanvasGroup menus;
-        [SerializeField, Header("淡化速度")]
-        Vector2 fadeSpeed = Vector2.zero+Vector2.one*0.01f;
-        #region 共用欄位 (Public Feild)
+        [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         public CanvasGroup canvas_select;
+        [SerializeField, Header("畫布淡化速度")]
+        Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
+        #region 本地調閱欄位 (Private Feild)
+        private bool isGen = false;
+
         #endregion
 
         #region 共用方法 (Public Method)
@@ -82,7 +96,7 @@ namespace solar_a
             float nowFuel = rocket_ctl.RocketS1.x;
             rocket_ctl.PutRocketSyn(f, rocket_ctl.RocketBasic.y);
             rocket_ctl.ADOClipControl(0);
-            if (condition.state == GameCondition.State.End && nowFuel > 0)  CancelInvoke("GameState");
+            if (condition.state == GameCondition.State.End && nowFuel > 0) CancelInvoke("GameState");
         }
 
         ///////////// 產生物件
@@ -92,20 +106,8 @@ namespace solar_a
         /// 指定距離隨機生成物件
         /// </summary>
         /// <param name="i"></param>
-        public void GenerAuto()
+        public void GenerAuto(int idx = 0)
         {
-            if (!isGen_sup)
-            {
-                AutoGenerate(0, true);
-                isGen_sup = true;
-            }
-            if (!isGen_mto)
-            {
-                MeteoGenerate();
-                isGen_mto = true;
-            }
-
-            CancelInvoke("GenerAuto");
         }
 
         /// <summary>
@@ -134,7 +136,7 @@ namespace solar_a
         {
             AsignGenerate(0); //切換成 補品類別
             Vector3 st_border = ss_ctl.GetBoxborder();
-            if (gener_class != null) gener_class.Static_gen(ss_ctl.transform.position.y, i, Random.Range(-st_border.x / 2, st_border.x / 2), Random.Range(st_border.y, st_border.y * 2), rotate);
+            if (gener_class != null) gener_class.Static_gen(GetStagePOS().y, i, Random.Range(-st_border.x / 2, st_border.x / 2), Random.Range(st_border.y, st_border.y * 2), rotate);
         }
         /// <summary>
         /// 產生附帶子物件的程式。
@@ -145,7 +147,7 @@ namespace solar_a
         {
             AsignGenerate(1); //切換成 隕石類別
             int obj = Random.Range(0, 3);
-            int Gid = gener_class.Random_gen(ss_ctl.transform.position.y + 80, false, obj); // Fist: Generate SubObject.
+            int Gid = gener_class.Random_gen(GetStagePOS().y + 40, false, obj); // Fist: Generate SubObject.
             // Second: Load Insub Prefabs.
             List<Object> pfabs = new()
             {
@@ -276,7 +278,22 @@ namespace solar_a
             Vector3 stage_pos = GetStagePOS();
             UI_moveDistane = (int)stage_pos.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
-            ui_fuelbar.fillAmount = UI_fuel / rocket_ctl.RocketBasic.x;
+            print (UI_fuel / 100f);
+            if (UI_fuel <= 100) ui_fuelbar.fillAmount = UI_fuel / 100f;
+            else
+            {   // 超過 100 的部分用格狀血條顯示
+                ui_fuelbar.fillAmount = 1;
+                int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity);                
+                if ( EnergyPlus.Length >= level)
+                {
+                    int count = 0;
+                    foreach (GameObject g in EnergyPlus)
+                    {
+                        g.SetActive( level >count);
+                        count++;
+                    }
+                }
+            }
             if (UI_fuel <= 0 && (int)condition.state != 3) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
@@ -323,6 +340,23 @@ namespace solar_a
             if (pauseUI != null) pauseUI.SetActive(true);
             rocket_ctl.ControlChange(!isEnd);
             CancelInvoke("GameState");
+        }
+        private IEnumerator PathAutoGenerObject(int idx = 0)
+        {
+
+            isGen = true;
+            switch (idx)
+            {
+                case 0: AutoGenerate(0, true); break;
+                case 1:
+                    MeteoGenerate(); ; break;
+                default: break;
+            }
+
+            yield return new WaitForSeconds(1);
+            if (UI_moveDistane % objectDistance[idx] == idx) ss_ctl.transform.Translate(Vector3.up);
+            isGen = false;
+
         }
         /// <summary>
         /// 特殊指令，當玩家輸入快速鍵的時候會出現的封弊功能。
@@ -386,10 +420,11 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftShift)
                 );
             //// ---路徑自動生成物件---
-            if (UI_moveDistane % 20 == 0 && !isGen_sup) Invoke("GenerAuto", 1);  // 隨機生成補品
-            else isGen_sup = false;
-            if (UI_moveDistane % 30 == 1 && !isGen_mto) Invoke("GenerAuto", 1);  // 隨機生成障礙物
-            else isGen_mto = false;
+            ///
+                for (int i = 0; i < objectName.Length; i++)
+                {
+                    if (UI_moveDistane % objectDistance[i] == i && !isGen) StartCoroutine(PathAutoGenerObject(i));
+                }
         }
         #endregion
 
@@ -415,11 +450,11 @@ namespace solar_a
 
         public void Next()
         {
-            if (state < State.End - 1) state ++;
+            if (state < State.End - 1) state++;
         }
         public void Previous()
         {
-            if (state != 0) state --;
+            if (state != 0) state--;
         }
         public void Dead()
         {

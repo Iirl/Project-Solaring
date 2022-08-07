@@ -4,41 +4,75 @@ using UnityEngine;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 自動追蹤系統:
+    /// 直線追蹤、定向移動
+    /// </summary>
     public class Simple_move : MonoBehaviour
     {
 
-        #region 屬性
+        #region 面板控制屬性
         [SerializeField, Header("中控系統")]
         ManageCenter mgCenter;
-
         #endregion
-
-        private void CircleMove()
+        [Header("移動的目標"),Tooltip("To get the target the syntax, and auto set the information.")]
+        GameObject target;
+        private Vector3 target_v3;
+        private Vector3 direct;
+        [SerializeField, Header("移動速度"), Tooltip("Please test it until you want's speed.")]
+        private float Orispeed = 0.1f;
+        [SerializeField, Header("停止追蹤距離"),Tooltip("If your Screen size less than 12, recommend to fix it.")]
+        private float stopTracert= 12;
+        private float dist; 
+        [Header("Check The Move System")]
+        private bool isEnd;
+        /// <summary>
+        /// 持續移動方法：依據 direct 的方向移動
+        /// </summary>
+        private void ContinueMove()
         {
-            transform.Rotate(Vector3.right * Time.deltaTime);
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.Translate(-direct* Orispeed * Time.deltaTime, Space.World);
         }
-
+        /// <summary>
+        /// 直線移動方法：依據 dist 和 target 的參數決定移動。
+        /// * 停止追蹤：設定當 dist 小於一定值之後就不更新 direct 和 target資訊。
+        /// </summary>
         private void TransMove()
         {
-            Vector3 v3 = new Vector3(transform.position.x,transform.position.y,transform.position.z);
-            Vector3 w3 = mgCenter.GetStagePOS();
-            if (v3.x > w3.x *1.5) v3 -= Vector3.right;
-             if (v3.x < w3.x / 2) v3 += Vector3.right;
-             if (v3.y > w3.y * 1.5) v3 -= Vector3.up;
-             if (v3.y < w3.y / 2) v3 += Vector3.up;
-            transform.position = v3;
+            transform.LookAt(target.transform.position);
+            dist = Vector3.Distance(transform.position, target_v3);
+            float speed = Orispeed/ dist * Time.deltaTime;
+            if (dist > stopTracert)
+            {
+                target_v3 = target.transform.position;
+                direct = (transform.position - target_v3).normalized;
+
+            }
+            transform.position = Vector3.Lerp( transform.position, target_v3, speed);
+            if (dist < 1) isEnd = true;
         }
-        // Start is called before the first frame update
+        #region 物件啟動事件
         void Start()
         {
-
+            target = GameObject.FindWithTag("Player");
+            //target = GameObject.Find("Comet");
+            //target_v3 = target.transform.position;                // 設定目標的座標
+            //direct = (transform.position - target_v3).normalized; // 設定目標的方向
         }
 
         // Update is called once per frame
         void Update()
         {
-            TransMove();
+            if (isEnd) ContinueMove();
+            else TransMove();
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            print("碰到物件");
+
+
+        }
+        #endregion
     }
 }

@@ -27,6 +27,8 @@ namespace solar_a
         float speed_v = 4f;
         [SerializeField]
         float speed_a = 0.2f;
+        [SerializeField]
+        public float fuel_overcapacity = 20;
         public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
         [SerializeField, Header("¤õµK±±¨î¶µ")]
         Vector2 fireLenght_min = new Vector2(0.5f, 1f);
@@ -206,6 +208,10 @@ namespace solar_a
             mgCenter.FuelReplen(addFuel);
         }
 
+        private void FuelOverload()
+        {
+
+        }
         #endregion
 
 
@@ -250,6 +256,8 @@ namespace solar_a
             {
                 Rocket_Rig.velocity = Vector3.zero;
             }
+
+            if (fuel > 100) FuelOverload();
         }
         private void FixedUpdate()
         {

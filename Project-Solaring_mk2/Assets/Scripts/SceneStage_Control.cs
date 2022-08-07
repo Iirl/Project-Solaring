@@ -29,6 +29,8 @@ namespace solar_a
         public float speed;
         [SerializeField, Header("其他標籤觸發消除物件")]
         private string[] includeTag;
+        [SerializeField, Header("終點座標")]
+        private Vector3 end_pos = new Vector3(0,15000,0);
         [SerializeField, Header("重力調整")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
 
@@ -43,7 +45,11 @@ namespace solar_a
         /// </summary>
         private void _auto_move()
         {
-            if (Space_Rect.position.x != 0) Space_Rect.position = new Vector2(0, Space_Rect.position.y); // 偏移校正
+            if (Space_Rect.position.x != 0)
+            {
+                float nspd = speed / Vector3.Distance(transform.position, end_pos);
+                Space_Rect.position = Vector3.Lerp(transform.position, end_pos, nspd * Time.deltaTime); // 偏移校正
+            }
             mgCenter.MoveAction();
             stage_position = transform.position; // 場景資訊
         }
