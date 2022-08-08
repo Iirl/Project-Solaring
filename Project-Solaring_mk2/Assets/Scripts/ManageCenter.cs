@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -278,18 +279,17 @@ namespace solar_a
             Vector3 stage_pos = GetStagePOS();
             UI_moveDistane = (int)stage_pos.y;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
-            print (UI_fuel / 100f);
             if (UI_fuel <= 100) ui_fuelbar.fillAmount = UI_fuel / 100f;
             else
             {   // 超過 100 的部分用格狀血條顯示
                 ui_fuelbar.fillAmount = 1;
-                int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity);                
-                if ( EnergyPlus.Length >= level)
+                int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity);
+                if (EnergyPlus.Length >= level)
                 {
                     int count = 0;
                     foreach (GameObject g in EnergyPlus)
                     {
-                        g.SetActive( level >count);
+                        g.SetActive(level > count);
                         count++;
                     }
                 }
@@ -352,10 +352,9 @@ namespace solar_a
                     MeteoGenerate(); ; break;
                 default: break;
             }
-
             yield return new WaitForSeconds(1);
-            if (UI_moveDistane % objectDistance[idx] == idx) ss_ctl.transform.Translate(Vector3.up);
-            isGen = false;
+
+            while (isGen) yield return isGen = (UI_moveDistane % objectDistance[idx] != idx)?  false: true;
 
         }
         /// <summary>
@@ -421,10 +420,17 @@ namespace solar_a
                 );
             //// ---路徑自動生成物件---
             ///
+            if (!isGen)
+            {
                 for (int i = 0; i < objectName.Length; i++)
                 {
-                    if (UI_moveDistane % objectDistance[i] == i && !isGen) StartCoroutine(PathAutoGenerObject(i));
+                    if (UI_moveDistane % objectDistance[i] == i && !isGen)
+                    {
+                        StartCoroutine(PathAutoGenerObject(i));
+                        break;
+                    }
                 }
+            }
         }
         #endregion
 

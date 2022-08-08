@@ -12,15 +12,14 @@ namespace solar_a
     {
 
         #region 面板控制屬性
-        [SerializeField, Header("中控系統")]
-        ManageCenter mgCenter;
+
         #endregion
         [Header("移動的目標"),Tooltip("To get the target the syntax, and auto set the information.")]
         GameObject target;
         private Vector3 target_v3;
         private Vector3 direct;
         [SerializeField, Header("移動速度"), Tooltip("Please test it until you want's speed.")]
-        private float Orispeed = 0.1f;
+        private float Orispeed = 1.2f;
         [SerializeField, Header("停止追蹤距離"),Tooltip("If your Screen size less than 12, recommend to fix it.")]
         private float stopTracert= 12;
         private float dist; 
@@ -69,9 +68,7 @@ namespace solar_a
 
         private void OnTriggerEnter(Collider other)
         {
-            print("碰到物件");
-
-
+            //print("碰到物件");
         }
         #endregion
     }
