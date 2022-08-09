@@ -6,6 +6,12 @@ namespace solar_a
     /// <summary>
     /// 場景管理系統
     /// 只要處理場景事件的方法請依此類別處理。
+    /// Function:
+    /// - Take out the scene id
+    /// - Reload scene
+    /// - Load asign scene
+    /// - Pre or Next scene load
+    /// - Quit the application
     /// </summary>
     public class ManageScene : MonoBehaviour
     {

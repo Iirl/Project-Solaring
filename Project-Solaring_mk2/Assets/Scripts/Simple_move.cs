@@ -7,6 +7,7 @@ namespace solar_a
     /// <summary>
     /// 自動追蹤系統:
     /// 直線追蹤、定向移動
+    /// Put on the object, it will trace the player's position.
     /// </summary>
     public class Simple_move : MonoBehaviour
     {

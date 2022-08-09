@@ -1,18 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-
 /// <summary>
-/// 處理標題有關的程式，每個功能建議用一個區域框起來。
+/// --處理標題有關的程式，每個功能建議用一個區域框起來。
+/// Because the program was droped, remain until leader decide to delete.
 /// </summary>
 namespace solar_a
 {
     public class Title_script : MonoBehaviour
     {
         #region 屬性
-        [SerializeField, Header("場景處理系統")]
-        ManageScene SceneSTG;
         [SerializeField, Header("播放音效")]
         private List<AudioClip> sound_effect;
         [SerializeField]
@@ -28,7 +25,8 @@ namespace solar_a
 
         #region 基本功能
         /// <summary>
-        /// 調整選單的動畫
+        /// 調整選單的程序性動畫。
+        /// 目前為廢案狀態，如果要參考請尋找舊版資訊。
         /// </summary>
         /// <param name="rts">傳入的 Rect 元件</param>
         /// <param name="end">移動結束點</param>
@@ -61,23 +59,10 @@ namespace solar_a
         {
             bg_move = false;
             audioSrc = GameObject.Find("Audio Source").GetComponent<AudioSource>();
-            // 直接讀取按鈕
-
-
-        }
-
-        private void Start()
-        {
-
-        }
-
-        private void FixedUpdate()
-        {
 
         }
         private void Update()
         {
-            if (Input.GetAxisRaw("Menu") > 0 && reload_scene) SceneSTG.ReloadCurrentScene(); // 重讀場景
 
         }
 
