@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: robot_matrix_1
+  m_Name: matrix_1_2
   m_Shader: {fileID: -6465566751694194690, guid: 6a7611bca2042b341a6187f3aa2c2543,
     type: 3}
   m_ValidKeywords: []
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3001
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -29,7 +29,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_1:
-        m_Texture: {fileID: 2800000, guid: 62f77af381afbf340a1202db1fe584a0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 277a7e586b308f444b427bb9eedfef28, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_29229796:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_37674cee22c44c9bb19484568a3bf7ab:
-        m_Texture: {fileID: 2800000, guid: a893e94b1935e9a46a13e4e8aef0f297, type: 3}
+        m_Texture: {fileID: 2800000, guid: e6125ae05141fd547a05bef16c5a7b50, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_3977A1BD:
@@ -229,7 +229,7 @@ Material:
     - Vector1_A7AE73F0: 5
     - Vector1_B4FDD9B: 0.274
     - Vector1_C0D1572: 0.686
-    - Vector1_CA5DE183: 0.5
+    - Vector1_CA5DE183: 1
     - Vector1_D7D2D86: 0.9
     - Vector1_EB08E6A3: 0.428
     - Vector1_FE821E4C: 100
@@ -319,7 +319,7 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: 1
     - _ReceiveShadows: 1
     - _ReceivesSSR: 1
     - _RefractionModel: 0
@@ -385,7 +385,7 @@ Material:
     - Vector2_7A17492F: {r: 2, g: 2, b: 0, a: 0}
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_940cf6d0a8764ce693ca4b7d12a5b7b8: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 2, g: 2, b: 0, a: 0}
+    - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 0.5, g: 1, b: 0, a: 0}
     - Vector2_E4CA34D5: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
