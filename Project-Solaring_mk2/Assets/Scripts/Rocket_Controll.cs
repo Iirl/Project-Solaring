@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>
 ///  此程式是控制玩家相關的操作方法，建議放在玩家物件上。
+///  Include basic move, audio control, collision detect and State Class.
 /// </summary>
 namespace solar_a
 {
@@ -190,27 +191,28 @@ namespace solar_a
         }
         /////////////////////////////////////////////
         /// 碰撞區域
-        /// 
-        private void InvokEnd()
+         
+        /// <summary>
+        /// 當火箭碰到物體時的處理
+        /// </summary>
+        /// <param name="other">取得物件</param>
+        private void CollisionEvent(GameObject other)
         {
-            mgCenter.CheckGame(true);
-        }
-
-
-        private void SupplyEvent(GameObject ongob)
-        {
-            int addFuel = 0;
-            if (ongob.name.Contains("Box") || ongob.name.Contains("box")) addFuel = 10;
-            if (ongob.name.Contains("Bottle")) addFuel = 5;
-            //////////
-            ///
-            mgCenter.ObjectDestory(ongob);
-            mgCenter.FuelReplen(addFuel);
-        }
-
-        private void FuelOverload()
-        {
-
+            if (other.tag.Contains("Enemy"))
+            {
+                //結束遊戲處理
+                ADOClipControl(1);
+                mgCenter.CheckGame(true);
+            }
+            else if (other.tag.Contains("Block"))
+            {                
+                int addFuel = 0;
+                //當火箭碰到補品時
+                if (other.name.Contains("Box") || other.name.Contains("box")) addFuel = 10;
+                if (other.name.Contains("Bottle")) addFuel = 5;
+                mgCenter.ObjectDestory(other);
+                mgCenter.FuelReplen(addFuel);
+            }
         }
         #endregion
 
@@ -225,13 +227,6 @@ namespace solar_a
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
         }
-        void Start()
-        {
-
-        }
-        /// <summary>
-        /// 更新事件
-        /// </summary>
         void Update()
         {
             if (!rc_dtion.IsStop)
@@ -257,7 +252,6 @@ namespace solar_a
                 Rocket_Rig.velocity = Vector3.zero;
             }
 
-            if (fuel > 100) FuelOverload();
         }
         private void FixedUpdate()
         {
@@ -279,27 +273,12 @@ namespace solar_a
         {
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
             //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
-            if (other.tag.Contains("Enemy"))
-            {
-                ADOClipControl(1);
-                InvokEnd();
-            }
-            else if (other.tag.Contains("Block"))
-            {
-                SupplyEvent(other.gameObject);
-            }
+            CollisionEvent(other.gameObject);
         }
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.transform.tag.Contains("Enemy"))
-            {
-                ADOClipControl(1);
-                InvokEnd();
-            }
-            else if (collision.transform.tag.Contains("Block"))
-            {
-                SupplyEvent(collision.gameObject);
-            }
+            CollisionEvent(collision.gameObject);
+            
         }
         #endregion
         #region ##

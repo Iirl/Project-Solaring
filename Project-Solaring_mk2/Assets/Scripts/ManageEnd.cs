@@ -6,6 +6,8 @@ namespace solar_a
 {
     /// <summary>
     /// 遊戲結束系統，呼叫系統UI。
+    /// 放入標題文字，設定要顯示的訊息，就能在結束時隨機產生文字。
+    /// When the End, it will display messege onto screen.
     /// </summary>
     public class ManageEnd : MonoBehaviour
     {
@@ -14,7 +16,7 @@ namespace solar_a
         ManageCenter mgCenter;
         [SerializeField, Header("標題文字")]
         TMP_Text weclome;
-        [SerializeField, Tooltip("歡迎訊息")]
+        [SerializeField, Tooltip("顯示訊息")]
         string[] messege;
 
         #region 方法

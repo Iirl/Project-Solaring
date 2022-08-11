@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// 此為在區域空間中產生物件的程式
+/// 此為在區域空間中產生物件的程式。
+/// Create Object into stage, 
+/// use two class to process the obj generate and manage destory.
 /// </summary>
 namespace solar_a
 {
@@ -205,7 +207,7 @@ namespace solar_a
 
         #endregion
 
-        public void r()
+        public void _ReadOBJList()
         {
             // 測試讀取陣列清單的內容
             gener_list.ReadList();
@@ -302,7 +304,7 @@ namespace solar_a
             return generob;
 
         }
-        #region 固定物件方法
+        #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
@@ -329,9 +331,7 @@ namespace solar_a
                 Generator_EMP(stage, i, false);
             }
         }
-        #endregion
 
-        #region 隨機產生方法
         /// <summary>
         /// 將物件隨機生成在畫面中
         /// </summary>

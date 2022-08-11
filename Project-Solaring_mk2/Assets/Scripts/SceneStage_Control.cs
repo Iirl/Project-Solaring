@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using Cinemachine;
+using Unity.VisualScripting;
 
 namespace solar_a
 {
     /// <summary>
-    /// 場景控制系統，邊界判定及場景內容的變化
+    /// 場景控制系統，邊界判定及場景內容的變化。
+    /// Box Collider limit to Rocket can't over the border.
     /// </summary>
     public class SceneStage_Control : MonoBehaviour
     {
@@ -64,22 +66,10 @@ namespace solar_a
             {
                 if (col.tag.Contains("Player"))
                 {
-                    Rigidbody c_rig = col.GetComponent<Rigidbody>();
-                    Vector3 bound = c_rig.velocity;
-                    // 根據編號來決定反彈的方向：
-                    /// 0 往下
-                    /// 1 往上
-                    /// 2 往右
-                    /// 3 往左
-                    switch (i)
-                    {
-                        case 0: bound.y = -0.1f; break;
-                        case 1: bound.y = 0.1f; break;
-                        case 2: bound.x = 0.1f; break;
-                        case 3: bound.x = -0.1f; break;
-                        default: break;
-                    }
-                    c_rig.velocity = bound;
+                    col.transform.position = new Vector3(
+                        Mathf.Clamp(col.transform.position.x, -stage_container.x/2+1, stage_container.x/2),
+                        Mathf.Clamp(col.transform.position.y , -stage_container.y / 2+1 + transform.position.y, stage_container.y / 2 + transform.position.y)
+                        );
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
@@ -96,9 +86,9 @@ namespace solar_a
         public Vector3 GetBoxborder()
         {
             Camera cv_mc = Stage_boxBorder.GetComponentInChildren<Camera>();
-            stage_container.x = Mathf.Round(cv_mc.aspect * cinemachine.m_Lens.OrthographicSize * 2)+1;     //width
-            stage_container.y = Mathf.Round((1 / cv_mc.aspect) * stage_container.x)+1; //heigh
-            stage_container.z = stage_container.x + 2;
+            stage_container.x = Mathf.Round(cv_mc.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
+            stage_container.y = Mathf.Round((1 / cv_mc.aspect) * stage_container.x)-1; //heigh
+            stage_container.z = stage_container.x;
             Stage_boxBorder.size = stage_container;
             Space_Rect.sizeDelta = stage_container;
             return stage_container;
@@ -117,7 +107,7 @@ namespace solar_a
             GetBoxborder();
             //box_range = stage_container; // 若要改成手動大小，註解掉這行。
             // 左右牆壁判定
-            nbox_range = new Vector3(box_range.y, box_range.x, box_range.z);
+            nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z);
         }
         private void Update()
         {
@@ -137,24 +127,17 @@ namespace solar_a
         private void OnDrawGizmos()
         {
             Gizmos.color = box_color;
-            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);
-            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);
+            Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // 讓編輯器模式下也能看到邊界
+            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 上邊界
+            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 下邊界
             // 左右判定
-            Vector3 nbox_range = new Vector3(box_range.y, box_range.x, box_range.z);
-            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);
-            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range);
+            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 右邊界
+            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 左邊界
         }
         private void OnTriggerExit(Collider other)
         {
             if (other.tag.Contains("Player"))
             {
-                // 第二層防止衝破大氣層保險
-                Vector3 check = (other.transform.position);
-                if (check.x > stage_container.x / 2 - 2) check.x = stage_container.x / 2 - 2 + transform.position.x;
-                else if (check.x < -stage_container.x / 2 + 2) check.x = -stage_container.x / 2 + 2 + transform.position.x;
-                if (check.y < -stage_container.y / 2 + 1 + transform.position.y) check.y = transform.position.y - stage_container.y / 2;
-                else if (check.y > stage_container.y / 2 + transform.position.y) check.y = stage_container.y / 2 + transform.position.y;
-                other.transform.position = check;
             }
             else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
             else
@@ -167,3 +150,25 @@ namespace solar_a
         #endregion
     }
 }
+
+/*
+ * 原本防止超過邊界寫法，會有回彈的問題。
+    Rigidbody c_rig = col.GetComponent<Rigidbody>();
+    Vector3 bound = c_rig.velocity;
+    // 根據編號來決定反彈的方向：
+    /// 0 往下
+    /// 1 往上
+    /// 2 往右
+    /// 3 往左
+    switch (i)
+    {
+        case 0: bound.y = -0.1f; break;
+        case 1: bound.y = 0.1f; break;
+        case 2: bound.x = 0.1f; break;
+        case 3: bound.x = -0.1f; break;
+        default: break;
+    }
+    c_rig.velocity = bound;
+ * 
+ * 
+ * */
