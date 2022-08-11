@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c027022a847194ba62f5caa1493b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneID: SceneID
 --- !u!1 &73091848
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +691,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7782178, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6353,6 +6354,25 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!1 &1664379339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8853699504866694951, guid: 1ae39d405f903894da04ccbbdda23aac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1287324342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1664379341
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664379339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1684974482
 GameObject:
   m_ObjectHideFlags: 0
