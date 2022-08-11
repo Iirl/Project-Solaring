@@ -108,7 +108,7 @@ Material:
     - _color_emission: {r: 90.5097, g: 85.86831, b: 0, a: 0}
     - _color_emission_hologram: {r: 0.19339621, g: 0.20842095, b: 1, a: 0}
     - _color_texture: {r: 1, g: 1, b: 1, a: 0}
-    - _tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _tiling: {r: 1, g: 1.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3539614952286691880
 MonoBehaviour:
