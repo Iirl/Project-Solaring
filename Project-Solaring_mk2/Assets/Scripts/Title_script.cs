@@ -19,7 +19,7 @@ namespace solar_a
         [SerializeField, Header("Property Adjust")]
         private float bg_move_speed = 0.5f;
         // 其他屬性(欄位)
-        private bool bg_move = true, reload_scene = false;
+        public bool bg_move = true, reload_scene = false;
 
         #endregion
 

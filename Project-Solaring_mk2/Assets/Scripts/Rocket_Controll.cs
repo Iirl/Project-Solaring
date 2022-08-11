@@ -213,6 +213,10 @@ namespace solar_a
                 mgCenter.ObjectDestory(other);
                 mgCenter.FuelReplen(addFuel);
             }
+            else if (other.tag.Contains("Respawn"))
+            {
+                mgCenter.InToStation();
+            }
         }
         #endregion
 
@@ -284,6 +288,8 @@ namespace solar_a
         #region ##
         #endregion
     }
+
+    #region ¤õ½bª¬ºA
     public class RocketCondition
     {
         public enum State { Stay, Move, Float, Crashed, Stop }
@@ -336,4 +342,5 @@ namespace solar_a
             isStop = (int)state == 4 ? true : false;
         }
     }
+    #endregion
 }

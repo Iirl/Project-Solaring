@@ -187,6 +187,11 @@ namespace solar_a
             }
         }
 
+        public void InToStation()
+        {
+            ss_mag.LoadScenes("Station");
+        }
+
         public void test(int idx = 0)
         {
             // Change Asign Object to List String.
@@ -411,6 +416,11 @@ namespace solar_a
 
         }
 
+        private void Start()
+        {
+            ss_mag.SaveLeveInform();
+            //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+        }
         private void Update()
         {
             show_UI();

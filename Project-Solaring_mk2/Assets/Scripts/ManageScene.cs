@@ -15,12 +15,14 @@ namespace solar_a
     /// </summary>
     public class ManageScene : MonoBehaviour
     {
+        public string sceneID = "SceneID";
+
         /// <summary>
         /// 取得目前場景的編號。
         /// 輸入參數一可以取得目前場景的上限。
         /// </summary>
         /// <returns>回傳一個 int 的 index 。</returns>
-        public int GetScenes(bool isMax=false)
+        public int GetScenes(bool isMax = false)
         {
             if (!isMax) return SceneManager.GetActiveScene().buildIndex;
             else return SceneManager.sceneCount;
@@ -30,33 +32,59 @@ namespace solar_a
         /// </summary>
         public void ReloadCurrentScene()
         {
-            if (Time.timeScale != 1) Time.timeScale = 1;
+            NormalProcessFunction();
             SceneManager.LoadScene(GetScenes());
-        }        
+        }
+        /// <summary>
+        /// 儲存場景的資訊
+        /// 當場景轉換時，紀錄要保留的資訊。
+        /// </summary>
+        public void SaveLeveInform()
+        {
+            PlayerPrefs.SetInt(sceneID, GetScenes());
+        }
+        /// <summary>
+        /// 根據目前的指標移動到下一關
+        /// </summary>
+        public void LoadScenes()
+        {
+            NormalProcessFunction();
+            int idx = PlayerPrefs.GetInt(sceneID) +1;
+            SceneManager.LoadScene(idx);
+        }
         /// <summary>
         /// 載入指定編號的場景
         /// </summary>
         /// <param name="idx">請輸入場景編號</param>
         public void LoadScenes(int idx)
         {
-            if (Time.timeScale != 1) Time.timeScale = 1;
+            NormalProcessFunction();
             SceneManager.LoadScene(idx);
-        }        
+        }
+        public void LoadScenes(string sname)
+        {
+            NormalProcessFunction();
+            SceneManager.LoadScene(sname);
+        }
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>
         public void LoadScenesPreOrder(bool next)
         {
             int now = GetScenes();
-            int nexts = now +1;
-            int prevs = now -1;
-            if (next) {
+            int nexts = now + 1;
+            int prevs = now - 1;
+            if (next)
+            {
                 if (nexts == SceneManager.sceneCount) return;
-                LoadScenes(now +1);
-            } else {
-                if (prevs < 0) return;
-                LoadScenes(now -1);
+                LoadScenes(now + 1);
             }
+            else
+            {
+                if (prevs < 0) return;
+                LoadScenes(now - 1);
+            }
+            NormalProcessFunction();
         }
         /// <summary>
         /// 結束程式函數
@@ -64,6 +92,20 @@ namespace solar_a
         public void Quit()
         {
             Application.Quit();
+        }
+
+        /// <summary>
+        /// 所有場景執行會用到的通用函數
+        /// </summary>
+        private void NormalProcessFunction()
+        {
+            if (Time.timeScale != 1) Time.timeScale = 1;
+
+        }
+
+        private void Start()
+        {
+            print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
         }
     }
 }
