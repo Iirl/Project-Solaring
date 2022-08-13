@@ -41,8 +41,8 @@ namespace solar_a
 
         private void Start()
         {
-            if (weclome!=null) ShowInfo(weclome);
-            mgCenter.canvas_select = GetComponent<CanvasGroup>();
+            if (weclome!=null) ShowInfo(weclome);                   //顯示結束文字
+            //mgCenter.canvas_select = GetComponent<CanvasGroup>();   //設定畫布元件
             //mgCenter.CheckGame(true);
             mgCenter.show_Menu();
         }

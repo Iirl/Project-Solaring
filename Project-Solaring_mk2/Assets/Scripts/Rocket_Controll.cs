@@ -15,10 +15,8 @@ namespace solar_a
         ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("火箭的基本資訊"),
-            Tooltip("燃料(X)\n" +
-            "移動速度(Y)\n移動加速度(Z)")]
-        public Vector3 RocketBasic = new Vector3(100, 4f, 0.2f);
+        [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n移動加速度(Z)")]
+        public Vector3 RocketBasic;
         [SerializeField, Header("單位消耗燃料")]
         float unit_fuel;
         public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
@@ -183,6 +181,7 @@ namespace solar_a
         /// 火箭音效設定：
         /// 0. 碰到補給品
         /// 1. 碰到敵人或自爆
+        /// 2. 強化性音效
         /// </summary>
         public void ADOClipControl(int i)
         {
@@ -200,6 +199,10 @@ namespace solar_a
         {
             if (other.tag.Contains("Enemy"))
             {
+                if (StaticSharp.isPowerfullMode)
+                {
+                    return;
+                }
                 //結束遊戲處理
                 ADOClipControl(1);
                 mgCenter.CheckGame(true);
@@ -220,10 +223,9 @@ namespace solar_a
         }
         #endregion
 
-
-        #region 事件
         private void Awake()
-        {
+        {            
+            RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC: RocketBasic;
             fuel = RocketBasic.x;
             speed_v = RocketBasic.y;
             speed_a = RocketBasic.z;
@@ -231,6 +233,7 @@ namespace solar_a
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
         }
+        #region 事件
         void Update()
         {
             if (!rc_dtion.IsStop)

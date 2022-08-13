@@ -366,7 +366,7 @@ namespace solar_a
             GameObject PA = null;
             while (sub_count <= sub_max)
             {
-                int rnd = Random.Range(0, 3);
+                int rnd = Random.Range(0, TG.Count);
                 try
                 {
                     // 轉換ID到父物件

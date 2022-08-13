@@ -25,7 +25,7 @@ namespace solar_a
         public int GetScenes(bool isMax = false)
         {
             if (!isMax) return SceneManager.GetActiveScene().buildIndex;
-            else return SceneManager.sceneCount;
+            else return SceneManager.sceneCountInBuildSettings;
         }
         /// <summary>
         /// 重讀場景
@@ -44,12 +44,15 @@ namespace solar_a
             PlayerPrefs.SetInt(sceneID, GetScenes());
         }
         /// <summary>
-        /// 根據目前的指標移動到下一關
+        /// 根據目前的指標移動到下一關:
+        /// 目前只能指定達到關卡上限之後回到標題。
+        /// 應該要在最後加入結束場景，避免直接跳回標題。
         /// </summary>
         public void LoadScenes()
         {
             NormalProcessFunction();
-            int idx = PlayerPrefs.GetInt(sceneID) +1;
+            int idx = PlayerPrefs.GetInt(sceneID);
+            idx = (GetScenes(true) == idx+1) ?0:idx+1;
             SceneManager.LoadScene(idx);
         }
         /// <summary>

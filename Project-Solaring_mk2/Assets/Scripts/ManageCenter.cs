@@ -1,9 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
-using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -68,13 +67,30 @@ namespace solar_a
 
         #endregion
 
-        #region 共用方法 (Public Method)
 
+        public void test(int idx = 0)
+        {
+            //print("Debug");
+            //顯示除錯面板
+            CanvasGroup testOB = GameObject.Find("TestObject").GetComponent<CanvasGroup>();
+            testOB.alpha = testOB.alpha != 0 ? 0 : 1;
+            testOB.interactable = !testOB.interactable;
+            testOB.blocksRaycasts = !testOB.blocksRaycasts;
+        }
+        public void X_PowerMode()
+        {
+            StaticSharp.isPowerfullMode = !StaticSharp.isPowerfullMode;
+            transform.Find("AudioBox").GetComponent<AudioSource>().Play();
+        }
+        /// <summary>
+        /// 共用方法 (Public Method)
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetStagePOS()
         {
             return ss_ctl.transform.position;
         }
-        ///////////// 火箭控制相關
+        #region 火箭控制相關
         // Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
 
         /// <summary>
@@ -97,20 +113,10 @@ namespace solar_a
             float nowFuel = rocket_ctl.RocketS1.x;
             rocket_ctl.PutRocketSyn(f, rocket_ctl.RocketBasic.y);
             rocket_ctl.ADOClipControl(0);
-            if (condition.state == GameCondition.State.End && nowFuel > 0) CancelInvoke("GameState");
+            if (StaticSharp.Conditions == StaticSharp.State.End && nowFuel > 0) CancelInvoke("GameState");
         }
-
-        ///////////// 產生物件
-
-        /// <summary>
-        /// 物件生成系統
-        /// 指定距離隨機生成物件
-        /// </summary>
-        /// <param name="i"></param>
-        public void GenerAuto(int idx = 0)
-        {
-        }
-
+        #endregion
+        #region 產生物件
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
         /// 這裡是設定要使用何種類別。
@@ -152,6 +158,7 @@ namespace solar_a
             // Second: Load Insub Prefabs.
             List<Object> pfabs = new()
             {
+                
 #if UNITY_EDITOR
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/Empty.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal01.prefab", typeof(Object)),
@@ -172,7 +179,8 @@ namespace solar_a
         {
             gener_class.Destroys(obj);
         }
-        /////////////////////場 景//////////////////////////////
+        #endregion
+        #region 場 景 相 關
         /// <summary>
         /// 預先產生物件方法，會依照目前的場景放置物件。
         /// i 代表目前的場景編號，可以在這裡指定場景為哪個時，用何種方式生成何種物件。
@@ -186,17 +194,15 @@ namespace solar_a
                 default: break;
             }
         }
-
+        // 進入中繼站
         public void InToStation()
         {
+            StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
+            StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
+            ss_mag.SaveLeveInform();
             ss_mag.LoadScenes("Station");
         }
 
-        public void test(int idx = 0)
-        {
-            // Change Asign Object to List String.
-            print(condition.GetState());
-        }
         ///////////// 選單變化相關
         ///
         public void GetState()
@@ -240,7 +246,7 @@ namespace solar_a
             }
 
         }
-
+        #endregion
         /// <summary>
         /// 遊戲結束判定系統
         /// 1. 沒有燃料
@@ -249,7 +255,7 @@ namespace solar_a
         /// <param name="end"></param>
         public void CheckGame(bool end = false, float times = 0.2f)
         {
-            if (end && ((int)condition.state) != 4)
+            if (end && ((int)StaticSharp.Conditions) != 4)
             {
                 // 檢查是否正在暫停，若是的話強制結束暫停
                 if (menus.alpha != 0 && menus != null)
@@ -261,9 +267,7 @@ namespace solar_a
             }
 
         }
-        #endregion
-
-        GameCondition condition = new GameCondition();
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         #region 本地控制方法或事件
         /// <summary>
         /// 畫布群組開關
@@ -272,6 +276,7 @@ namespace solar_a
         /// <param name="on"></param>
         private void CanvasCtrl(CanvasGroup cvs, bool on = false)
         {
+
             cvs.alpha = on ? 1 : 0;
             cvs.interactable = on;
             cvs.blocksRaycasts = on;
@@ -299,7 +304,7 @@ namespace solar_a
                     }
                 }
             }
-            if (UI_fuel <= 0 && (int)condition.state != 3) { CheckGame(true, 5f); }//結束遊戲條件之一
+            if (UI_fuel <= 0 && (int)StaticSharp.Conditions != 3) { CheckGame(true, 5f); }//結束遊戲條件之一
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
@@ -311,7 +316,7 @@ namespace solar_a
             if (menus != null)
             {
                 canvas_select = menus;
-                if (condition.state != GameCondition.State.Pause)
+                if (StaticSharp.Conditions != StaticSharp.State.Pause)
                 {
                     // 顯現
                     condition.Next();
@@ -327,6 +332,9 @@ namespace solar_a
         }
         /// <summary>
         /// 遊戲狀態處理情況
+        /// 根據目前的狀態切換遊戲進行狀況
+        /// END = 結束遊戲
+        /// Running 切換 = 開起暫停選單
         /// </summary>
         private void GameState()
         {
@@ -338,7 +346,7 @@ namespace solar_a
                 ss_ctl.enabled = false;
                 rocket_ctl.enabled = false;
             }
-            else if (condition.state != GameCondition.State.Running)
+            else if (StaticSharp.Conditions != StaticSharp.State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
                 space_ctl.enabled = !space_ctl.enabled;
             }
@@ -346,6 +354,11 @@ namespace solar_a
             rocket_ctl.ControlChange(!isEnd);
             CancelInvoke("GameState");
         }
+        /// <summary>
+        /// 限制生成函數，避免同一時間內大量生成。
+        /// </summary>
+        /// <param name="idx"></param>
+        /// <returns></returns>
         private IEnumerator PathAutoGenerObject(int idx = 0)
         {
 
@@ -359,7 +372,7 @@ namespace solar_a
             }
             yield return new WaitForSeconds(1);
 
-            while (isGen) yield return isGen = (UI_moveDistane % objectDistance[idx] != idx)?  false: true;
+            while (isGen) yield return isGen = (UI_moveDistane % objectDistance[idx] != idx) ? false : true;
 
         }
         /// <summary>
@@ -386,13 +399,7 @@ namespace solar_a
                 {
                     if (kAtl && kO)
                     {
-                        //print("Debug");
-                        //GameObject testOB = ((Transform)Resources.InstanceIDToObject(27318)).gameObject;
-                        CanvasGroup testOB = GameObject.Find("TestObject").GetComponent<CanvasGroup>();
-                        testOB.alpha = testOB.alpha != 0 ? 0 : 1;
-                        testOB.interactable = !testOB.interactable;
-                        testOB.blocksRaycasts = !testOB.blocksRaycasts;
-
+                        test();
                     }
                     if (kLS) print("C+S button");
                     else if (kB) print("B button");
@@ -418,11 +425,11 @@ namespace solar_a
 
         private void Start()
         {
-            ss_mag.SaveLeveInform();
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
         }
         private void Update()
         {
+            //print(StaticSharp.Conditions);  //狀態機檢查
             show_UI();
             SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
@@ -430,9 +437,7 @@ namespace solar_a
                 );
             //// ---路徑自動生成物件---
             ///
-            if (!isGen)
-            {
-                for (int i = 0; i < objectName.Length; i++)
+            if (!isGen) for (int i = 0; i < objectName.Length; i++)
                 {
                     if (UI_moveDistane % objectDistance[i] == i && !isGen)
                     {
@@ -440,7 +445,7 @@ namespace solar_a
                         break;
                     }
                 }
-            }
+            
         }
         #endregion
 
@@ -454,31 +459,5 @@ namespace solar_a
         #endregion
     }
 
-    /// <summary>
-    /// 遊戲狀態機
-    /// 目前先設定為：執行中、讀取、暫停及結束遊戲。
-    /// ※與之前的寫法相比，不需要個別設定布林值，狀態變化只要下要變的函數就可以，而且順序可以固定或指定。
-    /// </summary>
-    public class GameCondition
-    {
-        public enum State { Running, Loading, Pause, End }
-        public State state = State.Running;
 
-        public void Next()
-        {
-            if (state < State.End - 1) state++;
-        }
-        public void Previous()
-        {
-            if (state != 0) state--;
-        }
-        public void Dead()
-        {
-            state = State.End;
-        }
-        public string GetState()
-        {
-            return state.ToString();
-        }
-    }
 }
