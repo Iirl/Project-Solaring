@@ -38,3 +38,5 @@ public class StaticSharp
         }
     }
 }
+
+public enum GenerClass { Normal, Meteorite }
