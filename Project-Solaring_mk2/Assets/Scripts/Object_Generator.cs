@@ -14,7 +14,7 @@ namespace solar_a
 
         #region 屬性
         //SceneStage_Control Scene_ctl;
-
+        
         [SerializeField, Header("生成位置")]
         List<GameObject> MainObject = new List<GameObject>();
         [SerializeField, Header("生成物件"), Tooltip("放入指定的物件，最好是有 Prefabs 過的檔案")]
@@ -26,7 +26,7 @@ namespace solar_a
         [SerializeField, Tooltip("指定物件生成半徑，僅在隨機生成套用")]
         Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
         [SerializeField, Header("指定物件生成數量上限")]
-        int Generate_limit = 10;
+        int Generate_limit = 10;//*/
         public ObjectArray gener_list = new();
 
         #region 產生器類別 class Generater
@@ -285,7 +285,7 @@ namespace solar_a
         /// <param name="isPos">是否隨機位置</param>
         /// <param name="isRoate">是否隨機旋轉</param>
         /// <returns></returns>
-        private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
+         private Generater Generator_EMP(Vector3 worldOffset, int i = 0, bool isPos = true, bool isRoate = false)
         {
             i = (i >= Generate.Count) ? Generate.Count - 1 : i;
             DestroysOnBug(i, worldOffset);
