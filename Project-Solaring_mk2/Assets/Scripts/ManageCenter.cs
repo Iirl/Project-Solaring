@@ -31,12 +31,14 @@ namespace solar_a
         /// <summary>
         /// 產生器控制
         /// </summary>
-        [SerializeField, Header("預設產生器類別，請指定一個產生器物件")]
+        //("預設產生器類別，請指定一個產生器物件")]
         Object_Generator gener_class;
         [SerializeField, Tooltip("設定產生器物件")]
         private string[] objectName = { "補給品", "隕石" };
         [SerializeField, Tooltip("設定多少距離產生一次物件")]
         private int[] objectDistance = { 50, 30 };
+        [SerializeField, Header("設定產生器類別"),Tooltip("0:一般生成, 1:隕石類別")]
+        private GenerClass[] objectClass;
         /// <summary>
         /// GameUI Interface.
         /// </summary>
@@ -99,7 +101,8 @@ namespace solar_a
         public void MoveAction()
         {
             float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
-            if (!rocket_ctl.rc_dtion.IsStay) ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
+            //if (!rocket_ctl.rc_dtion.IsStay) 
+                ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
             if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime);   // 燃料變化
             //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
 
@@ -141,7 +144,6 @@ namespace solar_a
         /// <param name="rotate">是否隨機生成轉向</param>
         public void AutoGenerate(int i, bool rotate = false)
         {
-            AsignGenerate(0); //切換成 補品類別
             Vector3 st_border = ss_ctl.GetBoxborder();
             if (gener_class != null) gener_class.Static_gen(GetStagePOS().y, i, Random.Range(-st_border.x / 2, st_border.x / 2), Random.Range(st_border.y, st_border.y * 2), rotate);
         }
@@ -152,7 +154,6 @@ namespace solar_a
         /// </summary>
         public void MeteoGenerate()
         {
-            AsignGenerate(1); //切換成 隕石類別
             int obj = Random.Range(0, 3);
             int Gid = gener_class.Random_gen(GetStagePOS().y + 40, false, obj); // Fist: Generate SubObject.
             // Second: Load Insub Prefabs.
@@ -361,13 +362,22 @@ namespace solar_a
         /// <returns></returns>
         private IEnumerator PathAutoGenerObject(int idx = 0)
         {
-
+            //切換成指定類別
+            switch (objectClass[idx])
+            {
+                case GenerClass.Normal:AsignGenerate(0);
+                    break;
+                case GenerClass.Meteorite:AsignGenerate(1);
+                    break;
+                default:
+                    break;
+            }
+            //AsignGenerate((int)gener_class); 
             isGen = true;
             switch (idx)
             {
                 case 0: AutoGenerate(0, true); break;
-                case 1:
-                    MeteoGenerate(); ; break;
+                case 1: MeteoGenerate(); break;
                 default: break;
             }
             yield return new WaitForSeconds(1);
