@@ -129,15 +129,17 @@ namespace solar_a
         /// </summary>
         public class ObjectArray : ArrayList
         {
+            public int length = 5;
             /// <summary>
             /// 追加第二維陣列
             /// 相關資訊如下：
             /// 0   InstanceID
             /// 1   Parent Object self
-            /// 2   Object'name
-            /// 3   Position
-            /// 4   Rotation
-            /// 5   Scale
+            /// 2   Parent Object self
+            /// 3   Object'name
+            /// 4   Position
+            /// 5   Rotation
+            /// 6   Scale
             /// </summary>
             /// <param name="o"></param>
             /// <returns></returns>
@@ -149,6 +151,7 @@ namespace solar_a
                 ArrayList newlist = new();
                 newlist.Add(uo.GetInstanceID());
                 newlist.Add(uo);
+                newlist.Add((GameObject)o);
                 newlist.Add(uo.name);
                 newlist.Add(uot.localPosition);
                 newlist.Add(uot.localRotation);
@@ -202,6 +205,17 @@ namespace solar_a
                 if (key == this.Count) return -1;
                 return key;
             }
+            public Object GetObject(int idx)
+            {
+                ArrayList item = (ArrayList)this[idx];
+                return (Object)item[1];
+            }
+            public GameObject GetGameObject(int idx)
+            {
+                ArrayList item = (ArrayList)this[idx];
+                return (GameObject)item[2];
+            }
+
         }
         #endregion
 
@@ -223,7 +237,11 @@ namespace solar_a
             int id = target.GetInstanceID();
             int key = gener_list.FindKeys(id);
             if (key != -1) gener_list.RemoveAt(key);
-            Destroy(target);
+            try
+            {
+                Destroy(target);
+            }
+            catch (System.Exception) { }
         }
         /// <summary>
         /// 清空物件系統

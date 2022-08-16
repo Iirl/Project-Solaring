@@ -158,6 +158,7 @@ namespace solar_a
         /// </summary>
         public void MeteoGenerate()
         {
+            AsignGenerate(1);
             int obj = Random.Range(0, 3);
             int Gid = gener_class.Random_gen(GetStagePOS().y + 40, false, obj); // Fist: Generate SubObject.
             // Second: Load Insub Prefabs.

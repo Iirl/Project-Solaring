@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Object
   m_EditorClassIdentifier: 
   grtClass: 0
-  grtObject: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee,
+  grtObject: {fileID: 5145902657687562414, guid: 0de2e50343b393b4ebffe17135b75635,
     type: 3}
   grtDistance: 0
   grtPos: {x: 10, y: 5, z: 7}
