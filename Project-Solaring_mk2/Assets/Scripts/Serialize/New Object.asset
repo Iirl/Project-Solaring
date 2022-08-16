@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: New Object
   m_EditorClassIdentifier: 
-  generClass: 0
-  generObject: {fileID: 0}
-  generDistance: 0
+  grtClass: 0
+  grtObject: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee,
+    type: 3}
+  grtDistance: 0
+  grtPos: {x: 10, y: 5, z: 7}
+  grtRot: {x: 0, y: 0, z: 0, w: 1}
+  grtLimit: 10

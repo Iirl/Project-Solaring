@@ -10,7 +10,6 @@ public class StaticSharp
     static public bool isPowerfullMode=false;
 
 
-    public enum State { Running, Loading, Pause, End }
     /// <summary>
     /// 遊戲狀態機
     /// 目前先設定為：執行中、讀取、暫停及結束遊戲。
@@ -19,6 +18,11 @@ public class StaticSharp
     public class GameCondition
     {
         private State state { get { return Conditions; } set { Conditions = value; } }
+
+        public GameCondition()
+        {
+            state = State.Running;
+        }
 
         public void Next()
         {
@@ -39,4 +43,5 @@ public class StaticSharp
     }
 }
 
+public enum State { Running, Loading, Pause, End }
 public enum GenerClass { Normal, Meteorite }

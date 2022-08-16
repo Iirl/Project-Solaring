@@ -92,6 +92,10 @@ namespace solar_a
         {
             return ss_ctl.transform.position;
         }
+        public Vector3 GetStageBorder()
+        {
+            return ss_ctl.GetBoxborder();
+        }
         #region 火箭控制相關
         // Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
 
@@ -116,7 +120,7 @@ namespace solar_a
             float nowFuel = rocket_ctl.RocketS1.x;
             rocket_ctl.PutRocketSyn(f, rocket_ctl.RocketBasic.y);
             rocket_ctl.ADOClipControl(0);
-            if (StaticSharp.Conditions == StaticSharp.State.End && nowFuel > 0) CancelInvoke("GameState");
+            if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
         #endregion
         #region 產生物件
@@ -317,7 +321,7 @@ namespace solar_a
             if (menus != null)
             {
                 canvas_select = menus;
-                if (StaticSharp.Conditions != StaticSharp.State.Pause)
+                if (StaticSharp.Conditions != State.Pause)
                 {
                     // 顯現
                     condition.Next();
@@ -342,12 +346,13 @@ namespace solar_a
             bool isEnd = false;
             if (condition.GetState() == "End")
             {// GameOver
+                transform.Find("UI_Pause").transform.Find("Btn_Back_en").gameObject.SetActive(false);
                 isEnd = true;
                 mEnd.enabled = true;
                 ss_ctl.enabled = false;
                 rocket_ctl.enabled = false;
             }
-            else if (StaticSharp.Conditions != StaticSharp.State.Running)
+            else if (StaticSharp.Conditions != State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
                 space_ctl.enabled = !space_ctl.enabled;
             }
