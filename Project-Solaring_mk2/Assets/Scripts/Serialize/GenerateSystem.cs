@@ -21,9 +21,12 @@ namespace solar_a
             Vector3 st_border = mgc.GetStageBorder();
             Static_gen(st_border.y);
         }
-        private void Test()
+        public void Test()
         {
-
+            Vector3 st_border = mgc.GetStageBorder();
+            int id = Random_gen(st_border.y / 4, true);
+            print(id);
+            //gener_list.ReadList();
 
         }
 
@@ -106,9 +109,9 @@ namespace solar_a
         /// <param name="isPos">是否隨機位置</param>
         /// <param name="isRoate">是否隨機旋轉</param>
         /// <returns></returns>
-        private void Generator_EMP(Vector3 worldOffset, bool isRoate = false)
+        private GameObject Generator_EMP(Vector3 worldOffset, bool isRoate = false)
         {
-            if (generData.grtObject == null) return;
+            if (generData.grtObject == null) return null;
             DestroysOnBug(worldOffset);
             //show
             //Vector3 st_border = mgc.GetStageBorder();
@@ -118,12 +121,12 @@ namespace solar_a
             );
 
             obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
-            obGenerate.Create_v3 = generData.grtPos + worldOffset;                  // 物件生成位置是否隨機，預設為是。
+            obGenerate.Create_v3 = random_v3 + worldOffset;                         // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
             gener_list.Add(obGenerate.Generates());               // 加入生成列表。
                                                                   //Destroys(generob.GetParent());
                                                                   //generob.ObjectMessegeInfo();
-
+            return gener_list.GetGameObject(gener_list.Count-1);
         }
         #endregion
         #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
@@ -145,6 +148,8 @@ namespace solar_a
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
         public int Random_gen(float locY, bool isRotated)
         {
+            Vector3 stage = new Vector3(0, locY, 0);
+            Generator_EMP(stage, isRotated);
 
             return -1;
         }

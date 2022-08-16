@@ -76,6 +76,8 @@ namespace solar_a
                     if (i != 0) mgCenter.ObjectDestory(col.gameObject);
                 }
             }
+            print($"透過 {colliders[0].tag}");
+
         }
         #endregion
 
@@ -117,8 +119,8 @@ namespace solar_a
         private void FixedUpdate()
         {
             // 場景邊緣動作
-            _borderVelocity(Physics.OverlapBox(stage_position + box_offset, box_range, Quaternion.identity), 0);
-            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 1f), box_range, Quaternion.identity), 1);
+            _borderVelocity(Physics.OverlapBox(stage_position + Vector3.up * box_offset.y, box_range, Quaternion.identity), 0);
+            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range, Quaternion.identity), 1);
             _borderVelocity(Physics.OverlapBox(stage_position + Vector3.left * box_offset.x, nbox_range, Quaternion.identity), 2);
             _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
 
