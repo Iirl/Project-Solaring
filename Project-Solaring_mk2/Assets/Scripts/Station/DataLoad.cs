@@ -39,7 +39,7 @@ public class DataLoad : MonoBehaviour
     private void Start()
     {
         LimitChange();  // 自動讀取限制
-        ChangeRocketInfo(Vector3.zero);
+        ShowRocketInfo();
     }
     #endregion
     public void SaveChanged()
@@ -51,22 +51,23 @@ public class DataLoad : MonoBehaviour
     /// </summary>
     /// <param name="v">輸入三維向量</param>
     /// <param name="i">輸入變化量</param>
-    public void ChangeRocketInfo(Vector3 v, int i=0)
+    public void ChangeRocketInfo(Vector3 v, int i = 0)
     {
         bool plus = i > 0 ? true : false;
         //print($"{plus} & {point}"); // 檢查數值是否有問題
-        print("A");
         if (plus && point == 0) return;
         else if (i < 0 && pointUsed == 0) return;
         else if (local_info.x * local_info.y * local_info.z <= 0 && !plus) return;
-        print("B");
         local_info += v;
         if (plus) { point--; pointUsed++; }
         else if (i < 0) { point++; pointUsed--; }
+        ShowRocketInfo();
+    }
+    public void ShowRocketInfo()
+    {
         Value_engery.text = local_info.x.ToString();
         Value_speed.text = local_info.y.ToString();
         Value_acceler.text = local_info.z.ToString();
-        if (v == Vector3.zero) return;
         // TextColor Change
         if (float.Parse(Value_engery.text) <= alert_fva.x) Value_engery.color = alert_color;
         else Value_engery.color = nor_color;
@@ -75,7 +76,6 @@ public class DataLoad : MonoBehaviour
         if (float.Parse(Value_acceler.text) <= alert_fva.z) Value_acceler.color = alert_color;
         else Value_acceler.color = nor_color;
     }
-
     public void BtnFuel(int count)
     {
         Vector3 v3 = Vector3.zero;

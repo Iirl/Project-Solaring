@@ -108,7 +108,7 @@ namespace solar_a
 
         private void Start()
         {
-            print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
+            //print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
         }
     }
 }

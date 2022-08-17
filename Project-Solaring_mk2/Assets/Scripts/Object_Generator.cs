@@ -221,10 +221,10 @@ namespace solar_a
 
         #endregion
 
-        public void _ReadOBJList()
+        public void _ReadOBJList(int id)
         {
             // 測試讀取陣列清單的內容
-            gener_list.ReadList();
+            gener_list.ReadList(gener_list.FindKeys(id));
             print(gener_list.Count);
         }
         /// <summary>

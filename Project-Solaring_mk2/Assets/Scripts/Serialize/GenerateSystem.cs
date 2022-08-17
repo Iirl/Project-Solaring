@@ -16,17 +16,23 @@ namespace solar_a
         Object_Generator.Generater obGenerate;
         Object_Generator.ObjectArray gener_list = new();
 
-        public void AutoGenerate(bool rotate = false)
+        public void NormalGenerate(bool rotate = false)
         {
-            Vector3 st_border = mgc.GetStageBorder();
+            Vector3 st_border = mgc.GetStagePOS();
             Static_gen(st_border.y);
+        }
+        private void MeteoGenerate()
+        {
+            Vector3 st_border = mgc.GetStagePOS();
+            Random_gen(st_border.y, true);
+
         }
         public void Test()
         {
-            Vector3 st_border = mgc.GetStageBorder();
-            int id = Random_gen(st_border.y / 4, true);
-            print(id);
-            //gener_list.ReadList();
+            Vector3 st_border = mgc.GetStagePOS();
+            Random_gen(st_border.y, true);
+            
+            gener_list.ReadList();
 
         }
 
@@ -44,6 +50,7 @@ namespace solar_a
         /// <param name="target">觸發銷毀的物件</param>
         public void Destroys(GameObject target)
         {
+            print(target.name);
             // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
             int id = target.GetInstanceID();
             int key = gener_list.FindKeys(id);
@@ -73,7 +80,7 @@ namespace solar_a
         /// 2. 清單未存放資料，但已存在於場上。(修改成超過生成限制的半數)
         /// 3. 超過畫面一定距離。
         /// </summary>
-        public void DestroysOnBug(Vector3 w_dist)
+        private void DestroysOnBug(Vector3 w_dist)
         {
             if (gener_list.Count > 0 && gener_list.Count > generData.grtLimit)
             {
@@ -133,7 +140,7 @@ namespace solar_a
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
-        public void Static_gen(float locY)
+        private void Static_gen(float locY)
         {
             Vector3 stage = new Vector3(0, locY, 0);
             Generator_EMP(stage);
@@ -146,33 +153,36 @@ namespace solar_a
         /// <param name="locY">目前空間的Y軸</param>
         /// <param name="isRotated">物件是否隨機旋轉</param>
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
-        public int Random_gen(float locY, bool isRotated)
+        private int Random_gen(float locY, bool isRotated)
         {
             Vector3 stage = new Vector3(0, locY, 0);
-            Generator_EMP(stage, isRotated);
-
+            GameObject parentOB = Generator_EMP(stage, isRotated);
+            List<Object> pfabs = new() { };
+            Random_Metro(parentOB, generData.grtSubObject);
             return -1;
         }
         /// <summary>
         /// 物件中的物件生成
         /// </summary>
-        /// <param name="PAID">父物件的ID</param>
+        /// <param name="PAOB">父物件的ID</param>
         /// <param name="TG">要生成的物件</param>
-        public void Random_Metro(int PAID, List<Object> TG)
+        private void Random_Metro(GameObject parent, List<Object> TG)
         {
             //print($"id:{PAID}, GTB:{TG}");
             // 子物件計算：sub_count為父物件到子物件的ID距離(每多一個元件數值就會改變...)
-            int sub_count = 22, i = 1;
-            int sub_max = sub_count + (4 * 6);
-            GameObject PA = null;
-            while (sub_count <= sub_max)
+            parent = parent.transform.GetChild(0).gameObject;
+            int sub_count = 0 ;
+            int sub_max = parent.transform.childCount;
+            while (sub_count < sub_max)
             {
                 int rnd = Random.Range(0, TG.Count);
+                
+                
+                GameObject PAOB = parent.transform.GetChild(0).gameObject; ;
                 try
                 {
-                    // 轉換ID到父物件
-                    PA = ((Transform)Resources.InstanceIDToObject(PAID - 2)).gameObject;
-                    PA = PA.transform.GetChild(i).gameObject;
+                    // 取得子物件的父物件
+                    PAOB = parent.transform.GetChild(sub_count).gameObject;
                     // 子物件
                 }
                 catch (System.Exception)
@@ -182,9 +192,12 @@ namespace solar_a
                 }
 
                 // 生成物件
-                Object_Generator.Generater sgen = new(PA, TG[rnd], PA.transform.position, PA.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
-                sgen.Generates();
-                sub_count += 4; i++;
+                if (Random.value < generData.grtProb)
+                {
+                    Object_Generator.Generater sgen = new(PAOB, TG[rnd], PAOB.transform.position, PAOB.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
+                    sgen.Generates();
+                }
+                sub_count++;
             }
         }
 
@@ -194,21 +207,30 @@ namespace solar_a
             switch (generData.grtClass)
             {
                 case GenerClass.Normal:
+                    NormalGenerate();
                     break;
                 case GenerClass.Meteorite:
+                    MeteoGenerate();
                     break;
                 default:
                     break;
             }
         }
 
+
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
+            InvokeRepeating("SwitchState",generData.grtWaitTime, generData.grtWaitTime);
         }
         private void Update()
         {
             //AutoGenerate();
+        }
+
+        public override string ToString()
+        {
+            return $"The messegeg come from {name}.";
         }
     }
 

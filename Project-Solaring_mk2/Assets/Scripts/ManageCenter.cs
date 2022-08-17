@@ -70,15 +70,6 @@ namespace solar_a
         #endregion
 
 
-        public void test(int idx = 0)
-        {
-            //print("Debug");
-            //顯示除錯面板
-            CanvasGroup testOB = GameObject.Find("TestObject").GetComponent<CanvasGroup>();
-            testOB.alpha = testOB.alpha != 0 ? 0 : 1;
-            testOB.interactable = !testOB.interactable;
-            testOB.blocksRaycasts = !testOB.blocksRaycasts;
-        }
         public void X_PowerMode()
         {
             StaticSharp.isPowerfullMode = !StaticSharp.isPowerfullMode;
@@ -183,7 +174,10 @@ namespace solar_a
         /// <param name="obj"></param>
         public void ObjectDestory(GameObject obj)
         {
-            gener_class.Destroys(obj);
+            GenerateSystem objGS =  obj.transform.GetComponentInParent<GenerateSystem>();
+            if (!objGS) { Destroy(obj); return; }
+            objGS.Destroys(obj);
+            //gener_class.Destroys(obj);
         }
         #endregion
         #region 場 景 相 關
@@ -391,53 +385,7 @@ namespace solar_a
             while (isGen) yield return isGen = (UI_moveDistane % objectDistance[idx] != idx) ? false : true;
 
         }
-        /// <summary>
-        /// 特殊指令，當玩家輸入快速鍵的時候會出現的封弊功能。
-        /// </summary>
-        private void SpecialistKeyInput(bool isCtrl, bool isAtl, bool isLS)
-        {
-            if (!isCtrl && !isAtl && !isLS) return;
-            else
-            {
-                bool kCtrl = Input.GetKey(KeyCode.LeftControl);
-                bool kAtl = Input.GetKey(KeyCode.LeftAlt);
-                bool kLS = Input.GetKey(KeyCode.LeftShift);
-                bool kB = Input.GetKeyDown(KeyCode.B);
-                bool kC = Input.GetKeyDown(KeyCode.C);
-                bool kN = Input.GetKeyDown(KeyCode.N);
-                bool kM = Input.GetKeyDown(KeyCode.M);
-                bool kO = Input.GetKeyDown(KeyCode.O);
-                bool kP = Input.GetKeyDown(KeyCode.P);
-                bool kQ = Input.GetKeyDown(KeyCode.Q);
-                bool kR = Input.GetKeyDown(KeyCode.R);
-                bool kU = Input.GetKeyDown(KeyCode.U);
-                if (isCtrl)
-                {
-                    if (kAtl && kO)
-                    {
-                        test();
-                    }
-                    if (kLS) print("C+S button");
-                    else if (kB) print("B button");
-                    else if (kM) print("M button");
-                    else if (kO) print("O button");
-                    else if (kP) print("P button");
-                    else if (kQ) print("Q button");
-                }
-                else if (isAtl)
-                {
-                    if (kLS) print("A+S button");
-                    else if (kN) print("N button");
-                    else if (kR) print("R button");
-                }
-                else if (isLS)
-                {
-                    if (kC) print("C button");
-                    else if (kU) print("U button");
-                }
-            }
-
-        }
+        
 
         private void Start()
         {
@@ -447,7 +395,7 @@ namespace solar_a
         {
             //print(StaticSharp.Conditions);  //狀態機檢查
             show_UI();
-            SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
+            StaticSharp.SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );

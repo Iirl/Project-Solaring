@@ -76,7 +76,7 @@ namespace solar_a
                     if (i != 0) mgCenter.ObjectDestory(col.gameObject);
                 }
             }
-            print($"³z¹L {colliders[0].tag}");
+            //print($"³z¹L {colliders[0].tag}");
 
         }
         #endregion
