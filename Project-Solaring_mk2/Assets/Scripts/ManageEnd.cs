@@ -22,8 +22,8 @@ namespace solar_a
         #region 方法
         private void ShowInfo(TMP_Text tp, string player="")
         {
-            float distance = mgCenter.UI_moveDistane;
-            int onfuel = mgCenter.UI_fuel;
+            float distance = ManageCenter.UI_moveDistane;
+            int onfuel = ManageCenter.UI_fuel;
             string[] tmps = { "與世長辭", "，我們懷念它", "，RIP" };
             string[] msg = new string[messege.Length + tmps.Length];
             for (int i =0; i < messege.Length + tmps.Length; i++)

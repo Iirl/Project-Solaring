@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 指定移動場景
+    /// 針對指定按鈕附加轉跳自 InputField 內容的場景
+    /// </summary>
     public class SignScene : MonoBehaviour
     {
         Button btnExit;

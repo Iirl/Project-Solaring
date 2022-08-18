@@ -111,11 +111,6 @@ namespace solar_a
             // 左右牆壁判定
             nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z);
         }
-        private void Update()
-        {
-            // 場景移動
-            _auto_move();
-        }
         private void FixedUpdate()
         {
             // 場景邊緣動作
