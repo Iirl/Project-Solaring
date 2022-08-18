@@ -43,6 +43,7 @@ namespace solar_a
             private float xr { get; set; }
             private float yr { get; set; }
             private float zr { get; set; }
+            public float destoryTime = -1;
             public float X_pos_gen { get { return x; } set { x = value; Create_v3 = new Vector3(x, y, z); } }
             public float Y_pos_gen { get { return y; } set { y = value; Create_v3 = new Vector3(x, y, z); } }
             public float Z_pos_gen { get { return z; } set { z = value; Create_v3 = new Vector3(x, y, z); } }
@@ -51,9 +52,9 @@ namespace solar_a
             public float Z_rot_gen { get { return zr; } set { zr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public Vector3 Create_v3 = Vector3.zero;
             public Quaternion Create_r3 = Quaternion.identity;
-            private GameObject Parent;
             public Object OBTarget, OBCloned;
             //  程式內部變數
+            private GameObject Parent;
             int countGene=0;
 
             /// <summary>
@@ -90,6 +91,7 @@ namespace solar_a
                 if (OBTarget != null && Parent != null)
                 {
                     Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
+                    if (destoryTime > 0) Destroy(cloned, destoryTime);
                     OBCloned = cloned;
                     countGene++;
                     return cloned;
@@ -153,7 +155,7 @@ namespace solar_a
                 ArrayList newlist = new();
                 newlist.Add(uot.GetInstanceID());
                 newlist.Add(uo);
-                newlist.Add((GameObject)o);
+                newlist.Add(uot.gameObject);
                 newlist.Add(uo.name);
                 newlist.Add(uot.localPosition);
                 newlist.Add(uot.localRotation);
@@ -221,6 +223,7 @@ namespace solar_a
             public GameObject GetGameObject(int idx)
             {
                 ArrayList item = (ArrayList)this[idx];
+                //print((GameObject)item[2]);
                 return (GameObject)item[2];
             }
 

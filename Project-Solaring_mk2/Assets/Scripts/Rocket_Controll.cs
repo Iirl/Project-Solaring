@@ -75,9 +75,11 @@ namespace solar_a
         /// </summary>
         public bool ControlChange(bool on=false)
         {
-            if (!on) Rocket_sound.Stop(); else Rocket_sound.Play();
+            if (!on) Rocket_sound.Stop(); 
+            else Rocket_sound.Play();            
             Rocket_Rig.isKinematic = !on;
             rc_dtion.ControlChange();
+            enabled = on;
             return rc_dtion.IsStop;
         }
         #endregion
@@ -205,7 +207,7 @@ namespace solar_a
                 }
                 //結束遊戲處理
                 ADOClipControl(1);
-                mgCenter.CheckGame(true);
+                StaticSharp.Conditions = State.End;
             }
             else if (other.tag.Contains("Block"))
             {                

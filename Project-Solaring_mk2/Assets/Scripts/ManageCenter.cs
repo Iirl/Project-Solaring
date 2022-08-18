@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -27,18 +28,8 @@ namespace solar_a
         ManageScene ss_mag;
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
-        #endregion
-        /// <summary>
-        /// 產生器控制
-        /// </summary>
-        //("預設產生器類別，請指定一個產生器物件")]
-        Object_Generator gener_class;
-        [SerializeField, Tooltip("設定產生器物件")]
-        private string[] objectName = { "補給品", "隕石" };
-        [SerializeField, Tooltip("設定多少距離產生一次物件")]
-        private int[] objectDistance = { 50, 30 };
-        [SerializeField, Header("設定產生器類別"),Tooltip("0:一般生成, 1:隕石類別")]
-        private GenerClass[] objectClass;
+        #endregion       
+
         /// <summary>
         /// GameUI Interface.
         /// </summary>
@@ -64,6 +55,8 @@ namespace solar_a
         public CanvasGroup canvas_select;
         [SerializeField, Header("畫布淡化速度")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
+        [SerializeField, Header("混音控制系統")]
+        AudioMixer adM;
         #region 本地調閱欄位 (Private Feild)
         private bool isGen = false;
 
@@ -98,7 +91,7 @@ namespace solar_a
             float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
-            UI_moveDistane+= unit;
+            UI_moveDistane += unit;
             if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime);   // 燃料變化
             //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
 
@@ -176,7 +169,7 @@ namespace solar_a
         /// <param name="obj"></param>
         public void ObjectDestory(GameObject obj)
         {
-            GenerateSystem objGS =  obj.transform.GetComponentInParent<GenerateSystem>();
+            GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             if (!objGS) { Destroy(obj); return; }
             //print(objGS.name);
             objGS.Destroys(obj);
@@ -217,18 +210,7 @@ namespace solar_a
         /// </summary>
         public void FadeIn()
         {
-            if (canvas_select.alpha < 1)
-            {
-                canvas_select.alpha += 0.1f;
-            }
-            else
-            {
-                condition.Next();
-                GameState();
-                CanvasCtrl(canvas_select, true);
-                CancelInvoke("FadeIn");
-                Time.timeScale = 0.05f;
-            }
+
         }
         /// <summary>
         /// 選單淡出動畫
@@ -249,29 +231,41 @@ namespace solar_a
             }
 
         }
-        #endregion
-        /// <summary>
-        /// 進入遊戲結束系統
-        /// 若有以下情況則呼叫此程式：
-        /// 1. 沒有燃料
-        /// 2. 撞到任何物體
-        /// </summary>
-        /// <param name="end"></param>
-        public void CheckGame(bool end = false, float times = 0.2f)
+        private IEnumerator PauseFadeEffect(bool visable = true)
         {
-
-            if (end && ((int)StaticSharp.Conditions) != 4)
+            canvas_select = pauseUI.GetComponent<CanvasGroup>();
+            switch (visable)
             {
-                // 檢查是否正在暫停，若是的話強制結束暫停
-                if (menus.alpha != 0 && menus != null)
-                {
-                    CanvasCtrl(menus);
-                }
-                condition.Dead();
-                Invoke("GameState", times);
+                case true:
+                    while (canvas_select.alpha < 1)
+                    {
+                        canvas_select.alpha += 0.1f;
+                        yield return new WaitForSeconds(fadeSpeed.x);
+                    }
+                    Time.timeScale = 0.05f;
+                    condition.Next();
+                    CanvasCtrl(canvas_select, visable);
+                    break;
+                default:
+                    while (canvas_select.alpha > 0)
+                    {
+                        canvas_select.alpha -= 0.1f;
+                        yield return new WaitForSeconds(fadeSpeed.y);
+
+                    }
+                    Time.timeScale = 1f;
+                    condition.Previous();
+                    CanvasCtrl(canvas_select, visable);
+                    break;
             }
 
+            GameState();
+
+
+
         }
+        #endregion
+
         StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         #region 本地控制方法或事件
         /// <summary>
@@ -321,20 +315,27 @@ namespace solar_a
         /// </summary>
         public void show_Menu()
         {
+            //print($"{StaticSharp.Conditions} & {condition.isPause}");
             if (menus != null)
             {
                 canvas_select = menus;
-                if (StaticSharp.Conditions != State.Pause)
+                if (condition.isEnd)
+                {
+                    StartCoroutine(PauseFadeEffect(true));
+                }
+                else if (!condition.isPause)
                 {
                     // 顯現
                     condition.Next();
-                    InvokeRepeating("FadeIn", 0, fadeSpeed.x);
+                    StartCoroutine(PauseFadeEffect(true));
+
                 }
                 else
                 {
                     // 淡出
                     condition.Previous();
-                    InvokeRepeating("FadeOut", 0, fadeSpeed.y);
+                    StartCoroutine(PauseFadeEffect(false));
+
                 }
             }
         }
@@ -346,32 +347,40 @@ namespace solar_a
         /// </summary>
         private void GameState()
         {
-            bool isEnd = false;
             if (condition.GetState() == "End")
             {// GameOver
-                transform.Find("UI_Pause").transform.Find("Btn_Back_en").gameObject.SetActive(false);
-                isEnd = true;
-                mEnd.enabled = true;
-                ss_ctl.enabled = false;
-                rocket_ctl.enabled = false;
+                bool isEnd = true;
+                transform.Find("UI_Pause").transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
+                mEnd.enabled = isEnd;
+                ss_ctl.enabled = !isEnd;
                 condition.Finish();
-
+                rocket_ctl.ControlChange(!isEnd);
             }
             else if (StaticSharp.Conditions != State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
                 space_ctl.enabled = !space_ctl.enabled;
+                rocket_ctl.ControlChange(!condition.isPause);
             }
             if (pauseUI != null) pauseUI.SetActive(true);
-            rocket_ctl.ControlChange(!isEnd);
             CancelInvoke("GameState");
         }
 
+        /// <summary>
+        /// 進入遊戲結束系統
+        /// 若有以下情況則呼叫此程式：
+        /// 1. 沒有燃料
+        /// 2. 撞到任何物體
+        /// </summary>
         private void StateEnd()
         {
-             CheckGame(true, 5f); //結束遊戲條件之一
+            //CheckGame(true, 5f); //結束遊戲條件之一
+            show_Menu();
         }
 
+        private void Awake()
+        {
 
+        }
         private void Start()
         {
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
@@ -401,7 +410,7 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-            
+
         }
         #endregion
 

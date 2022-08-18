@@ -16,24 +16,24 @@ namespace solar_a
         Object_Generator.Generater obGenerate;
         Object_Generator.ObjectArray gener_list = new();
 
+        /// <summary>
+        /// 普通生成：只判斷是否旋轉物件。
+        /// </summary>
+        /// <param name="rotate"></param>
         public void NormalGenerate(bool rotate = false)
         {
-            Vector3 st_border = mgc.GetStagePOS();
-            if (gener_list.Count < generData.grtLimit) Static_gen(st_border.y, generData.grtRandomRoation);
-
-
+            Static_gen(generData.grtRandomRoation);
+            //gener_list.GetGameObject(0);            
         }
-        private void MeteoGenerate()
+        /// <summary>
+        /// 子物件生成：
+        /// </summary>
+        private void SubObjGenerate()
         {
-            Vector3 st_border = mgc.GetStagePOS();
-            if (gener_list.Count < generData.grtLimit) Random_gen(st_border.y, true); 
+            Random_gen(true);
         }
         public void Test()
         {
-            Vector3 st_border = mgc.GetStagePOS();
-            Random_gen(st_border.y, true);
-            
-            gener_list.ReadList();
 
         }
 
@@ -49,17 +49,25 @@ namespace solar_a
         /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
         /// <param name="target">觸發銷毀的物件</param>
-        public void Destroys(GameObject target)
+        public void Destroys(GameObject target, bool destTime = false)
         {
             //print(target.name);
             // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
             int id = target.transform.GetInstanceID();
             int key = gener_list.FindKeys(id);
             //print(key);
-            //gener_list.ReadList();
-            if (key != -1) gener_list.RemoveAt(key);
-            else gener_list.RemoveAt(0);
-            Destroy(target);
+            if (key != -1)
+            {
+                gener_list.RemoveAt(key);
+                // 執行物件刪除
+                if (destTime) Destroy(target, generData.grtdestTime);
+                else Destroy(target);
+            } else
+            {
+                Destroy(target);
+            }
+            //else gener_list.RemoveAt(0);
+
         }
         /// <summary>
         /// 清空物件系統
@@ -73,7 +81,6 @@ namespace solar_a
             {
                 ArrayList al = (ArrayList)gener_list[0];
                 Object obj = (Object)al[1];
-                Destroy(obj);
                 gener_list.RemoveAt(0);
             }
         }
@@ -94,7 +101,7 @@ namespace solar_a
             }
             else if (gener_list.Count < 1 && transform.childCount > generData.grtLimit)
             {
-                int max = transform.childCount;                
+                int max = transform.childCount;
                 for (int bug_i = 0; bug_i < max; bug_i++) Destroy(transform.GetChild(bug_i).gameObject);
             }
             //// 此條判定容易造成產生器誤判，所以如果要和場景不同移動，要記得指定場景的位置...。
@@ -131,23 +138,25 @@ namespace solar_a
                 Random.Range(-generData.grtPos.z, generData.grtPos.z)
             );
             obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
-            obGenerate.Create_v3 = random_v3 + worldOffset ;                         // 物件生成的位置，會依據設定的位置改變。
+            obGenerate.Create_v3 = random_v3 + worldOffset;                         // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
-            gener_list.Add(obGenerate.Generates());               // 加入生成列表。
-                                                                  //Destroys(generob.GetParent());
-                                                                  //generob.ObjectMessegeInfo();
-            
-            
-            return gener_list.GetGameObject(gener_list.Count-1);
+            obGenerate.destoryTime = generData.grtdestTime;
+            Object created = obGenerate.Generates();            
+            gener_list.Add(created);                                          // 加入生成列表。
+                                                                              //Destroys(generob.GetParent());
+                                                                              //generob.ObjectMessegeInfo();
+
+            // 若有設定銷毀時間，則加上銷毀的計時。            
+            //Destroys(created.GetComponent<Transform>().gameObject, true);
+            return created.GetComponent<Transform>().gameObject;
         }
         #endregion
         #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
-        private void Static_gen(float locY) => Generator_EMP(new Vector3(0, locY, 0));
-        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, locY, 0),isRotate);
-
+        private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
+        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRotate);
 
         /// <summary>
         /// 將物件隨機生成在畫面中
@@ -155,9 +164,9 @@ namespace solar_a
         /// <param name="locY">目前空間的Y軸</param>
         /// <param name="isRotated">物件是否隨機旋轉</param>
         /// <returns>回傳為生成物件，用作執行下一個動作使用。</returns>
-        private int Random_gen(float locY, bool isRotated)
+        private int Random_gen(bool isRotated)
         {
-            Vector3 stage = new Vector3(0, locY, 0);
+            Vector3 stage = new Vector3(0, mgc.GetStagePOS().y, 0);
             GameObject parentOB = Generator_EMP(stage, isRotated);
             Random_Metro(parentOB, generData.grtSubObject);
             return -1;
@@ -172,13 +181,13 @@ namespace solar_a
             //print($"id:{PAID}, GTB:{TG}");
             // 子物件計算：sub_count為父物件到子物件的ID距離(每多一個元件數值就會改變...)
             parent = parent.transform.GetChild(0).gameObject;
-            int sub_count = 0 ;
+            int sub_count = 0;
             int sub_max = parent.transform.childCount;
             while (sub_count < sub_max)
             {
                 int rnd = Random.Range(0, TG.Count);
-                
-                
+
+
                 GameObject PAOB = parent.transform.GetChild(0).gameObject; ;
                 try
                 {
@@ -205,16 +214,19 @@ namespace solar_a
         #endregion
         private void SwitchState()
         {
-            switch (generData.grtClass)
+            if (transform.childCount < generData.grtLimit)
             {
-                case GenerClass.Normal:
-                    NormalGenerate();
-                    break;
-                case GenerClass.Meteorite:
-                    MeteoGenerate();
-                    break;
-                default:
-                    break;
+                switch (generData.grtClass)
+                {
+                    case GenerClass.Normal:
+                        NormalGenerate();
+                        break;
+                    case GenerClass.Meteorite:
+                        SubObjGenerate();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -222,7 +234,7 @@ namespace solar_a
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
-            InvokeRepeating("SwitchState",generData.grtWaitTime, generData.grtWaitTime);
+            InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
         }
         private void Update()
         {

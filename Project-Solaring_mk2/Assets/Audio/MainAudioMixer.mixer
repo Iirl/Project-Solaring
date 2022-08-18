@@ -62,7 +62,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 9f210ce4c1fbf944c890119b31770a64
+    name: effec
+  - guid: 76350ed0ea7a368428acd507593a0115
+    name: player
+  - guid: ccedb8f2312026148945008b56c76e03
+    name: vome
   m_AudioMixerGroupViews:
   - guids:
     - 67c82be379a06694e9eacd945e806220

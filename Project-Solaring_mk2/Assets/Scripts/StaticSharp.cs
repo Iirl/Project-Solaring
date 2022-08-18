@@ -80,6 +80,8 @@ public class StaticSharp
     public class GameCondition
     {
         private State state { get { return Conditions; } set { Conditions = value; } }
+        public bool isPause { get { return Conditions == State.Pause; } }
+        public bool isEnd  { get { return Conditions == State.End; } }
 
         public GameCondition()
         {

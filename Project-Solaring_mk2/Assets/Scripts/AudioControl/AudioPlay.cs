@@ -20,8 +20,14 @@ public class AudioPlay : MonoBehaviour
     private void Update()
     {
         if(!isDoing) StartCoroutine(PlaySound());
+        if (StaticSharp.Conditions == (State)4) Close();
     }
 
+    private void Close()
+    {
+        isDoing = true;
+        enabled = false;
+    }
 
     private IEnumerator PlaySound()
     {

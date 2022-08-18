@@ -16,7 +16,9 @@ public class DataLoad : MonoBehaviour
     [SerializeField, Header("分配點數")]
     private int point = 3;
     private int pointUsed = 0;
-    [SerializeField, Header("機體底限標示"), Tooltip("燃料底限")]
+    [SerializeField, Header("機體底限標示"), Tooltip("是否自動限制")]
+    private bool autoLimit;
+    [SerializeField, Tooltip("燃料底限")]
     private float fuelLimit = 100;
     [SerializeField, Tooltip("速度底限")]
     private float speedLimit = 1;
@@ -38,7 +40,7 @@ public class DataLoad : MonoBehaviour
 
     private void Start()
     {
-        LimitChange();  // 自動讀取限制
+        if (autoLimit) LimitChange();  // 自動讀取限制
         ShowRocketInfo();
     }
     #endregion
@@ -57,7 +59,7 @@ public class DataLoad : MonoBehaviour
         //print($"{plus} & {point}"); // 檢查數值是否有問題
         if (plus && point == 0) return;
         else if (i < 0 && pointUsed == 0) return;
-        else if (local_info.x * local_info.y * local_info.z <= 0 && !plus) return;
+        //else if (local_info.x * local_info.y * local_info.z <= 0 && !plus) return;
         local_info += v;
         if (plus) { point--; pointUsed++; }
         else if (i < 0) { point++; pointUsed--; }

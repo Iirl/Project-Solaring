@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -576,11 +576,6 @@ MonoBehaviour:
   ss_ctl: {fileID: 2070353152}
   ss_mag: {fileID: 62497110}
   mEnd: {fileID: 1465962578}
-  objectName:
-  - ObjectGenerator
-  - ObjectGenerator2
-  objectDistance: 320000001e000000
-  objectClass: 0000000001000000
   ui_Dist: {fileID: 654708608}
   ui_fuel: {fileID: 1810340794}
   ui_fuelbar: {fileID: 47937557}
@@ -593,6 +588,7 @@ MonoBehaviour:
   menus: {fileID: 307926607}
   canvas_select: {fileID: 62497108}
   fadeSpeed: {x: 0.01, y: 0.001}
+  adM: {fileID: 24100000, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d, type: 2}
 --- !u!114 &62497110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,7 +821,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7770115, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4473,7 +4469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1169778883
 RectTransform:
   m_ObjectHideFlags: 0
