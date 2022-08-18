@@ -51,8 +51,8 @@ namespace solar_a
         [SerializeField]
         GameObject[] EnergyPlus;
         [SerializeField, Tooltip("UI 相關(Read Only)")]
-        public int UI_moveDistane = 0, UI_fuel = 100;
-        public int MoveDistance { get { return UI_moveDistane; } }
+        static public int UI_fuel = 100;
+        static public float UI_moveDistane = 0;
         /// <summary>
         /// 選單畫布控制
         /// </summary>
@@ -97,7 +97,8 @@ namespace solar_a
         {
             float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             //if (!rocket_ctl.rc_dtion.IsStay) 
-                ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動
+            //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
+            UI_moveDistane+= unit;
             if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime);   // 燃料變化
             //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
 
@@ -115,6 +116,7 @@ namespace solar_a
         }
         #endregion
         #region 產生物件
+        /*
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
         /// 這裡是設定要使用何種類別。
@@ -154,8 +156,7 @@ namespace solar_a
             int Gid = gener_class.Random_gen(GetStagePOS().y + 40, false, obj); // Fist: Generate SubObject.
             // Second: Load Insub Prefabs.
             List<Object> pfabs = new()
-            {
-                
+            {                
 #if UNITY_EDITOR
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/Empty.prefab", typeof(Object)),
                 AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal01.prefab", typeof(Object)),
@@ -167,6 +168,7 @@ namespace solar_a
             // Third: Input on the subobject.
             gener_class.Random_Metro(Gid, pfabs);
         }
+        */
         /// <summary>
         /// 清除物件函數。
         /// 所有物件從畫面上移除都要經過這個函式。
@@ -176,6 +178,7 @@ namespace solar_a
         {
             GenerateSystem objGS =  obj.transform.GetComponentInParent<GenerateSystem>();
             if (!objGS) { Destroy(obj); return; }
+            //print(objGS.name);
             objGS.Destroys(obj);
             //gener_class.Destroys(obj);
         }
@@ -248,13 +251,15 @@ namespace solar_a
         }
         #endregion
         /// <summary>
-        /// 遊戲結束判定系統
+        /// 進入遊戲結束系統
+        /// 若有以下情況則呼叫此程式：
         /// 1. 沒有燃料
         /// 2. 撞到任何物體
         /// </summary>
         /// <param name="end"></param>
         public void CheckGame(bool end = false, float times = 0.2f)
         {
+
             if (end && ((int)StaticSharp.Conditions) != 4)
             {
                 // 檢查是否正在暫停，若是的話強制結束暫停
@@ -286,8 +291,11 @@ namespace solar_a
         /// </summary>
         private void show_UI()
         {
-            Vector3 stage_pos = GetStagePOS();
-            UI_moveDistane = (int)stage_pos.y;
+            // 場景UI - 移動的寫法：先取得場景位置，然後再將位置送到UI裡。
+            /*Vector3 stage_pos = GetStagePOS();
+            UI_moveDistane = (int)stage_pos.y;  //*/
+            // 寫在 MoveAction 中
+            // 燃料UI
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             if (UI_fuel <= 100) ui_fuelbar.fillAmount = UI_fuel / 100f;
             else
@@ -304,7 +312,7 @@ namespace solar_a
                     }
                 }
             }
-            if (UI_fuel <= 0 && (int)StaticSharp.Conditions != 3) { CheckGame(true, 5f); }//結束遊戲條件之一
+            // 標示文字UI內容
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
@@ -331,7 +339,7 @@ namespace solar_a
             }
         }
         /// <summary>
-        /// 遊戲狀態處理情況
+        /// 遊戲狀態處理情況(需要被Invoke)
         /// 根據目前的狀態切換遊戲進行狀況
         /// END = 結束遊戲
         /// Running 切換 = 開起暫停選單
@@ -346,6 +354,8 @@ namespace solar_a
                 mEnd.enabled = true;
                 ss_ctl.enabled = false;
                 rocket_ctl.enabled = false;
+                condition.Finish();
+
             }
             else if (StaticSharp.Conditions != State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
@@ -355,37 +365,12 @@ namespace solar_a
             rocket_ctl.ControlChange(!isEnd);
             CancelInvoke("GameState");
         }
-        /// <summary>
-        /// 限制生成函數，避免同一時間內大量生成。
-        /// </summary>
-        /// <param name="idx"></param>
-        /// <returns></returns>
-        private IEnumerator PathAutoGenerObject(int idx = 0)
+
+        private void StateEnd()
         {
-            //切換成指定類別
-            switch (objectClass[idx])
-            {
-                case GenerClass.Normal:AsignGenerate(0);
-                    break;
-                case GenerClass.Meteorite:AsignGenerate(1);
-                    break;
-                default:
-                    break;
-            }
-            //AsignGenerate((int)gener_class); 
-            isGen = true;
-            switch (idx)
-            {
-                case 0: AutoGenerate(0, true); break;
-                case 1: MeteoGenerate(); break;
-                default: break;
-            }
-            yield return new WaitForSeconds(1);
-
-            while (isGen) yield return isGen = (UI_moveDistane % objectDistance[idx] != idx) ? false : true;
-
+             CheckGame(true, 5f); //結束遊戲條件之一
         }
-        
+
 
         private void Start()
         {
@@ -393,22 +378,29 @@ namespace solar_a
         }
         private void Update()
         {
+
+            switch (StaticSharp.Conditions)
+            {
+                case State.Running:
+                    show_UI();
+                    MoveAction();
+                    break;
+                case State.Loading:
+                    break;
+                case State.Pause:
+                    break;
+                case State.End:
+                    StateEnd();
+                    break;
+                default:
+                    break;
+            }
             //print(StaticSharp.Conditions);  //狀態機檢查
-            show_UI();
+            // 按鍵輸入偵測
             StaticSharp.SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-            //// ---路徑自動生成物件---
-            ///
-            if (!isGen) for (int i = 0; i < objectName.Length; i++)
-                {
-                    if (UI_moveDistane % objectDistance[i] == i && !isGen)
-                    {
-                        StartCoroutine(PathAutoGenerObject(i));
-                        break;
-                    }
-                }
             
         }
         #endregion

@@ -15,8 +15,14 @@ public class GeneratorData :ScriptableObject
     public float grtIntervalTime =1f;
     [SerializeField, Tooltip("等待時間")]
     public float grtWaitTime = 5f;
+    [SerializeField, Tooltip("自動消滅時間")]
+    public float grtdestTime = 5f;
     [SerializeField, Header("指定物件範圍")]
     public Vector3 grtPos = Vector3.zero;
+    [SerializeField, Tooltip("生成距離調整"), Range(0,100)]
+    public float grtOffset;
+    [SerializeField, Tooltip("是否隨機旋轉")]
+    public bool grtRandomRoation;
     [SerializeField, Tooltip("指定物件旋轉")]
     public Quaternion grtRot = Quaternion.identity;
     [SerializeField, Tooltip("Create Probable"),Range(0,1)]

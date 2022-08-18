@@ -1,3 +1,4 @@
+//#define OldMethod;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace solar_a
 
         #region 屬性
         //SceneStage_Control Scene_ctl;
-        
+#if OldMethod
         [SerializeField, Header("生成位置")]
         List<GameObject> MainObject = new List<GameObject>();
         [SerializeField, Header("生成物件"), Tooltip("放入指定的物件，最好是有 Prefabs 過的檔案")]
@@ -27,6 +28,7 @@ namespace solar_a
         Vector3 Generate_posRaidus = new Vector3(20, 10, 20);
         [SerializeField, Header("指定物件生成數量上限")]
         int Generate_limit = 10;//*/
+#endif
         public ObjectArray gener_list = new();
 
         #region 產生器類別 class Generater
@@ -129,13 +131,13 @@ namespace solar_a
         /// </summary>
         public class ObjectArray : ArrayList
         {
-            public int length = 5;
+            public int length = 0;
             /// <summary>
             /// 追加第二維陣列
             /// 相關資訊如下：
             /// 0   InstanceID
             /// 1   Parent Object self
-            /// 2   Parent Object self
+            /// 2   Parent Game Object self
             /// 3   Object'name
             /// 4   Position
             /// 5   Rotation
@@ -149,14 +151,14 @@ namespace solar_a
                 Transform uot = FindObjectOfType<Transform>();
                 // 加入 Object 為一陣列。
                 ArrayList newlist = new();
-                newlist.Add(uo.GetInstanceID());
+                newlist.Add(uot.GetInstanceID());
                 newlist.Add(uo);
                 newlist.Add((GameObject)o);
                 newlist.Add(uo.name);
                 newlist.Add(uot.localPosition);
                 newlist.Add(uot.localRotation);
                 newlist.Add(uot.localScale);
-
+                length++;
                 int i = base.Add(newlist);
                 return i;
             }
@@ -168,6 +170,7 @@ namespace solar_a
                 ArrayList al = (ArrayList)this[i];
                 if (al != null)
                 {
+                    length--;
                 }
 
                 base.RemoveAt(i);
@@ -180,8 +183,13 @@ namespace solar_a
             {
                 foreach (ArrayList item in this)
                 {
-                    if (item != null) print(item);
-                    foreach (var item2 in item) print(item2);
+                    if (item != null) print($"物件名稱：{item}");
+                    int i = 0;
+                    foreach (var item2 in item)
+                    {
+                        print($"物件{i}：{item2}");
+                        i++;
+                    }
                 }
             }
             public int ReadList(int i)
@@ -227,6 +235,9 @@ namespace solar_a
             gener_list.ReadList(gener_list.FindKeys(id));
             print(gener_list.Count);
         }
+
+
+#if OldMethod
         /// <summary>
         /// 自動刪除指定的子類別，物件生成時自動判定是否超過生成上限。
         /// </summary>
@@ -322,7 +333,7 @@ namespace solar_a
             return generob;
 
         }
-        #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
+#region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
@@ -404,10 +415,10 @@ namespace solar_a
                 sub_count += 4; i++;
             }
         }
-        #endregion
+#endregion
+#endif
 
     }
-
 
 }
 

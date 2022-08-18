@@ -19,13 +19,14 @@ namespace solar_a
         public void NormalGenerate(bool rotate = false)
         {
             Vector3 st_border = mgc.GetStagePOS();
-            Static_gen(st_border.y);
+            if (gener_list.Count < generData.grtLimit) Static_gen(st_border.y, generData.grtRandomRoation);
+
+
         }
         private void MeteoGenerate()
         {
             Vector3 st_border = mgc.GetStagePOS();
-            Random_gen(st_border.y, true);
-
+            if (gener_list.Count < generData.grtLimit) Random_gen(st_border.y, true); 
         }
         public void Test()
         {
@@ -50,11 +51,14 @@ namespace solar_a
         /// <param name="target">觸發銷毀的物件</param>
         public void Destroys(GameObject target)
         {
-            print(target.name);
+            //print(target.name);
             // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
-            int id = target.GetInstanceID();
+            int id = target.transform.GetInstanceID();
             int key = gener_list.FindKeys(id);
+            //print(key);
+            //gener_list.ReadList();
             if (key != -1) gener_list.RemoveAt(key);
+            else gener_list.RemoveAt(0);
             Destroy(target);
         }
         /// <summary>
@@ -84,13 +88,13 @@ namespace solar_a
         {
             if (gener_list.Count > 0 && gener_list.Count > generData.grtLimit)
             {
-                Object obj = Resources.InstanceIDToObject(gener_list.ReadList(0));
+                Object obj = gener_list.GetObject(1);
                 gener_list.RemoveAt(0);
                 Destroy(obj);
             }
-            else if (gener_list.Count < 1 && transform.childCount > generData.grtLimit / 2)
+            else if (gener_list.Count < 1 && transform.childCount > generData.grtLimit)
             {
-                int max = transform.childCount;
+                int max = transform.childCount;                
                 for (int bug_i = 0; bug_i < max; bug_i++) Destroy(transform.GetChild(bug_i).gameObject);
             }
             //// 此條判定容易造成產生器誤判，所以如果要和場景不同移動，要記得指定場景的位置...。
@@ -123,16 +127,17 @@ namespace solar_a
             //show
             //Vector3 st_border = mgc.GetStageBorder();
             Vector3 random_v3 = new(Random.Range(-generData.grtPos.x, generData.grtPos.x),
-                Random.Range(0f, generData.grtPos.y),
+                Random.Range(0f, generData.grtPos.y + generData.grtOffset),
                 Random.Range(-generData.grtPos.z, generData.grtPos.z)
             );
-
             obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
-            obGenerate.Create_v3 = random_v3 + worldOffset;                         // 物件生成的位置，會依據設定的位置改變。
+            obGenerate.Create_v3 = random_v3 + worldOffset ;                         // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
             gener_list.Add(obGenerate.Generates());               // 加入生成列表。
                                                                   //Destroys(generob.GetParent());
                                                                   //generob.ObjectMessegeInfo();
+            
+            
             return gener_list.GetGameObject(gener_list.Count-1);
         }
         #endregion
@@ -140,11 +145,8 @@ namespace solar_a
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
-        private void Static_gen(float locY)
-        {
-            Vector3 stage = new Vector3(0, locY, 0);
-            Generator_EMP(stage);
-        }
+        private void Static_gen(float locY) => Generator_EMP(new Vector3(0, locY, 0));
+        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, locY, 0),isRotate);
 
 
         /// <summary>
@@ -157,7 +159,6 @@ namespace solar_a
         {
             Vector3 stage = new Vector3(0, locY, 0);
             GameObject parentOB = Generator_EMP(stage, isRotated);
-            List<Object> pfabs = new() { };
             Random_Metro(parentOB, generData.grtSubObject);
             return -1;
         }

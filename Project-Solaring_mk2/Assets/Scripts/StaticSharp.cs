@@ -95,11 +95,12 @@ public class StaticSharp
             if (state != 0) state--;
         }
         public void Dead() => state = State.End;
+        public void Finish() => state = State.Finish;
         public string GetState() => state.ToString();
         public int GetStateID() => (int) state;
     }
 }
 
-public enum State { Running, Loading, Pause, End }
+public enum State { Running, Loading, Pause, End, Finish }
 public enum GenerClass { Normal, Meteorite }
 
