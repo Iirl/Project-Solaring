@@ -10,6 +10,8 @@ namespace solar_a
     {
         [SerializeField, Header("物件資料")]
         GeneratorData generData;
+        [SerializeField, Header("指定距離開始產生物件")]
+        private float generDestan =0;
 
         // 取得中央控制類別
         ManageCenter mgc;
@@ -156,7 +158,7 @@ namespace solar_a
         /// 簡易產生物件方法。
         /// </summary>
         private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
-        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRotate);
+        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, locY, 0), isRotate);
 
         /// <summary>
         /// 將物件隨機生成在畫面中
@@ -174,12 +176,11 @@ namespace solar_a
         /// <summary>
         /// 物件中的物件生成
         /// </summary>
-        /// <param name="PAOB">父物件的ID</param>
+        /// <param name="parent">父物件的ID</param>
         /// <param name="TG">要生成的物件</param>
         private void Random_Metro(GameObject parent, List<Object> TG)
         {
-            //print($"id:{PAID}, GTB:{TG}");
-            // 子物件計算：sub_count為父物件到子物件的ID距離(每多一個元件數值就會改變...)
+            // 
             parent = parent.transform.GetChild(0).gameObject;
             int sub_count = 0;
             int sub_max = parent.transform.childCount;
@@ -212,6 +213,10 @@ namespace solar_a
         }
 
         #endregion
+        /// <summary>
+        /// 切換生成內容系統
+        /// 會根據類別決定產生的方法
+        /// </summary>
         private void SwitchState()
         {
             if (transform.childCount < generData.grtLimit)
@@ -228,22 +233,27 @@ namespace solar_a
                         break;
                 }
             }
+
         }
 
-
+        private IEnumerator IntervalGenerate()
+        {
+            if (generDestan == 0) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
+            else
+            {
+                //yield return new WaitForSeconds(generDestan);
+                while (ManageCenter.UI_moveDistane < generDestan) yield return null;
+                Invoke("SwitchState", generData.grtIntervalTime);
+            }                
+        }
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
-            InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
+            StartCoroutine(IntervalGenerate());
         }
         private void Update()
         {
             //AutoGenerate();
-        }
-
-        public override string ToString()
-        {
-            return $"The messegeg come from {name}.";
         }
     }
 

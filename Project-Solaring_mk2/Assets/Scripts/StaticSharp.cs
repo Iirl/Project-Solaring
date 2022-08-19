@@ -16,7 +16,7 @@ public class StaticSharp
     {
         //print("Debug");
         //顯示除錯面板
-        CanvasGroup testOB = GameObject.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
+        CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
         if (!testOB) return;
         testOB.alpha = testOB.alpha != 0 ? 0 : 1;
         testOB.interactable = !testOB.interactable;

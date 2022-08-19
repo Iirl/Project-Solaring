@@ -58,7 +58,7 @@ namespace solar_a
         [SerializeField, Header("混音控制系統")]
         AudioMixer adM;
         #region 本地調閱欄位 (Private Feild)
-        private bool isGen = false;
+        
 
         #endregion
 
@@ -92,7 +92,7 @@ namespace solar_a
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
             UI_moveDistane += unit;
-            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime);   // 燃料變化
+            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed);   // 燃料變化
             //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
 
         }
@@ -288,7 +288,7 @@ namespace solar_a
             // 場景UI - 移動的寫法：先取得場景位置，然後再將位置送到UI裡。
             /*Vector3 stage_pos = GetStagePOS();
             UI_moveDistane = (int)stage_pos.y;  //*/
-            // 寫在 MoveAction 中
+            // 改放在 MoveAction 中
             // 燃料UI
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             if (UI_fuel <= 100) ui_fuelbar.fillAmount = UI_fuel / 100f;
@@ -360,6 +360,10 @@ namespace solar_a
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
                 space_ctl.enabled = !space_ctl.enabled;
                 rocket_ctl.ControlChange(!condition.isPause);
+            } else
+            {
+                space_ctl.enabled = !space_ctl.enabled;
+                rocket_ctl.ControlChange(!condition.isPause);
             }
             if (pauseUI != null) pauseUI.SetActive(true);
             CancelInvoke("GameState");
@@ -379,7 +383,7 @@ namespace solar_a
 
         private void Awake()
         {
-
+            UI_moveDistane = 0;
         }
         private void Start()
         {
