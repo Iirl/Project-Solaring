@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 ///  此程式是控制玩家相關的操作方法，建議放在玩家物件上。
@@ -53,9 +54,18 @@ namespace solar_a
         AudioSource Rocket_sound;
         #endregion
 
+        /// <summary>
+        /// 存取火箭資訊方法：
+        /// PutRocketSyn 可以修改當前火箭的狀態，能夠限制輸入值，進入中繼站時會讀取 RocketS1 的資料。
+        /// RocketS1 是唯讀欄位，不可以直接修改該數值。
+        /// RocketBasic 是火箭的基本素質，重新讀取或換場景時會讀取該資料，改造火箭時不能低於該數值。
+        /// SetBasicInfo 直接修改火箭的基本素質。
+        /// </summary>
+        public Vector3 SetBasicInfo(float x, float y , float z) => RocketBasic = new Vector3(x, y, z);
+
         #region 公用方法
         /// <summary>
-        /// 存取火箭資訊方法。
+        /// 火箭資料變動。
         /// </summary>
         /// <returns>x=燃料；y=速度；z=加速度</returns>
         public Vector3 PutRocketSyn(float x, float y = -1, float z = -1)
@@ -66,21 +76,21 @@ namespace solar_a
             speed_a = z >= 0 ? z : speed_a;
             return RocketS1;
         }
-        public Vector3 SetBasicInfo(float x, float y , float z)
-        {
-            return RocketBasic = new Vector3(x,y,z);
-        }
+        
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
         /// </summary>
-        public bool ControlChange(bool on=false)
+        public IEnumerator ControlChange(bool on=false)
         {
-            if (!on) Rocket_sound.Stop(); 
-            else Rocket_sound.Play();            
+            if (!on) while (Rocket_sound.isPlaying) { Rocket_sound.Stop(); yield return null; }
+            else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }            
             Rocket_Rig.isKinematic = !on;
-            rc_dtion.ControlChange();
+            if (on) rc_dtion.onStay();
+            else rc_dtion.onStop();
+            print(rc_dtion.state);
+
             enabled = on;
-            return rc_dtion.IsStop;
+            yield return null;
         }
         #endregion
 
@@ -238,6 +248,7 @@ namespace solar_a
         #region 事件
         void Update()
         {
+            //if (StaticSharp.Conditions == State.Finish) rc_dtion.onStop();
             if (!rc_dtion.IsStop)
             {
                 MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
@@ -264,30 +275,22 @@ namespace solar_a
         }
         private void FixedUpdate()
         {
-
-            if (!rc_dtion.IsStop)
-            {
-                UpForce();
-            }
-            //print($"State: {rc_dtion.state}, IsStop {rc_dtion.IsStop}, IsStay {rc_dtion.IsStay}");
-            //print(rc_dtion.GetState());
+            if (!rc_dtion.IsStop) UpForce();
         }
         private void OnDrawGizmos()
         {
             Gizmos.color = rocketColor;
             Gizmos.DrawCube(transform.position + rocketOffset, rocketBox);
-
         }
         private void OnTriggerEnter(Collider other)
         {
+            CollisionEvent(other.gameObject);
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
             //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
-            CollisionEvent(other.gameObject);
         }
         private void OnCollisionEnter(Collision collision)
         {
-            CollisionEvent(collision.gameObject);
-            
+            CollisionEvent(collision.gameObject);            
         }
         #endregion
         #region ##
@@ -299,53 +302,18 @@ namespace solar_a
     {
         public enum State { Stay, Move, Float, Crashed, Stop }
         public State state = State.Stop;
-        public bool IsStay { get { return isStay; } }
-        private bool isStay = true;
-        public bool IsCrashed { get { return isCrashed; } }
-        private bool isCrashed = false;
-        public bool IsStop { get { return isStop; } }
-        private bool isStop = false;
+        public bool IsStay { get { return state == State.Stay; } }
+        public bool IsCrashed { get { return state == State.Crashed; } }
+        public bool IsStop { get { return state == State.Stop; } }
 
-        public void Next()
-        {
-            if (state < State.Crashed - 1) state++;
-            boolChange();
-        }
-        public void Previous()
-        {
-            if (state != 0) state--;
-            boolChange();
-        }
-        public void Dead()
-        {
-            state = State.Crashed;
-            boolChange();
-        }
-        public void onMove()
-        {
-            state = State.Move;
-            boolChange();
-        }
-        public void onStay()
-        {
-            state = State.Stay;
-            boolChange();
-        }
-        public bool ControlChange()
-        {
-            return isStop = !isStop;
-        }
-        public int GetState()
-        {
-            return (int)(state);
-        }
+        public void Next() => state = (state < State.Crashed - 1) ? state + 1 : state;
+        public void Previous() => state = (state != 0) ? state - 1 : state;
+        public void Dead() => state = State.Crashed;
+        public void onMove() => state = State.Move;
+        public void onStay() => state = State.Stay;
+        public void onStop() => state = State.Stop;
+        public int GetState() => (int)(state);
 
-        private void boolChange()
-        {
-            isStay = (int)state == 0 ? true : false;
-            isCrashed = (int)state == 3 ? true : false;
-            isStop = (int)state == 4 ? true : false;
-        }
+        #endregion
     }
-    #endregion
 }

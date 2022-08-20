@@ -15,23 +15,26 @@ namespace solar_a
         #region 面板控制屬性
 
         #endregion
-        [Header("移動的目標"),Tooltip("To get the target the syntax, and auto set the information.")]
+        [Header("移動的目標"), Tooltip("To get the target the syntax, and auto set the information.")]
         GameObject target;
         private Vector3 target_v3;
         private Vector3 direct;
         [SerializeField, Header("移動速度"), Tooltip("Please test it until you want's speed.")]
         private float Orispeed = 1.2f;
-        [SerializeField, Header("停止追蹤距離"),Tooltip("If your Screen size less than 12, recommend to fix it.")]
-        private float stopTracert= 12;
-        private float dist; 
+        [SerializeField, Header("停止追蹤距離"), Tooltip("If your Screen size less than 12, recommend to fix it.")]
+        private float stopTracert = 12;
+        private float dist;
         [Header("Check The Move System")]
         private bool isEnd;
+        //
+        private AudioSource[] audios;
+
         /// <summary>
         /// 持續移動方法：依據 direct 的方向移動
         /// </summary>
         private void ContinueMove()
         {
-            transform.Translate(-direct* Orispeed * Time.deltaTime, Space.World);
+            transform.Translate(-direct * Orispeed * Time.deltaTime, Space.World);
         }
         /// <summary>
         /// 直線移動方法：依據 dist 和 target 的參數決定移動。
@@ -41,17 +44,35 @@ namespace solar_a
         {
             transform.LookAt(target.transform.position);
             dist = Vector3.Distance(transform.position, target_v3);
-            float speed = Orispeed/ dist * Time.deltaTime;
+            float speed = Orispeed / dist * Time.deltaTime;
             if (dist > stopTracert)
             {
                 target_v3 = target.transform.position;
                 direct = (transform.position - target_v3).normalized;
 
             }
-            transform.position = Vector3.Lerp( transform.position, target_v3, speed);
+            transform.position = Vector3.Lerp(transform.position, target_v3, speed);
             if (dist < 1) isEnd = true;
         }
         #region 物件啟動事件
+        public IEnumerator Mute(bool isMute = true)
+        {
+            if (audios.Length > 0)
+            {
+                foreach (AudioSource audio in audios) if (isMute) audio.Stop(); else audio.Play();
+            }
+            yield return null;
+        }
+
+        private void Awake()
+        {
+            try
+            {
+                audios = GetComponents<AudioSource>();
+
+            }
+            catch (System.Exception) { }
+        }
         void Start()
         {
             target = GameObject.FindWithTag("Player");
@@ -70,6 +91,7 @@ namespace solar_a
         private void OnTriggerEnter(Collider other)
         {
             //print("碰到物件");
+            enabled = false;
         }
         #endregion
     }

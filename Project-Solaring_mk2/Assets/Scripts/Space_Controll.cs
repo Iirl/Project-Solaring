@@ -63,7 +63,7 @@ namespace solar_a
             float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離
 
 
-            if (rotated)
+            if (rotated && StaticSharp.Conditions == State.Running)
             {
                 StopCheck();
                 // 旋轉曲線: x^0-1
@@ -121,13 +121,25 @@ namespace solar_a
 
         private void FixedUpdate()
         {
-
-            // 旋轉空間
-            if (!rotated )
+            switch (StaticSharp.Conditions)
             {
-                rot_left = Input.GetAxisRaw("Left_Spine") == 1;
-                rot_right = Input.GetAxisRaw("Right_Spine") == 1;
-                DirectCheck();
+                case State.Running:
+                    // 旋轉空間
+                    if (!rotated)
+                    {
+                        rot_left = Input.GetAxisRaw("Left_Spine") == 1;
+                        rot_right = Input.GetAxisRaw("Right_Spine") == 1;
+                        DirectCheck();
+                    }
+                    break;
+                case State.Pause:
+                    break;
+                case State.End:
+                    break;
+                case State.Finish:
+                    break;
+                default:
+                    break;
             }
 
         }

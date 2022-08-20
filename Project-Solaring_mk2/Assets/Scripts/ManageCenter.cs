@@ -18,7 +18,7 @@ namespace solar_a
     public class ManageCenter : MonoBehaviour
     {
         #region 管理控制系統
-        [SerializeField, Header("系統功能總表"), Tooltip("控制系統")]
+        [SerializeField, Header("系統功能總表"), Tooltip("*控制系統")]
         Space_Controll space_ctl;
         [SerializeField, Tooltip("火箭控制系統")]
         Rocket_Controll rocket_ctl;
@@ -28,8 +28,7 @@ namespace solar_a
         ManageScene ss_mag;
         [SerializeField, Tooltip("結束管理")]
         ManageEnd mEnd;
-        #endregion       
-
+        #endregion
         /// <summary>
         /// GameUI Interface.
         /// </summary>
@@ -50,15 +49,15 @@ namespace solar_a
         [SerializeField, Header("暫停選單")]
         GameObject pauseUI;
         [SerializeField, Tooltip("暫停選單畫布系統")]
-        CanvasGroup menus;
-        [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
-        public CanvasGroup canvas_select;
+        CanvasGroup pauseMenus;
         [SerializeField, Header("畫布淡化速度")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
         [SerializeField, Header("混音控制系統")]
         AudioMixer adM;
         #region 本地調閱欄位 (Private Feild)
-        
+        [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
+        private CanvasGroup canvas_select;
+        private AudioSource AudioBox;
 
         #endregion
 
@@ -72,28 +71,25 @@ namespace solar_a
         /// 共用方法 (Public Method)
         /// </summary>
         /// <returns></returns>
-        public Vector3 GetStagePOS()
-        {
-            return ss_ctl.transform.position;
-        }
-        public Vector3 GetStageBorder()
-        {
-            return ss_ctl.GetBoxborder();
-        }
-        #region 火箭控制相關
-        // Time.deltaTime * Mathf.Abs(ss_ctl.Space_speed) * 0.25f;
+        public Vector3 GetStagePOS() => ss_ctl.transform.position;
+        public Vector3 GetStageBorder() => ss_ctl.GetBoxborder();
+        //除錯功能
+        public void GetState() => print(condition.GetState());
 
+        #region 火箭控制與計數相關
         /// <summary>
-        /// 火箭與場景移動，速度的快慢不會影響抵達距離，越快可以越早抵達目的。
+        /// 火箭與場景移動。
+        /// 舊版：調整場景的 Y軸數值。
+        /// 新版：直接修改UI數值。
         /// </summary>
         public void MoveAction()
         {
-            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
+            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
             UI_moveDistane += unit;
             if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed);   // 燃料變化
-            //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);               // 燃料用盡，移動懲罰
+            //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);   // 燃料用盡，移動懲罰
 
         }
         /// <summary>
@@ -103,12 +99,12 @@ namespace solar_a
         public void FuelReplen(int f)
         {
             float nowFuel = rocket_ctl.RocketS1.x;
-            rocket_ctl.PutRocketSyn(f, rocket_ctl.RocketBasic.y);
+            rocket_ctl.PutRocketSyn(f);
             rocket_ctl.ADOClipControl(0);
             if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
         #endregion
-        #region 產生物件
+        #region 物件通用函數
         /*
         /// <summary>
         /// 切換預設的產生器類別，包含補給品產生。
@@ -166,30 +162,18 @@ namespace solar_a
         /// 清除物件函數。
         /// 所有物件從畫面上移除都要經過這個函式。
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">碰撞區域回傳的物件</param>
         public void ObjectDestory(GameObject obj)
         {
             GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
+            //print(objGS.name);  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
             if (!objGS) { Destroy(obj); return; }
-            //print(objGS.name);
             objGS.Destroys(obj);
             //gener_class.Destroys(obj);
         }
+
         #endregion
         #region 場 景 相 關
-        /// <summary>
-        /// 預先產生物件方法，會依照目前的場景放置物件。
-        /// i 代表目前的場景編號，可以在這裡指定場景為哪個時，用何種方式生成何種物件。
-        /// </summary>
-        public void PreOrderGen()
-        {
-            int i = ss_mag.GetScenes();
-            switch (i)
-            {
-                case 0: break;
-                default: break;
-            }
-        }
         // 進入中繼站
         public void InToStation()
         {
@@ -200,37 +184,6 @@ namespace solar_a
         }
 
         ///////////// 選單變化相關
-        ///
-        public void GetState()
-        {
-            print(condition.GetState());
-        }
-        /// <summary>
-        /// 選單淡入動畫
-        /// </summary>
-        public void FadeIn()
-        {
-
-        }
-        /// <summary>
-        /// 選單淡出動畫
-        /// </summary>
-        public void FadeOut()
-        {
-            if (canvas_select.alpha > 0)
-            {
-                canvas_select.alpha -= 0.1f;
-            }
-            else
-            {
-                condition.Previous();
-                GameState();
-                Time.timeScale = 1f;
-                CanvasCtrl(canvas_select);
-                CancelInvoke("FadeOut");
-            }
-
-        }
         private IEnumerator PauseFadeEffect(bool visable = true)
         {
             canvas_select = pauseUI.GetComponent<CanvasGroup>();
@@ -242,7 +195,6 @@ namespace solar_a
                         canvas_select.alpha += 0.1f;
                         yield return new WaitForSeconds(fadeSpeed.x);
                     }
-                    Time.timeScale = 0.05f;
                     condition.Next();
                     CanvasCtrl(canvas_select, visable);
                     break;
@@ -251,23 +203,13 @@ namespace solar_a
                     {
                         canvas_select.alpha -= 0.1f;
                         yield return new WaitForSeconds(fadeSpeed.y);
-
                     }
-                    Time.timeScale = 1f;
                     condition.Previous();
                     CanvasCtrl(canvas_select, visable);
                     break;
             }
-
             GameState();
-
-
-
         }
-        #endregion
-
-        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
-        #region 本地控制方法或事件
         /// <summary>
         /// 畫布群組開關
         /// </summary>
@@ -275,7 +217,6 @@ namespace solar_a
         /// <param name="on"></param>
         private void CanvasCtrl(CanvasGroup cvs, bool on = false)
         {
-
             cvs.alpha = on ? 1 : 0;
             cvs.interactable = on;
             cvs.blocksRaycasts = on;
@@ -316,9 +257,9 @@ namespace solar_a
         public void show_Menu()
         {
             //print($"{StaticSharp.Conditions} & {condition.isPause}");
-            if (menus != null)
+            if (pauseMenus != null)
             {
-                canvas_select = menus;
+                canvas_select = pauseMenus;
                 if (condition.isEnd)
                 {
                     StartCoroutine(PauseFadeEffect(true));
@@ -339,6 +280,7 @@ namespace solar_a
                 }
             }
         }
+        #endregion
         /// <summary>
         /// 遊戲狀態處理情況(需要被Invoke)
         /// 根據目前的狀態切換遊戲進行狀況
@@ -348,45 +290,56 @@ namespace solar_a
         private void GameState()
         {
             if (condition.GetState() == "End")
-            {// GameOver
+            {   // GameOver
                 bool isEnd = true;
-                transform.Find("UI_Pause").transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
+                pauseUI.transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
                 mEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
+                // 關閉音效
+                StartCoroutine(rocket_ctl.ControlChange(!isEnd));
+                Simple_move[] simple_s = FindObjectsOfType<Simple_move>();
+                foreach (Simple_move simple in simple_s) StartCoroutine(simple.Mute());
                 condition.Finish();
-                rocket_ctl.ControlChange(!isEnd);
             }
             else if (StaticSharp.Conditions != State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
-                space_ctl.enabled = !space_ctl.enabled;
-                rocket_ctl.ControlChange(!condition.isPause);
-            } else
-            {
-                space_ctl.enabled = !space_ctl.enabled;
-                rocket_ctl.ControlChange(!condition.isPause);
+                StartCoroutine(rocket_ctl.ControlChange(!condition.isPause));
             }
+            else StartCoroutine(rocket_ctl.ControlChange(!condition.isPause));
             if (pauseUI != null) pauseUI.SetActive(true);
             CancelInvoke("GameState");
         }
 
         /// <summary>
-        /// 進入遊戲結束系統
-        /// 若有以下情況則呼叫此程式：
+        /// 進入遊戲結束系統，若有以下情況則呼叫此程式：
         /// 1. 沒有燃料
         /// 2. 撞到任何物體
         /// </summary>
-        private void StateEnd()
-        {
-            //CheckGame(true, 5f); //結束遊戲條件之一
-            show_Menu();
-        }
+        private void StateEnd() => show_Menu();
+
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
+        #region 本地控制方法或事件
+
+        #endregion
 
         private void Awake()
         {
-            UI_moveDistane = 0;
+            try
+            {
+                if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
+                rocket_ctl = rocket_ctl?? FindObjectOfType<Rocket_Controll>();
+                ss_ctl = ss_ctl??FindObjectOfType<SceneStage_Control>();
+                ss_mag = ss_mag?? FindObjectOfType<ManageScene>();
+                mEnd = mEnd?? FindObjectOfType<ManageEnd>();
+                /*
+                */
+
+            }
+            catch (System.Exception) { }
         }
         private void Start()
         {
+            UI_moveDistane = 0;
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
         }
         private void Update()
@@ -395,15 +348,18 @@ namespace solar_a
             switch (StaticSharp.Conditions)
             {
                 case State.Running:
+                    if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
                     MoveAction();
                     break;
-                case State.Loading:
-                    break;
                 case State.Pause:
+                    if (Time.timeScale > 0.1f) Time.timeScale = 0.05f;
                     break;
                 case State.End:
                     StateEnd();
+                    break;
+                case State.Finish:
+                    if (Time.timeScale > 0.1f) Time.timeScale = 0f;
                     break;
                 default:
                     break;
@@ -414,9 +370,8 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-
+            if (Input.GetKeyDown(KeyCode.Escape)) show_Menu();
         }
-        #endregion
 
         #region 彩蛋相關
         /*Ctrl+b 開啟黑洞隨機跳關：需要黑洞生成的動畫或圖片

@@ -572,10 +572,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   space_ctl: {fileID: 1611875246}
-  rocket_ctl: {fileID: 784496986}
-  ss_ctl: {fileID: 2070353152}
-  ss_mag: {fileID: 62497110}
-  mEnd: {fileID: 1465962578}
+  rocket_ctl: {fileID: 0}
+  ss_ctl: {fileID: 0}
+  ss_mag: {fileID: 0}
+  mEnd: {fileID: 0}
   ui_Dist: {fileID: 654708608}
   ui_fuel: {fileID: 1810340794}
   ui_fuelbar: {fileID: 47937557}
@@ -585,8 +585,7 @@ MonoBehaviour:
   - {fileID: 2008414695}
   - {fileID: 1960453792}
   pauseUI: {fileID: 307926600}
-  menus: {fileID: 307926607}
-  canvas_select: {fileID: 62497108}
+  pauseMenus: {fileID: 0}
   fadeSpeed: {x: 0.01, y: 0.001}
   adM: {fileID: 24100000, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d, type: 2}
 --- !u!114 &62497110
@@ -821,7 +820,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7770115, y: 1}
+    m_SensorSize: {x: 1.7801205, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -896,6 +895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 6b292d872d6128b47aea64166bae6fb9, type: 2}
+  generDestan: 0
 --- !u!1 &228987588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +2986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mgCenter: {fileID: 62497109}
   RocketBasic: {x: 120, y: 10, z: 0.2}
-  unit_fuel: 0
+  unit_fuel: -2
   fuel: 100
   speed_v: 4
   speed_a: 0.2
@@ -4503,6 +4503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 672086d63f5d35447b56b7440b4a672b, type: 2}
+  generDestan: 0
 --- !u!1 &1179986193
 GameObject:
   m_ObjectHideFlags: 0
@@ -6341,7 +6342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Orispeed: 1.2
+  Orispeed: 5
   stopTracert: 12
 --- !u!114 &1498923106
 MonoBehaviour:
@@ -8382,7 +8383,7 @@ MonoBehaviour:
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
   box_range: {x: 52, y: 1.5, z: 30}
   box_offset: {x: 22.5, y: 14, z: 0}
-  speed: 0
+  speed: 1
   includeTag: []
   end_pos: {x: 0, y: 15000, z: 0}
   gravity3: {x: 0, y: -0.1, z: 0}
