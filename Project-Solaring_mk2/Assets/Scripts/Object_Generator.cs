@@ -66,6 +66,7 @@ namespace solar_a
             {
                 OBTarget = target;
                 Parent = parent;
+                Create_v3 = parent.transform.position;
             }
             /// <summary>
             /// 製作物件時手動指定主物件、生成物以及位置和旋轉狀態
@@ -232,12 +233,6 @@ namespace solar_a
 
         #endregion
 
-        public void _ReadOBJList(int id)
-        {
-            // 測試讀取陣列清單的內容
-            gener_list.ReadList(gener_list.FindKeys(id));
-            print(gener_list.Count);
-        }
 
 
 #if OldMethod

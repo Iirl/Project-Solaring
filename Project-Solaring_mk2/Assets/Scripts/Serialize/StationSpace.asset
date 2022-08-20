@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: DataBox
+  m_Name: StationSpace
   m_EditorClassIdentifier: 
-  grtClass: 0
-  grtObject: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee,
+  grtClass: 2
+  grtObject: {fileID: 8853699504866694951, guid: 1ae39d405f903894da04ccbbdda23aac,
     type: 3}
   grtSubObject: []
-  grtProb: 0.34
+  grtProb: 0.5
   grtIntervalTime: 1
-  grtWaitTime: 10
-  grtdestTime: 50
-  grtPos: {x: 12, y: 3, z: 3}
-  grtOffset: 20
-  grtRandomRoation: 1
+  grtWaitTime: 0
+  grtdestTime: 20
+  grtPos: {x: 10, y: -18, z: 0}
+  grtOffset: 0
+  grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 5
+  grtLimit: 1

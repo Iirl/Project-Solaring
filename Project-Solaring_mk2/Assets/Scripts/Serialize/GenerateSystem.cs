@@ -17,26 +17,20 @@ namespace solar_a
         ManageCenter mgc;
         Object_Generator.Generater obGenerate;
         Object_Generator.ObjectArray gener_list = new();
-
+        bool preLoadInvoke;
         /// <summary>
         /// 普通生成：只判斷是否旋轉物件。
         /// </summary>
         /// <param name="rotate"></param>
-        public void NormalGenerate(bool rotate = false)
-        {
-            Static_gen(generData.grtRandomRoation);
-            //gener_list.GetGameObject(0);            
-        }
+        public void NormalGenerate(bool rotate = false) => Static_gen(generData.grtRandomRoation);
         /// <summary>
-        /// 子物件生成：
+        /// 子物件生成
         /// </summary>
-        private void SubObjGenerate()
-        {
-            Random_gen(true);
-        }
+        private void SubObjGenerate() => Random_gen(generData.grtRandomRoation);
+        private void StaticPointGen() => Static_gen(generData.grtRandomRoation, false);
         public void Test()
         {
-
+            
         }
 
         #region 物件檢查系統
@@ -129,7 +123,7 @@ namespace solar_a
         /// <param name="isPos">是否隨機位置</param>
         /// <param name="isRoate">是否隨機旋轉</param>
         /// <returns></returns>
-        private GameObject Generator_EMP(Vector3 worldOffset, bool isRoate = false)
+        private GameObject Generator_EMP(Vector3 worldOffset, bool isRoate = false ,bool random=true)
         {
             if (generData.grtObject == null) return null;
             DestroysOnBug(worldOffset);
@@ -140,7 +134,7 @@ namespace solar_a
                 Random.Range(-generData.grtPos.z, generData.grtPos.z)
             );
             obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
-            obGenerate.Create_v3 = random_v3 + worldOffset;                         // 物件生成的位置，會依據設定的位置改變。
+            obGenerate.Create_v3 += (random) ? random_v3 + worldOffset : generData.grtPos + worldOffset;                // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
             obGenerate.destoryTime = generData.grtdestTime;
             Object created = obGenerate.Generates();            
@@ -158,6 +152,7 @@ namespace solar_a
         /// 簡易產生物件方法。
         /// </summary>
         private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
+        private void Static_gen(bool isRot, bool isRnd) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRot, isRnd);
         private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, locY, 0), isRotate);
 
         /// <summary>
@@ -229,11 +224,14 @@ namespace solar_a
                     case GenerClass.Meteorite:
                         SubObjGenerate();
                         break;
+                    case GenerClass.StaticPoint:
+                        StaticPointGen();
+                        break;
                     default:
                         break;
                 }
             }
-
+            //print("呼叫次數");
         }
 
         private IEnumerator IntervalGenerate()
@@ -242,14 +240,20 @@ namespace solar_a
             else
             {
                 //yield return new WaitForSeconds(generDestan);
-                while (ManageCenter.UI_moveDistane < generDestan) yield return null;
+                while (ManageCenter.UI_moveDistane < generDestan && !preLoadInvoke) yield return null;
                 Invoke("SwitchState", generData.grtIntervalTime);
             }                
+           
         }
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
+        }
+        private void Start()
+        {
+            preLoadInvoke = IsInvoking();
             StartCoroutine(IntervalGenerate());
+
         }
         private void Update()
         {

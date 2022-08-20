@@ -11,7 +11,7 @@ namespace solar_a
     /// </summary>
     public class Simple_move : MonoBehaviour
     {
-
+        enum MoveMethod { Straight, Track, Direction, Hold }
         #region 面板控制屬性
 
         #endregion
@@ -19,23 +19,31 @@ namespace solar_a
         GameObject target;
         private Vector3 target_v3;
         private Vector3 direct;
+        /// <summary>
+        /// 在面板顯示設定
+        /// </summary>
+        [SerializeField, Header("移動方式")]
+        private MoveMethod moveMethod;
+        [SerializeField, Header("直線移動方向")]
+        private Vector3 straightV3;
         [SerializeField, Header("移動速度"), Tooltip("Please test it until you want's speed.")]
         private float Orispeed = 1.2f;
+        [SerializeField, Tooltip("Set random speed to set every object have different speed.")]
+        private bool randomSpd = true;
         [SerializeField, Header("停止追蹤距離"), Tooltip("If your Screen size less than 12, recommend to fix it.")]
         private float stopTracert = 12;
         private float dist;
-        [Header("Check The Move System")]
-        private bool isEnd;
         //
         private AudioSource[] audios;
 
         /// <summary>
         /// 持續移動方法：依據 direct 的方向移動
         /// </summary>
-        private void ContinueMove()
-        {
-            transform.Translate(-direct * Orispeed * Time.deltaTime, Space.World);
-        }
+        private void ContinueMove() => transform.Translate(-direct * Orispeed * Time.deltaTime, Space.World);
+        /// <summary>
+        /// 直線移動方法：在面板中設定移動方向
+        /// </summary>
+        private void StraightMove() => transform.Translate(straightV3* Orispeed * Time.deltaTime, Space.World);
         /// <summary>
         /// 直線移動方法：依據 dist 和 target 的參數決定移動。
         /// * 停止追蹤：設定當 dist 小於一定值之後就不更新 direct 和 target資訊。
@@ -52,7 +60,7 @@ namespace solar_a
 
             }
             transform.position = Vector3.Lerp(transform.position, target_v3, speed);
-            if (dist < 1) isEnd = true;
+            if (dist < 1) moveMethod = MoveMethod.Direction;
         }
         #region 物件啟動事件
         public IEnumerator Mute(bool isMute = true)
@@ -69,29 +77,44 @@ namespace solar_a
             try
             {
                 audios = GetComponents<AudioSource>();
+                target = GameObject.FindWithTag("Player");
 
             }
             catch (System.Exception) { }
         }
         void Start()
         {
-            target = GameObject.FindWithTag("Player");
-            //target = GameObject.Find("Comet");
-            //target_v3 = target.transform.position;                // 設定目標的座標
-            //direct = (transform.position - target_v3).normalized; // 設定目標的方向
+            target_v3 = target ? target.transform.position: Vector3.zero;                // 設定目標的座標
+            direct = (transform.position - target_v3).normalized; // 設定目標的方向
+            if (randomSpd) Orispeed = Random.Range(Orispeed, Orispeed*2);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (isEnd) ContinueMove();
-            else TransMove();
+            switch (moveMethod)
+            {
+                case MoveMethod.Straight:
+                    StraightMove();
+                    break;
+                case MoveMethod.Track:
+                    TransMove();
+                    break;
+                case MoveMethod.Direction:
+                    ContinueMove();
+                    break;
+                case MoveMethod.Hold:
+                    
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
             //print("碰到物件");
-            enabled = false;
+            if (other.tag.Contains("Player")) enabled = false;
         }
         #endregion
     }

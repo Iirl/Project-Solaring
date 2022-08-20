@@ -87,8 +87,6 @@ namespace solar_a
             Rocket_Rig.isKinematic = !on;
             if (on) rc_dtion.onStay();
             else rc_dtion.onStop();
-            print(rc_dtion.state);
-
             enabled = on;
             yield return null;
         }
@@ -116,8 +114,11 @@ namespace solar_a
             Rocket_Rig.velocity += v3;
             // 加速度控制
             Vector3 r3 = new Vector3(horizon * aSpeed, vertial * aSpeed, 0);
-            if (boost > 0) Rocket_Rig.AddForce(r3);
-            if (boost > 0) PutRocketSyn(-(speed_a) * 0.25f * Time.deltaTime);
+            if (boost > 0)
+            {
+                Rocket_Rig.AddForce(r3);        //增加推力
+                PutRocketSyn(-(speed_a) * 20f * Time.deltaTime); //加速燃料消耗
+            }
             // 翻轉回復
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
@@ -231,12 +232,16 @@ namespace solar_a
             else if (other.tag.Contains("Respawn"))
             {
                 mgCenter.InToStation();
+            } else if (other.tag.Contains("Finish"))
+            {
+                print("終點，轉場");
             }
         }
         #endregion
 
         private void Awake()
-        {            
+        {
+            mgCenter = mgCenter ?? FindObjectOfType<ManageCenter>();
             RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC: RocketBasic;
             fuel = RocketBasic.x;
             speed_v = RocketBasic.y;

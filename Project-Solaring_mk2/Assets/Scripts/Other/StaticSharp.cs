@@ -104,5 +104,5 @@ public class StaticSharp
 }
 
 public enum State { Running, Loading, Pause, End, Finish }
-public enum GenerClass { Normal, Meteorite }
+public enum GenerClass { Normal, Meteorite, StaticPoint }
 

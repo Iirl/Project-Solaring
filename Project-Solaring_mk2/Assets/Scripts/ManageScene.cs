@@ -103,7 +103,7 @@ namespace solar_a
         private void NormalProcessFunction()
         {
             if (Time.timeScale != 1) Time.timeScale = 1;
-
+            CancelInvoke();
         }
 
         private void Start()

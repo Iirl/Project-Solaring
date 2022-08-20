@@ -24,10 +24,12 @@ public class DataLoad : MonoBehaviour
     private float speedLimit = 1;
     [SerializeField, Tooltip("加速度底限")]
     private float aspeedLimit = 0.1f;
-    [SerializeField, Header("配置顏色")]
-    private Color nor_color = Color.green;
     [SerializeField, Header("原始顏色")]
-    private Color alert_color = Color.yellow;
+    private Color nor_color = Color.green;
+    [SerializeField, Header("配置顏色")]
+    private Color distrubtion_color = Color.yellow;
+    [SerializeField, Header("警示顏色")]
+    private Color alert_color = Color.red;
     [SerializeField, Header("警示值")]
     private Vector3 alert_fva;
     private Vector3 local_info;
@@ -71,12 +73,46 @@ public class DataLoad : MonoBehaviour
         Value_speed.text = local_info.y.ToString();
         Value_acceler.text = local_info.z.ToString();
         // TextColor Change
-        if (float.Parse(Value_engery.text) <= alert_fva.x) Value_engery.color = alert_color;
-        else Value_engery.color = nor_color;
-        if (float.Parse(Value_speed.text) <= alert_fva.y) Value_speed.color = alert_color;
-        else Value_speed.color = nor_color;
-        if (float.Parse(Value_acceler.text) <= alert_fva.z) Value_acceler.color = alert_color;
-        else Value_acceler.color = nor_color;
+        switch (local_info.x.CompareTo(StaticSharp.Rocket_BASIC.x))
+        {
+            case 0: //相等，原始顏色
+                Value_engery.color = nor_color;
+                break;
+            case 1: //增值，配置顏色
+                Value_engery.color = distrubtion_color;
+                break;
+            case -1://低於基本值，警示顏色
+                Value_engery.color = alert_color;
+                break;
+        }
+        switch (local_info.y.CompareTo(StaticSharp.Rocket_BASIC.y))
+        {
+            case 0: //相等，原始顏色
+                Value_speed.color = nor_color;
+                break;
+            case 1: //增值，配置顏色
+                Value_speed.color = distrubtion_color;
+                break;
+            case -1://低於基本值，警示顏色
+                Value_speed.color = alert_color;
+                break;
+        }
+        switch (local_info.z.CompareTo(StaticSharp.Rocket_BASIC.z))
+        {
+            case 0: //相等，原始顏色
+                Value_acceler.color = nor_color;
+                break;
+            case 1: //增值，配置顏色
+                Value_acceler.color = distrubtion_color;
+                break;
+            case -1://低於基本值，警示顏色
+                Value_acceler.color = alert_color;
+                break;
+        }
+        if (local_info.x < alert_fva.x) Value_engery.color = alert_color;
+        if (local_info.y < alert_fva.y) Value_speed.color = alert_color;       
+        if (local_info.z < alert_fva.z) Value_acceler.color = alert_color;
+        
     }
     public void BtnFuel(int count)
     {

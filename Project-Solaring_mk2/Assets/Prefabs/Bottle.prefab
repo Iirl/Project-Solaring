@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6203802689991853595}
   - component: {fileID: 8268675789555953528}
   - component: {fileID: 5224366359040140109}
+  - component: {fileID: -734950659034678467}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Block
@@ -115,3 +116,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-734950659034678467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555376908612167630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveMethod: 0
+  straightV3: {x: 0, y: -1, z: 0}
+  Orispeed: 1.5
+  randomSpd: 1
+  stopTracert: 12

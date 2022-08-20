@@ -29,10 +29,9 @@ namespace solar_a
         Vector3 nbox_range;
         [SerializeField, Header("場景移動速度")]
         public float speed;
+        public float finishDistane;
         [SerializeField, Header("其他標籤觸發消除物件")]
         private string[] includeTag;
-        [SerializeField, Header("終點座標")]
-        private Vector3 end_pos = new Vector3(0,15000,0);
         [SerializeField, Header("重力調整")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
 
@@ -47,13 +46,6 @@ namespace solar_a
         /// </summary>
         private void _auto_move()
         {
-            if (Space_Rect.position.x != 0)
-            {
-                float nspd = speed / Vector3.Distance(transform.position, end_pos);
-                Space_Rect.position = Vector3.Lerp(transform.position, end_pos, nspd * Time.deltaTime); // 偏移校正
-            }
-            mgCenter.MoveAction();
-            stage_position = transform.position; // 場景資訊
         }
         /// <summary>
         /// 場景邊緣判定，玩家：回推；物件：破壞。
@@ -101,15 +93,20 @@ namespace solar_a
         #region 事件
         private void Awake()
         {
-            Physics.gravity = gravity3;
-            Application.targetFrameRate = 120;
+            mgCenter = mgCenter ?? FindObjectOfType<ManageCenter>();
             cinemachine = GetComponentInChildren<CinemachineVirtualCamera>();
             Stage_boxBorder = GetComponent<BoxCollider>();
             Space_Rect = GetComponent<RectTransform>();
+        }
+        private void Start()
+        {
+            Physics.gravity = gravity3;
+            Application.targetFrameRate = 120;
             GetBoxborder();
             //box_range = stage_container; // 若要改成手動大小，註解掉這行。
             // 左右牆壁判定
-            nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z);
+            nbox_range = new Vector3(box_range.y, box_range.x / 2, box_range.z);
+
         }
         private void FixedUpdate()
         {

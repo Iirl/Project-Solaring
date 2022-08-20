@@ -58,6 +58,7 @@ namespace solar_a
         [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         private CanvasGroup canvas_select;
         private AudioSource AudioBox;
+        private BoxCollider FinishBox;
 
         #endregion
 
@@ -86,8 +87,13 @@ namespace solar_a
         {
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
-            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
+            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。            
             UI_moveDistane += unit;
+            if (UI_moveDistane >= ss_ctl.finishDistane)
+            {
+                UI_moveDistane = ss_ctl.finishDistane;
+                FinishBox.enabled = true;
+            }
             if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed);   // 燃料變化
             //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);   // 燃料用盡，移動懲罰
 
@@ -232,11 +238,15 @@ namespace solar_a
             // 改放在 MoveAction 中
             // 燃料UI
             UI_fuel = (int)rocket_ctl.RocketS1.x;
-            if (UI_fuel <= 100) ui_fuelbar.fillAmount = UI_fuel / 100f;
+            if (UI_fuel <= 100)
+            {
+                ui_fuelbar.fillAmount = UI_fuel / 100f;
+                if(EnergyPlus[0].activeSelf) EnergyPlus[0].SetActive(false);
+            }
             else
             {   // 超過 100 的部分用格狀血條顯示
                 ui_fuelbar.fillAmount = 1;
-                int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity);
+                int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity) + 1;
                 if (EnergyPlus.Length >= level)
                 {
                     int count = 0;
@@ -248,7 +258,7 @@ namespace solar_a
                 }
             }
             // 標示文字UI內容
-            if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane}";
+            if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0.00")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
         /// <summary>
@@ -331,6 +341,7 @@ namespace solar_a
                 ss_ctl = ss_ctl??FindObjectOfType<SceneStage_Control>();
                 ss_mag = ss_mag?? FindObjectOfType<ManageScene>();
                 mEnd = mEnd?? FindObjectOfType<ManageEnd>();
+                FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
                 /*
                 */
 
@@ -350,7 +361,7 @@ namespace solar_a
                 case State.Running:
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    MoveAction();
+                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();
                     break;
                 case State.Pause:
                     if (Time.timeScale > 0.1f) Time.timeScale = 0.05f;
