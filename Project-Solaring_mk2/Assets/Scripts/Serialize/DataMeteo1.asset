@@ -16,14 +16,14 @@ MonoBehaviour:
   grtObject: {fileID: 5145902657687562414, guid: 0de2e50343b393b4ebffe17135b75635,
     type: 3}
   grtSubObject:
-  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
-  - {fileID: 4321400938711116941, guid: ef7417e4245c0c141b0838850cc23cdf, type: 3}
+  - {fileID: 4379541126855630035, guid: 12e7988aa3cc55041af9f4b1cc4cce64, type: 3}
+  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
+  grtProb: 0.455
   grtIntervalTime: 1
   grtWaitTime: 1
-  grtdestTime: 10
-  grtPos: {x: 10, y: 5, z: 7}
-  grtOffset: 10
-  grtRandomRoation: 0
+  grtdestTime: 50
+  grtPos: {x: 12.62, y: 10.04, z: 3}
+  grtOffset: 41.5
+  grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtProb: 0.455
-  grtLimit: 12
+  grtLimit: 50
