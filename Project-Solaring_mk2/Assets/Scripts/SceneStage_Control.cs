@@ -34,7 +34,7 @@ namespace solar_a
         private string[] includeTag;
         [SerializeField, Header("重力調整")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
-
+        Camera MainCam;
         CinemachineVirtualCamera cinemachine;
         BoxCollider Stage_boxBorder;
         RectTransform Space_Rect;
@@ -79,9 +79,8 @@ namespace solar_a
         /// </summary>
         public Vector3 GetBoxborder()
         {
-            Camera cv_mc = Stage_boxBorder.GetComponentInChildren<Camera>();
-            stage_container.x = Mathf.Round(cv_mc.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
-            stage_container.y = Mathf.Round((1 / cv_mc.aspect) * stage_container.x)-1; //heigh
+            stage_container.x = Mathf.Round(MainCam.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
+            stage_container.y = Mathf.Round((1 / MainCam.aspect) * stage_container.x)-1; //heigh
             stage_container.z = stage_container.x;
             Stage_boxBorder.size = stage_container;
             Space_Rect.sizeDelta = stage_container;
@@ -93,8 +92,9 @@ namespace solar_a
         #region 事件
         private void Awake()
         {
+            MainCam = Camera.main;
             mgCenter = mgCenter ?? FindObjectOfType<ManageCenter>();
-            cinemachine = GetComponentInChildren<CinemachineVirtualCamera>();
+            cinemachine = cinemachine ?? FindObjectOfType<CinemachineVirtualCamera>().GetComponentInChildren<CinemachineVirtualCamera>();
             Stage_boxBorder = GetComponent<BoxCollider>();
             Space_Rect = GetComponent<RectTransform>();
         }
