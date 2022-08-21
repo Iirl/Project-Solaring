@@ -19,13 +19,16 @@ namespace solar_a
         private Vector3 stage_container;
         [SerializeField, Tooltip("場景位址(Read Only)")]
         private Vector3 stage_position;
-
         [SerializeField, Header("場景相關可調變數"), Tooltip("判定區域顏色")]
         private Color box_color = Color.cyan;
         [SerializeField, Header("判定區域大小")]
         private Vector3 box_range = Vector3.zero;
         [SerializeField, Header("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
+        [SerializeField,Header("限制火箭移動(Clamp)區域微調")]
+        private Vector2 minBorder;
+        [SerializeField]
+        private Vector2 maxBorder;
         Vector3 nbox_range;
         [SerializeField, Header("場景移動速度")]
         public float speed;
@@ -59,8 +62,8 @@ namespace solar_a
                 if (col.tag.Contains("Player"))
                 {
                     col.transform.position = new Vector3(
-                        Mathf.Clamp(col.transform.position.x, -stage_container.x/2+1, stage_container.x/2),
-                        Mathf.Clamp(col.transform.position.y , -stage_container.y / 2+1 + transform.position.y, stage_container.y / 2 + transform.position.y)
+                        Mathf.Clamp(col.transform.position.x, -stage_container.x/2+ minBorder.x, stage_container.x/2 + maxBorder.x),
+                        Mathf.Clamp(col.transform.position.y , -stage_container.y / 2+ minBorder.y + transform.position.y, stage_container.y / 2 + transform.position.y + + maxBorder.y)
                         );
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
