@@ -43,6 +43,8 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         static public int UI_fuel = 100;
         static public float UI_moveDistane = 0;
+        [SerializeField, Tooltip("用盡燃料後的掙扎時間"),Range(0,10)]
+        private float fuelExhaustedTime=5;
         /// <summary>
         /// 選單畫布控制
         /// </summary>
@@ -78,6 +80,13 @@ namespace solar_a
         public void GetState() => print(condition.GetState());
 
         #region 火箭控制與計數相關
+        private IEnumerator DeathCounter(float counter=0)
+        {            
+            for (int i=0; i< counter;i++) yield return new WaitForSeconds(1);
+            print(rocket_ctl.RocketS1.x);
+            if(rocket_ctl.RocketS1.x <1) condition.Dead();
+            yield return null;
+        }
         /// <summary>
         /// 火箭與場景移動。
         /// 舊版：調整場景的 Y軸數值。
@@ -94,8 +103,9 @@ namespace solar_a
                 UI_moveDistane = ss_ctl.finishDistane;
                 FinishBox.enabled = true;
             }
-            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed);   // 燃料變化
-            //else rocket_ctl.PutRocketSyn(0, rocket_ctl.GetBasicInfo().y / 2);   // 燃料用盡，移動懲罰
+            float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed;
+            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
+            else StartCoroutine(DeathCounter(fuelExhaustedTime));   // 燃料用盡，死亡倒數。
 
         }
         /// <summary>

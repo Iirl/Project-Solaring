@@ -29,6 +29,7 @@ namespace solar_a
         float speed_a = 0.2f;
         [SerializeField]
         public float fuel_overcapacity = 20;
+        // 取得火箭資訊的欄位
         public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
         [SerializeField, Header("火焰控制項")]
         Vector2 fireLenght_min = new Vector2(0.5f, 1f);
@@ -72,6 +73,7 @@ namespace solar_a
         {
             fuel += x;
             if (fuel > RocketBasic.x) fuel = RocketBasic.x; // 燃料限制在最大值
+            else if (fuel < 0) fuel = 0;
             speed_v = y >= 0 ? y : speed_v;
             speed_a = z >= 0 ? z : speed_a;
             return RocketS1;
