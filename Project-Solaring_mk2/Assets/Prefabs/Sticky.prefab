@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5748313506695879729}
   - component: {fileID: 5748313506695879728}
   - component: {fileID: 544947011763015449}
-  m_Layer: 6
-  m_Name: MetaballParticles
-  m_TagString: Untagged
+  - component: {fileID: 7562911062206517001}
+  m_Layer: 1
+  m_Name: Sticky
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +172,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 1
       minScalar: 0.001
       maxCurve:
         serializedVersion: 2
@@ -869,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3623,9 +3624,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -4844,8 +4845,22 @@ CapsuleCollider:
   m_GameObject: {fileID: 5748313506695879743}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.6
   m_Height: 1.7
   m_Direction: 2
   m_Center: {x: 0.13, y: 0, z: 0.5}
+--- !u!64 &7562911062206517001
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748313506695879743}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

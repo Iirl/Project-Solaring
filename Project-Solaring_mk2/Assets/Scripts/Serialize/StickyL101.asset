@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
+  m_Name: StickyL101
+  m_EditorClassIdentifier: 
+  grtClass: 0
+  grtObject: {fileID: 5748313506695879743, guid: 3b07a775cc7f31e488559aab540b437e,
+    type: 3}
+  grtSubObject: []
+  grtProb: 0.5
+  grtIntervalTime: 1
+  grtWaitTime: 2
+  grtdestTime: 5
+  grtPos: {x: 20, y: 5, z: 10}
+  grtOffset: 20
+  grtRandomRoation: 0
+  grtRot: {x: 0, y: 0, z: 0, w: 1}
+  grtLimit: 6
