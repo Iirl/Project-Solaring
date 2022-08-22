@@ -1,3 +1,4 @@
+using solar_a;
 using UnityEngine;
 
 /// <summary>
@@ -6,12 +7,23 @@ using UnityEngine;
 /// </summary>
 public class DBG : MonoBehaviour
 {
+    ManageCenter mgc;
+    //
     [SerializeField, Header("不會死亡")]
     public bool noDead;
+    [SerializeField, Header("不耗燃料")]
+    public bool noFuel;
+    [SerializeField, Header("移到終點")]
+    public bool toFinal;
 
-
+    private void Awake()
+    {
+        mgc = FindObjectOfType<ManageCenter>();
+    }
     private void Update()
     {
-        if (noDead) if (StaticSharp.Conditions == State.End) StaticSharp.Conditions = 0;
+        mgc.noDead = noDead ? true: false;
+        mgc.noExhauFuel = noFuel ? true: false;
+        mgc.toFinDest = toFinal ? true: false;
     }
 }

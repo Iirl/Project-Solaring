@@ -8,7 +8,6 @@ public class StaticSharp
     static public State Conditions;
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
-    static public bool isPowerfullMode=false;
 
 
     #region Shotkey, §Ö±¶Áä³]©w
@@ -88,6 +87,9 @@ public class StaticSharp
             state = State.Running;
         }
 
+        public string GetState() => state.ToString();
+        public int GetStateID() => (int)state;
+        public void Run() => state = 0;
         public void Next()
         {
             if (state < State.End - 1) state++;
@@ -98,8 +100,6 @@ public class StaticSharp
         }
         public void Dead() => state = State.End;
         public void Finish() => state = State.Finish;
-        public string GetState() => state.ToString();
-        public int GetStateID() => (int) state;
     }
 }
 

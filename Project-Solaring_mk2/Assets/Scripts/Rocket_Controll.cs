@@ -16,7 +16,7 @@ namespace solar_a
         ManageCenter mgCenter;
         #endregion
         #region #序列化屬性
-        [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n移動加速度(Z)")]
+        [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n衝刺時間(Z)")]
         public Vector3 RocketBasic;
         [SerializeField, Header("單位消耗燃料")]
         float unit_fuel;
@@ -68,7 +68,7 @@ namespace solar_a
         /// <summary>
         /// 火箭資料變動。
         /// </summary>
-        /// <returns>x=燃料；y=速度；z=加速度</returns>
+        /// <returns>x=燃料；y=速度；z=加速時間</returns>
         public Vector3 PutRocketSyn(float x, float y = -1, float z = -1)
         {
             fuel += x;
@@ -119,7 +119,6 @@ namespace solar_a
             if (boost > 0)
             {
                 Rocket_Rig.AddForce(r3);        //增加推力
-                PutRocketSyn(-(speed_a) * 20f * Time.deltaTime); //加速燃料消耗
             }
             // 翻轉回復
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
@@ -303,9 +302,10 @@ namespace solar_a
     #region 火箭狀態
     public class RocketCondition
     {
-        public enum State { Stay, Move, Float, Crashed, Stop }
+        public enum State { Stay, Move, Boost, Crashed, Stop }
         public State state = State.Stop;
         public bool IsStay { get { return state == State.Stay; } }
+        public bool IsBoost { get { return state == State.Boost; } }
         public bool IsCrashed { get { return state == State.Crashed; } }
         public bool IsStop { get { return state == State.Stop; } }
 

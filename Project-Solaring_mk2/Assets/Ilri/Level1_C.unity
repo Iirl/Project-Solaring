@@ -450,6 +450,9 @@ MonoBehaviour:
   pauseMenus: {fileID: 0}
   fadeSpeed: {x: 0.01, y: 0.001}
   adM: {fileID: 24100000, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d, type: 2}
+  noExhauFuel: 0
+  noDead: 0
+  toFinDest: 0
 --- !u!114 &62497110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,6 +1035,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noDead: 1
+  noFuel: 0
+  toFinal: 0
 --- !u!4 &282782756
 Transform:
   m_ObjectHideFlags: 0
@@ -6073,7 +6078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceOffset: {x: 0, y: 0, z: 0}
-  spine: 8
+  spine: 3.1
 --- !u!224 &1611875247
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8230,6 +8235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: unit_fuel
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
