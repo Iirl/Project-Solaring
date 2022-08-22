@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: StateL101
   m_EditorClassIdentifier: 
   grtClass: 0
-  grtObject: {fileID: 2503807629574911622, guid: 297f40b505f465a40bc14dfae124f968,
+  grtObject: {fileID: 2503807629574911622, guid: 66255473ec9e15d458d61680c1633016,
     type: 3}
   grtSubObject: []
   grtProb: 0.5
   grtIntervalTime: 1
   grtWaitTime: 2
   grtdestTime: 10
-  grtPos: {x: 0, y: 0, z: 20}
-  grtOffset: 24
-  grtRandomRoation: 0
+  grtPos: {x: 0, y: 10, z: 20}
+  grtOffset: 0
+  grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
   grtLimit: 1

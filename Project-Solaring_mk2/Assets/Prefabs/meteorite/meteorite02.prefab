@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399653378282069937}
-  m_LocalRotation: {x: -0.85588807, y: -0, z: -0, w: 0.51716125}
-  m_LocalPosition: {x: 0.021800002, y: 0.012900018, z: 0.0041999975}
+  m_LocalRotation: {x: -0.24578705, y: -0, z: -0, w: 0.9693238}
+  m_LocalPosition: {x: 0.02754, y: -0.00211, z: 0.0119}
   m_LocalScale: {x: 0.0217, y: 0.021700002, z: 0.021700002}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8974901763761244292}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -117.716, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -28.457, y: 0, z: 0}
 --- !u!198 &399653378267226863
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4769,14 +4769,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3877657236391124850}
-  m_LocalRotation: {x: -0.85807747, y: 0.1877005, z: 0.001148385, w: 0.47798574}
-  m_LocalPosition: {x: -0.024139997, y: 0.012330006, z: 0.002439998}
+  m_LocalRotation: {x: 0.25827175, y: 0.081902, z: 0.62815225, w: -0.72939193}
+  m_LocalPosition: {x: -0.0246, y: 0.0005, z: 0.0139}
   m_LocalScale: {x: 0.049999997, y: 0.049999993, z: 0.04999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8974901763761244292}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -124.841995, y: -18.096985, z: 34.188004}
+  m_LocalEulerAnglesHint: {x: -151.337, y: -166.49, z: -264.937}
 --- !u!1 &4279864394038137976
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,14 +4802,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4279864394038137976}
-  m_LocalRotation: {x: 0.55334383, y: 0.043165617, z: -0.025331069, w: 0.83144796}
-  m_LocalPosition: {x: 0.019099995, y: 0.0052000047, z: 0.003799999}
+  m_LocalRotation: {x: 0.9798204, y: 0.010287332, z: 0.0024755795, w: 0.19959967}
+  m_LocalPosition: {x: 0.0173, y: -0.0058, z: 0.0065}
   m_LocalScale: {x: 0.03333333, y: 0.033333328, z: 0.033333328}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8974901763761244292}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 67.271, y: 6.501, z: 0.838}
+  m_LocalEulerAnglesHint: {x: 23.023, y: 179.442, z: 178.683}
 --- !u!33 &4770988286224493216
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4870,6 +4870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4856511285698302692}
   - component: {fileID: 1703921004979940112}
+  - component: {fileID: 844178892074473634}
   m_Layer: 0
   m_Name: meteorite02
   m_TagString: Enemy
@@ -4907,6 +4908,23 @@ CapsuleCollider:
   m_Height: 9.6
   m_Direction: 1
   m_Center: {x: 0, y: -0.2, z: 0}
+--- !u!114 &844178892074473634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5201125286078924894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveMethod: 0
+  straightV3: {x: 0, y: -1, z: 0}
+  Orispeed: 1.5
+  randomSpd: 1
+  stopTracert: 12
 --- !u!1 &8566800612026499502
 GameObject:
   m_ObjectHideFlags: 0
@@ -4933,7 +4951,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8566800612026499502}
-  m_LocalRotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.5213291, y: -0, z: -0, w: 0.85335577}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
@@ -4943,7 +4961,7 @@ Transform:
   - {fileID: 1066703999358509846}
   m_Father: {fileID: 4856511285698302692}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -62.843, y: 0, z: 0}
 --- !u!33 &8040261121606855400
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5003,7 +5021,7 @@ MeshCollider:
   m_GameObject: {fileID: 8566800612026499502}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
