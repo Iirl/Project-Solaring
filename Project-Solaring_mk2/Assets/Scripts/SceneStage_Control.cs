@@ -43,6 +43,21 @@ namespace solar_a
         RectTransform Space_Rect;
         #endregion
 
+        #region 全域控制方法
+        /// <summary>
+        /// 取得畫面邊界：程式啟動時或者調整大小時要呼叫此函數調整邊界。
+        /// </summary>
+        public Vector3 GetBoxborder()
+        {
+            stage_container.x = Mathf.Round(MainCam.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
+            stage_container.y = Mathf.Round((1 / MainCam.aspect) * stage_container.x) - 1; //heigh
+            stage_container.z = stage_container.x;
+            Stage_boxBorder.size = stage_container;
+            Space_Rect.sizeDelta = stage_container;
+            return stage_container;
+        }
+
+        #endregion
         #region 方法
         /// <summary>
         /// 畫面移動
@@ -68,7 +83,7 @@ namespace solar_a
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    if (i != 0) mgCenter.ObjectDestory(col.gameObject);
+                    if (i == 1) mgCenter.ObjectDestory(col.gameObject);
                 }
             }
             //print($"透過 {colliders[0].tag}");
@@ -76,22 +91,20 @@ namespace solar_a
         }
         #endregion
 
-        #region 全域控制方法
-        /// <summary>
-        /// 取得畫面邊界：程式啟動時或者調整大小時要呼叫此函數調整邊界。
-        /// </summary>
-        public Vector3 GetBoxborder()
+        private void OnTriggerExit(Collider other)
         {
-            stage_container.x = Mathf.Round(MainCam.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
-            stage_container.y = Mathf.Round((1 / MainCam.aspect) * stage_container.x)-1; //heigh
-            stage_container.z = stage_container.x;
-            Stage_boxBorder.size = stage_container;
-            Space_Rect.sizeDelta = stage_container;
-            return stage_container;
+            if (other.tag.Contains("Player"))
+            {
+            }
+            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
+            else
+            {
+                foreach (var e in includeTag)
+                    if (other.tag.Contains(e))
+                        mgCenter.ObjectDestory(other.gameObject);
+            }
+            //print(other.tag);
         }
-
-        #endregion
-
         #region 事件
         private void Awake()
         {
@@ -125,24 +138,11 @@ namespace solar_a
         {
             Gizmos.color = box_color;
             Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // 讓編輯器模式下也能看到邊界
-            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 上邊界
-            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 下邊界
+            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 0上邊界
+            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1下邊界
             // 左右判定
-            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 右邊界
-            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 左邊界
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.tag.Contains("Player"))
-            {
-            }
-            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
-            else
-            {
-                foreach (var e in includeTag)
-                    if (other.tag.Contains(e))
-                        Destroy(other.gameObject, 3);
-            }
+            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 2右邊界
+            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 3左邊界
         }
         #endregion
     }

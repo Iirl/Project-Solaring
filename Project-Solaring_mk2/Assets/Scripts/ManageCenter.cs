@@ -61,13 +61,14 @@ namespace solar_a
         private CanvasGroup canvas_select;
         private AudioSource AudioBox;
         private BoxCollider FinishBox;
-
+        [HideInInspector]
+        public bool noExhauFuel, noDead, toFinDest;
         #endregion
 
 
         public void X_PowerMode()
         {
-            StaticSharp.isPowerfullMode = !StaticSharp.isPowerfullMode;
+            noDead = !noDead;
             transform.Find("AudioBox").GetComponent<AudioSource>().Play();
         }
         /// <summary>
@@ -83,7 +84,6 @@ namespace solar_a
         private IEnumerator DeathCounter(float counter=0)
         {            
             for (int i=0; i< counter;i++) yield return new WaitForSeconds(1);
-            print(rocket_ctl.RocketS1.x);
             if(rocket_ctl.RocketS1.x <1) condition.Dead();
             yield return null;
         }
@@ -97,15 +97,19 @@ namespace solar_a
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
             float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。            
-            UI_moveDistane += unit;
+            if (toFinDest) UI_moveDistane = ss_ctl.finishDistane;
+            else UI_moveDistane += unit;
             if (UI_moveDistane >= ss_ctl.finishDistane)
             {
                 UI_moveDistane = ss_ctl.finishDistane;
                 FinishBox.enabled = true;
             }
+
             float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed;
-            if (rocket_ctl.RocketS1.x > 0) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
-            else StartCoroutine(DeathCounter(fuelExhaustedTime));   // 燃料用盡，死亡倒數。
+            //print(rocket_ctl.rc_dtion.IsBoost);
+            //if (rocket_ctl.rc_dtion.IsBoost)  // fueldown -= (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
+            if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
+            else if (!noExhauFuel) StartCoroutine(DeathCounter(fuelExhaustedTime));   // 燃料用盡，死亡倒數。
 
         }
         /// <summary>
@@ -183,7 +187,7 @@ namespace solar_a
         {
             GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print(objGS.name);  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
-            if (!objGS) { Destroy(obj); return; }
+            if (!objGS) { Destroy(obj,0.5f); return; }
             objGS.Destroys(obj);
             //gener_class.Destroys(obj);
         }
@@ -379,7 +383,11 @@ namespace solar_a
                     if (Time.timeScale > 0.1f) Time.timeScale = 0.05f;
                     break;
                 case State.End:
-                    if (StaticSharp.isPowerfullMode) break;
+                    if (noDead)
+                    {
+                        condition.Run();
+                        break;
+                    }
                     StateEnd();
                     break;
                 case State.Finish:

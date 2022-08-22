@@ -9,28 +9,29 @@ namespace solar_a
 {
     public class Space_Controll : MonoBehaviour
     {
-        #region 變數
-        private bool rotated, rot_left, rot_right;  //空間是否旋轉
-        [SerializeField, Header("旋轉設定")]
-        Vector3 spaceOffset;
-        [SerializeField, Tooltip("旋轉速度"), Range(0f, 10f)]
-        float spine = 2.0f;
-        #endregion
 
+        [SerializeField, Header("旋轉設定")]
+        private Vector3 spaceOffset;
+        [SerializeField, Tooltip("旋轉速度"), Range(0f, 50f)]
+        private float spine = 2.0f;
         #region 欄位
-        float Coordinate = 360;
+        private bool rotated, rot_left, rot_right;  //空間是否旋轉
+        private float Coordinate = 360;
         #endregion
 
         #region 90度固定旋轉空間
         /// <summary>
         /// 1. 方向(轉向)判定
         /// </summary>
-        private void DirectCheck()
+        private void DirectCheck(bool rL, bool rR)
         {
             if (!rotated)
             {
+                rot_right = rR;
+                rot_left = rL;
                 if (rot_right || rot_left)
                 {
+                    //print("開始旋轉");
                     Coordinate = PositionCheck(rot_left); //若要左轉為Q則放 Left ，反之則顛倒。
                     InvokeRepeating("Spine", 0, 0.05f);
                     rotated = true;
@@ -62,6 +63,8 @@ namespace solar_a
             float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
             float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離
 
+            if (rot_left) { if (Input.GetAxisRaw("Right_Spine") == 1) { rot_right = true; rot_left = false; } }
+            else if (rot_right) { if (Input.GetAxisRaw("Left_Spine") == 1) { rot_right = false; rot_left = true; } }
 
             if (rotated && StaticSharp.Conditions == State.Running)
             {
@@ -125,11 +128,12 @@ namespace solar_a
             {
                 case State.Running:
                     // 旋轉空間
+
+                    bool rot_left = Input.GetAxisRaw("Left_Spine") == 1;
+                    bool rot_right = Input.GetAxisRaw("Right_Spine") == 1;
                     if (!rotated)
                     {
-                        rot_left = Input.GetAxisRaw("Left_Spine") == 1;
-                        rot_right = Input.GetAxisRaw("Right_Spine") == 1;
-                        DirectCheck();
+                        DirectCheck(rot_left, rot_right);
                     }
                     break;
                 case State.Pause:
