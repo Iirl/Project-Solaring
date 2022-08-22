@@ -238,13 +238,9 @@ namespace solar_a
 
         private IEnumerator IntervalGenerate()
         {
-            if (continues) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
-            else
-            {
-                //yield return new WaitForSeconds(generDestan);
-                while (ManageCenter.UI_moveDistane < generDestan && !preLoadInvoke) yield return null;
-                Invoke("SwitchState", generData.grtIntervalTime);
-            }                
+            while (ManageCenter.UI_moveDistane < generDestan && !preLoadInvoke) yield return null;          // 距離指定
+            if (continues) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);// 持續與一次性
+            else Invoke("SwitchState", generData.grtIntervalTime);           
            
         }
         private void Awake()
