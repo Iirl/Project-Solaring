@@ -10,6 +10,8 @@ namespace solar_a
     {
         [SerializeField, Header("物件資料")]
         GeneratorData generData;
+        [SerializeField, Header("連續呼叫")]
+        private bool continues;
         [SerializeField, Header("指定距離開始產生物件")]
         private float generDestan =0;
 
@@ -236,7 +238,7 @@ namespace solar_a
 
         private IEnumerator IntervalGenerate()
         {
-            if (generDestan == 0) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
+            if (continues) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);
             else
             {
                 //yield return new WaitForSeconds(generDestan);

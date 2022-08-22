@@ -214,10 +214,6 @@ namespace solar_a
         {
             if (other.tag.Contains("Enemy"))
             {
-                if (StaticSharp.isPowerfullMode)
-                {
-                    return;
-                }
                 //結束遊戲處理
                 ADOClipControl(1);
                 StaticSharp.Conditions = State.End;

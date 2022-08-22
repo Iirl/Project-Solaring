@@ -337,7 +337,9 @@ namespace solar_a
         /// </summary>
         private void StateEnd() => show_Menu();
 
-        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
+        
+
+    StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         #region 本地控制方法或事件
 
         #endregion
@@ -377,6 +379,7 @@ namespace solar_a
                     if (Time.timeScale > 0.1f) Time.timeScale = 0.05f;
                     break;
                 case State.End:
+                    if (StaticSharp.isPowerfullMode) break;
                     StateEnd();
                     break;
                 case State.Finish:
