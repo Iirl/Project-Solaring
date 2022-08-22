@@ -33,7 +33,7 @@ namespace solar_a
                 {
                     //print("開始旋轉");
                     Coordinate = PositionCheck(rot_left); //若要左轉為Q則放 Left ，反之則顛倒。
-                    InvokeRepeating("Spine", 0, 0.05f);
+                    InvokeRepeating("Spine", 0, 0.01f);
                     rotated = true;
                 }
             }
@@ -60,25 +60,33 @@ namespace solar_a
         /// </summary>
         private void Spine()
         {
-            float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
-            float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離
 
-            if (rot_left) { if (Input.GetAxisRaw("Right_Spine") == 1) { rot_right = true; rot_left = false; } }
-            else if (rot_right) { if (Input.GetAxisRaw("Left_Spine") == 1) { rot_right = false; rot_left = true; } }
+            if (rot_left) { if (Input.GetAxisRaw("Right_Spine") == 1) { 
+                    rot_right = true; rot_left = false; Coordinate = PositionCheck(rot_left);
+                } 
+            }
+            else if (rot_right) { if (Input.GetAxisRaw("Left_Spine") == 1) { 
+                    rot_right = false; rot_left = true; Coordinate = PositionCheck(rot_left);
+                } 
+            }
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
+            float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離            
+            Quaternion target = Quaternion.Euler(0, Coordinate,0);
 
             if (rotated && StaticSharp.Conditions == State.Running)
             {
                 StopCheck();
                 // 旋轉曲線: x^0-1
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
-                float iSpine = Mathf.Pow(spine, upper);
+                float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime *2;
                 // 收束方法
-                if (Mathf.Abs(Distane2axis) < 10) iSpine = 0.5f;
-                if (Mathf.Abs(Distane2axis) < 3) iSpine = 0.1f;
+                if (Mathf.Abs(Distane2axis) < 10) iSpine = 2f;
+                if (Mathf.Abs(Distane2axis) < 3) iSpine = 1f;
 
-                // 執行旋轉函式
-                if (rot_left) transform.Rotate(Vector3.up * iSpine);
-                else if (rot_right) transform.Rotate(Vector3.down * iSpine);
+                // 執行旋轉函式                
+                transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);
+                //if (rot_left) transform.Rotate(Vector3.up * iSpine);
+                //else if (rot_right) //transform.Rotate(Vector3.down * iSpine);
                 //if (iSpine == Mathf.Infinity) print(upper);
             }
         }

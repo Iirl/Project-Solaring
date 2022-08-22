@@ -11,9 +11,6 @@ namespace solar_a
     /// </summary>
     public class ManageEnd : MonoBehaviour
     {
-
-        [SerializeField, Header("中控系統")]
-        ManageCenter mgCenter;
         [SerializeField, Header("標題文字")]
         TMP_Text weclome;
         [SerializeField, Tooltip("顯示訊息")]
@@ -44,7 +41,6 @@ namespace solar_a
             if (weclome!=null) ShowInfo(weclome);                   //顯示結束文字
             //mgCenter.canvas_select = GetComponent<CanvasGroup>();   //設定畫布元件
             //mgCenter.CheckGame(true);
-            mgCenter.show_Menu();
         }
     }
 }

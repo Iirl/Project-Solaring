@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -18,16 +19,18 @@ namespace solar_a
     public class ManageCenter : MonoBehaviour
     {
         #region 恨瞶北╰参
-        [SerializeField, Header("╰参羆"), Tooltip("*北╰参")]
-        Space_Controll space_ctl;
-        [SerializeField, Tooltip("絙北╰参")]
-        Rocket_Controll rocket_ctl;
-        [SerializeField, Tooltip("初春北╰参")]
-        SceneStage_Control ss_ctl;
-        [SerializeField, Tooltip("初春╰参")]
-        ManageScene ss_mag;
+        [Header("い北╰参")]
+        static public ManageCenter mgCenter;
+        [Tooltip("初春╰参")]
+        static public ManageScene mgScene;
         [SerializeField, Tooltip("挡恨瞶")]
-        ManageEnd mEnd;
+        static public ManageEnd mgEnd;
+        [Tooltip("絙北╰参")]
+        static public Rocket_Controll rocket_ctl;
+        [Tooltip("初春北╰参")]
+        static public SceneStage_Control ss_ctl;
+        [Tooltip("丁╰参")]
+        static public Space_Controll space_ctl;
         #endregion
         /// <summary>
         /// GameUI Interface.
@@ -199,8 +202,8 @@ namespace solar_a
         {
             StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
             StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
-            ss_mag.SaveLeveInform();
-            ss_mag.LoadScenes("Station");
+            mgScene.SaveLeveInform();
+            mgScene.LoadScenes("Station");
         }
 
         ///////////// 匡虫跑て闽
@@ -317,7 +320,7 @@ namespace solar_a
             {   // GameOver
                 bool isEnd = true;
                 pauseUI.transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
-                mEnd.enabled = isEnd;
+                mgEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
                 // 闽超
                 StartCoroutine(rocket_ctl.ControlChange(!isEnd));
@@ -352,11 +355,12 @@ namespace solar_a
         {
             try
             {
+                mgCenter = GetComponent<ManageCenter>();
                 if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
                 rocket_ctl = rocket_ctl?? FindObjectOfType<Rocket_Controll>();
                 ss_ctl = ss_ctl??FindObjectOfType<SceneStage_Control>();
-                ss_mag = ss_mag?? FindObjectOfType<ManageScene>();
-                mEnd = mEnd?? FindObjectOfType<ManageEnd>();
+                mgScene = mgScene?? FindObjectOfType<ManageScene>();
+                mgEnd = mgEnd?? FindObjectOfType<ManageEnd>();
                 FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
                 /*
                 */

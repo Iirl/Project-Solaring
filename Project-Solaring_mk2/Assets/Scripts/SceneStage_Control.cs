@@ -13,8 +13,6 @@ namespace solar_a
     public class SceneStage_Control : MonoBehaviour
     {
         #region 屬性
-        [SerializeField, Header("中控系統")]
-        ManageCenter mgCenter;
         [SerializeField, Header("場景資訊"), Tooltip("場景大小(Read Only)")]
         private Vector3 stage_container;
         [SerializeField, Tooltip("場景位址(Read Only)")]
@@ -83,7 +81,7 @@ namespace solar_a
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    if (i == 1) mgCenter.ObjectDestory(col.gameObject);
+                    if (i == 1) ManageCenter.mgCenter.ObjectDestory(col.gameObject);
                 }
             }
             //print($"透過 {colliders[0].tag}");
@@ -96,12 +94,12 @@ namespace solar_a
             if (other.tag.Contains("Player"))
             {
             }
-            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) mgCenter.ObjectDestory(other.gameObject);
+            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) ManageCenter.mgCenter.ObjectDestory(other.gameObject);
             else
             {
                 foreach (var e in includeTag)
                     if (other.tag.Contains(e))
-                        mgCenter.ObjectDestory(other.gameObject);
+                        ManageCenter.mgCenter.ObjectDestory(other.gameObject);
             }
             //print(other.tag);
         }
@@ -109,7 +107,6 @@ namespace solar_a
         private void Awake()
         {
             MainCam = Camera.main;
-            mgCenter = mgCenter ?? FindObjectOfType<ManageCenter>();
             cinemachine = cinemachine ?? FindObjectOfType<CinemachineVirtualCamera>().GetComponentInChildren<CinemachineVirtualCamera>();
             Stage_boxBorder = GetComponent<BoxCollider>();
             Space_Rect = GetComponent<RectTransform>();

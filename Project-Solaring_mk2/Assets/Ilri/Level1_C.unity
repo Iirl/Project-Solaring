@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -432,11 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d01b4ac63e88824fbc6de3e355bacae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  space_ctl: {fileID: 1611875246}
-  rocket_ctl: {fileID: 0}
-  ss_ctl: {fileID: 2070353152}
-  ss_mag: {fileID: 62497110}
-  mEnd: {fileID: 1465962578}
   ui_Dist: {fileID: 654708608}
   ui_fuel: {fileID: 1810340794}
   ui_fuelbar: {fileID: 47937557}
@@ -702,7 +697,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7774193, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1015,6 +1010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282782756}
   - component: {fileID: 282782755}
+  - component: {fileID: 282782757}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1052,6 +1048,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &282782757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282782754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: []
+  blocks:
+  - label: box
+    species: 0
+    plus: 10
 --- !u!1 &299921515
 GameObject:
   m_ObjectHideFlags: 0
@@ -5783,7 +5796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbcfaec473325745a0d0825735f8add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mgCenter: {fileID: 62497109}
   weclome: {fileID: 0}
   messege: []
 --- !u!4 &1465962579
@@ -8157,7 +8169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c33bcb49ac3e8f41b7fa45413680914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mgCenter: {fileID: 62497109}
   stage_container: {x: 0, y: 0, z: 0}
   stage_position: {x: 0, y: 0, z: 0}
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
