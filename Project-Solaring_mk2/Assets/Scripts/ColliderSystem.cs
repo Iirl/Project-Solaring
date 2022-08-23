@@ -12,9 +12,11 @@ public class ColliderSystem : MonoBehaviour
     public enum Genertic { Supply, Other }
     #endregion
     [SerializeField, Header("撞擊特效"), NonReorderable]
-    EffectGameObject[] effect;
+    EffectGameObject[] effects;
     [SerializeField, Header("物品效果"), NonReorderable]
     BlockGameObject[] blocks;
+    private readonly object locker = new object();
+    private bool tmpvar;
 
     [System.Serializable]
     private class EffectGameObject
@@ -43,35 +45,33 @@ public class ColliderSystem : MonoBehaviour
         int i = -1;
         if (hitObj.tag.Contains("Enemy"))
         {
-            i = 1;
-            //結束遊戲處理
+            i = 1; //結束遊戲處理
             ManageCenter.rocket_ctl.SendMessage("ADOClipControl", 1);
             StaticSharp.Conditions = State.End;
+            if (collSys) collSys.SendMessage("ExploderEvent", hitObj.name);
         }
         else if (hitObj.tag.Contains("Block"))
         {
-            i = 2;
-            ManageCenter.mgCenter.ObjectDestory(hitObj,false);
-            if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);            
-            //當火箭碰到補品時
-            //print($"收到回復品 {hitObj.name}");
-            /*
-            int addFuel = 0;
-            if (hitObj.name.Contains("Box") || hitObj.name.Contains("box")) addFuel = 10;
-            if (hitObj.name.Contains("Bottle")) addFuel = 5;
-            ManageCenter.mgCenter.FuelReplen(addFuel);*/
+            i = 2; //當火箭碰到補品時
+            ManageCenter.mgCenter.ObjectDestory(hitObj, false);
+            if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);
         }
         else if (hitObj.tag.Contains("Respawn"))
         {
-            i = 3;
+            i = 3; // 碰到太空站
             ManageCenter.mgCenter.InToStation();
         }
         else if (hitObj.tag.Contains("Finish"))
         {
-            i = 4;
+            i = 4; // 進入終點
             print("終點，轉場");
         }
         return i;
+    }
+    static public void StageColliderEvent(GameObject hitObj, bool hasDest=true)
+    {
+        //print("場景邊緣觸發");
+        ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
     }
     /// <summary>
     /// 方塊碰撞事件
@@ -79,14 +79,29 @@ public class ColliderSystem : MonoBehaviour
     /// <param name="name"></param>
     private void BolckEvent(string name)
     {
-        //print($"查詢是否匹配 {name}");
-        foreach (var block in blocks)
+        lock (locker)
         {
-            if (name.ToLower().Contains(block.label.ToLower()) && block.species == Genertic.Supply)
+            if (!tmpvar)
             {
-                //print(block.label);
-                ManageCenter.mgCenter.FuelReplen(block.plus);
+                tmpvar = true;
+                //print($"查詢是否匹配 {name}");
+                foreach (var block in blocks)
+                {
+                    if (name.ToLower().Contains(block.label.ToLower()) && block.species == Genertic.Supply)
+                    {
+                        //print(block.label);
+                        ManageCenter.mgCenter.FuelReplen(block.plus);
+                    }
+                }
             }
+            tmpvar = false;
+        }
+    }
+    private void ExploderEvent(string name)
+    {
+        foreach (var e in effects)
+        {
+            if (e.label.Contains(name)) { }
         }
     }
     #endregion

@@ -61,7 +61,12 @@ namespace solar_a
                 // 執行物件刪除
                 if (destTime) Destroy(target, 1f);
                 else Destroy(target);
-            } else Destroy(target,1f);
+            }
+            else
+            {
+                if (destTime) Destroy(target, 1f);
+                else Destroy(target);
+            }
         }
         /// <summary>
         /// 清空物件系統

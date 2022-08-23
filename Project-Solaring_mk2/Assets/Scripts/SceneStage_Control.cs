@@ -81,7 +81,7 @@ namespace solar_a
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    if (i == 1) ManageCenter.mgCenter.ObjectDestory(col.gameObject);
+                    if (i == 1) ColliderSystem.StageColliderEvent(col.gameObject);
                 }
             }
             //print($"³z¹L {colliders[0].tag}");
@@ -91,7 +91,7 @@ namespace solar_a
 
         private void OnTriggerExit(Collider other)
         {
-            ColliderSystem.CollisionPlayerEvent(other.gameObject);
+            ColliderSystem.StageColliderEvent(other.gameObject);
             if (includeTag.Length > 0)
             {
                 foreach (var e in includeTag)

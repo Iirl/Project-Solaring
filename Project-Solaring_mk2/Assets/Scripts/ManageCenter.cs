@@ -191,11 +191,11 @@ namespace solar_a
         /// 所有物件從畫面上移除都要經過這個函式。
         /// </summary>
         /// <param name="obj">碰撞區域回傳的物件</param>
-        public void ObjectDestory(GameObject obj, bool hasDesTime=true)
+        public void ObjectDestory(GameObject obj, bool hasDesTime=false)
         {
             GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
-            //print(objGS.name);  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
-            if (!objGS) { Destroy(obj, hasDesTime ? 1:0); return; }
+            //print($"名稱: {objGS.name} hasdes:{hasDesTime}");  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
+            if (!objGS) { Destroy(obj); return; }
             objGS.Destroys(obj, hasDesTime);
             //gener_class.Destroys(obj);
         }
