@@ -75,6 +75,7 @@ namespace solar_a
 
         public void X_PowerMode()
         {
+            
             noDead = !noDead;
             transform.Find("AudioBox").GetComponent<AudioSource>().Play();
         }
@@ -223,7 +224,7 @@ namespace solar_a
                         yield return new WaitForSeconds(fadeSpeed.x);
                     }
                     condition.Next();
-                    CanvasCtrl(canvas_select, visable);
+                    canvas_select.CanvansFadeControl(visable);
                     break;
                 default:
                     while (canvas_select.alpha > 0)
@@ -232,22 +233,12 @@ namespace solar_a
                         yield return new WaitForSeconds(fadeSpeed.y);
                     }
                     condition.Previous();
-                    CanvasCtrl(canvas_select, visable);
+                    canvas_select.CanvansFadeControl(visable);
                     break;
             }
             GameState();
         }
-        /// <summary>
-        /// 畫布群組開關
-        /// </summary>
-        /// <param name="cvs"></param>
-        /// <param name="on"></param>
-        private void CanvasCtrl(CanvasGroup cvs, bool on = false)
-        {
-            cvs.alpha = on ? 1 : 0;
-            cvs.interactable = on;
-            cvs.blocksRaycasts = on;
-        }
+
         /// <summary>
         /// 設定UI的提示
         /// </summary>

@@ -80,8 +80,8 @@ namespace solar_a
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime *2;
                 // 收束方法
-                if (Mathf.Abs(Distane2axis) < 10) iSpine = 2f;
-                if (Mathf.Abs(Distane2axis) < 3) iSpine = 1f;
+                if (Mathf.Abs(Distane2axis) < 10) iSpine /= 2f;
+                if (Mathf.Abs(Distane2axis) < 3) iSpine = iSpine>0.1f?iSpine : 0.1f;
 
                 // 執行旋轉函式                
                 transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);

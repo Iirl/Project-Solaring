@@ -9,7 +9,10 @@ public class StaticSharp
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
     //
+    //
     public delegate void ColliderEvent(GameObject obj);
+
+
 
     #region Shotkey, ß÷±∂¡‰≥]©w
     static private void test(int idx = 0)
@@ -107,3 +110,17 @@ public class StaticSharp
 public enum State { Running, Loading, Pause, End, Finish }
 public enum GenerClass { Normal, Meteorite, StaticPoint }
 public enum RocketState { Stay, Move, Boost, Crashed, Stop }
+
+
+
+static class Extension
+{
+    static public void CanvansFadeControl(this CanvasGroup cvsgp, bool isIN = false)
+    {
+        cvsgp.alpha = isIN ? 1 : 0;
+        cvsgp.interactable = isIN;
+        cvsgp.blocksRaycasts = isIN;
+    }
+
+
+}
