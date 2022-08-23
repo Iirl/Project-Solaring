@@ -4922,7 +4922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMethod: 0
   straightV3: {x: 0, y: -1, z: 0}
-  Orispeed: 0.8
+  Orispeed: 0.9
   randomSpd: 1
   stopTracert: 12
 --- !u!1 &8566800612026499502

@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: -7643216664734468314}
   - component: {fileID: -253468508414780793}
   - component: {fileID: -3164509784337591225}
+  - component: {fileID: 1938072168912670878}
   m_Layer: 0
   m_Name: UFO
   m_TagString: Enemy
@@ -418,8 +419,8 @@ Transform:
   m_GameObject: {fileID: 3037491925543192508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7838615062193726378}
   - {fileID: 7019052678850991114}
@@ -657,6 +658,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1938072168912670878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037491925543192508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveMethod: 1
+  straightV3: {x: 0, y: 0, z: 0}
+  Orispeed: 2
+  randomSpd: 1
+  stopTracert: 12
 --- !u!1 &4903796064171872112
 GameObject:
   m_ObjectHideFlags: 0
