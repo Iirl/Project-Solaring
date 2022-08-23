@@ -51,8 +51,8 @@ namespace solar_a
             if (quadrant == 0 && !direct) quadrant = 4;
             float next_axis = (direct) ? 90 * (quadrant + 1) : 90 * (quadrant - 1); // 下一個Y軸座標
             if (quadrant == 3 && direct) next_axis %= 360;
-            //print($"Now:{y_axis}, quadrant:{quadrant}");
-            //print($"Next Y:{next_axis}");
+            //print($"Y_Now: {y_axis}");
+            //print($"當前象限:{quadrant}, 下一個座標{next_axis}");
             return Mathf.Round(next_axis);
         }
         /// <summary>
@@ -72,6 +72,8 @@ namespace solar_a
             float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
             float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離            
             Quaternion target = Quaternion.Euler(0, Coordinate,0);
+            //print($"當前Y軸:目標軸 {transform.eulerAngles.y}:{Coordinate}");
+            //print($"{Distane2axis}");
 
             if (rotated && StaticSharp.Conditions == State.Running)
             {
@@ -80,9 +82,9 @@ namespace solar_a
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime *2;
                 // 收束方法
-                if (Mathf.Abs(Distane2axis) < 10) iSpine /= 2f;
-                if (Mathf.Abs(Distane2axis) < 3) iSpine = iSpine>0.1f?iSpine : 0.1f;
-
+                if (Mathf.Abs(Distane2axis) <= 1) transform.rotation = target;
+                else if(Mathf.Abs(Distane2axis) < 3) iSpine = iSpine>0.005f?iSpine : 0.005f;
+                else if (Mathf.Abs(Distane2axis) < 10) iSpine /= 2f;
                 // 執行旋轉函式                
                 transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);
                 //if (rot_left) transform.Rotate(Vector3.up * iSpine);
@@ -97,7 +99,8 @@ namespace solar_a
         {
             float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
             bool stop = !rotated;
-
+            y_axis = (y_axis == -1) ? 0 : y_axis; 
+            y_axis = (y_axis == 360) ? 0 : y_axis;
             switch (Mathf.Floor(y_axis))
             {
                 case 0: stop = true; break;

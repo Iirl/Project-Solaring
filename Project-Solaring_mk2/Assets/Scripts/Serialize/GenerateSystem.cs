@@ -49,23 +49,19 @@ namespace solar_a
         /// <param name="target">觸發銷毀的物件</param>
         public void Destroys(GameObject target, bool destTime = false)
         {
-            //print(target.name);
+            // print(target.name);
             // 先讀取ID，然後找到清單中相同ID，刪除該清單編號。
             int id = target.transform.GetInstanceID();
             int key = gener_list.FindKeys(id);
             //print(key);
             if (key != -1)
             {
+                // 移除清單內容
                 gener_list.RemoveAt(key);
                 // 執行物件刪除
                 if (destTime) Destroy(target, generData.grtdestTime);
-                else Destroy(target);
-            } else
-            {
-                Destroy(target);
-            }
-            //else gener_list.RemoveAt(0);
-
+                else Destroy(target,1f);
+            } else Destroy(target,1f);
         }
         /// <summary>
         /// 清空物件系統

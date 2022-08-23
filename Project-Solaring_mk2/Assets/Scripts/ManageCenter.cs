@@ -195,7 +195,7 @@ namespace solar_a
         {
             GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print(objGS.name);  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
-            if (!objGS) { Destroy(obj,0.5f); return; }
+            if (!objGS) { Destroy(obj,1f); return; }
             objGS.Destroys(obj);
             //gener_class.Destroys(obj);
         }
@@ -270,7 +270,7 @@ namespace solar_a
                 }
             }
             // 標示文字UI內容
-            if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0.00")}";
+            if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
         /// <summary>

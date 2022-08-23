@@ -1,7 +1,6 @@
 //#define OldMethod;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 /// <summary>
 /// 此為在區域空間中產生物件的程式。
@@ -12,9 +11,7 @@ namespace solar_a
 {
     public class Object_Generator : MonoBehaviour
     {
-
         #region 屬性
-        //SceneStage_Control Scene_ctl;
 #if OldMethod
         [SerializeField, Header("生成位置")]
         List<GameObject> MainObject = new List<GameObject>();

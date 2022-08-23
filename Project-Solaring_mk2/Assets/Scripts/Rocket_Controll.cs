@@ -219,40 +219,6 @@ namespace solar_a
             Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
         }
         #endregion
-        /////////////////////////////////////////////
-        #region 碰撞區域
-
-        /// <summary>
-        /// 當火箭碰到物體時的處理
-        /// </summary>
-        /// <param name="other">取得物件</param>
-        private void CollisionEvent(GameObject other)
-        {
-            if (other.tag.Contains("Enemy"))
-            {
-                //結束遊戲處理
-                ADOClipControl(1);
-                StaticSharp.Conditions = State.End;
-            }
-            else if (other.tag.Contains("Block"))
-            {
-                int addFuel = 0;
-                //當火箭碰到補品時
-                if (other.name.Contains("Box") || other.name.Contains("box")) addFuel = 10;
-                if (other.name.Contains("Bottle")) addFuel = 5;
-                ManageCenter.mgCenter.ObjectDestory(other);
-                ManageCenter.mgCenter.FuelReplen(addFuel);
-            }
-            else if (other.tag.Contains("Respawn"))
-            {
-                ManageCenter.mgCenter.InToStation();
-            }
-            else if (other.tag.Contains("Finish"))
-            {
-                print("終點，轉場");
-            }
-        }
-        #endregion
 
         private void Awake()
         {
@@ -350,6 +316,7 @@ namespace solar_a
         public void onStay() => state = RocketState.Stay;
         public void onStop() => state = RocketState.Stop;
         public int GetState() => (int)(state);
+        public void SetState(int idx) => state = (RocketState)idx;
 
         #endregion
     }
