@@ -31,7 +31,7 @@ public class ColliderSystem : MonoBehaviour
         public int plus;
 
     }
-    #region
+    #region 碰撞事件
     /// <summary>
     /// 碰撞事件處理規則：
     /// 如果碰到敵人就消滅，並且生成特效。
@@ -51,7 +51,7 @@ public class ColliderSystem : MonoBehaviour
         else if (hitObj.tag.Contains("Block"))
         {
             i = 2;
-            ManageCenter.mgCenter.ObjectDestory(hitObj);
+            ManageCenter.mgCenter.ObjectDestory(hitObj,false);
             if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);            
             //當火箭碰到補品時
             //print($"收到回復品 {hitObj.name}");

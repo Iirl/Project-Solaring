@@ -30,19 +30,12 @@ namespace solar_a
         /// <summary>
         /// 重讀場景
         /// </summary>
-        public void ReloadCurrentScene()
-        {
-            NormalProcessFunction();
-            SceneManager.LoadScene(GetScenes());
-        }
+        public void ReloadCurrentScene() => SceneManager.LoadScene(GetScenes());
         /// <summary>
         /// 儲存場景的資訊
         /// 當場景轉換時，紀錄要保留的資訊。
         /// </summary>
-        public void SaveLeveInform()
-        {
-            PlayerPrefs.SetInt(sceneID, GetScenes());
-        }
+        public void SaveLeveInform() => PlayerPrefs.SetInt(sceneID, GetScenes());
         /// <summary>
         /// 根據目前的指標移動到下一關:
         /// 目前只能指定達到關卡上限之後回到標題。
@@ -50,7 +43,6 @@ namespace solar_a
         /// </summary>
         public void LoadScenes()
         {
-            NormalProcessFunction();
             int idx = PlayerPrefs.GetInt(sceneID);
             idx = (GetScenes(true) == idx+1) ?0:idx+1;
             SceneManager.LoadScene(idx);
@@ -59,56 +51,28 @@ namespace solar_a
         /// 載入指定編號的場景
         /// </summary>
         /// <param name="idx">請輸入場景編號</param>
-        public void LoadScenes(int idx)
-        {
-            NormalProcessFunction();
-            SceneManager.LoadScene(idx);
-        }
-        public void LoadScenes(string sname)
-        {
-            NormalProcessFunction();
-            SceneManager.LoadScene(sname);
-        }
+        public void LoadScenes(int idx) => SceneManager.LoadScene(idx);
+        public void LoadScenes(string sname)=> SceneManager.LoadScene(sname);
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>
         public void LoadScenesPreOrder(bool next)
         {
             int now = GetScenes();
-            int nexts = now + 1;
-            int prevs = now - 1;
-            if (next)
-            {
-                if (nexts == SceneManager.sceneCount) return;
-                LoadScenes(now + 1);
-            }
-            else
-            {
-                if (prevs < 0) return;
-                LoadScenes(now - 1);
-            }
-            NormalProcessFunction();
+            int nexts = now+1, prevs = now-1;
+            //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");
+            if (next && nexts  != GetScenes(true)) LoadScenes(nexts);
+            else if (prevs >0) LoadScenes(prevs);
         }
         /// <summary>
         /// 結束程式函數
         /// </summary>
-        public void Quit()
-        {
-            Application.Quit();
-        }
-
-        /// <summary>
-        /// 所有場景執行會用到的通用函數
-        /// </summary>
-        private void NormalProcessFunction()
-        {
-            if (Time.timeScale != 1) Time.timeScale = 1;
-            CancelInvoke();
-        }
+        public void Quit() => Application.Quit();
 
         private void Start()
         {
             //print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
+            //print($"最大場景數量為：{GetScenes(true)}");
         }
     }
 }

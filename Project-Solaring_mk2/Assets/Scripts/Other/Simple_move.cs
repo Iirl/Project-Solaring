@@ -63,11 +63,16 @@ namespace solar_a
             if (dist < 1) moveMethod = MoveMethod.Direction;
         }
         #region 物件啟動事件
-        public IEnumerator Mute(bool isMute = true)
+        /// <summary>
+        /// 將物件的聲音執行或停止
+        /// </summary>
+        /// <param name="isStop">是否停止</param>
+        /// <returns></returns>
+        public IEnumerator Mute(bool isStop = true)
         {
             if (audios.Length > 0)
             {
-                foreach (AudioSource audio in audios) if (isMute) audio.Stop(); else audio.Play();
+                foreach (AudioSource audio in audios) if (isStop) audio.Stop(); else audio.Play();
             }
             yield return null;
         }
@@ -84,7 +89,7 @@ namespace solar_a
         }
         void Start()
         {
-            target_v3 = target ? target.transform.position: Vector3.zero;                // 設定目標的座標
+            target_v3 = target ? target.transform.position: straightV3;                // 設定目標的座標
             direct = (transform.position - target_v3).normalized; // 設定目標的方向
             if (randomSpd) Orispeed = Random.Range(Orispeed, Orispeed*2);
         }

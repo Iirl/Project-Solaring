@@ -191,24 +191,27 @@ namespace solar_a
         /// 所有物件從畫面上移除都要經過這個函式。
         /// </summary>
         /// <param name="obj">碰撞區域回傳的物件</param>
-        public void ObjectDestory(GameObject obj)
+        public void ObjectDestory(GameObject obj, bool hasDesTime=true)
         {
             GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print(objGS.name);  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
-            if (!objGS) { Destroy(obj,1f); return; }
-            objGS.Destroys(obj);
+            if (!objGS) { Destroy(obj, hasDesTime ? 1:0); return; }
+            objGS.Destroys(obj, hasDesTime);
             //gener_class.Destroys(obj);
         }
 
         #endregion
         #region 場 景 相 關
-        // 進入中繼站
+        /// <summary>
+        /// 進入中繼站
+        /// 儲存火箭的資料
+        /// </summary>
         public void InToStation()
         {
             StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
             StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
             mgScene.SaveLeveInform();
-            mgScene.LoadScenes("Station");
+            mgScene.LoadScenes("Station");            
         }
 
         ///////////// 選單變化相關
@@ -311,6 +314,7 @@ namespace solar_a
         /// </summary>
         private void GameState()
         {
+            if (pauseUI != null && !pauseUI.activeSelf) pauseUI.SetActive(true);
             if (condition.GetState() == "End")
             {   // GameOver
                 bool isEnd = true;
@@ -325,10 +329,9 @@ namespace solar_a
             }
             else if (StaticSharp.Conditions != State.Running)
             {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
-                StartCoroutine(rocket_ctl.ControlChange(!condition.isPause));
+                StartCoroutine(rocket_ctl.ControlChange(false));
             }
-            else StartCoroutine(rocket_ctl.ControlChange(!condition.isPause));
-            if (pauseUI != null) pauseUI.SetActive(true);
+            else StartCoroutine(rocket_ctl.ControlChange(true));
             CancelInvoke("GameState");
         }
 
@@ -337,11 +340,11 @@ namespace solar_a
         /// 1. 沒有燃料
         /// 2. 撞到任何物體
         /// </summary>
-        private void StateEnd() => show_Menu();
+        private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
 
-        
 
-    StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
+
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         #region 本地控制方法或事件
 
         #endregion

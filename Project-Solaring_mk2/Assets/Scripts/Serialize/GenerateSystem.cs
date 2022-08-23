@@ -59,8 +59,8 @@ namespace solar_a
                 // 移除清單內容
                 gener_list.RemoveAt(key);
                 // 執行物件刪除
-                if (destTime) Destroy(target, generData.grtdestTime);
-                else Destroy(target,1f);
+                if (destTime) Destroy(target, 1f);
+                else Destroy(target);
             } else Destroy(target,1f);
         }
         /// <summary>

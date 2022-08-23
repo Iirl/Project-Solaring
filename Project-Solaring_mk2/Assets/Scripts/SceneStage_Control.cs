@@ -91,15 +91,12 @@ namespace solar_a
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.tag.Contains("Player"))
-            {
-            }
-            else if (other.tag.Contains("Block") || other.tag.Contains("Enemy")) ManageCenter.mgCenter.ObjectDestory(other.gameObject);
-            else
+            ColliderSystem.CollisionPlayerEvent(other.gameObject);
+            if (includeTag.Length > 0)
             {
                 foreach (var e in includeTag)
                     if (other.tag.Contains(e))
-                        ManageCenter.mgCenter.ObjectDestory(other.gameObject);
+                        ManageCenter.mgCenter.ObjectDestory(other.gameObject, true);
             }
             //print(other.tag);
         }
