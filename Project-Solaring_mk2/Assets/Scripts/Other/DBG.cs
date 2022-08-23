@@ -13,6 +13,8 @@ public class DBG : MonoBehaviour
     public bool noDead;
     [SerializeField, Header("不耗燃料")]
     public bool noFuel;
+    [SerializeField, Header("不耗衝刺")]
+    public bool noRush;
     [SerializeField, Header("移到終點")]
     public bool toFinal;
 
@@ -24,6 +26,7 @@ public class DBG : MonoBehaviour
     {
         mgc.noDead = noDead ? true: false;
         mgc.noExhauFuel = noFuel ? true: false;
+        mgc.noExhauRush = noRush ? true: false;
         mgc.toFinDest = toFinal ? true: false;
     }
 }

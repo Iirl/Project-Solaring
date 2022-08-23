@@ -21,13 +21,17 @@ namespace solar_a
         #region 恨瞶北╰参
         [Header("い北╰参")]
         static public ManageCenter mgCenter;
-        [Tooltip("初春╰参")]
+        [SerializeField, Header("祘Α恨瞶╰参"),Tooltip("初春╰参")]
+        private ManageScene MgScene;
         static public ManageScene mgScene;
         [SerializeField, Tooltip("挡恨瞶")]
+        private ManageEnd MgEnd;
         static public ManageEnd mgEnd;
-        [Tooltip("絙北╰参")]
+        [SerializeField, Tooltip("絙北╰参")]
+        private Rocket_Controll Rocket_CTL;
         static public Rocket_Controll rocket_ctl;
-        [Tooltip("初春北╰参")]
+        [SerializeField,Tooltip("初春北╰参")]
+        private SceneStage_Control SS_CTL;
         static public SceneStage_Control ss_ctl;
         [Tooltip("丁╰参")]
         static public Space_Controll space_ctl;
@@ -65,7 +69,7 @@ namespace solar_a
         private AudioSource AudioBox;
         private BoxCollider FinishBox;
         [HideInInspector]
-        public bool noExhauFuel, noDead, toFinDest;
+        public bool noExhauFuel, noExhauRush, noDead, toFinDest;
         #endregion
 
 
@@ -356,22 +360,23 @@ namespace solar_a
             try
             {
                 mgCenter = GetComponent<ManageCenter>();
-                if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
-                rocket_ctl = rocket_ctl?? FindObjectOfType<Rocket_Controll>();
-                ss_ctl = ss_ctl??FindObjectOfType<SceneStage_Control>();
-                mgScene = mgScene?? FindObjectOfType<ManageScene>();
-                mgEnd = mgEnd?? FindObjectOfType<ManageEnd>();
                 FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
-                /*
-                */
-
             }
-            catch (System.Exception) { }
+            catch (System.Exception e) { print(e); }
         }
         private void Start()
         {
-            UI_moveDistane = 0;
+            try
+            {
+                if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
+                mgEnd = MgEnd ?? FindObjectOfType<ManageEnd>();
+                mgScene = MgScene ?? FindObjectOfType<ManageScene>();
+                ss_ctl = SS_CTL ?? FindObjectOfType<SceneStage_Control>();
+                rocket_ctl = Rocket_CTL ?? FindObjectOfType<Rocket_Controll>();
+            }
+            catch (System.Exception e) { print($"{e}! 钩礚猭更じン妓"); }
             //print($"ヘ玡初春絪腹{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+            UI_moveDistane = 0;
         }
         private void Update()
         {

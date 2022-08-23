@@ -164,7 +164,7 @@ namespace solar_a
             {
                 yield return new WaitForSeconds(rush_time);
                 isBoost = false;
-                rush_counts--;
+                if(!ManageCenter.mgCenter.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
                 rc_dtion.Previous();
             }
