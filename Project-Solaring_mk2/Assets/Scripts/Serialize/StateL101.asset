@@ -24,4 +24,4 @@ MonoBehaviour:
   grtOffset: 0
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 1
+  grtLimit: 2

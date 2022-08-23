@@ -17,11 +17,11 @@ MonoBehaviour:
     type: 3}
   grtSubObject: []
   grtProb: 0.34
-  grtIntervalTime: 1
-  grtWaitTime: 2
-  grtdestTime: 50
-  grtPos: {x: 20, y: 5, z: 10}
+  grtIntervalTime: 0
+  grtWaitTime: 0.5
+  grtdestTime: 0
+  grtPos: {x: 20, y: 5, z: 20}
   grtOffset: 20
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 4
+  grtLimit: 10

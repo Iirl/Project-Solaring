@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711981221071672157}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalPosition: {x: 0, y: -0.73, z: -0.01}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4823,6 +4823,7 @@ GameObject:
   - component: {fileID: 6059590145141767300}
   - component: {fileID: 5718863510700846185}
   - component: {fileID: 357785562968537764}
+  - component: {fileID: 7725091300263953992}
   m_Layer: 3
   m_Name: Rocket_glass_Fail
   m_TagString: Untagged
@@ -4895,6 +4896,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &7725091300263953992
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282089714950317668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32cc3e6109ff3d94cb9ce5fafa05b88e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3556615068621093837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4991,6 +5012,7 @@ GameObject:
   - component: {fileID: 4587356875361899389}
   - component: {fileID: 4587356875361899391}
   - component: {fileID: 4587356875361899384}
+  - component: {fileID: 8066993751729948828}
   - component: {fileID: 4587356875361899390}
   m_Layer: 0
   m_Name: Rocket
@@ -5160,6 +5182,28 @@ CapsuleCollider:
   m_Height: 100
   m_Direction: 2
   m_Center: {x: 0, y: -0.15, z: 0}
+--- !u!114 &8066993751729948828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592277314727565250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect:
+  - label: 
+    ExplodeObj: {fileID: 0}
+  blocks:
+  - label: Box
+    species: 0
+    plus: 10
+  - label: Bottle
+    species: 0
+    plus: 5
 --- !u!114 &4587356875361899390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5172,12 +5216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d5fe73f20dfb94b8b9e2030e63c84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mgCenter: {fileID: 0}
   RocketBasic: {x: 100, y: 10, z: 0.2}
   unit_fuel: -0.05
   fuel: 100
-  speed_v: 4
-  speed_a: 0.2
+  rush_time: 0
+  rush_counts: 0
   fuel_overcapacity: 105
   fireLenght_min: {x: 0.8, y: 1.5}
   fireLenght_max: {x: 0.5, y: 3}
@@ -5284,6 +5327,7 @@ GameObject:
   - component: {fileID: 3882332678549494020}
   - component: {fileID: 7066423793196572012}
   - component: {fileID: 8044653109911687064}
+  - component: {fileID: 6028496985061962428}
   m_Layer: 0
   m_Name: Rocket_body_Fail
   m_TagString: Untagged
@@ -5356,3 +5400,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &6028496985061962428
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7846670780412789749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 62ff67a52eb35be498c44171fcb317be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
