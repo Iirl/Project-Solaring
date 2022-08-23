@@ -9,21 +9,17 @@ public class StaticSharp
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
     //
-    //
-    public delegate void ColliderEvent(GameObject obj);
-
-
 
     #region Shotkey, 快捷鍵設定
     static private void test(int idx = 0)
     {
         //print("Debug");
         //顯示除錯面板
+        DBG Dbg = Object.FindObjectOfType<DBG>();
         CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
-        if (!testOB) return;
-        testOB.alpha = testOB.alpha != 0 ? 0 : 1;
-        testOB.interactable = !testOB.interactable;
-        testOB.blocksRaycasts = !testOB.blocksRaycasts;
+        if (Dbg) Dbg.ShowDebug(!Dbg.isShowed);
+        else if (testOB) testOB.CanvansFadeControl(!testOB.interactable);
+
     }
 
     /// <summary>

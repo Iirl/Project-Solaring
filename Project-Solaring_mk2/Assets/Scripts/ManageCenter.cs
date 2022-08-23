@@ -351,24 +351,18 @@ namespace solar_a
 
         private void Awake()
         {
-            try
-            {
-                mgCenter = GetComponent<ManageCenter>();
-                FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
-            }
-            catch (System.Exception e) { print(e); }
+            mgCenter = GetComponent<ManageCenter>();
+            FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
         }
         private void Start()
         {
-            try
-            {
-                if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
-                mgEnd = MgEnd ?? FindObjectOfType<ManageEnd>();
-                mgScene = MgScene ?? FindObjectOfType<ManageScene>();
-                ss_ctl = SS_CTL ?? FindObjectOfType<SceneStage_Control>();
-                rocket_ctl = Rocket_CTL ?? FindObjectOfType<Rocket_Controll>();
-            }
-            catch (System.Exception e) { print($"{e}! 好像無法載入元件的樣子。"); }
+            if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
+            if (MgEnd) mgEnd = MgEnd;
+            else mgEnd = FindObjectOfType<ManageEnd>();
+            mgScene = MgScene ?? FindObjectOfType<ManageScene>();
+            ss_ctl = SS_CTL ?? FindObjectOfType<SceneStage_Control>();
+            rocket_ctl = Rocket_CTL ?? FindObjectOfType<Rocket_Controll>();
+            
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             UI_moveDistane = 0;
         }

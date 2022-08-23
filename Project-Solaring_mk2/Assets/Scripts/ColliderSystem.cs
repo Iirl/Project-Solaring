@@ -42,6 +42,7 @@ public class ColliderSystem : MonoBehaviour
     /// <param name="hitObj"></param>
     static public int CollisionPlayerEvent(GameObject hitObj)
     {
+        //print(hitObj.name);
         int i = -1;
         if (hitObj.tag.Contains("Enemy"))
         {
@@ -71,7 +72,7 @@ public class ColliderSystem : MonoBehaviour
     static public void StageColliderEvent(GameObject hitObj, bool hasDest=true)
     {
         //print("場景邊緣觸發");
-        ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
+        if (!hitObj.tag.Contains("Player"))ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
     }
     /// <summary>
     /// 方塊碰撞事件
