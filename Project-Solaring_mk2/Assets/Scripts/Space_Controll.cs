@@ -15,26 +15,30 @@ namespace solar_a
         [SerializeField, Tooltip("旋轉速度"), Range(0f, 50f)]
         private float spine = 2.0f;
         #region 欄位
-        private bool rotated, rot_left, rot_right;  //空間是否旋轉
+        private bool rot_left, rot_right, rotate;  //空間是否旋轉
         private float Coordinate = 360;
         #endregion
-
+        private SpacetState spstate;
+        public bool isRotate { get { return spstate == SpacetState.Rotate; } }
+        private void SPNext() => spstate = spstate < SpacetState.Rotate? spstate+1: 0;
+        private void SPrev() => spstate = spstate > 0 ? spstate-1 : 0;
         #region 90度固定旋轉空間
         /// <summary>
         /// 1. 方向(轉向)判定
         /// </summary>
         private void DirectCheck(bool rL, bool rR)
         {
-            if (!rotated)
+            if (spstate == 0)
             {
                 rot_right = rR;
                 rot_left = rL;
+                //print("檢查是否旋轉");
                 if (rot_right || rot_left)
                 {
-                    //print("開始旋轉");
-                    Coordinate = PositionCheck(rot_left); //若要左轉為Q則放 Left ，反之則顛倒。
                     InvokeRepeating("Spine", 0, 0.01f);
-                    rotated = true;
+                    SPNext();
+                    Coordinate = PositionCheck(rot_left);
+                    //print("1: "+spstate);
                 }
             }
             else print("還在旋轉");
@@ -46,36 +50,33 @@ namespace solar_a
         /// <returns></returns>
         private float PositionCheck(bool direct)
         {
-            float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
-            int quadrant = (Int32.Parse(y_axis.ToString()) / 90);  //所在象限
-            if (quadrant == 0 && !direct) quadrant = 4;
-            float next_axis = (direct) ? 90 * (quadrant + 1) : 90 * (quadrant - 1); // 下一個Y軸座標
-            if (quadrant == 3 && direct) next_axis %= 360;
-            //print($"Y_Now: {y_axis}");
-            //print($"當前象限:{quadrant}, 下一個座標{next_axis}");
-            return Mathf.Round(next_axis);
+
+            if (spstate == SpacetState.Setting)
+            {
+                float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
+                int quadrant = (Int32.Parse(y_axis.ToString()) / 90);  //所在象限
+                if (quadrant == 0 && !direct) quadrant = 4;
+                float next_axis = (direct) ? 90 * (quadrant + 1) : 90 * (quadrant - 1); // 下一個Y軸座標
+                if (quadrant == 3 && direct) next_axis %= 360;
+                //print($"當前象限:{quadrant}, 下一個座標{next_axis}");
+                //print($"Y_Now: {y_axis}");
+                return Mathf.Round(next_axis);
+            }
+            //print("2: "+spstate);
+            return 0;
         }
         /// <summary>
         /// 3. 旋轉程式，採調用法呼叫程式。
         /// </summary>
         private void Spine()
         {
-
-            if (rot_left) { if (Input.GetAxisRaw("Right_Spine") == 1) { 
-                    rot_right = true; rot_left = false; Coordinate = PositionCheck(rot_left);
-                } 
-            }
-            else if (rot_right) { if (Input.GetAxisRaw("Left_Spine") == 1) { 
-                    rot_right = false; rot_left = true; Coordinate = PositionCheck(rot_left);
-                } 
-            }
             float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
             float Distane2axis = (Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離            
             Quaternion target = Quaternion.Euler(0, Coordinate,0);
             //print($"當前Y軸:目標軸 {transform.eulerAngles.y}:{Coordinate}");
             //print($"{Distane2axis}");
 
-            if (rotated && StaticSharp.Conditions == State.Running)
+            if (isRotate && StaticSharp.Conditions == 0)
             {
                 StopCheck();
                 // 旋轉曲線: x^0-1
@@ -83,8 +84,9 @@ namespace solar_a
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime *2;
                 // 收束方法
                 if (Mathf.Abs(Distane2axis) <= 1) transform.rotation = target;
-                else if(Mathf.Abs(Distane2axis) < 3) iSpine = iSpine>0.005f?iSpine : 0.005f;
+                else if (Mathf.Abs(Distane2axis) < 5) iSpine /= 4f;
                 else if (Mathf.Abs(Distane2axis) < 10) iSpine /= 2f;
+                iSpine = Mathf.Clamp(iSpine, 0.001f, 0.05f);
                 // 執行旋轉函式                
                 transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);
                 //if (rot_left) transform.Rotate(Vector3.up * iSpine);
@@ -97,10 +99,11 @@ namespace solar_a
         /// </summary>
         private void StopCheck()
         {
+            //print("4:" + spstate);
             float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
-            bool stop = !rotated;
+            bool stop = !isRotate;
             y_axis = (y_axis == -1) ? 0 : y_axis; 
-            y_axis = (y_axis == 360) ? 0 : y_axis;
+            //y_axis = (y_axis == 360) ? 0 : y_axis;
             switch (Mathf.Floor(y_axis))
             {
                 case 0: stop = true; break;
@@ -114,23 +117,36 @@ namespace solar_a
             {
                 rot_right = false;
                 rot_left = false;
-                rotated = false;
+                rotate = false;
+                SPNext();
                 CancelInvoke("Spine");
             }
 
+        }
+        private void DirectChange(bool rL, bool rR)
+        {
+            if (rot_left && rR)
+            {
+                rot_left = false;
+                rot_right = true;
+            }
+            else if (rot_right && rL)
+            {
+                rot_left = true;
+                rot_right = false;
+            }
+            PositionCheck(rot_left);
+            SPrev();
         }
         #endregion
 
         #region 事件觸發
 
-        private void Awake()
-        {
-            rotated = false; rot_left = false; rot_right = false;
-            transform.position += spaceOffset;
-        }
-
         private void Start()
         {
+            rot_left = false; rot_right = false;
+            transform.position += spaceOffset;
+            spstate = 0;
         }
 
         private void FixedUpdate()
@@ -139,12 +155,26 @@ namespace solar_a
             {
                 case State.Running:
                     // 旋轉空間
-
-                    bool rot_left = Input.GetAxisRaw("Left_Spine") == 1;
-                    bool rot_right = Input.GetAxisRaw("Right_Spine") == 1;
-                    if (!rotated)
+                    //print(spstate);
+                    bool keyLeft = Input.GetAxisRaw("Left_Spine") == 1;
+                    bool keyRight = Input.GetAxisRaw("Right_Spine") == 1;
+                    switch (spstate)
                     {
-                        DirectCheck(rot_left, rot_right);
+                        case SpacetState.Stay:
+                            if (keyLeft || keyRight) DirectCheck(keyLeft, keyRight);
+                            break;
+                        case SpacetState.Setting:
+                            //print($"rot_left: {rot_left}, rot_right:{rot_right}");
+                            SPNext();
+                            //若要左轉為Q則放 Left ，反之則顛倒。
+                            break;
+                        case SpacetState.Rotate:
+                            if(keyLeft || keyRight) DirectChange(keyLeft, keyRight);
+                            break;
+                        case SpacetState.Stop:
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 case State.Pause:

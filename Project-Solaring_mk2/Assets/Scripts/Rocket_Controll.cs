@@ -99,6 +99,8 @@ namespace solar_a
         private void UpForce()
         {
             if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
+            Rocket_Rig.AddForce(-Rocket_Rig.velocity, ForceMode.Acceleration);
+
         }
         /// <summary>
         /// ²¾°Ê±±¨î

@@ -47,6 +47,7 @@ public class ColliderSystem : MonoBehaviour
         if (hitObj.tag.Contains("Enemy"))
         {
             i = 1; //結束遊戲處理
+            
             ManageCenter.rocket_ctl.SendMessage("ADOClipControl", 1);
             StaticSharp.Conditions = State.End;
             if (collSys) collSys.SendMessage("ExploderEvent", hitObj.name);

@@ -121,9 +121,10 @@ namespace solar_a
 
             float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed;
             //print(rocket_ctl.rc_dtion.IsBoost);
-            //if (rocket_ctl.rc_dtion.IsBoost)  // fueldown -= (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
+            if (rocket_ctl.rc_dtion.IsBoost) fueldown += (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
             if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
             else if (!noExhauFuel) StartCoroutine(DeathCounter(fuelExhaustedTime));   // 燃料用盡，死亡倒數。
+            //print(fueldown);
 
         }
         /// <summary>

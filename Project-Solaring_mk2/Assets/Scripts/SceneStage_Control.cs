@@ -1,8 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using TMPro;
 using Cinemachine;
-using Unity.VisualScripting;
 
 namespace solar_a
 {
@@ -64,7 +61,7 @@ namespace solar_a
         {
         }
         /// <summary>
-        /// 場景邊緣判定，玩家：回推；物件：破壞。
+        /// 場景邊緣判定，玩家：回推；物件：碰撞系統=>延遲破壞。
         /// </summary>
         /// <param name="colliders">碰撞區域</param>
         /// <param name="i">編號，沒有特別意義，只有程式內部會說明用途</param>
@@ -91,6 +88,7 @@ namespace solar_a
 
         private void OnTriggerExit(Collider other)
         {
+            // 常見狀態交由碰撞系統處理，額外物件標籤則直接延遲銷毀。
             ColliderSystem.StageColliderEvent(other.gameObject);
             if (includeTag.Length > 0)
             {
