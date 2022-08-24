@@ -16,9 +16,10 @@ public class StaticSharp
         //print("Debug");
         //顯示除錯面板
         DBG Dbg = Object.FindObjectOfType<DBG>();
-        CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
         if (Dbg) Dbg.ShowDebug(!Dbg.isShowed);
-        else if (testOB) testOB.CanvansFadeControl(!testOB.interactable);
+        if (Dbg) return; 
+        CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
+        if (testOB) testOB.CanvansFadeControl(!testOB.interactable);
 
     }
 
