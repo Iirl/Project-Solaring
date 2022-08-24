@@ -7651,6 +7651,7 @@ MonoBehaviour:
   noFuel: 0
   noRush: 0
   toFinal: 0
+  fuelObj: {fileID: 0}
 --- !u!1001 &4587356874913229348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7810,6 +7811,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: effects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: blocks.Array.data[0].plus
       value: 20
       objectReference: {fileID: 0}
@@ -7840,6 +7846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: effects.Array.data[0].label
+      value: State
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: effect.Array.data[0].ExplodeObj
       value: 
       objectReference: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f,
@@ -7861,6 +7872,12 @@ PrefabInstance:
       propertyPath: effect.Array.data[3].ExplodeObj
       value: 
       objectReference: {fileID: 117434, guid: c17da0b4ec4a77246b34c9dbc146ded7, type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: effects.Array.data[0].ExplodeObj
+      value: 
+      objectReference: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
 --- !u!1001 &7065427266003462278

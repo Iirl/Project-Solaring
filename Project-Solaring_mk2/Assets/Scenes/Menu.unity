@@ -2440,7 +2440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: L
+  m_text: A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5fd8b5aa847928444915988988298ee5, type: 2}
   m_sharedMaterial: {fileID: 8893461340797375616, guid: 5fd8b5aa847928444915988988298ee5,
@@ -4951,7 +4951,7 @@ GameObject:
   - component: {fileID: 1268191267}
   - component: {fileID: 1268191266}
   m_Layer: 5
-  m_Name: Btn_Key_L
+  m_Name: Btn_Key_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5506,7 +5506,7 @@ GameObject:
   - component: {fileID: 1581251602}
   - component: {fileID: 1581251601}
   m_Layer: 5
-  m_Name: Btn_Key_R
+  m_Name: Btn_Key_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6718,7 +6718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: R
+  m_text: D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5fd8b5aa847928444915988988298ee5, type: 2}
   m_sharedMaterial: {fileID: 8893461340797375616, guid: 5fd8b5aa847928444915988988298ee5,
