@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 物件產生系統，掛上此系統的物件，會根據資料產生物件。
+    /// </summary>
     public class GenerateSystem : MonoBehaviour
     {
         [SerializeField, Header("物件資料")]

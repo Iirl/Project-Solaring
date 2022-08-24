@@ -7886,10 +7886,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a97b69f05bb96478352367347d94af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showWindows: 0
   noDead: 0
   noFuel: 0
   noRush: 0
   toFinal: 0
+  fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
 --- !u!1001 &4587356874913229348
 PrefabInstance:
   m_ObjectHideFlags: 0

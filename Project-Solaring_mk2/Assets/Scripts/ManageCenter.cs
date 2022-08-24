@@ -85,6 +85,12 @@ namespace solar_a
         /// <returns></returns>
         public Vector3 GetStagePOS() => ss_ctl.transform.position;
         public Vector3 GetStageBorder() => ss_ctl.GetBoxborder();
+        public void SetRockBasicInfo(float x, float y=0, float z=0) {
+            x = x != 0 ? x: rocket_ctl.RocketBasic.x;
+            y = y != 0 ? y: rocket_ctl.RocketBasic.y;
+            z = z != 0 ? z: rocket_ctl.RocketBasic.z;
+            rocket_ctl.SetBasicInfo(x,y,z);
+                }
         //除錯功能
         public void GetState() => print(condition.GetState());
 
@@ -191,15 +197,15 @@ namespace solar_a
         /// 所有物件從畫面上移除都要經過這個函式。
         /// </summary>
         /// <param name="obj">碰撞區域回傳的物件</param>
+        GenerateSystem objGS;
         public void ObjectDestory(GameObject obj, bool hasDesTime=false)
         {
-            GenerateSystem objGS = obj.transform.GetComponentInParent<GenerateSystem>();
+            objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print($"名稱: {objGS.name} hasdes:{hasDesTime}");  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
             if (!objGS) { Destroy(obj); return; }
             objGS.Destroys(obj, hasDesTime);
             //gener_class.Destroys(obj);
         }
-
         #endregion
         #region 場 景 相 關
         /// <summary>
@@ -334,18 +340,14 @@ namespace solar_a
             else StartCoroutine(rocket_ctl.ControlChange(true));
             CancelInvoke("GameState");
         }
-
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
+        #region 本地控制方法或事件
         /// <summary>
         /// 進入遊戲結束系統，若有以下情況則呼叫此程式：
         /// 1. 沒有燃料
         /// 2. 撞到任何物體
         /// </summary>
         private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
-
-
-
-        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
-        #region 本地控制方法或事件
 
         #endregion
 

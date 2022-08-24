@@ -9,25 +9,24 @@ public class StaticSharp
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
     //
-
+    
     #region Shotkey, 快捷鍵設定
-    static private void test(int idx = 0)
+    static private void TestBoard(DBG d)
     {
         //print("Debug");
-        //顯示除錯面板
-        DBG Dbg = Object.FindObjectOfType<DBG>();
-        if (Dbg) Dbg.ShowDebug(!Dbg.isShowed);
-        if (Dbg) return; 
+        //顯示除錯面板        
+        if (d) d.ShowDebug(!d.isShowed);
+        if (d) return; 
         CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
         if (testOB) testOB.CanvansFadeControl(!testOB.interactable);
 
     }
-
     /// <summary>
     /// 特殊指令，當玩家輸入快速鍵的時候會出現的封弊功能。
     /// </summary>
     static public void SpecialistKeyInput(bool isCtrl, bool isAtl, bool isLS)
     {
+        DBG Dbg = Object.FindObjectOfType<DBG>();
         if (!isCtrl && !isAtl && !isLS) return;
         else
         {
@@ -45,10 +44,7 @@ public class StaticSharp
             bool kU = Input.GetKeyDown(KeyCode.U);
             if (isCtrl)
             {
-                if (kAtl && kO)
-                {
-                    test();
-                }
+                if (kAtl && kO) TestBoard(Dbg);
                 if (kLS) Debug.Log("C+S button");
                 else if (kB) Debug.Log("B button");
                 else if (kM) Debug.Log("M button");
@@ -60,7 +56,7 @@ public class StaticSharp
             {
                 if (kLS) Debug.Log("A+S button");
                 else if (kN) Debug.Log("N button");
-                else if (kR) Debug.Log("R button");
+                else if (kR) Dbg.SendMessage("GeneratorBlock"); //產生OBJ物件
             }
             else if (isLS)
             {
@@ -112,6 +108,11 @@ public enum RocketState { Stay, Move, Boost, Crashed, Stop }
 
 static class Extension
 {
+    /// <summary>
+    /// 淡入出畫布控制系統
+    /// </summary>
+    /// <param name="cvsgp">畫布元件</param>
+    /// <param name="isIN">是否淡入，否則淡出</param>
     static public void CanvansFadeControl(this CanvasGroup cvsgp, bool isIN = false)
     {
         cvsgp.alpha = isIN ? 1 : 0;
