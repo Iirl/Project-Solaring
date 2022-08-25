@@ -33,7 +33,8 @@ namespace solar_a
         [SerializeField,Tooltip("場景控制系統")]
         private SceneStage_Control SS_CTL;
         static public SceneStage_Control ss_ctl;
-        [Tooltip("空間空至系統")]
+        [Tooltip("空間控制系統")]
+        private Space_Controll Space_CTL;
         static public Space_Controll space_ctl;
         #endregion
         /// <summary>
@@ -362,9 +363,10 @@ namespace solar_a
             if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
             if (MgEnd) mgEnd = MgEnd;
             else mgEnd = FindObjectOfType<ManageEnd>();
-            mgScene = MgScene ?? FindObjectOfType<ManageScene>();
-            ss_ctl = SS_CTL ?? FindObjectOfType<SceneStage_Control>();
-            rocket_ctl = Rocket_CTL ?? FindObjectOfType<Rocket_Controll>();
+            mgScene = MgScene ? MgScene : FindObjectOfType<ManageScene>();
+            ss_ctl = SS_CTL ? SS_CTL: FindObjectOfType<SceneStage_Control>();
+            rocket_ctl = Rocket_CTL ? Rocket_CTL: FindObjectOfType<Rocket_Controll>();
+            space_ctl = Space_CTL ? Space_CTL : FindObjectOfType<Space_Controll>();
             
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             UI_moveDistane = 0;
