@@ -108,8 +108,7 @@ namespace solar_a
                 case MoveMethod.Direction:
                     ContinueMove();
                     break;
-                case MoveMethod.Hold:
-                    
+                case MoveMethod.Hold:                    
                     break;
                 default:
                     break;
@@ -119,7 +118,7 @@ namespace solar_a
         private void OnTriggerEnter(Collider other)
         {
             //print("¸I¨ìª«¥ó");
-            if (other.tag.Contains("Player")) enabled = false;
+            if (other.tag.Contains("Player")) if(!ManageCenter.space_ctl.isRotate) enabled = false;
         }
         #endregion
     }

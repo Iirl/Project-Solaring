@@ -34,7 +34,8 @@ public class ColliderSystem : MonoBehaviour
         public int plus;
         [Header("聲音控制")]
         public AudioClip adClip;
-        public int adVol;
+        [Range(0,1)]
+        public float adVol;
 
     }
     #region 碰撞事件
@@ -46,8 +47,9 @@ public class ColliderSystem : MonoBehaviour
     /// <param name="hitObj"></param>
     static public int CollisionPlayerEvent(GameObject hitObj)
     {
+        if (!hitObj) return -1;
         //print(hitObj.name);
-        int i = -1;
+        int i = 0;
         if (hitObj.tag.Contains("Enemy"))
         {
             i = 1; //結束遊戲處理
@@ -85,6 +87,7 @@ public class ColliderSystem : MonoBehaviour
     /// <param name="name"></param>
     private void BolckEvent(string name)
     {
+        if (name == "") return;
         lock (locker)
         {
             if (!tmpvar)
@@ -106,6 +109,7 @@ public class ColliderSystem : MonoBehaviour
     }
     private void ExploderEvent(GameObject gob)
     {
+        if (!gob) return;
         foreach (var e in effects)
         {
             if (gob.name.ToLower().Contains(e.label.ToLower())) {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -757,7 +757,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7797102, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6621,7 +6621,7 @@ MonoBehaviour:
   noFuel: 0
   noRush: 0
   toFinal: 0
-  fuelObj: {fileID: 0}
+  fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
 --- !u!1001 &4587356874913229348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6806,6 +6806,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: blocks.Array.data[0].adVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: blocks.Array.data[1].adVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: effect.Array.data[0].label
       value: "\u649E\u5230\u77F3\u982D"
       objectReference: {fileID: 0}
@@ -6826,8 +6836,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: blocks.Array.data[0].adClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: blocks.Array.data[1].adClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: effects.Array.data[0].label
       value: State
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: effects.Array.data[1].label
+      value: Meteorite
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -6858,6 +6883,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
         type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: effects.Array.data[1].ExplodeObj
+      value: 
+      objectReference: {fileID: 8038344524183138613, guid: 0277167a12290af47801444830a2be97,
+        type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: effects.Array.data[0].ExplodeTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: effects.Array.data[1].ExplodeTime
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
 --- !u!1001 &7065427266003462278
