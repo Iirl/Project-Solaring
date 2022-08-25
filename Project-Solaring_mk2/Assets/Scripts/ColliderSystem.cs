@@ -23,6 +23,7 @@ public class ColliderSystem : MonoBehaviour
     {
         public string label;
         public GameObject ExplodeObj;
+        public int ExplodeTime=1;
     }
 
     [System.Serializable]
@@ -31,6 +32,9 @@ public class ColliderSystem : MonoBehaviour
         public string label;
         public Genertic species;
         public int plus;
+        [Header("聲音控制")]
+        public AudioClip adClip;
+        public int adVol;
 
     }
     #region 碰撞事件
@@ -47,10 +51,9 @@ public class ColliderSystem : MonoBehaviour
         if (hitObj.tag.Contains("Enemy"))
         {
             i = 1; //結束遊戲處理
-            
+            if (ManageCenter.space_ctl.isRotate) return -1;
             ManageCenter.rocket_ctl.SendMessage("ADOClipControl", 1);
             StaticSharp.Conditions = State.End;
-            if (collSys) collSys.SendMessage("ExploderEvent", hitObj.name);
         }
         else if (hitObj.tag.Contains("Block"))
         {
@@ -68,6 +71,7 @@ public class ColliderSystem : MonoBehaviour
             i = 4; // 進入終點
             print("終點，轉場");
         }
+        if (collSys) collSys.SendMessage("ExploderEvent", hitObj);
         return i;
     }
     static public void StageColliderEvent(GameObject hitObj, bool hasDest=true)
@@ -93,17 +97,21 @@ public class ColliderSystem : MonoBehaviour
                     {
                         //print(block.label);
                         ManageCenter.mgCenter.FuelReplen(block.plus);
+                        if (block.adClip) ManageCenter.rocket_ctl.ADOClipControl(block.adClip,block.adVol);
                     }
                 }
             }
             tmpvar = false;
         }
     }
-    private void ExploderEvent(string name)
+    private void ExploderEvent(GameObject gob)
     {
         foreach (var e in effects)
         {
-            if (e.label.Contains(name)) { }
+            if (gob.name.ToLower().Contains(e.label.ToLower())) {
+                print($"爆炸特效 {e.label} 產生");
+                Destroy(Instantiate(e.ExplodeObj,transform),e.ExplodeTime);
+            }
         }
     }
     #endregion

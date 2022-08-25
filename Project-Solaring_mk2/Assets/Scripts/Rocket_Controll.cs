@@ -166,7 +166,7 @@ namespace solar_a
             {
                 yield return new WaitForSeconds(rush_time);
                 isBoost = false;
-                if(!ManageCenter.mgCenter.noExhauRush) rush_counts--;
+                if (!ManageCenter.mgCenter.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
                 rc_dtion.Previous();
             }
@@ -220,6 +220,7 @@ namespace solar_a
             Rocket_sound.volume = 1;
             Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
         }
+        public void ADOClipControl(AudioClip acp, float vol=1) => Rocket_sound.PlayOneShot(acp, vol);
         #endregion
 
         private void Awake()
