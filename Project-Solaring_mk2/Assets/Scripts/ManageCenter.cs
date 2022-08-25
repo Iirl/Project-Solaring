@@ -136,7 +136,6 @@ namespace solar_a
         {
             float nowFuel = rocket_ctl.RocketS1.x;
             rocket_ctl.PutRocketSyn(f);
-            rocket_ctl.ADOClipControl(0);
             if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
         #endregion

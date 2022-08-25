@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -898,7 +898,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.777336, y: 1}
+    m_SensorSize: {x: 1.7774295, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2882,7 +2882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &774657751
 Transform:
   m_ObjectHideFlags: 0
@@ -8061,6 +8061,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: blocks.Array.data[0].adVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: blocks.Array.data[1].adVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: effect.Array.data[0].label
       value: "\u649E\u5230\u77F3\u982D"
       objectReference: {fileID: 0}
@@ -8079,6 +8089,16 @@ PrefabInstance:
       propertyPath: effect.Array.data[3].label
       value: "\u706B\u7BAD\u71C3\u71D2"
       objectReference: {fileID: 0}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: blocks.Array.data[0].adClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: blocks.Array.data[1].adClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: effects.Array.data[0].label
