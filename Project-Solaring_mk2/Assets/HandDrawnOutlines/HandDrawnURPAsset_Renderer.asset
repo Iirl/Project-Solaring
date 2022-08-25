@@ -37,7 +37,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  UseDepthMask: 1
+  UseDepthMask: 0
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 5a9fb795eb7b09c4481928e0af3bf3ff,
     type: 2}
 --- !u!114 &-4731036240335167678
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 461
   m_TransparentLayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
