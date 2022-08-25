@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1158669022397386574}
   - component: {fileID: 1903716176873794150}
   - component: {fileID: 2650436455703951370}
-  m_Layer: 3
+  m_Layer: 1
   m_Name: FX_JetFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5194,9 +5194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect:
-  - label: 
-    ExplodeObj: {fileID: 0}
+  effects: []
   blocks:
   - label: Box
     species: 0

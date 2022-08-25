@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Dark
   m_EditorClassIdentifier: 
   _Color: {r: 0, g: 0, b: 0, a: 1}
-  NumberOfContours: 3
-  Frequency: 80
-  Amplitude: -0.0022
+  NumberOfContours: 1
+  Frequency: 0
+  Amplitude: 0
   UseNoise: 0
   NoiseTex: {fileID: 0}
   NoiseAmount: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   SpeedYAlpha: 6
   UseRandomization: 0
   TimeMultiplierAlpha: 38.74
-  Width: 0.39
+  Width: 2
   DepthThreshold: 6.8
   NormalThreshold: 0.54
   EdgeDetectionMaterial: {fileID: 0}

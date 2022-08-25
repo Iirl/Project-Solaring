@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3051554856847910725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Saturn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -30,15 +30,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
-  m_Name: Black2
+  m_Name: Supply
   m_EditorClassIdentifier: 
   m_Active: 1
   ID: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   UseDepthMask: 1
-  handDrawnOutlinesSettings: {fileID: 11400000, guid: c81a9b000bc683b4384e26cb49628dfa,
+  handDrawnOutlinesSettings: {fileID: 11400000, guid: 5a9fb795eb7b09c4481928e0af3bf3ff,
     type: 2}
 --- !u!114 &-4731036240335167678
 MonoBehaviour:
@@ -76,8 +76,8 @@ MonoBehaviour:
   ID: 2
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
-  UseDepthMask: 1
+    m_Bits: 1088
+  UseDepthMask: 0
   handDrawnOutlinesSettings: {fileID: 11400000, guid: a5e83ac7be3bf4f40a552c943dab6930,
     type: 2}
 --- !u!114 &-1252976147078801703
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
-  m_Name: HandDrawnOutlinesFeature
+  m_Name: Glass
   m_EditorClassIdentifier: 
   m_Active: 1
   ID: 4
@@ -160,8 +160,7 @@ MonoBehaviour:
   - {fileID: -1212289833083371954}
   - {fileID: -2396675919373350335}
   - {fileID: -5907666926953752729}
-  - {fileID: 6859134671413657656}
-  m_RendererFeatureMap: d9965431d5889cee4e7e3fded1142def41ca0410f34bbdde671799e73ac003ae38402d74a48a305f
+  m_RendererFeatureMap: d9965431d5889cee4e7e3fded1142def41ca0410f34bbdde671799e73ac003ae
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -241,24 +240,4 @@ MonoBehaviour:
     m_Bits: 4096
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: 267a03e3033d1984fb2e2495e933c903,
-    type: 2}
---- !u!114 &6859134671413657656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
-  m_Name: White2
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  ID: 5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  UseDepthMask: 1
-  handDrawnOutlinesSettings: {fileID: 11400000, guid: 4e5ed7b1337336140bbda0840052d7a8,
     type: 2}

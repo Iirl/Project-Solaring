@@ -4520,6 +4520,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket _hologram
       objectReference: {fileID: 0}
+    - target: {fileID: 7392837495544651514, guid: 534d90e6fbb518d4d844e8731970837a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7872912187081425591, guid: 534d90e6fbb518d4d844e8731970837a,
         type: 3}
       propertyPath: m_Layer
@@ -4970,17 +4975,22 @@ PrefabInstance:
     - target: {fileID: 7357005098667569909, guid: 534d90e6fbb518d4d844e8731970837a,
         type: 3}
       propertyPath: m_Layer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7392837495544651514, guid: 534d90e6fbb518d4d844e8731970837a,
         type: 3}
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 7392837495544651514, guid: 534d90e6fbb518d4d844e8731970837a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7872912187081425591, guid: 534d90e6fbb518d4d844e8731970837a,
         type: 3}
       propertyPath: m_Layer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7913794469677286464, guid: 534d90e6fbb518d4d844e8731970837a,
         type: 3}
