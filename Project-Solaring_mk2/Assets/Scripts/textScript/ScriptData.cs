@@ -10,8 +10,6 @@ namespace solar_a
         public Platforms platform;
         [Header("讀取資料"),NonReorderable]
         public LanguageClass[] Language;
-        [Header("資料欄位"), NonReorderable]
-        public TMProClass[] TextField;
         //
         public enum Platforms { PC, Mobile }
         [System.Serializable]
@@ -20,13 +18,6 @@ namespace solar_a
             public string label;
             public string filename;
             public string[] datas;
-
-        }
-        [System.Serializable]
-        public class TMProClass
-        {
-            public string label;
-            public TextMeshProUGUI text;
 
         }
         
