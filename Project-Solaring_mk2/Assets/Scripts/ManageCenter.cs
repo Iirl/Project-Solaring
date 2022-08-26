@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -380,8 +381,11 @@ namespace solar_a
                     show_UI();
                     if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();
                     break;
+                case State.Loading:
+                    Time.timeScale = 0.5f;
+                    break;
                 case State.Pause:
-                    if (Time.timeScale > 0.1f) Time.timeScale = 0.05f;
+                    if (Time.timeScale > 0.1f) Time.timeScale = 0f;
                     break;
                 case State.End:
                     if (noDead)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-[CreateAssetMenu(fileName ="New Object",menuName ="Objector/Object Generator")]
+[CreateAssetMenu(fileName ="New Object",menuName = "SolarPrject/Object Generator")]
 public class GeneratorData :ScriptableObject
 {
     [SerializeField, Header("產生器類別")]
