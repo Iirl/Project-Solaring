@@ -50,9 +50,7 @@ namespace solar_a
         Vector3 rocketOffset = new Vector3(0, -1f, 0);
         [SerializeField, Tooltip("火箭顏色")]
         Color rocketColor = Color.white;
-        [SerializeField, Header("更新控制項")]
-        //public bool isControl = true;
-        //public bool isMove;
+        [SerializeField, Header("火箭狀態")]
         public RocketCondition rc_dtion = new RocketCondition() { state = RocketState.Stay };
         //
         #endregion
@@ -90,7 +88,7 @@ namespace solar_a
             else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }
             Rocket_Rig.isKinematic = !on;
             if (on) rc_dtion.onStay();
-            else rc_dtion.onStop();
+            else rc_dtion.onStop(true);
             enabled = on;
             yield return null;
         }
@@ -245,6 +243,7 @@ namespace solar_a
             {
                 case RocketState.Stay:
                     UpForce();
+                    if (!Rocket_Rig.isKinematic) StartCoroutine(ControlChange(true));
                     if (InputMove()) rc_dtion.Next();
                     break;
                 case RocketState.Move:
@@ -257,6 +256,7 @@ namespace solar_a
                 case RocketState.Crashed:
                     break;
                 case RocketState.Stop:
+                    if (Rocket_Rig.isKinematic) StartCoroutine(ControlChange(false));
                     break;
                 default:
                     break;
@@ -264,7 +264,7 @@ namespace solar_a
             //print(InputMove());
             //if (StaticSharp.Conditions == State.Finish) rc_dtion.onStop();
             // 火箭正常狀態下的行動。
-            if (!rc_dtion.IsStop || !rc_dtion.IsCrashed)
+            if (!rc_dtion.IsStop)
             {
                 Controller();
                 // 狀態控制
@@ -317,7 +317,7 @@ namespace solar_a
         public void Dead() => state = RocketState.Crashed;
         public void onMove() => state = RocketState.Move;
         public void onStay() => state = RocketState.Stay;
-        public void onStop() => state = RocketState.Stop;
+        public void onStop(bool isStop) => state = (isStop)? RocketState.Stop:0 ;
         public int GetState() => (int)(state);
         public void SetState(int idx) => state = (RocketState)idx;
 

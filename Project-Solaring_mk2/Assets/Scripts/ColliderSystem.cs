@@ -39,6 +39,7 @@ public class ColliderSystem : MonoBehaviour
 
     }
     #region 碰撞事件
+    static bool loadScene;
     /// <summary>
     /// 碰撞事件處理規則：
     /// 如果碰到敵人就消滅，並且生成特效。
@@ -71,7 +72,12 @@ public class ColliderSystem : MonoBehaviour
         else if (hitObj.tag.Contains("Finish"))
         {
             i = 4; // 進入終點
-            print("終點，轉場");
+            if(!loadScene)
+            {
+                loadScene = true;
+                StaticSharp.isChangeScene = true;
+                print("終點，轉場");
+            }
         }
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);
         return i;
@@ -107,6 +113,10 @@ public class ColliderSystem : MonoBehaviour
             tmpvar = false;
         }
     }
+    /// <summary>
+    /// 碰撞產生爆炸特效事件
+    /// </summary>
+    /// <param name="gob">發生碰撞的位置</param>
     private void ExploderEvent(GameObject gob)
     {
         if (!gob) return;
@@ -118,6 +128,10 @@ public class ColliderSystem : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 轉場事件
+    /// </summary>
+    //private void SceneChageEvent() => ManageCenter.StartC
     #endregion
 
     private void Awake()

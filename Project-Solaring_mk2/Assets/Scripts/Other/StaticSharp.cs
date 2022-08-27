@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using solar_a;
 using UnityEngine;
 
 public class StaticSharp
 {
+    static public int _LANG_ID;
+    //
     static public State Conditions;
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
+    static public bool isChangeScene;
+    static public bool isDialogEvent;
     //
     
     #region Shotkey, ß÷±∂¡‰≥]©w
@@ -121,6 +124,27 @@ static class Extension
         cvsgp.interactable = isIN;
         cvsgp.blocksRaycasts = isIN;
     }
-
+    static public IEnumerator FadeEffect(this CanvasGroup cvsgp, bool visable = true, float fadeSpeed=0.1f)
+    {
+        switch (visable)
+        {
+            case true:
+                while (cvsgp.alpha < 1)
+                {
+                    cvsgp.alpha += 0.1f;
+                    yield return new WaitForSeconds(fadeSpeed);
+                }
+                cvsgp.CanvansFadeControl(visable);
+                break;
+            default:
+                while (cvsgp.alpha > 0)
+                {
+                    cvsgp.alpha -= 0.1f;
+                    yield return new WaitForSeconds(fadeSpeed);
+                }
+                cvsgp.CanvansFadeControl(visable);
+                break;
+        }
+    }
 
 }

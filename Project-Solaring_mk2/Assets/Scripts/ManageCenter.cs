@@ -12,64 +12,63 @@ using UnityEditor;
 namespace solar_a
 {
     /// <summary>
-    /// ¿ï³æ±±¨î¨t²Î¡A½Õ¥Î¨ä¥L¨t²Îªº¥\¯à¡A±±¨î»P¦@¦P¤èªk¡C
-    /// ¥»¨t²ÎÀ³©ñ¦b¥²©w¦s¦b©ó³õ¤Wªºª«¥ó¤W
-    /// ¥Ø«e©ñ¦b¡G GameManage_UI
-    /// ·|±N¥i­«½Æ½Õ¥Îªº¤èªk©ñ©ó¦¹³B¡A¦b¨ä¥Lª«¥ó¤W­ì¦³ªº¤èªk¦p¦³»İ­n­«½Æ¨Ï¥Î¤]·|©ñ¦b³o¡C
+    /// é¸å–®æ§åˆ¶ç³»çµ±ï¼Œèª¿ç”¨å…¶ä»–ç³»çµ±çš„åŠŸèƒ½ï¼Œæ§åˆ¶èˆ‡å…±åŒæ–¹æ³•ã€‚
+    /// æœ¬ç³»çµ±æ‡‰æ”¾åœ¨å¿…å®šå­˜åœ¨æ–¼å ´ä¸Šçš„ç‰©ä»¶ä¸Š
+    /// ç›®å‰æ”¾åœ¨ï¼š GameManage_UI
+    /// æœƒå°‡å¯é‡è¤‡èª¿ç”¨çš„æ–¹æ³•æ”¾æ–¼æ­¤è™•ï¼Œåœ¨å…¶ä»–ç‰©ä»¶ä¸ŠåŸæœ‰çš„æ–¹æ³•å¦‚æœ‰éœ€è¦é‡è¤‡ä½¿ç”¨ä¹Ÿæœƒæ”¾åœ¨é€™ã€‚
     /// </summary>
     public class ManageCenter : MonoBehaviour
     {
-        #region ºŞ²z±±¨î¨t²Î
-        [Header("¤¤±±¨t²Î")]
+        #region ç®¡ç†æ§åˆ¶ç³»çµ±
+        [Header("ä¸­æ§ç³»çµ±")]
         static public ManageCenter mgCenter;
-        [SerializeField, Header("¦Uµ{¦¡ºŞ²z¨t²Î"),Tooltip("³õ´º¨t²Î")]
+        [SerializeField, Header("å„ç¨‹å¼ç®¡ç†ç³»çµ±"),Tooltip("å ´æ™¯ç³»çµ±")]
         private ManageScene MgScene;
         static public ManageScene mgScene;
-        [SerializeField, Tooltip("µ²§ôºŞ²z")]
+        [SerializeField, Tooltip("çµæŸç®¡ç†")]
         private ManageEnd MgEnd;
         static public ManageEnd mgEnd;
-        [SerializeField, Tooltip("¤õ½b±±¨î¨t²Î")]
+        [SerializeField, Tooltip("ç«ç®­æ§åˆ¶ç³»çµ±")]
         private Rocket_Controll Rocket_CTL;
         static public Rocket_Controll rocket_ctl;
-        [SerializeField,Tooltip("³õ´º±±¨î¨t²Î")]
+        [SerializeField,Tooltip("å ´æ™¯æ§åˆ¶ç³»çµ±")]
         private SceneStage_Control SS_CTL;
         static public SceneStage_Control ss_ctl;
-        [Tooltip("ªÅ¶¡±±¨î¨t²Î")]
+        [SerializeField, Tooltip("ç©ºé–“æ§åˆ¶ç³»çµ±")]
         private Space_Controll Space_CTL;
         static public Space_Controll space_ctl;
         #endregion
         /// <summary>
         /// GameUI Interface.
         /// </summary>
-        [SerializeField, Header("¤¶­±UI±±¨î"), Tooltip("UI ¶ZÂ÷Åã¥Ü")]
+        [SerializeField, Header("ä»‹é¢UIæ§åˆ¶"), Tooltip("UI è·é›¢é¡¯ç¤º")]
         TMP_Text ui_Dist;
-        [SerializeField, Tooltip("UI ¿U®Æ¤å¦r")]
+        [SerializeField, Tooltip("UI ç‡ƒæ–™æ–‡å­—")]
         TMP_Text ui_fuel;
-        [SerializeField, Tooltip("UI ¿U®Æ±ø")]
+        [SerializeField, Tooltip("UI ç‡ƒæ–™æ¢")]
         Image ui_fuelbar;
         [SerializeField]
         GameObject[] EnergyPlus;
-        [SerializeField, Tooltip("UI ¬ÛÃö(Read Only)")]
+        [SerializeField, Tooltip("UI ç›¸é—œ(Read Only)")]
         static public int UI_fuel = 100;
         static public float UI_moveDistane = 0;
-        [SerializeField, Tooltip("¥ÎºÉ¿U®Æ«áªº±Ã¤ã®É¶¡"),Range(0,10)]
+        [SerializeField, Tooltip("ç”¨ç›¡ç‡ƒæ–™å¾Œçš„æ™æ‰æ™‚é–“"),Range(0,10)]
         private float fuelExhaustedTime=5;
         /// <summary>
-        /// ¿ï³æµe¥¬±±¨î
+        /// é¸å–®ç•«å¸ƒæ§åˆ¶
         /// </summary>
-        [SerializeField, Header("¼È°±¿ï³æ")]
+        [SerializeField, Header("æš«åœé¸å–®")]
         GameObject pauseUI;
-        [SerializeField, Tooltip("¼È°±¿ï³æµe¥¬¨t²Î")]
+        [SerializeField, Tooltip("æš«åœé¸å–®ç•«å¸ƒç³»çµ±")]
         CanvasGroup pauseMenus;
-        [SerializeField, Header("µe¥¬²H¤Æ³t«×")]
+        [SerializeField, Header("ç•«å¸ƒæ·¡åŒ–é€Ÿåº¦")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
-        [SerializeField, Header("²V­µ±±¨î¨t²Î")]
+        [SerializeField, Header("æ··éŸ³æ§åˆ¶ç³»çµ±")]
         AudioMixer adM;
-        #region ¥»¦a½Õ¾\Äæ¦ì (Private Feild)
-        [Tooltip("µ{¦¡±±¨î¿ï¾Ü¥Ø«eªºµe¥¬¡A¥i¥H¤£¥Î³]©w¡C")]
+        #region æœ¬åœ°èª¿é–±æ¬„ä½ (Private Feild)
+        [Tooltip("ç¨‹å¼æ§åˆ¶é¸æ“‡ç›®å‰çš„ç•«å¸ƒï¼Œå¯ä»¥ä¸ç”¨è¨­å®šã€‚")]
         private CanvasGroup canvas_select;
         private AudioSource AudioBox;
-        private BoxCollider FinishBox;
         [HideInInspector]
         public bool noExhauFuel, noExhauRush, noDead, toFinDest;
         #endregion
@@ -82,7 +81,7 @@ namespace solar_a
             transform.Find("AudioBox").GetComponent<AudioSource>().Play();
         }
         /// <summary>
-        /// ¦@¥Î¤èªk (Public Method)
+        /// å…±ç”¨æ–¹æ³• (Public Method)
         /// </summary>
         /// <returns></returns>
         public Vector3 GetStagePOS() => ss_ctl.transform.position;
@@ -93,10 +92,11 @@ namespace solar_a
             z = z != 0 ? z: rocket_ctl.RocketBasic.z;
             rocket_ctl.SetBasicInfo(x,y,z);
                 }
-        //°£¿ù¥\¯à
+        //é™¤éŒ¯åŠŸèƒ½
         public void GetState() => print(condition.GetState());
 
-        #region ¤õ½b±±¨î»P­p¼Æ¬ÛÃö
+        #region ç«ç®­æ§åˆ¶èˆ‡è¨ˆæ•¸ç›¸é—œ
+        public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
         private IEnumerator DeathCounter(float counter=0)
         {            
             for (int i=0; i< counter;i++) yield return new WaitForSeconds(1);
@@ -104,35 +104,35 @@ namespace solar_a
             yield return null;
         }
         /// <summary>
-        /// ¤õ½b»P³õ´º²¾°Ê¡C
-        /// ÂÂª©¡G½Õ¾ã³õ´ºªº Y¶b¼Æ­È¡C
-        /// ·sª©¡Gª½±µ­×§ïUI¼Æ­È¡C
+        /// ç«ç®­èˆ‡å ´æ™¯ç§»å‹•ã€‚
+        /// èˆŠç‰ˆï¼šèª¿æ•´å ´æ™¯çš„ Yè»¸æ•¸å€¼ã€‚
+        /// æ–°ç‰ˆï¼šç›´æ¥ä¿®æ”¹UIæ•¸å€¼ã€‚
         /// </summary>
         public void MoveAction()
         {
             //if (!rocket_ctl.rc_dtion.IsStay) 
-            //    ss_ctl.transform.position += Vector3.up * unit / 2; // ³õ´º²¾°Ê1
-            float unit = Time.deltaTime * ss_ctl.speed; // ³æ¦ì¶ZÂ÷¡A¨Ï¥Î deltaTime ¥i¥H²¾°£§ó·sÀW²vªº¿ù»~¡C            
+            //    ss_ctl.transform.position += Vector3.up * unit / 2; // å ´æ™¯ç§»å‹•1
+            float unit = Time.deltaTime * ss_ctl.speed; // å–®ä½è·é›¢ï¼Œä½¿ç”¨ deltaTime å¯ä»¥ç§»é™¤æ›´æ–°é »ç‡çš„éŒ¯èª¤ã€‚            
             if (toFinDest) UI_moveDistane = ss_ctl.finishDistane;
             else UI_moveDistane += unit;
             if (UI_moveDistane >= ss_ctl.finishDistane)
             {
                 UI_moveDistane = ss_ctl.finishDistane;
-                FinishBox.enabled = true;
+                if (FinishArea.finishState) FindObjectOfType<FinishArea>().enabled = true;
             }
 
             float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed;
             //print(rocket_ctl.rc_dtion.IsBoost);
             if (rocket_ctl.rc_dtion.IsBoost) fueldown += (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
-            if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // ¿U®ÆÅÜ¤Æ
-            else if (!noExhauFuel) StartCoroutine(DeathCounter(fuelExhaustedTime));   // ¿U®Æ¥ÎºÉ¡A¦º¤`­Ë¼Æ¡C
+            if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // ç‡ƒæ–™è®ŠåŒ–
+            else if (!noExhauFuel) StartCoroutine(DeathCounter(fuelExhaustedTime));   // ç‡ƒæ–™ç”¨ç›¡ï¼Œæ­»äº¡å€’æ•¸ã€‚
             //print(fueldown);
 
         }
         /// <summary>
-        /// ¿U®Æ¸É¥R¨ç¼Æ¡A¿é¤J©w­È¼W¥[¿U®Æ¡C
+        /// ç‡ƒæ–™è£œå……å‡½æ•¸ï¼Œè¼¸å…¥å®šå€¼å¢åŠ ç‡ƒæ–™ã€‚
         /// </summary>
-        /// <param name="f">«ü©w­n¸Éªº­È</param>
+        /// <param name="f">æŒ‡å®šè¦è£œçš„å€¼</param>
         public void FuelReplen(int f)
         {
             float nowFuel = rocket_ctl.RocketS1.x;
@@ -140,39 +140,39 @@ namespace solar_a
             if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
         #endregion
-        #region ª«¥ó³q¥Î¨ç¼Æ
+        #region ç‰©ä»¶é€šç”¨å‡½æ•¸
         /*
         /// <summary>
-        /// ¤Á´«¹w³]ªº²£¥Í¾¹Ãş§O¡A¥]§t¸Éµ¹«~²£¥Í¡C
-        /// ³o¸Ì¬O³]©w­n¨Ï¥Î¦óºØÃş§O¡C
-        /// ¥Ñ©ó´«­Ó¼gªk¡A³o¸Ì¼È®ÉªÅ¸m
+        /// åˆ‡æ›é è¨­çš„ç”¢ç”Ÿå™¨é¡åˆ¥ï¼ŒåŒ…å«è£œçµ¦å“ç”¢ç”Ÿã€‚
+        /// é€™è£¡æ˜¯è¨­å®šè¦ä½¿ç”¨ä½•ç¨®é¡åˆ¥ã€‚
+        /// ç”±æ–¼æ›å€‹å¯«æ³•ï¼Œé€™è£¡æš«æ™‚ç©ºç½®
         /// </summary>
-        /// <param name="i">«ü©w²£¥Í¾¹¤º®e¡A¥Ø«e¦³ªº²£¥Í¾¹¦p¤U¡G
-        /// 0. ¹w³]¡A²£¥Í ¤@¯ëª«¥óÃş§O ¡C
-        /// 1. ²£¥Í ¹k¥ÛÃş§O ¡C
-        /// 2. ²£¥Í ¼Ä¾÷Ãş§O ¡C
+        /// <param name="i">æŒ‡å®šç”¢ç”Ÿå™¨å…§å®¹ï¼Œç›®å‰æœ‰çš„ç”¢ç”Ÿå™¨å¦‚ä¸‹ï¼š
+        /// 0. é è¨­ï¼Œç”¢ç”Ÿ ä¸€èˆ¬ç‰©ä»¶é¡åˆ¥ ã€‚
+        /// 1. ç”¢ç”Ÿ éš•çŸ³é¡åˆ¥ ã€‚
+        /// 2. ç”¢ç”Ÿ æ•µæ©Ÿé¡åˆ¥ ã€‚
         /// </param>
         public void AsignGenerate(int i)
         {
 
             try { gener_class = GameObject.Find(objectName[i]).GetComponent<Object_Generator>(); }
-            catch { print("Ãş§Oª«¥ó¤£¦s¦b¡A½Ğ­«·s³]©w"); }
+            catch { print("é¡åˆ¥ç‰©ä»¶ä¸å­˜åœ¨ï¼Œè«‹é‡æ–°è¨­å®š"); }
 
         }
         /// <summary>
-        /// ½Õ¥Î¦Û°Ê²£¥Í¸Éµ¹«~
+        /// èª¿ç”¨è‡ªå‹•ç”¢ç”Ÿè£œçµ¦å“
         /// </summary>
-        /// <param name="i">¸Éµ¹«~Ãş§O</param>
-        /// <param name="rotate">¬O§_ÀH¾÷¥Í¦¨Âà¦V</param>
+        /// <param name="i">è£œçµ¦å“é¡åˆ¥</param>
+        /// <param name="rotate">æ˜¯å¦éš¨æ©Ÿç”Ÿæˆè½‰å‘</param>
         public void AutoGenerate(int i, bool rotate = false)
         {
             Vector3 st_border = ss_ctl.GetBoxborder();
             if (gener_class != null) gener_class.Static_gen(GetStagePOS().y, i, Random.Range(-st_border.x / 2, st_border.x / 2), Random.Range(st_border.y, st_border.y * 2), rotate);
         }
         /// <summary>
-        /// ²£¥Íªş±a¤lª«¥óªºµ{¦¡¡C
-        /// ·|¥ı¥Î¤@¯ë¥Í¦¨ªº¤è¦¡¥Í¦¨ª«¥ó«á¡A¨ú±o¸Óª«¥óªºID¦A¨Ì¦¹¥Í¦¨¤lª«¥ó¡C
-        /// ¦ı¦pªG¨Ï¥Î¹w¸mª«ªº¸Ü¡Aª«¥ó·|¥Í¦¨¦b¤lª«¥ó¤W¡C
+        /// ç”¢ç”Ÿé™„å¸¶å­ç‰©ä»¶çš„ç¨‹å¼ã€‚
+        /// æœƒå…ˆç”¨ä¸€èˆ¬ç”Ÿæˆçš„æ–¹å¼ç”Ÿæˆç‰©ä»¶å¾Œï¼Œå–å¾—è©²ç‰©ä»¶çš„IDå†ä¾æ­¤ç”Ÿæˆå­ç‰©ä»¶ã€‚
+        /// ä½†å¦‚æœä½¿ç”¨é ç½®ç‰©çš„è©±ï¼Œç‰©ä»¶æœƒç”Ÿæˆåœ¨å­ç‰©ä»¶ä¸Šã€‚
         /// </summary>
         public void MeteoGenerate()
         {
@@ -195,34 +195,41 @@ namespace solar_a
         }
         */
         /// <summary>
-        /// ²M°£ª«¥ó¨ç¼Æ¡C
-        /// ©Ò¦³ª«¥ó±qµe­±¤W²¾°£³£­n¸g¹L³o­Ó¨ç¦¡¡C
+        /// æ¸…é™¤ç‰©ä»¶å‡½æ•¸ã€‚
+        /// æ‰€æœ‰ç‰©ä»¶å¾ç•«é¢ä¸Šç§»é™¤éƒ½è¦ç¶“éé€™å€‹å‡½å¼ã€‚
         /// </summary>
-        /// <param name="obj">¸I¼²°Ï°ì¦^¶Çªºª«¥ó</param>
+        /// <param name="obj">ç¢°æ’å€åŸŸå›å‚³çš„ç‰©ä»¶</param>
         GenerateSystem objGS;
         public void ObjectDestory(GameObject obj, bool hasDesTime=false)
         {
             objGS = obj.transform.GetComponentInParent<GenerateSystem>();
-            //print($"¦WºÙ: {objGS.name} hasdes:{hasDesTime}");  // ´ú¸Õ¬O§_¦³Åª¨ú¨ìª«¥ó¡AÅª¤£¨ì«hª½±µ¾P·´Á×§K¿ù»~¡C
+            //print($"åç¨±: {objGS.name} hasdes:{hasDesTime}");  // æ¸¬è©¦æ˜¯å¦æœ‰è®€å–åˆ°ç‰©ä»¶ï¼Œè®€ä¸åˆ°å‰‡ç›´æ¥éŠ·æ¯€é¿å…éŒ¯èª¤ã€‚
             if (!objGS) { Destroy(obj); return; }
             objGS.Destroys(obj, hasDesTime);
             //gener_class.Destroys(obj);
         }
         #endregion
-        #region ³õ ´º ¬Û Ãö
+        #region å ´ æ™¯ ç›¸ é—œ
         /// <summary>
-        /// ¶i¤J¤¤Ä~¯¸
-        /// Àx¦s¤õ½bªº¸ê®Æ
+        /// é€²å…¥ä¸­ç¹¼ç«™
+        /// å„²å­˜ç«ç®­çš„è³‡æ–™
         /// </summary>
         public void InToStation()
         {
             StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
             StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
             mgScene.SaveLeveInform();
-            mgScene.LoadScenes("Station");            
+            mgScene.LoadScenes("Station"); 
         }
-
-        ///////////// ¿ï³æÅÜ¤Æ¬ÛÃö
+        /// <summary>
+        /// åˆ‡æ›åˆ°ä¸‹ä¸€é—œçš„æª¢æŸ¥
+        /// </summary>
+        private void StartChageScene()
+        {
+            StartCoroutine(rocket_ctl.ControlChange(false));
+            StartCoroutine(mgScene.LoadScenesPreOrder(true));
+        }
+        ///////////// é¸å–®è®ŠåŒ–ç›¸é—œ
         private IEnumerator PauseFadeEffect(bool visable = true)
         {
             canvas_select = pauseUI.GetComponent<CanvasGroup>();
@@ -251,15 +258,15 @@ namespace solar_a
         }
 
         /// <summary>
-        /// ³]©wUIªº´£¥Ü
+        /// è¨­å®šUIçš„æç¤º
         /// </summary>
         private void show_UI()
         {
-            // ³õ´ºUI - ²¾°Êªº¼gªk¡G¥ı¨ú±o³õ´º¦ì¸m¡AµM«á¦A±N¦ì¸m°e¨ìUI¸Ì¡C
+            // å ´æ™¯UI - ç§»å‹•çš„å¯«æ³•ï¼šå…ˆå–å¾—å ´æ™¯ä½ç½®ï¼Œç„¶å¾Œå†å°‡ä½ç½®é€åˆ°UIè£¡ã€‚
             /*Vector3 stage_pos = GetStagePOS();
             UI_moveDistane = (int)stage_pos.y;  //*/
-            // §ï©ñ¦b MoveAction ¤¤
-            // ¿U®ÆUI
+            // æ”¹æ”¾åœ¨ MoveAction ä¸­
+            // ç‡ƒæ–™UI
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             if (UI_fuel <= 100)
             {
@@ -267,25 +274,25 @@ namespace solar_a
                 if(EnergyPlus[0].activeSelf) EnergyPlus[0].SetActive(false);
             }
             else
-            {   // ¶W¹L 100 ªº³¡¤À¥Î®æª¬¦å±øÅã¥Ü
+            {   // è¶…é 100 çš„éƒ¨åˆ†ç”¨æ ¼ç‹€è¡€æ¢é¡¯ç¤º
                 ui_fuelbar.fillAmount = 1;
                 int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity) + 1;
-                if (EnergyPlus.Length >= level)
+                if (EnergyPlus.Length > 0)
                 {
                     int count = 0;
                     foreach (GameObject g in EnergyPlus)
                     {
                         g.SetActive(level > count);
                         count++;
-                    }
+                    }                    
                 }
             }
-            // ¼Ğ¥Ü¤å¦rUI¤º®e
+            // æ¨™ç¤ºæ–‡å­—UIå…§å®¹
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
         /// <summary>
-        /// ¼È°±¿ï³æ¶}Ãö
+        /// æš«åœé¸å–®é–‹é—œ
         /// </summary>
         public void show_Menu()
         {
@@ -299,14 +306,14 @@ namespace solar_a
                 }
                 else if (!condition.isPause)
                 {
-                    // Åã²{
+                    // é¡¯ç¾
                     condition.Next();
                     StartCoroutine(PauseFadeEffect(true));
 
                 }
                 else
                 {
-                    // ²H¥X
+                    // æ·¡å‡º
                     condition.Previous();
                     StartCoroutine(PauseFadeEffect(false));
 
@@ -315,10 +322,10 @@ namespace solar_a
         }
         #endregion
         /// <summary>
-        /// ¹CÀ¸ª¬ºA³B²z±¡ªp(»İ­n³QInvoke)
-        /// ®Ú¾Ú¥Ø«eªºª¬ºA¤Á´«¹CÀ¸¶i¦æª¬ªp
-        /// END = µ²§ô¹CÀ¸
-        /// Running ¤Á´« = ¶}°_¼È°±¿ï³æ
+        /// éŠæˆ²ç‹€æ…‹è™•ç†æƒ…æ³(éœ€è¦è¢«Invoke)
+        /// æ ¹æ“šç›®å‰çš„ç‹€æ…‹åˆ‡æ›éŠæˆ²é€²è¡Œç‹€æ³
+        /// END = çµæŸéŠæˆ²
+        /// Running åˆ‡æ› = é–‹èµ·æš«åœé¸å–®
         /// </summary>
         private void GameState()
         {
@@ -329,25 +336,25 @@ namespace solar_a
                 pauseUI.transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
                 mgEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
-                // Ãö³¬­µ®Ä
+                // é—œé–‰éŸ³æ•ˆ
                 StartCoroutine(rocket_ctl.ControlChange(!isEnd));
                 Simple_move[] simple_s = FindObjectsOfType<Simple_move>();
                 foreach (Simple_move simple in simple_s) StartCoroutine(simple.Mute());
                 condition.Finish();
             }
             else if (StaticSharp.Conditions != State.Running)
-            {// ¦pªG¤£¬O°õ¦æª¬ºA¡A«h¼È°±ªÅ¶¡¡A¨Ã©I¥s¼È°±¿ï³æ¡C
+            {// å¦‚æœä¸æ˜¯åŸ·è¡Œç‹€æ…‹ï¼Œå‰‡æš«åœç©ºé–“ï¼Œä¸¦å‘¼å«æš«åœé¸å–®ã€‚
                 StartCoroutine(rocket_ctl.ControlChange(false));
             }
             else StartCoroutine(rocket_ctl.ControlChange(true));
             CancelInvoke("GameState");
         }
         StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
-        #region ¥»¦a±±¨î¤èªk©Î¨Æ¥ó
+        #region æœ¬åœ°æ§åˆ¶æ–¹æ³•æˆ–äº‹ä»¶
         /// <summary>
-        /// ¶i¤J¹CÀ¸µ²§ô¨t²Î¡A­Y¦³¥H¤U±¡ªp«h©I¥s¦¹µ{¦¡¡G
-        /// 1. ¨S¦³¿U®Æ
-        /// 2. ¼²¨ì¥ô¦óª«Åé
+        /// é€²å…¥éŠæˆ²çµæŸç³»çµ±ï¼Œè‹¥æœ‰ä»¥ä¸‹æƒ…æ³å‰‡å‘¼å«æ­¤ç¨‹å¼ï¼š
+        /// 1. æ²’æœ‰ç‡ƒæ–™
+        /// 2. æ’åˆ°ä»»ä½•ç‰©é«”
         /// </summary>
         private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
 
@@ -356,7 +363,6 @@ namespace solar_a
         private void Awake()
         {
             mgCenter = GetComponent<ManageCenter>();
-            FinishBox = GameObject.Find("NextStage").GetComponent<BoxCollider>();
         }
         private void Start()
         {
@@ -367,19 +373,24 @@ namespace solar_a
             ss_ctl = SS_CTL ? SS_CTL: FindObjectOfType<SceneStage_Control>();
             rocket_ctl = Rocket_CTL ? Rocket_CTL: FindObjectOfType<Rocket_Controll>();
             space_ctl = Space_CTL ? Space_CTL : FindObjectOfType<Space_Controll>();
-            
-            //print($"¥Ø«e³õ´º½s¸¹¬°¡G{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+            //print($"ç›®å‰å ´æ™¯ç·¨è™Ÿç‚ºï¼š{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+            StaticSharp.isChangeScene = false;
             UI_moveDistane = 0;
         }
         private void Update()
         {
-
             switch (StaticSharp.Conditions)
             {
+                
                 case State.Running:
+                    if (StaticSharp.isChangeScene)
+                    {
+                        StaticSharp.isChangeScene = false;
+                        StartChageScene();
+                    }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();
+                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();                    
                     break;
                 case State.Loading:
                     Time.timeScale = 0.5f;
@@ -401,8 +412,8 @@ namespace solar_a
                 default:
                     break;
             }
-            //print(StaticSharp.Conditions);  //ª¬ºA¾÷ÀË¬d
-            // «öÁä¿é¤J°»´ú
+            //print(StaticSharp.Conditions);  //ç‹€æ…‹æ©Ÿæª¢æŸ¥
+            // æŒ‰éµè¼¸å…¥åµæ¸¬
             StaticSharp.SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
@@ -410,12 +421,12 @@ namespace solar_a
             if (Input.GetKeyDown(KeyCode.Escape)) show_Menu();
         }
 
-        #region ±m³J¬ÛÃö
-        /*Ctrl+b ¶}±Ò¶Â¬}ÀH¾÷¸õÃö¡G»İ­n¶Â¬}¥Í¦¨ªº°Êµe©Î¹Ï¤ù
-        Shift+c ¤õ½b´«¦¨³f¾÷¡G»İ­n¤@¬[³f¾÷
-        Shift+u ¤õ½b´«­¸ºĞ
-        Alt+n ¤õ½bÁô§Î
-        Alt+r ­«·s¥Í¦¨¸Éµ¹»P»ÙÃªª«*/
+        #region å½©è›‹ç›¸é—œ
+        /*Ctrl+b é–‹å•Ÿé»‘æ´éš¨æ©Ÿè·³é—œï¼šéœ€è¦é»‘æ´ç”Ÿæˆçš„å‹•ç•«æˆ–åœ–ç‰‡
+        Shift+c ç«ç®­æ›æˆè²¨æ©Ÿï¼šéœ€è¦ä¸€æ¶è²¨æ©Ÿ
+        Shift+u ç«ç®­æ›é£›ç¢Ÿ
+        Alt+n ç«ç®­éš±å½¢
+        Alt+r é‡æ–°ç”Ÿæˆè£œçµ¦èˆ‡éšœç¤™ç‰©*/
 
         #endregion
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
   m_Name: Menu_mobi
   m_EditorClassIdentifier: 
-  platform: 0
+  platform: 1
   Language:
   - label: Chinese
     filename: CH

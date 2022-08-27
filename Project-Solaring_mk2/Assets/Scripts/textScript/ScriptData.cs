@@ -1,8 +1,12 @@
-using TMPro;
 using UnityEngine;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 文本資料檔 Script Data.
+    /// 預定作為所有腳本的基礎資料檔
+    /// UI與對話會分別以不同的系統程式執行
+    /// </summary>
     [CreateAssetMenu(fileName = "New scenario", menuName = "SolarPrject/Language Script")]
     public class ScriptData : ScriptableObject
     {

@@ -17,7 +17,8 @@ namespace solar_a
         public class TMProClass
         {
             public string label;
-            public TMP_Text tmpText;
+            public int id;
+            public TMP_Text TmpUGUI;
         }
         /// <summary>
         /// 從檔案讀取資料
@@ -49,6 +50,10 @@ namespace solar_a
                     break;
             }
         }
+        /// <summary>
+        /// 透過語言標號取得語言資料內容
+        /// </summary>
+        /// <param name="lang">語言編號</param>
         private void DataWrite(int lang = 0)
         {
             float spices = landata.Language.Length;
@@ -57,21 +62,26 @@ namespace solar_a
             {
                 for (int i = 0; i < TextField.Length; i++)
                 {
-                    if (TextField[i].tmpText != null)
+                    if (TextField[i].TmpUGUI != null)
                     {
-                        TextField[i].tmpText.text = landata.Language[lang].datas[i];
+                        TextField[i].TmpUGUI.text = landata.Language[lang].datas[TextField[i].id];
                     }
                 }
             }
 
 
         }
+        /// <summary>
+        /// 將設定的資料與語言名稱相符時寫上內容
+        /// </summary>
+        /// <param name="str">語言名稱</param>
         private void DataWrite(string str)
         {            
             for (int i = 0; i< landata.Language.Length;i++) 
                 if (landata.Language[i].label.Contains(str)) DataWrite(i);
         }
-        //
+        // 公用方法
+        public void LoadTextToData() => DataLoad();
         public void ChangeLanguage(int i) => DataWrite(i);
         public void ChangeLanguage(string label) => DataWrite(label);
 

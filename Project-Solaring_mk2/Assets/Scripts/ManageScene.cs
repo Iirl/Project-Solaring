@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace solar_a
 {
@@ -56,8 +57,10 @@ namespace solar_a
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>
-        public void LoadScenesPreOrder(bool next)
+        public IEnumerator LoadScenesPreOrder(bool next)
         {
+            while (StaticSharp.isDialogEvent) yield return new WaitForSeconds(1);
+            StaticSharp.isChangeScene = false;
             int now = GetScenes();
             int nexts = now+1, prevs = now-1;
             //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");

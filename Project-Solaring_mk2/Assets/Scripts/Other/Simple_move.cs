@@ -5,48 +5,48 @@ using UnityEngine;
 namespace solar_a
 {
     /// <summary>
-    /// ¦Û°Ê°lÂÜ¨t²Î:
-    /// ª½½u°lÂÜ¡B©w¦V²¾°Ê
+    /// è‡ªå‹•è¿½è¹¤ç³»çµ±:
+    /// ç›´ç·šè¿½è¹¤ã€å®šå‘ç§»å‹•ã€‚
     /// Put on the object, it will trace the player's position.
     /// </summary>
     public class Simple_move : MonoBehaviour
     {
         enum MoveMethod { Straight, Track, Direction, Hold }
-        #region ­±ªO±±¨îÄİ©Ê
+        #region é¢æ¿æ§åˆ¶å±¬æ€§
 
         #endregion
-        [Header("²¾°Êªº¥Ø¼Ğ"), Tooltip("To get the target the syntax, and auto set the information.")]
+        [Header("ç§»å‹•çš„ç›®æ¨™"), Tooltip("To get the target the syntax, and auto set the information.")]
         GameObject target;
         private Vector3 target_v3;
         private Vector3 direct;
         /// <summary>
-        /// ¦b­±ªOÅã¥Ü³]©w
+        /// åœ¨é¢æ¿é¡¯ç¤ºè¨­å®š
         /// </summary>
-        [SerializeField, Header("²¾°Ê¤è¦¡")]
+        [SerializeField, Header("ç§»å‹•æ–¹å¼")]
         private MoveMethod moveMethod;
-        [SerializeField, Header("ª½½u²¾°Ê¤è¦V")]
+        [SerializeField, Header("ç›´ç·šç§»å‹•æ–¹å‘")]
         private Vector3 straightV3;
-        [SerializeField, Header("²¾°Ê³t«×"), Tooltip("Please test it until you want's speed.")]
+        [SerializeField, Header("ç§»å‹•é€Ÿåº¦"), Tooltip("Please test it until you want's speed.")]
         private float Orispeed = 1.2f;
         [SerializeField, Tooltip("Set random speed to set every object have different speed.")]
         private bool randomSpd = true;
-        [SerializeField, Header("°±¤î°lÂÜ¶ZÂ÷"), Tooltip("If your Screen size less than 12, recommend to fix it.")]
+        [SerializeField, Header("åœæ­¢è¿½è¹¤è·é›¢"), Tooltip("If your Screen size less than 12, recommend to fix it.")]
         private float stopTracert = 12;
         private float dist;
         //
         private AudioSource[] audios;
 
         /// <summary>
-        /// «ùÄò²¾°Ê¤èªk¡G¨Ì¾Ú direct ªº¤è¦V²¾°Ê
+        /// æŒçºŒç§»å‹•æ–¹æ³•ï¼šä¾æ“š direct çš„æ–¹å‘ç§»å‹•
         /// </summary>
         private void ContinueMove() => transform.Translate(-direct * Orispeed * Time.deltaTime, Space.World);
         /// <summary>
-        /// ª½½u²¾°Ê¤èªk¡G¦b­±ªO¤¤³]©w²¾°Ê¤è¦V
+        /// ç›´ç·šç§»å‹•æ–¹æ³•ï¼šåœ¨é¢æ¿ä¸­è¨­å®šç§»å‹•æ–¹å‘
         /// </summary>
         private void StraightMove() => transform.Translate(straightV3* Orispeed * Time.deltaTime, Space.World);
         /// <summary>
-        /// ª½½u²¾°Ê¤èªk¡G¨Ì¾Ú dist ©M target ªº°Ñ¼Æ¨M©w²¾°Ê¡C
-        /// * °±¤î°lÂÜ¡G³]©w·í dist ¤p©ó¤@©w­È¤§«á´N¤£§ó·s direct ©M target¸ê°T¡C
+        /// ç›´ç·šç§»å‹•æ–¹æ³•ï¼šä¾æ“š dist å’Œ target çš„åƒæ•¸æ±ºå®šç§»å‹•ã€‚
+        /// * åœæ­¢è¿½è¹¤ï¼šè¨­å®šç•¶ dist å°æ–¼ä¸€å®šå€¼ä¹‹å¾Œå°±ä¸æ›´æ–° direct å’Œ targetè³‡è¨Šã€‚
         /// </summary>
         private void TransMove()
         {
@@ -62,11 +62,11 @@ namespace solar_a
             transform.position = Vector3.Lerp(transform.position, target_v3, speed);
             if (dist < 1) moveMethod = MoveMethod.Direction;
         }
-        #region ª«¥ó±Ò°Ê¨Æ¥ó
+        #region ç‰©ä»¶å•Ÿå‹•äº‹ä»¶
         /// <summary>
-        /// ±Nª«¥óªºÁn­µ°õ¦æ©Î°±¤î
+        /// å°‡ç‰©ä»¶çš„è²éŸ³åŸ·è¡Œæˆ–åœæ­¢
         /// </summary>
-        /// <param name="isStop">¬O§_°±¤î</param>
+        /// <param name="isStop">æ˜¯å¦åœæ­¢</param>
         /// <returns></returns>
         public IEnumerator Mute(bool isStop = true)
         {
@@ -89,8 +89,8 @@ namespace solar_a
         }
         void Start()
         {
-            target_v3 = target ? target.transform.position: straightV3;                // ³]©w¥Ø¼Ğªº®y¼Ğ
-            direct = (transform.position - target_v3).normalized; // ³]©w¥Ø¼Ğªº¤è¦V
+            target_v3 = target ? target.transform.position: straightV3;                // è¨­å®šç›®æ¨™çš„åº§æ¨™
+            direct = (transform.position - target_v3).normalized; // è¨­å®šç›®æ¨™çš„æ–¹å‘
             if (randomSpd) Orispeed = Random.Range(Orispeed, Orispeed*2);
         }
 
@@ -117,7 +117,7 @@ namespace solar_a
 
         private void OnTriggerEnter(Collider other)
         {
-            //print("¸I¨ìª«¥ó");
+            //print("ç¢°åˆ°ç‰©ä»¶");
             if (other.tag.Contains("Player")) if(!ManageCenter.space_ctl.isRotate) enabled = false;
         }
         #endregion
