@@ -1,27 +1,27 @@
 using UnityEngine;
 using TMPro;
-
+using System.IO;
 
 namespace solar_a
 {
     /// <summary>
-    /// ¹CÀ¸µ²§ô¨t²Î¡A©I¥s¨t²ÎUI¡C
-    /// ©ñ¤J¼ĞÃD¤å¦r¡A³]©w­nÅã¥Üªº°T®§¡A´N¯à¦bµ²§ô®ÉÀH¾÷²£¥Í¤å¦r¡C
+    /// éŠæˆ²çµæŸç³»çµ±ï¼Œå‘¼å«ç³»çµ±UIã€‚
+    /// æ”¾å…¥æ¨™é¡Œæ–‡å­—ï¼Œè¨­å®šè¦é¡¯ç¤ºçš„è¨Šæ¯ï¼Œå°±èƒ½åœ¨çµæŸæ™‚éš¨æ©Ÿç”¢ç”Ÿæ–‡å­—ã€‚
     /// When the End, it will display messege onto screen.
     /// </summary>
     public class ManageEnd : MonoBehaviour
     {
-        [SerializeField, Header("¼ĞÃD¤å¦r")]
+        [SerializeField, Header("æ¨™é¡Œæ–‡å­—")]
         TMP_Text weclome;
-        [SerializeField, Tooltip("Åã¥Ü°T®§")]
+        [SerializeField, Tooltip("é¡¯ç¤ºè¨Šæ¯")]
         string[] messege;
 
-        #region ¤èªk
+        #region æ–¹æ³•
         private void ShowInfo(TMP_Text tp, string player="")
         {
             float distance = ManageCenter.UI_moveDistane;
             int onfuel = ManageCenter.UI_fuel;
-            string[] tmps = { "»P¥@ªøÃã", "¡A§Ú­ÌÃh©À¥¦", "¡ARIP" };
+            string[] tmps = { "èˆ‡ä¸–é•·è¾­", "ï¼Œæˆ‘å€‘æ‡·å¿µå®ƒ", "ï¼ŒRIP" };
             string[] msg = new string[messege.Length + tmps.Length];
             for (int i =0; i < messege.Length + tmps.Length; i++)
             {
@@ -31,16 +31,31 @@ namespace solar_a
                 }
             }
             //foreach (string s in msg) print(s);
-            tp.text = $"{player} ¦b {distance} °±¤U{msg[Random.Range(0, msg.Length)]}";
+            tp.text = $"{player} åœ¨ {distance} åœä¸‹{msg[Random.Range(0, msg.Length)]}";
+            //ç´€éŒ„è³‡è¨Š
+            RecordScores((int)(distance));
         }
-
+        private void RecordScores(int score)
+        {
+            int preScroe = StaticSharp._SCORE;
+            if (preScroe < score) StaticSharp._SCORE = score;
+            else score = preScroe; //è‹¥æ²’æœ‰è¶…éä¹‹å‰çš„ç´€éŒ„ï¼Œå°‡ä¹‹å‰çš„åˆ†æ•¸å¡å›å»å¯«å…¥ã€‚
+            DataSave(score.ToString());
+        }
+        private void DataSave(string data)
+        {
+            string path = Application.persistentDataPath + "/scores.txt";
+            FileStream file = new FileStream(path, FileMode.Open); // é–‹å•Ÿæª”æ¡ˆ
+            StreamWriter sw = new StreamWriter(file);   // å¯«å…¥æ¨¡å¼
+            sw.WriteLine(data);  // å¯«å…¥è³‡æ–™
+            sw.Close();
+            file.Close();
+        }
         #endregion
 
         private void Start()
         {
-            if (weclome!=null) ShowInfo(weclome);                   //Åã¥Üµ²§ô¤å¦r
-            //mgCenter.canvas_select = GetComponent<CanvasGroup>();   //³]©wµe¥¬¤¸¥ó
-            //mgCenter.CheckGame(true);
+            if (weclome!=null) ShowInfo(weclome);                   //é¡¯ç¤ºçµæŸæ–‡å­—
         }
     }
 }

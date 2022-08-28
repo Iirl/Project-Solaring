@@ -3,32 +3,32 @@ using UnityEngine;
 
 /// <summary>
 /// Debug function.
-/// °£¿ù¥Îµ{¦¡¡A§â»İ­nªº¥\¯à©ñ¦b³o¸Ì¡A³z¹L±±¨î¤¤±±¤¤¤ßªº¥¬ªL­È¹F¨ì¾Ş±±ªº®ÄªG¡C
+/// é™¤éŒ¯ç”¨ç¨‹å¼ï¼ŒæŠŠéœ€è¦çš„åŠŸèƒ½æ”¾åœ¨é€™è£¡ï¼Œé€éæ§åˆ¶ä¸­æ§ä¸­å¿ƒçš„å¸ƒæ—å€¼é”åˆ°æ“æ§çš„æ•ˆæœã€‚
 /// </summary>
 public class DBG : MonoBehaviour
 {
     ManageCenter mgc;
-    //
-    [SerializeField, Tooltip("Åã¥Ü¦b¹CÀ¸¤¤")]
+    #region é¢æ¿æ§åˆ¶æ•ˆæœ
+    [SerializeField, Tooltip("é¡¯ç¤ºåœ¨éŠæˆ²ä¸­")]
     private bool showWindows;
     public bool isShowed { get { return showWindows; } }
-    [SerializeField, Header("¤£·|¦º¤`")]
+    [SerializeField, Header("ä¸æœƒæ­»äº¡")]
     private bool noDead;
-    [SerializeField, Header("¤£¯Ó¿U®Æ")]
+    [SerializeField, Header("ä¸è€—ç‡ƒæ–™")]
     private bool noFuel;
-    [SerializeField, Header("¤£¯Ó½Ä¨ë")]
+    [SerializeField, Header("ä¸è€—è¡åˆº")]
     private bool noRush;
-    [SerializeField, Header("²¾¨ì²×ÂI")]
+    [SerializeField, Header("ç§»åˆ°çµ‚é»")]
     private bool toFinal;
-    [SerializeField, Header("¿U®Æª«¥ó")]
+    [SerializeField, Header("ç‡ƒæ–™ç‰©ä»¶")]
     private GameObject fuelObj;
-    //
+    #endregion
     private void NoDie(bool on = false) => noDead = on;
     private void NoFuel(bool on = false) => noFuel = on;
     private void NoRush(bool on = false) => noRush = on;
     private void ToFinal(bool on = false) => toFinal = on;
     public void ShowDebug(bool isOpen) => showWindows = isOpen;
-    private void SendControl() //±N±±¨î¤º®e¶Çµ¹¥D±±¤¤¤ß
+    private void SendControl() //å°‡æ§åˆ¶å…§å®¹å‚³çµ¦ä¸»æ§ä¸­å¿ƒ
     {
         mgc.noDead = noDead ? true : false;
         mgc.noExhauFuel = noFuel ? true : false;
@@ -36,7 +36,7 @@ public class DBG : MonoBehaviour
         mgc.toFinDest = toFinal ? true : false;
     }    
     /// <summary>
-    /// ÃB¥~¥Í¦¨ª«¥ó
+    /// é¡å¤–ç”Ÿæˆç‰©ä»¶
     /// </summary>
     Object_Generator.Generater obGenerate;
     private void GeneratorBlock()
@@ -48,13 +48,14 @@ public class DBG : MonoBehaviour
         obGenerate.Generates();
     }
 
+    #region äº‹ä»¶æ¬„ä½
     private void Awake()
     {
         mgc = FindObjectOfType<ManageCenter>();
         SendControl();
     }
 
-    [Header("Åã¥Ü¥\¯à"), Space]
+    [Header("é¡¯ç¤ºåŠŸèƒ½"), Space]
     GUIStyle focuss = new GUIStyle();
     private Rect windowRect = new Rect(20, 20, 200, 120);
     private Color onColor = Color.green;
@@ -65,7 +66,7 @@ public class DBG : MonoBehaviour
 
     }
     /// <summary>
-    /// §@¹úµøµ¡
+    /// ä½œå¼Šè¦–çª—
     /// </summary>
     private void CheatWindow(int windowID)
     {
@@ -73,14 +74,15 @@ public class DBG : MonoBehaviour
         // This will make the window be resizable by the top
         // title bar - no matter how wide it gets.
         if (GUI.Button(new Rect(180, 5, 10, 10),  "X")) showWindows =!showWindows;
-        noDead = GUI.Toggle(new Rect(10, 25, 80, 25), noDead, "¤£·|¦º¤`");
-        noFuel = (GUI.Toggle(new Rect(10, 55, 80, 25), noFuel, "¤£¯Ó¿U®Æ"));
-        noRush = (GUI.Toggle(new Rect(100, 25, 80, 25), noRush, "¤£¯Ó½Ä¨ë"));
-        toFinal = (GUI.Toggle(new Rect(100, 55, 80, 25), toFinal, "²¾¨ì²×ÂI")) ;
-        if (GUI.Button(new Rect(10, 85, 80, 25), "+20¿U®Æ")) mgc.FuelReplen(20);
-        if (fuelObj) if (GUI.Button(new Rect(100, 85, 80, 25), "¿U®Æ½c")) GeneratorBlock();
+        noDead = GUI.Toggle(new Rect(10, 25, 80, 25), noDead, "ä¸æœƒæ­»äº¡");
+        noFuel = (GUI.Toggle(new Rect(10, 55, 80, 25), noFuel, "ä¸è€—ç‡ƒæ–™"));
+        noRush = (GUI.Toggle(new Rect(100, 25, 80, 25), noRush, "ä¸è€—è¡åˆº"));
+        toFinal = (GUI.Toggle(new Rect(100, 55, 80, 25), toFinal, "ç§»åˆ°çµ‚é»")) ;
+        if (GUI.Button(new Rect(10, 85, 80, 25), "+20ç‡ƒæ–™")) mgc.FuelReplen(20);
+        if (fuelObj) if (GUI.Button(new Rect(100, 85, 80, 25), "ç‡ƒæ–™ç®±")) GeneratorBlock();
         if (GUI.changed) SendControl();
         //
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
     }
+    #endregion
 }

@@ -3,19 +3,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// ¥ş°ì¸I¼²°»´ú¨t²Î»P¤¤¥¡¨t²Î¤¸¥ó¡C
+/// å…¨åŸŸç¢°æ’åµæ¸¬ç³»çµ±èˆ‡ä¸­å¤®ç³»çµ±å…ƒä»¶ã€‚
 /// </summary>
 public class ColliderSystem : MonoBehaviour
 {
-    #region Äİ©Ê
+    #region å±¬æ€§
     static ColliderSystem collSys;
     public enum Genertic { Supply, Other }
     #endregion
-    [SerializeField, Header("¼²À»¯S®Ä"), NonReorderable]
+    [SerializeField, Header("æ’æ“Šç‰¹æ•ˆ"), NonReorderable]
     EffectGameObject[] effects;
-    [SerializeField, Header("ª««~®ÄªG"), NonReorderable]
+    [SerializeField, Header("ç‰©å“æ•ˆæœ"), NonReorderable]
     BlockGameObject[] blocks;
-    private readonly object locker = new object();
+    //
     private bool tmpvar;
 
     [System.Serializable]
@@ -23,7 +23,7 @@ public class ColliderSystem : MonoBehaviour
     {
         public string label;
         public GameObject ExplodeObj;
-        public int ExplodeTime=1;
+        public int ExplodeTime = 1;
     }
 
     [System.Serializable]
@@ -32,18 +32,18 @@ public class ColliderSystem : MonoBehaviour
         public string label;
         public Genertic species;
         public int plus;
-        [Header("Án­µ±±¨î")]
+        [Header("è²éŸ³æ§åˆ¶")]
         public AudioClip adClip;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float adVol;
 
     }
-    #region ¸I¼²¨Æ¥ó
+    #region ç¢°æ’äº‹ä»¶
     static bool loadScene;
     /// <summary>
-    /// ¸I¼²¨Æ¥ó³B²z³W«h¡G
-    /// ¦pªG¸I¨ì¼Ä¤H´N®ø·À¡A¨Ã¥B¥Í¦¨¯S®Ä¡C
-    /// ¦pªG¸I¨ì¤è¶ô´NÀË¬d­n°õ¦æªº°Ê§@¡C
+    /// ç¢°æ’äº‹ä»¶è™•ç†è¦å‰‡ï¼š
+    /// å¦‚æœç¢°åˆ°æ•µäººå°±æ¶ˆæ»…ï¼Œä¸¦ä¸”ç”Ÿæˆç‰¹æ•ˆã€‚
+    /// å¦‚æœç¢°åˆ°æ–¹å¡Šå°±æª¢æŸ¥è¦åŸ·è¡Œçš„å‹•ä½œã€‚
     /// </summary>
     /// <param name="hitObj"></param>
     static public int CollisionPlayerEvent(GameObject hitObj)
@@ -53,83 +53,84 @@ public class ColliderSystem : MonoBehaviour
         int i = 0;
         if (hitObj.tag.Contains("Enemy"))
         {
-            i = 1; //µ²§ô¹CÀ¸³B²z
+            i = 1; //çµæŸéŠæˆ²è™•ç†
             if (ManageCenter.space_ctl.isRotate) return -1;
-            ManageCenter.rocket_ctl.SendMessage("ADOClipControl", 1);
             StaticSharp.Conditions = State.End;
         }
         else if (hitObj.tag.Contains("Block"))
         {
-            i = 2; //·í¤õ½b¸I¨ì¸É«~®É
+            i = 2; //ç•¶ç«ç®­ç¢°åˆ°è£œå“æ™‚
             ManageCenter.mgCenter.ObjectDestory(hitObj, false);
             if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);
         }
         else if (hitObj.tag.Contains("Respawn"))
         {
-            i = 3; // ¸I¨ì¤ÓªÅ¯¸
+            i = 3; // ç¢°åˆ°å¤ªç©ºç«™
             ManageCenter.mgCenter.InToStation();
         }
         else if (hitObj.tag.Contains("Finish"))
         {
-            i = 4; // ¶i¤J²×ÂI
-            if(!loadScene)
+            i = 4; // é€²å…¥çµ‚é»
+            if (!loadScene)
             {
                 loadScene = true;
                 StaticSharp.isChangeScene = true;
-                print("²×ÂI¡AÂà³õ");
+                print("çµ‚é»ï¼Œè½‰å ´");
             }
         }
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);
         return i;
     }
-    static public void StageColliderEvent(GameObject hitObj, bool hasDest=true)
+    static public void StageColliderEvent(GameObject hitObj, bool hasDest = true)
     {
-        //print("³õ´ºÃä½tÄ²µo");
-        if (!hitObj.tag.Contains("Player"))ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
+        //print("å ´æ™¯é‚Šç·£è§¸ç™¼");
+        if (!hitObj.tag.Contains("Player")) ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
     }
     /// <summary>
-    /// ¤è¶ô¸I¼²¨Æ¥ó
+    /// æ–¹å¡Šç¢°æ’äº‹ä»¶
     /// </summary>
     /// <param name="name"></param>
     private void BolckEvent(string name)
     {
-        if (name == "") return;
-        lock (locker)
+        if (!tmpvar && name.Length >0)
         {
-            if (!tmpvar)
+            tmpvar = true;
+            //print($"æŸ¥è©¢æ˜¯å¦åŒ¹é… {name}");
+            foreach (var block in blocks)
             {
-                tmpvar = true;
-                //print($"¬d¸ß¬O§_¤Ç°t {name}");
-                foreach (var block in blocks)
+                if (name.ToLower().Contains(block.label.ToLower()) && block.species == Genertic.Supply)
                 {
-                    if (name.ToLower().Contains(block.label.ToLower()) && block.species == Genertic.Supply)
+                    //print(block.label);
+                    ManageCenter.mgCenter.FuelReplen(block.plus);
+                    if (block.adClip && ManageCenter.mgDsko)
                     {
-                        //print(block.label);
-                        ManageCenter.mgCenter.FuelReplen(block.plus);
-                        if (block.adClip) ManageCenter.rocket_ctl.ADOClipControl(block.adClip,block.adVol);
+                        ManageCenter.mgDsko.EffectVolumeAdjust(block.adVol);
+                        ManageCenter.mgDsko.OneShotEffect(block.adClip);
                     }
                 }
             }
-            tmpvar = false;
         }
+        tmpvar = false;
+
     }
     /// <summary>
-    /// ¸I¼²²£¥ÍÃz¬µ¯S®Ä¨Æ¥ó
+    /// ç¢°æ’ç”¢ç”Ÿçˆ†ç‚¸ç‰¹æ•ˆäº‹ä»¶
     /// </summary>
-    /// <param name="gob">µo¥Í¸I¼²ªº¦ì¸m</param>
+    /// <param name="gob">ç™¼ç”Ÿç¢°æ’çš„ä½ç½®</param>
     private void ExploderEvent(GameObject gob)
     {
         if (!gob) return;
         foreach (var e in effects)
         {
-            if (gob.name.ToLower().Contains(e.label.ToLower())) {
-                print($"Ãz¬µ¯S®Ä {e.label} ²£¥Í");
-                Destroy(Instantiate(e.ExplodeObj,transform),e.ExplodeTime);
+            if (gob.name.ToLower().Contains(e.label.ToLower()))
+            {
+                print($"çˆ†ç‚¸ç‰¹æ•ˆ {e.label} ç”¢ç”Ÿ");
+                Destroy(Instantiate(e.ExplodeObj, transform), e.ExplodeTime);
             }
         }
     }
     /// <summary>
-    /// Âà³õ¨Æ¥ó
+    /// è½‰å ´äº‹ä»¶
     /// </summary>
     //private void SceneChageEvent() => ManageCenter.StartC
     #endregion

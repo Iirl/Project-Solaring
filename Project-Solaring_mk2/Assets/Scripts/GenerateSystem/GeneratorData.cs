@@ -7,29 +7,29 @@ using UnityEngine.Scripting;
 [CreateAssetMenu(fileName ="New Object",menuName = "SolarPrject/Object Generator")]
 public class GeneratorData :ScriptableObject
 {
-    [SerializeField, Header("²£¥Í¾¹Ãş§O")]
+    [SerializeField, Header("ç”¢ç”Ÿå™¨é¡åˆ¥")]
     public GenerClass grtClass;
-    [SerializeField, Header("²£¥Íª«¥ó")]
+    [SerializeField, Header("ç”¢ç”Ÿç‰©ä»¶")]
     public GameObject grtObject;
-    [SerializeField, Header("·íÃş§O¬°Meteo®É²£¥Í¤lª«¥ó")]
+    [SerializeField, Header("ç•¶é¡åˆ¥ç‚ºMeteoæ™‚ç”¢ç”Ÿå­ç‰©ä»¶")]
     public List<UnityEngine.Object> grtSubObject;
     [SerializeField, Tooltip("Create SubObject probablity"), Range(0, 1)]
     public float grtProb = 0.5f;
-    [SerializeField, Header("©µ¿ğ®É¶¡")]
+    [SerializeField, Header("å»¶é²æ™‚é–“")]
     public float grtIntervalTime =1f;
-    [SerializeField, Tooltip("µ¥«İ®É¶¡")]
+    [SerializeField, Tooltip("ç­‰å¾…æ™‚é–“")]
     public float grtWaitTime = 5f;
-    [SerializeField, Tooltip("¦Û°Ê®ø·À®É¶¡")]
+    [SerializeField, Tooltip("è‡ªå‹•æ¶ˆæ»…æ™‚é–“")]
     public float grtdestTime = 5f;
-    [SerializeField, Header("«ü©wª«¥ó½d³ò")]
+    [SerializeField, Header("æŒ‡å®šç‰©ä»¶ç¯„åœ")]
     public Vector3 grtPos = Vector3.zero;
-    [SerializeField, Tooltip("¥Í¦¨¶ZÂ÷½Õ¾ã"), Range(0,100)]
+    [SerializeField, Tooltip("ç”Ÿæˆè·é›¢èª¿æ•´"), Range(0,100)]
     public float grtOffset;
-    [SerializeField, Tooltip("¬O§_ÀH¾÷±ÛÂà")]
+    [SerializeField, Tooltip("æ˜¯å¦éš¨æ©Ÿæ—‹è½‰")]
     public bool grtRandomRoation;
-    [SerializeField, Tooltip("«ü©wª«¥ó±ÛÂà")]
+    [SerializeField, Tooltip("æŒ‡å®šç‰©ä»¶æ—‹è½‰")]
     public Quaternion grtRot = Quaternion.identity;
-    [SerializeField, Header("«ü©wª«¥ó¥Í¦¨¼Æ¶q¤W­­")]
+    [SerializeField, Header("æŒ‡å®šç‰©ä»¶ç”Ÿæˆæ•¸é‡ä¸Šé™")]
     public int grtLimit = 10;    
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 /// <summary>
-///  ¦¹µ{¦¡¬O±±¨îª±®a¬ÛÃöªº¾Ş§@¤èªk¡A«ØÄ³©ñ¦bª±®aª«¥ó¤W¡C
+///  æ­¤ç¨‹å¼æ˜¯æ§åˆ¶ç©å®¶ç›¸é—œçš„æ“ä½œæ–¹æ³•ï¼Œå»ºè­°æ”¾åœ¨ç©å®¶ç‰©ä»¶ä¸Šã€‚
 ///  Include basic move, audio control, collision detect and State Class.
 /// </summary>
 namespace solar_a
@@ -11,16 +11,16 @@ namespace solar_a
     public class Rocket_Controll : MonoBehaviour
     {
 
-        #region Äİ©Ê
+        #region å±¬æ€§
         ParticleSystem particle_fire;
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
         private bool isBoost;
         #endregion
-        #region #§Ç¦C¤ÆÄİ©Ê
-        [SerializeField, Header("¤õ½bªº°ò¥»¸ê°T\n¿U®Æ(X)\n²¾°Ê³t«×(Y)\n½Ä¨ë­¿²v(Z)")]
+        #region #åºåˆ—åŒ–å±¬æ€§
+        [SerializeField, Header("ç«ç®­çš„åŸºæœ¬è³‡è¨Š\nç‡ƒæ–™(X)\nç§»å‹•é€Ÿåº¦(Y)\nè¡åˆºå€ç‡(Z)")]
         public Vector3 RocketBasic;
-        [SerializeField, Header("³æ¦ì®ø¯Ó¿U®Æ")]
+        [SerializeField, Header("å–®ä½æ¶ˆè€—ç‡ƒæ–™")]
         private float unit_fuel;
         public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
         [SerializeField]
@@ -34,45 +34,45 @@ namespace solar_a
         Vector3 boostDirect;
         [SerializeField]
         public float fuel_overcapacity = 20;
-        // ¨ú±o¤õ½b¸ê°TªºÄæ¦ì
+        // å–å¾—ç«ç®­è³‡è¨Šçš„æ¬„ä½
         public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
-        [SerializeField, Header("¤õµK±±¨î¶µ")]
+        [SerializeField, Header("ç«ç„°æ§åˆ¶é …")]
         Vector2 fireLenght_min = new Vector2(0.5f, 1f);
-        [SerializeField, Tooltip("ºÉ¶q¤£­n¶W¹L¹w³]­È¤Ó¦h")]
+        [SerializeField, Tooltip("ç›¡é‡ä¸è¦è¶…éé è¨­å€¼å¤ªå¤š")]
         Vector2 fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
-        [SerializeField, Header("¤õµK³Ì¤j­µ¶q"), Range(0.1f, 1f)]
+        [SerializeField, Header("ç«ç„°æœ€å¤§éŸ³é‡"), Range(0.1f, 1f)]
         float fire_volume = 0.6f;
         [SerializeField]
         List<AudioClip> rocket_Clip = new List<AudioClip>();
-        [SerializeField, Header("¤õ½b¤j¤p")]
+        [SerializeField, Header("ç«ç®­å¤§å°")]
         Vector3 rocketBox = new Vector3(1f, 3f, 0);
-        [SerializeField, Tooltip("¤õ½b¦ì²¾")]
+        [SerializeField, Tooltip("ç«ç®­ä½ç§»")]
         Vector3 rocketOffset = new Vector3(0, -1f, 0);
-        [SerializeField, Tooltip("¤õ½bÃC¦â")]
+        [SerializeField, Tooltip("ç«ç®­é¡è‰²")]
         Color rocketColor = Color.white;
-        [SerializeField, Header("¤õ½bª¬ºA")]
+        [SerializeField, Header("ç«ç®­ç‹€æ…‹")]
         public RocketCondition rc_dtion = new RocketCondition() { state = RocketState.Stay };
         //
         #endregion
 
         /// <summary>
-        /// ¦s¨ú¤õ½b¸ê°T¤èªk¡G
-        /// PutRocketSyn ¥i¥H­×§ï·í«e¤õ½bªºª¬ºA¡A¯à°÷­­¨î¿é¤J­È¡A¶i¤J¤¤Ä~¯¸®É·|Åª¨ú RocketS1 ªº¸ê®Æ¡C
-        /// RocketS1 ¬O°ßÅªÄæ¦ì¡A¤£¥i¥Hª½±µ­×§ï¸Ó¼Æ­È¡C
-        /// RocketBasic ¬O¤õ½bªº°ò¥»¯À½è¡A­«·sÅª¨ú©Î´«³õ´º®É·|Åª¨ú¸Ó¸ê®Æ¡A§ï³y¤õ½b®É¤£¯à§C©ó¸Ó¼Æ­È¡C
-        /// SetBasicInfo ª½±µ­×§ï¤õ½bªº°ò¥»¯À½è¡C
+        /// å­˜å–ç«ç®­è³‡è¨Šæ–¹æ³•ï¼š
+        /// PutRocketSyn å¯ä»¥ä¿®æ”¹ç•¶å‰ç«ç®­çš„ç‹€æ…‹ï¼Œèƒ½å¤ é™åˆ¶è¼¸å…¥å€¼ï¼Œé€²å…¥ä¸­ç¹¼ç«™æ™‚æœƒè®€å– RocketS1 çš„è³‡æ–™ã€‚
+        /// RocketS1 æ˜¯å”¯è®€æ¬„ä½ï¼Œä¸å¯ä»¥ç›´æ¥ä¿®æ”¹è©²æ•¸å€¼ã€‚
+        /// RocketBasic æ˜¯ç«ç®­çš„åŸºæœ¬ç´ è³ªï¼Œé‡æ–°è®€å–æˆ–æ›å ´æ™¯æ™‚æœƒè®€å–è©²è³‡æ–™ï¼Œæ”¹é€ ç«ç®­æ™‚ä¸èƒ½ä½æ–¼è©²æ•¸å€¼ã€‚
+        /// SetBasicInfo ç›´æ¥ä¿®æ”¹ç«ç®­çš„åŸºæœ¬ç´ è³ªã€‚
         /// </summary>
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
 
-        #region ¤½¥Î¤èªk
+        #region å…¬ç”¨æ–¹æ³•
         /// <summary>
-        /// ¤õ½b¸ê®ÆÅÜ°Ê¡C
+        /// ç«ç®­è³‡æ–™è®Šå‹•ã€‚
         /// </summary>
-        /// <returns>x=¿U®Æ¡Fy=³t«×¡Fz=¥[³t®É¶¡</returns>
+        /// <returns>x=ç‡ƒæ–™ï¼›y=é€Ÿåº¦ï¼›z=åŠ é€Ÿæ™‚é–“</returns>
         public Vector3 PutRocketSyn(float x, float y = -1, float z = -1)
         {
             fuel += x;
-            if (fuel > RocketBasic.x) fuel = RocketBasic.x; // ¿U®Æ­­¨î¦b³Ì¤j­È
+            if (fuel > RocketBasic.x) fuel = RocketBasic.x; // ç‡ƒæ–™é™åˆ¶åœ¨æœ€å¤§å€¼
             else if (fuel < 0) fuel = 0;
             speed_v = y >= 0 ? y : speed_v;
             speed_a = z >= 0 ? z : speed_a;
@@ -80,7 +80,7 @@ namespace solar_a
         }
 
         /// <summary>
-        /// ¤Á´«¹B¦æª¬ºA¡GÃöÁn­µ¡B©w¦bµe­±¤W¥H¤ÎÃö³¬²¾°Ê±±¨î¡C
+        /// åˆ‡æ›é‹è¡Œç‹€æ…‹ï¼šé—œè²éŸ³ã€å®šåœ¨ç•«é¢ä¸Šä»¥åŠé—œé–‰ç§»å‹•æ§åˆ¶ã€‚
         /// </summary>
         public IEnumerator ControlChange(bool on = false)
         {
@@ -101,10 +101,10 @@ namespace solar_a
 
         }
         /// <summary>
-        /// ²¾°Ê±±¨î
+        /// ç§»å‹•æ§åˆ¶
         /// </summary>
-        /// <param name="horizon">¤ô¥­²¾°Ê¦V¶q</param>
-        /// <param name="vertial">««ª½²¾°Ê¦V¶q</param>
+        /// <param name="horizon">æ°´å¹³ç§»å‹•å‘é‡</param>
+        /// <param name="vertial">å‚ç›´ç§»å‹•å‘é‡</param>
         private void MoveControll(float horizon, float vertial, float boost)
         {
             if (Mathf.Abs(horizon) < 0.005f) horizon = 0;
@@ -112,27 +112,27 @@ namespace solar_a
             float xSpeed = (speed_v * horizon) * Time.deltaTime;
             float ySpeed = (speed_v * vertial) * Time.deltaTime;
             float aSpeed = speed_v * speed_a * Time.deltaTime;
-            // ²¾°Ê±±¨î
+            // ç§»å‹•æ§åˆ¶
             Vector3 v3 = new Vector3(xSpeed, ySpeed, 0);
             Rocket_Rig.velocity += v3;
-            // Â½Âà¦^´_
+            // ç¿»è½‰å›å¾©
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
             //print($"H+V:{Mathf.Abs(horizon) + Mathf.Abs(vertial)};");
-            // ¤õµK±±¨î
+            // ç«ç„°æ§åˆ¶
             if (particle_fire != null)
             {
                 float x_var = Mathf.Abs(horizon);
                 float y_var = Mathf.Abs(vertial);
-                //// set Fire X axis lenght.¾î¶bªø«×
+                //// set Fire X axis lenght.æ©«è»¸é•·åº¦
                 float xFire = fireLenght_min.x - 0.1f;
                 if (horizon != 0) xFire = Mathf.Pow(fireLenght_max.x, x_var);
                 //else if (horizon < 0) xFire = Mathf.Pow(fire_min_x, x_var);
-                //// set Fire Y axis lenght.Áa¶bªø«×
+                //// set Fire Y axis lenght.ç¸±è»¸é•·åº¦
                 float yFire = fireLenght_min.y - 0.1f;
                 if (vertial > 0) yFire += Mathf.Pow(fireLenght_max.y, y_var);
                 else if (vertial < 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, y_var));
-                // ½Ä¨ëª¬ºA
+                // è¡åˆºç‹€æ…‹
                 if (rc_dtion.IsBoost)
                 {
                     boostDirect = new Vector3(horizon * aSpeed, vertial * aSpeed, 0);
@@ -148,17 +148,17 @@ namespace solar_a
             //print(particle_fire.isPlaying);
         }
         /// <summary>
-        /// ½Ä¨ëµ{§Ç
+        /// è¡åˆºç¨‹åº
         /// </summary>
-        /// <returns>µ¥«İ®É¶¡</returns>
+        /// <returns>ç­‰å¾…æ™‚é–“</returns>
         private IEnumerator StartBoost()
         {
             isBoost = true;
             float horizon = Input.GetAxis("Horizontal") != 0 ? 1 : 0;
             float vertial = Input.GetAxis("Vertical") != 0 ? 1 : 0;
             int c = rush_counts;
-            // ¥[³t«×±±¨î
-            //¼W¥[±À¤O
+            // åŠ é€Ÿåº¦æ§åˆ¶
+            //å¢åŠ æ¨åŠ›
             Rocket_sound.pitch = 1.5f;
             while (c == rush_counts)
             {
@@ -170,7 +170,7 @@ namespace solar_a
             }
         }
         /// <summary>
-        ///  ÂI¤õ±±¨î
+        ///  é»ç«æ§åˆ¶
         /// </summary>
         private void ignix_fire()
         {
@@ -183,9 +183,21 @@ namespace solar_a
             }
         }
 
-        #region ­µ®Ä
+        #region éŸ³æ•ˆ
+        public void ADOClipControl(AudioClip acp, float vol = 1) => Rocket_sound.PlayOneShot(acp, vol);
         /// <summary>
-        /// ¤õ½b­µ®Ä²H¤J
+        /// ç«ç®­éŸ³æ•ˆè¨­å®šï¼š
+        /// 0. ç¢°åˆ°è£œçµ¦å“
+        /// 1. ç¢°åˆ°æ•µäººæˆ–è‡ªçˆ†
+        /// 2. å¼·åŒ–æ€§éŸ³æ•ˆ
+        /// </summary>
+        public void ADOClipControl(int i)
+        {
+            Rocket_sound.volume = 1;
+            Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
+        }
+        /// <summary>
+        /// ç«ç®­éŸ³æ•ˆæ·¡å…¥
         /// </summary>
         private void SoundFadeIn()
         {
@@ -194,7 +206,7 @@ namespace solar_a
             else { CancelInvoke("SoundFadIn"); }
         }
         /// <summary>
-        /// ¤õ½b­µ®Ä²H¥X
+        /// ç«ç®­éŸ³æ•ˆæ·¡å‡º
         /// </summary>
         private void SoundFadeOut()
         {
@@ -206,19 +218,6 @@ namespace solar_a
             else { CancelInvoke("SoundFadeOut"); }
 
         }
-
-        /// <summary>
-        /// ¤õ½b­µ®Ä³]©w¡G
-        /// 0. ¸I¨ì¸Éµ¹«~
-        /// 1. ¸I¨ì¼Ä¤H©Î¦ÛÃz
-        /// 2. ±j¤Æ©Ê­µ®Ä
-        /// </summary>
-        public void ADOClipControl(int i)
-        {
-            Rocket_sound.volume = 1;
-            Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
-        }
-        public void ADOClipControl(AudioClip acp, float vol=1) => Rocket_sound.PlayOneShot(acp, vol);
         #endregion
 
         private void Awake()
@@ -232,7 +231,7 @@ namespace solar_a
             Rocket_sound = GetComponent<AudioSource>();
 
         }
-        #region ¨Æ¥ó
+        #region äº‹ä»¶
         private void Controller() => MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
         private bool InputMove() => Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
         private bool InputBoost() => Input.GetAxisRaw("Force") != 0;
@@ -263,11 +262,11 @@ namespace solar_a
             }
             //print(InputMove());
             //if (StaticSharp.Conditions == State.Finish) rc_dtion.onStop();
-            // ¤õ½b¥¿±`ª¬ºA¤Uªº¦æ°Ê¡C
+            // ç«ç®­æ­£å¸¸ç‹€æ…‹ä¸‹çš„è¡Œå‹•ã€‚
             if (!rc_dtion.IsStop)
             {
                 Controller();
-                // ª¬ºA±±¨î
+                // ç‹€æ…‹æ§åˆ¶
                 //print(rc_dtion.state);
                 if (!rc_dtion.IsStay)
                 {
@@ -290,8 +289,9 @@ namespace solar_a
         {
             //CollisionEvent(other.gameObject);
             int idx = ColliderSystem.CollisionPlayerEvent(other.gameObject);
-            //print($"(Rocket_Controll)µo¥Í¸I¼²ªº¦ì¸m:{other.transform.position}");
-            //print($"(Rocket_Controll)­¸²î©Ò¦bªº¦ì¸m:{transform.position}, N:{other.tag}");
+            if (other.tag.Contains("Enemy")) ADOClipControl(1);
+            //print($"(Rocket_Controll)ç™¼ç”Ÿç¢°æ’çš„ä½ç½®:{other.transform.position}");
+            //print($"(Rocket_Controll)é£›èˆ¹æ‰€åœ¨çš„ä½ç½®:{transform.position}, N:{other.tag}");
         }
         private void OnCollisionEnter(Collision collision)
         {
@@ -303,7 +303,7 @@ namespace solar_a
         #endregion
     }
 
-    #region ¤õ½bª¬ºA
+    #region ç«ç®­ç‹€æ…‹
     public class RocketCondition
     {
         public RocketState state = RocketState.Stop;

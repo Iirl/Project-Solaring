@@ -3,16 +3,16 @@ using UnityEngine;
 namespace solar_a
 {
     /// <summary>
-    /// ¤å¥»¸ê®ÆÀÉ Script Data.
-    /// ¹w©w§@¬°©Ò¦³¸}¥»ªº°òÂ¦¸ê®ÆÀÉ
-    /// UI»P¹ï¸Ü·|¤À§O¥H¤£¦Pªº¨t²Îµ{¦¡°õ¦æ
+    /// æ–‡æœ¬è³‡æ–™æª” Script Data.
+    /// é å®šä½œç‚ºæ‰€æœ‰è…³æœ¬çš„åŸºç¤è³‡æ–™æª”
+    /// UIèˆ‡å°è©±æœƒåˆ†åˆ¥ä»¥ä¸åŒçš„ç³»çµ±ç¨‹å¼åŸ·è¡Œ
     /// </summary>
     [CreateAssetMenu(fileName = "New scenario", menuName = "SolarPrject/Language Script")]
     public class ScriptData : ScriptableObject
     {
-        [SerializeField, Header("¥­¥xÃş«¬")]
+        [SerializeField, Header("å¹³å°é¡å‹")]
         public Platforms platform;
-        [Header("Åª¨ú¸ê®Æ"),NonReorderable]
+        [Header("è®€å–è³‡æ–™"), NonReorderable]
         public LanguageClass[] Language;
         //
         public enum Platforms { PC, Mobile }
@@ -24,10 +24,5 @@ namespace solar_a
             public string[] datas;
 
         }
-        
     }
-
-    
-
-
 }

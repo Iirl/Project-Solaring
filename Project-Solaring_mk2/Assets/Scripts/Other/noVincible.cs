@@ -3,14 +3,14 @@ using UnityEngine;
 namespace solar_a
 {
     /// <summary>
-    /// ·íª«¥ó¸I¨ìª±®aµL½×¦p¦ó³£·|µ²§ô¹CÀ¸
+    /// ç•¶ç‰©ä»¶ç¢°åˆ°ç©å®¶ç„¡è«–å¦‚ä½•éƒ½æœƒçµæŸéŠæˆ²
     /// When object trigger the player, the game will end
     /// </summary>
     public class noVincible : MonoBehaviour
     { 
         private void OnTriggerEnter(Collider other)
         {
-            //print("¸I¨ìª«¥ó");
+            //print("ç¢°åˆ°ç‰©ä»¶");
             if (other.tag.Contains("Player")) StaticSharp.Conditions = State.End;
         }
         

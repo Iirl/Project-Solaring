@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1482,6 +1482,7 @@ RectTransform:
   - {fileID: 542198568}
   - {fileID: 2096007712}
   - {fileID: 489434313}
+  - {fileID: 2119398232}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4965,6 +4966,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096007711}
   m_CullTransparentMesh: 1
+--- !u!1 &2119398231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119398232}
+  - component: {fileID: 2119398233}
+  m_Layer: 5
+  m_Name: TextSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2119398232
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119398231}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -560.7544}
+  m_LocalScale: {x: 2.8232737, y: 2.8232737, z: 2.8232737}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 554117837}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1806.8754, y: 1009.358}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2119398233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119398231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26778faf14878dc42b64698a015c28b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landata: {fileID: 11400000, guid: e899727110d99fd4d8659c5769c3bf4d, type: 2}
+  TextField:
+  - label: "\u71C3\u6599 "
+    id: 21
+    TmpUGUI: {fileID: 623994397}
+  - label: "\u79FB\u52D5\u901F\u5EA6 "
+    id: 22
+    TmpUGUI: {fileID: 755362740}
+  - label: "\u52A0\u901F\u5EA6 "
+    id: 23
+    TmpUGUI: {fileID: 257607584}
+  - label: "\u706B\u7BAD\u53C3\u6578\u8ABF\u6574 "
+    id: 24
+    TmpUGUI: {fileID: 792268013}
+  - label: "\u51FA\u53E3 "
+    id: 25
+    TmpUGUI: {fileID: 645746950}
 --- !u!1001 &8386797634871073814
 PrefabInstance:
   m_ObjectHideFlags: 0

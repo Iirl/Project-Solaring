@@ -63,12 +63,12 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
-  - guid: 9f210ce4c1fbf944c890119b31770a64
-    name: effec
-  - guid: 76350ed0ea7a368428acd507593a0115
-    name: player
-  - guid: ccedb8f2312026148945008b56c76e03
-    name: vome
+  - guid: d68ee37545b4a3940bdfdde6d4e21925
+    name: effectVol
+  - guid: 20785bbd86333084684d64a7f002bd81
+    name: MainVolume
+  - guid: b26b302941cefd04c8876bc37826cf0e
+    name: micVol
   m_AudioMixerGroupViews:
   - guids:
     - 67c82be379a06694e9eacd945e806220
@@ -131,7 +131,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Volume
+  m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 262c4dc3d19b4b44f82f3561638d6997
   m_Children: []

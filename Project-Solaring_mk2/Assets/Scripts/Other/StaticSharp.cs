@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class StaticSharp
 {
+    // æª”æ¡ˆå­˜å–è³‡è¨Š
     static public int _LANG_ID;
-    //
+    static public int _SCORE;
+    static public float _VOLUME;
+    // éŠæˆ²å…§è³‡è¨Š
     static public State Conditions;
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
@@ -13,11 +16,11 @@ public class StaticSharp
     static public bool isDialogEvent;
     //
     
-    #region Shotkey, §Ö±¶Áä³]©w
+    #region Shotkey, å¿«æ·éµè¨­å®š
     static private void TestBoard(DBG d)
     {
         //print("Debug");
-        //Åã¥Ü°£¿ù­±ªO        
+        //é¡¯ç¤ºé™¤éŒ¯é¢æ¿        
         if (d) d.ShowDebug(!d.isShowed);
         if (d) return; 
         CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
@@ -25,7 +28,7 @@ public class StaticSharp
 
     }
     /// <summary>
-    /// ¯S®í«ü¥O¡A·íª±®a¿é¤J§Ö³tÁäªº®É­Ô·|¥X²{ªº«Ê¹ú¥\¯à¡C
+    /// ç‰¹æ®ŠæŒ‡ä»¤ï¼Œç•¶ç©å®¶è¼¸å…¥å¿«é€Ÿéµçš„æ™‚å€™æœƒå‡ºç¾çš„å°å¼ŠåŠŸèƒ½ã€‚
     /// </summary>
     static public void SpecialistKeyInput(bool isCtrl, bool isAtl, bool isLS)
     {
@@ -59,7 +62,8 @@ public class StaticSharp
             {
                 if (kLS) Debug.Log("A+S button");
                 else if (kN) Debug.Log("N button");
-                else if (kR) Dbg.SendMessage("GeneratorBlock"); //²£¥ÍOBJª«¥ó
+                else if (kR) Dbg.SendMessage("GeneratorBlock"); //ç”¢ç”ŸOBJç‰©ä»¶
+                else if (kP) ManageCenter.mgCenter.X_PowerMode();
             }
             else if (isLS)
             {
@@ -72,9 +76,9 @@ public class StaticSharp
     #endregion
 
     /// <summary>
-    /// ¹CÀ¸ª¬ºA¾÷
-    /// ¥Ø«e¥ı³]©w¬°¡G°õ¦æ¤¤¡BÅª¨ú¡B¼È°±¤Îµ²§ô¹CÀ¸¡C
-    /// ¡°»P¤§«eªº¼gªk¬Û¤ñ¡A¤£»İ­n­Ó§O³]©w¥¬ªL­È¡Aª¬ºAÅÜ¤Æ¥u­n¤U­nÅÜªº¨ç¼Æ´N¥i¥H¡A¦Ó¥B¶¶§Ç¥i¥H©T©w©Î«ü©w¡C
+    /// éŠæˆ²ç‹€æ…‹æ©Ÿ
+    /// ç›®å‰å…ˆè¨­å®šç‚ºï¼šåŸ·è¡Œä¸­ã€è®€å–ã€æš«åœåŠçµæŸéŠæˆ²ã€‚
+    /// â€»èˆ‡ä¹‹å‰çš„å¯«æ³•ç›¸æ¯”ï¼Œä¸éœ€è¦å€‹åˆ¥è¨­å®šå¸ƒæ—å€¼ï¼Œç‹€æ…‹è®ŠåŒ–åªè¦ä¸‹è¦è®Šçš„å‡½æ•¸å°±å¯ä»¥ï¼Œè€Œä¸”é †åºå¯ä»¥å›ºå®šæˆ–æŒ‡å®šã€‚
     /// </summary>
     public class GameCondition
     {
@@ -114,10 +118,10 @@ public enum SpacetState { Stay, Setting, Rotate, Stop }
 static class Extension
 {
     /// <summary>
-    /// ²H¤J¥Xµe¥¬±±¨î¨t²Î
+    /// æ·¡å…¥å‡ºç•«å¸ƒæ§åˆ¶ç³»çµ±
     /// </summary>
-    /// <param name="cvsgp">µe¥¬¤¸¥ó</param>
-    /// <param name="isIN">¬O§_²H¤J¡A§_«h²H¥X</param>
+    /// <param name="cvsgp">ç•«å¸ƒå…ƒä»¶</param>
+    /// <param name="isIN">æ˜¯å¦æ·¡å…¥ï¼Œå¦å‰‡æ·¡å‡º</param>
     static public void CanvansFadeControl(this CanvasGroup cvsgp, bool isIN = false)
     {
         cvsgp.alpha = isIN ? 1 : 0;

@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Audio;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 namespace solar_a
 {
     /// <summary>
@@ -25,6 +19,9 @@ namespace solar_a
         [SerializeField, Header("各程式管理系統"),Tooltip("場景系統")]
         private ManageScene MgScene;
         static public ManageScene mgScene;
+        [SerializeField, Tooltip("聲音管理")]
+        private ManageDisco MgDisco;
+        static public ManageDisco mgDsko;
         [SerializeField, Tooltip("結束管理")]
         private ManageEnd MgEnd;
         static public ManageEnd mgEnd;
@@ -63,23 +60,15 @@ namespace solar_a
         CanvasGroup pauseMenus;
         [SerializeField, Header("畫布淡化速度")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
-        [SerializeField, Header("混音控制系統")]
-        AudioMixer adM;
         #region 本地調閱欄位 (Private Feild)
         [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         private CanvasGroup canvas_select;
-        private AudioSource AudioBox;
-        [HideInInspector]
+        [HideInInspector] //作弊控制開關
         public bool noExhauFuel, noExhauRush, noDead, toFinDest;
         #endregion
 
 
-        public void X_PowerMode()
-        {
-            
-            noDead = !noDead;
-            transform.Find("AudioBox").GetComponent<AudioSource>().Play();
-        }
+        public void X_PowerMode() => noDead = !noDead;
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
@@ -96,7 +85,9 @@ namespace solar_a
         public void GetState() => print(condition.GetState());
 
         #region 火箭控制與計數相關
+        public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
+        //
         private IEnumerator DeathCounter(float counter=0)
         {            
             for (int i=0; i< counter;i++) yield return new WaitForSeconds(1);
@@ -108,7 +99,7 @@ namespace solar_a
         /// 舊版：調整場景的 Y軸數值。
         /// 新版：直接修改UI數值。
         /// </summary>
-        public void MoveAction()
+        private void MoveAction()
         {
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
@@ -133,67 +124,14 @@ namespace solar_a
         /// 燃料補充函數，輸入定值增加燃料。
         /// </summary>
         /// <param name="f">指定要補的值</param>
-        public void FuelReplen(int f)
+        /// <param name="nowFuel">目前的燃料值</param>
+        private void FuelReplens(int f, float nowFuel)
         {
-            float nowFuel = rocket_ctl.RocketS1.x;
             rocket_ctl.PutRocketSyn(f);
             if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
         #endregion
         #region 物件通用函數
-        /*
-        /// <summary>
-        /// 切換預設的產生器類別，包含補給品產生。
-        /// 這裡是設定要使用何種類別。
-        /// 由於換個寫法，這裡暫時空置
-        /// </summary>
-        /// <param name="i">指定產生器內容，目前有的產生器如下：
-        /// 0. 預設，產生 一般物件類別 。
-        /// 1. 產生 隕石類別 。
-        /// 2. 產生 敵機類別 。
-        /// </param>
-        public void AsignGenerate(int i)
-        {
-
-            try { gener_class = GameObject.Find(objectName[i]).GetComponent<Object_Generator>(); }
-            catch { print("類別物件不存在，請重新設定"); }
-
-        }
-        /// <summary>
-        /// 調用自動產生補給品
-        /// </summary>
-        /// <param name="i">補給品類別</param>
-        /// <param name="rotate">是否隨機生成轉向</param>
-        public void AutoGenerate(int i, bool rotate = false)
-        {
-            Vector3 st_border = ss_ctl.GetBoxborder();
-            if (gener_class != null) gener_class.Static_gen(GetStagePOS().y, i, Random.Range(-st_border.x / 2, st_border.x / 2), Random.Range(st_border.y, st_border.y * 2), rotate);
-        }
-        /// <summary>
-        /// 產生附帶子物件的程式。
-        /// 會先用一般生成的方式生成物件後，取得該物件的ID再依此生成子物件。
-        /// 但如果使用預置物的話，物件會生成在子物件上。
-        /// </summary>
-        public void MeteoGenerate()
-        {
-            AsignGenerate(1);
-            int obj = Random.Range(0, 3);
-            int Gid = gener_class.Random_gen(GetStagePOS().y + 40, false, obj); // Fist: Generate SubObject.
-            // Second: Load Insub Prefabs.
-            List<Object> pfabs = new()
-            {                
-#if UNITY_EDITOR
-                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/Empty.prefab", typeof(Object)),
-                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal01.prefab", typeof(Object)),
-                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_BlueCrystal02.prefab", typeof(Object)),
-                AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Crystal/GP_PurpCrystal01.prefab", typeof(Object))
-#endif
-            };
-
-            // Third: Input on the subobject.
-            gener_class.Random_Metro(Gid, pfabs);
-        }
-        */
         /// <summary>
         /// 清除物件函數。
         /// 所有物件從畫面上移除都要經過這個函式。
@@ -349,7 +287,6 @@ namespace solar_a
             else StartCoroutine(rocket_ctl.ControlChange(true));
             CancelInvoke("GameState");
         }
-        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         #region 本地控制方法或事件
         /// <summary>
         /// 進入遊戲結束系統，若有以下情況則呼叫此程式：
@@ -359,10 +296,11 @@ namespace solar_a
         private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
 
         #endregion
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
 
         private void Awake()
         {
-            mgCenter = GetComponent<ManageCenter>();
+            mgCenter = GetComponent<ManageCenter>();            
         }
         private void Start()
         {
@@ -373,12 +311,14 @@ namespace solar_a
             ss_ctl = SS_CTL ? SS_CTL: FindObjectOfType<SceneStage_Control>();
             rocket_ctl = Rocket_CTL ? Rocket_CTL: FindObjectOfType<Rocket_Controll>();
             space_ctl = Space_CTL ? Space_CTL : FindObjectOfType<Space_Controll>();
+            mgDsko = MgDisco ? MgDisco : FindObjectOfType<ManageDisco>();
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
             UI_moveDistane = 0;
         }
         private void Update()
         {
+            // 狀態機執行功能
             switch (StaticSharp.Conditions)
             {
                 
