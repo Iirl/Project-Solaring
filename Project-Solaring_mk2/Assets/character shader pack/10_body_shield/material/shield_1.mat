@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: robot_shield_1
+  m_Name: shield_1
   m_Shader: {fileID: -6465566751694194690, guid: cefaf09d57884724a8ff9e4c8f712c2d,
     type: 3}
   m_ValidKeywords: []
@@ -247,7 +247,7 @@ Material:
     - Boolean_8dff5dc76cfc426b983b6cf65eab288d: 1
     - Boolean_d778568808844da5be30bcddb51c1639: 0
     - Vector1_175D0329: 3.9
-    - Vector1_1863b7d22a94432487c3d1be8952080b: 5
+    - Vector1_1863b7d22a94432487c3d1be8952080b: 2
     - Vector1_1A3282DB: -1.52
     - Vector1_1D382313: 1
     - Vector1_1DFDF9B7: 1
@@ -262,7 +262,7 @@ Material:
     - Vector1_6AC0FCA: 1
     - Vector1_7834F05F: 0.437
     - Vector1_7FFCBCA4: 0
-    - Vector1_94aff79b61d341788e02fedd5d74b9db: 5
+    - Vector1_94aff79b61d341788e02fedd5d74b9db: 2
     - Vector1_98034DE0: 0
     - Vector1_9CF95ED1: 0.083
     - Vector1_9bc09ea0838f49e7880be330c47ce4c1: 100
@@ -273,7 +273,7 @@ Material:
     - Vector1_D7D2D86: 0.9
     - Vector1_EB08E6A3: 0.428
     - Vector1_FE821E4C: 100
-    - Vector1_dc20169d7dcf40d587ec3dd2e2a9533c: 0.01
+    - Vector1_dc20169d7dcf40d587ec3dd2e2a9533c: 0.011
     - Vector1_ef0e5c5fdba54db4a6b6dde3e6061cc2: 1.85
     - Vector1_f4772977577b40869db4d108a543e197: 1
     - _AORemapMax: 1
@@ -365,6 +365,7 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ReceivesSSR: 1
@@ -437,7 +438,7 @@ Material:
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_940cf6d0a8764ce693ca4b7d12a5b7b8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_D0FA5062: {r: 4, g: 4, b: 0, a: 0}
+    - Vector2_D0FA5062: {r: 3, g: 2, b: 0, a: 0}
     - Vector2_E4CA34D5: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
@@ -456,7 +457,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _color_emission: {r: 6.6390896, g: 32.514515, b: 11.405616, a: 0}
+    - _color_emission: {r: 7.252114, g: 8.509203, b: 41.552654, a: 0}
     - _color_texture: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5676617978073745963

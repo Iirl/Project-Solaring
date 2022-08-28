@@ -133,7 +133,7 @@ Material:
     - _noise_scale: 100
     - _smooth: 0.881
     - _threshold: 0.286
-    - float_alpha: 0.007
+    - float_alpha: 0.005
     - float_statue_level: 1
     - float_statue_threhold: 1
     m_Colors:

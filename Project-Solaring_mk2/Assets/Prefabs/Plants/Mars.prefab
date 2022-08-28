@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1001852029528172821}
+  - component: {fileID: 3469091898752744569}
   m_Layer: 6
   m_Name: Mars
   m_TagString: Untagged
@@ -118,6 +119,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &3469091898752744569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480930442505597871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveMethod: 0
+  straightV3: {x: 0, y: -1, z: 0}
+  Orispeed: 0.2
+  randomSpd: 0
+  stopTracert: 12
 --- !u!1 &6566077668750188476
 GameObject:
   m_ObjectHideFlags: 0

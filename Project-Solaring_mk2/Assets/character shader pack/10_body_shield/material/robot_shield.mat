@@ -380,6 +380,7 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ReceivesSSR: 1
@@ -455,7 +456,7 @@ Material:
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_940cf6d0a8764ce693ca4b7d12a5b7b8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_D0FA5062: {r: 3, g: 3, b: 0, a: 0}
+    - Vector2_D0FA5062: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_E4CA34D5: {r: 2, g: 2, b: 0, a: 0}
     - Vector2_f2aed08371b1460f8c260073d88d2758: {r: 0, g: 0.005, b: 0, a: 0}
     - Vector2_f2aed08371b1460f8c260073d88d2758_1: {r: 0, g: 5, b: 0, a: 0}

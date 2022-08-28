@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Plants01
-  m_Shader: {fileID: -6465566751694194690, guid: 78ee5a67fba740743a5d8d373409e25e,
+  m_Shader: {fileID: -6465566751694194690, guid: 7af61d8af4d06ff409bae5881c7330ae,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -86,6 +86,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _mormal_map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -105,9 +113,12 @@ Material:
     - Vector1_5219B157: 0
     - Vector1_64B788AD: 2
     - Vector1_662430A8: 1
+    - Vector1_671c991e71d74872a666856fee088fee: 0.5
     - Vector1_67744406: 0.2
     - Vector1_BF1D8819: 0
     - Vector1_C8EA831A: 0
+    - Vector1_CD2A02F5: 0.5
+    - Vector1_D89367FE: 1
     - Vector1_DE4A209B: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -136,12 +147,17 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _metallic: 0
+    - _smooth: 0
     m_Colors:
+    - Color_1AF82FCF: {r: 1, g: 1, b: 1, a: 0}
     - Color_4B4CE890: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - Color_4B9AABFA: {r: 1, g: 0.9009434, b: 0.9009434, a: 0}
+    - Color_542B5A6E: {r: 0, g: 0, b: 0, a: 0}
     - Color_A32D2F49: {r: 4, g: 4, b: 4, a: 0}
     - Color_A96C309B: {r: 1, g: 1, b: 1, a: 0}
     - Color_F150E237: {r: 0.6509434, g: 0.4159543, b: 0.38995194, a: 0}
+    - Vector3_2CBA6538: {r: 0, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

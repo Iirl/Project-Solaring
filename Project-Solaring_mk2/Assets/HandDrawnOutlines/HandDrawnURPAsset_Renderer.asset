@@ -60,6 +60,26 @@ MonoBehaviour:
   UseDepthMask: 1
   handDrawnOutlinesSettings: {fileID: 11400000, guid: ec9a07c388853554a8ce4beea50acdda,
     type: 2}
+--- !u!114 &-2414384446332122184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd553e262309b9247ab24e3fac0bbc2e, type: 3}
+  m_Name: BasicGeneral
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  ID: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  UseDepthMask: 0
+  handDrawnOutlinesSettings: {fileID: 11400000, guid: 267a03e3033d1984fb2e2495e933c903,
+    type: 2}
 --- !u!114 &-2396675919373350335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,11 +176,11 @@ MonoBehaviour:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
       type: 3}
   m_RendererFeatures:
-  - {fileID: -1252976147078801703}
   - {fileID: -1212289833083371954}
   - {fileID: -2396675919373350335}
   - {fileID: -5907666926953752729}
-  m_RendererFeatureMap: d9965431d5889cee4e7e3fded1142def41ca0410f34bbdde671799e73ac003ae
+  - {fileID: -2414384446332122184}
+  m_RendererFeatureMap: 4e7e3fded1142def41ca0410f34bbdde671799e73ac003aeb84b255523627ede
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -183,7 +203,7 @@ MonoBehaviour:
   m_AssetVersion: 1
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 461
+    m_Bits: 2147483647
   m_TransparentLayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -194,13 +214,13 @@ MonoBehaviour:
     passOperation: 2
     failOperation: 0
     zFailOperation: 0
-  m_ShadowTransparentReceive: 1
+  m_ShadowTransparentReceive: 0
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
   m_AccurateGbufferNormals: 0
   m_ClusteredRendering: 0
   m_TileSize: 32
-  m_IntermediateTextureMode: 1
+  m_IntermediateTextureMode: 0
 --- !u!114 &4035821634147994621
 MonoBehaviour:
   m_ObjectHideFlags: 0
