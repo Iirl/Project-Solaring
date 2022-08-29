@@ -16,7 +16,7 @@ namespace solar_a
         #region 管理控制系統
         [Header("中控系統")]
         static public ManageCenter mgCenter;
-        [SerializeField, Header("各程式管理系統"),Tooltip("場景系統")]
+        [SerializeField, Header("各程式管理系統"), Tooltip("場景系統")]
         private ManageScene MgScene;
         static public ManageScene mgScene;
         [SerializeField, Tooltip("聲音管理")]
@@ -28,7 +28,8 @@ namespace solar_a
         [SerializeField, Tooltip("火箭控制系統")]
         private Rocket_Controll Rocket_CTL;
         static public Rocket_Controll rocket_ctl;
-        [SerializeField,Tooltip("場景控制系統")]
+        static public SSRocket rocket_SSR;
+        [SerializeField, Tooltip("場景控制系統")]
         private SceneStage_Control SS_CTL;
         static public SceneStage_Control ss_ctl;
         [SerializeField, Tooltip("空間控制系統")]
@@ -49,8 +50,8 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         static public int UI_fuel = 100;
         static public float UI_moveDistane = 0;
-        [SerializeField, Tooltip("用盡燃料後的掙扎時間"),Range(0,10)]
-        private float fuelExhaustedTime=5;
+        [SerializeField, Tooltip("用盡燃料後的掙扎時間"), Range(0, 10)]
+        private float fuelExhaustedTime = 5;
         /// <summary>
         /// 選單畫布控制
         /// </summary>
@@ -65,6 +66,7 @@ namespace solar_a
         private CanvasGroup canvas_select;
         [HideInInspector] //作弊控制開關
         public bool noExhauFuel, noExhauRush, noDead, toFinDest;
+        bool runtime = false;
         #endregion
 
 
@@ -75,12 +77,13 @@ namespace solar_a
         /// <returns></returns>
         public Vector3 GetStagePOS() => ss_ctl.transform.position;
         public Vector3 GetStageBorder() => ss_ctl.GetBoxborder();
-        public void SetRockBasicInfo(float x, float y=0, float z=0) {
-            x = x != 0 ? x: rocket_ctl.RocketBasic.x;
-            y = y != 0 ? y: rocket_ctl.RocketBasic.y;
-            z = z != 0 ? z: rocket_ctl.RocketBasic.z;
-            rocket_ctl.SetBasicInfo(x,y,z);
-                }
+        public void SetRockBasicInfo(float x, float y = 0, float z = 0)
+        {
+            x = x != 0 ? x : rocket_ctl.RocketBasic.x;
+            y = y != 0 ? y : rocket_ctl.RocketBasic.y;
+            z = z != 0 ? z : rocket_ctl.RocketBasic.z;
+            rocket_ctl.SetBasicInfo(x, y, z);
+        }
         //除錯功能
         public void GetState() => print(condition.GetState());
 
@@ -88,10 +91,10 @@ namespace solar_a
         public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
         //
-        private IEnumerator DeathCounter(float counter=0)
-        {            
-            for (int i=0; i< counter;i++) yield return new WaitForSeconds(1);
-            if(rocket_ctl.RocketS1.x <1) condition.Dead();
+        private IEnumerator DeathCounter(float counter = 0)
+        {
+            for (int i = 0; i < counter; i++) yield return new WaitForSeconds(1);
+            if (rocket_ctl.RocketS1.x < 1) condition.Dead();
             yield return null;
         }
         /// <summary>
@@ -138,7 +141,7 @@ namespace solar_a
         /// </summary>
         /// <param name="obj">碰撞區域回傳的物件</param>
         GenerateSystem objGS;
-        public void ObjectDestory(GameObject obj, bool hasDesTime=false)
+        public void ObjectDestory(GameObject obj, bool hasDesTime = false)
         {
             objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print($"名稱: {objGS.name} hasdes:{hasDesTime}");  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
@@ -157,7 +160,7 @@ namespace solar_a
             StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
             StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
             mgScene.SaveLeveInform();
-            mgScene.LoadScenes("Station"); 
+            mgScene.LoadScenes("Station");
         }
         /// <summary>
         /// 切換到下一關的檢查
@@ -171,6 +174,7 @@ namespace solar_a
         private IEnumerator PauseFadeEffect(bool visable = true)
         {
             canvas_select = pauseUI.GetComponent<CanvasGroup>();
+            if (condition.isEnd) yield return new WaitForSeconds(1.6f);
             switch (visable)
             {
                 case true:
@@ -209,7 +213,7 @@ namespace solar_a
             if (UI_fuel <= 100)
             {
                 ui_fuelbar.fillAmount = UI_fuel / 100f;
-                if(EnergyPlus[0].activeSelf) EnergyPlus[0].SetActive(false);
+                if (EnergyPlus[0].activeSelf) EnergyPlus[0].SetActive(false);
             }
             else
             {   // 超過 100 的部分用格狀血條顯示
@@ -222,7 +226,7 @@ namespace solar_a
                     {
                         g.SetActive(level > count);
                         count++;
-                    }                    
+                    }
                 }
             }
             // 標示文字UI內容
@@ -300,7 +304,7 @@ namespace solar_a
 
         private void Awake()
         {
-            mgCenter = GetComponent<ManageCenter>();            
+            mgCenter = GetComponent<ManageCenter>();
         }
         private void Start()
         {
@@ -308,8 +312,9 @@ namespace solar_a
             if (MgEnd) mgEnd = MgEnd;
             else mgEnd = FindObjectOfType<ManageEnd>();
             mgScene = MgScene ? MgScene : FindObjectOfType<ManageScene>();
-            ss_ctl = SS_CTL ? SS_CTL: FindObjectOfType<SceneStage_Control>();
-            rocket_ctl = Rocket_CTL ? Rocket_CTL: FindObjectOfType<Rocket_Controll>();
+            ss_ctl = SS_CTL ? SS_CTL : FindObjectOfType<SceneStage_Control>();
+            rocket_ctl = Rocket_CTL ? Rocket_CTL : FindObjectOfType<Rocket_Controll>();
+            rocket_SSR = rocket_ctl.GetComponent<SSRocket>();
             space_ctl = Space_CTL ? Space_CTL : FindObjectOfType<Space_Controll>();
             mgDsko = MgDisco ? MgDisco : FindObjectOfType<ManageDisco>();
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
@@ -321,7 +326,6 @@ namespace solar_a
             // 狀態機執行功能
             switch (StaticSharp.Conditions)
             {
-                
                 case State.Running:
                     if (StaticSharp.isChangeScene)
                     {
@@ -330,7 +334,7 @@ namespace solar_a
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();                    
+                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();
                     break;
                 case State.Loading:
                     Time.timeScale = 0.5f;
@@ -339,12 +343,19 @@ namespace solar_a
                     if (Time.timeScale > 0.1f) Time.timeScale = 0f;
                     break;
                 case State.End:
-                    if (noDead)
+                    if (!runtime)
                     {
-                        condition.Run();
-                        break;
+                        runtime = true;
+                        if (noDead)
+                        {
+                            condition.Run();
+                            runtime = false;
+                            break;
+                        }
+                        rocket_ctl.StateToBorken(true);
+                        StateEnd();
                     }
-                    StateEnd();
+                    rocket_ctl.rc_dtion.onStop(true);
                     break;
                 case State.Finish:
                     if (Time.timeScale > 0.1f) Time.timeScale = 0f;

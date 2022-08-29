@@ -75,6 +75,11 @@ public class ColliderSystem : MonoBehaviour
             {
                 loadScene = true;
                 StaticSharp.isChangeScene = true;
+                if (!ManageCenter.mgCenter)
+                {
+                    ManageScene mgScene = FindObjectOfType<ManageScene>();
+                    if (mgScene) mgScene.SendMessage("SceneChageEvent" , true);
+                }
                 print("終點，轉場");
             }
         }
@@ -130,9 +135,8 @@ public class ColliderSystem : MonoBehaviour
         }
     }
     /// <summary>
-    /// 轉場事件
+    /// 轉場事件:當中控器不存在時使用
     /// </summary>
-    //private void SceneChageEvent() => ManageCenter.StartC
     #endregion
 
     private void Awake()

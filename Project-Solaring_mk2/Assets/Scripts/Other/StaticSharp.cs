@@ -17,7 +17,7 @@ public class StaticSharp
     //
     
     #region Shotkey, 快捷鍵設定
-    static private void TestBoard(DBG d)
+    static private void TestBoard(SSRocket d)
     {
         //print("Debug");
         //顯示除錯面板        
@@ -32,7 +32,7 @@ public class StaticSharp
     /// </summary>
     static public void SpecialistKeyInput(bool isCtrl, bool isAtl, bool isLS)
     {
-        DBG Dbg = Object.FindObjectOfType<DBG>();
+        SSRocket SSR = Object.FindObjectOfType<SSRocket>();
         if (!isCtrl && !isAtl && !isLS) return;
         else
         {
@@ -50,7 +50,7 @@ public class StaticSharp
             bool kU = Input.GetKeyDown(KeyCode.U);
             if (isCtrl)
             {
-                if (kAtl && kO) TestBoard(Dbg);
+                if (kAtl && kO) TestBoard(SSR);
                 if (kLS) Debug.Log("C+S button");
                 else if (kB) Debug.Log("B button");
                 else if (kM) Debug.Log("M button");
@@ -62,7 +62,7 @@ public class StaticSharp
             {
                 if (kLS) Debug.Log("A+S button");
                 else if (kN) Debug.Log("N button");
-                else if (kR) Dbg.SendMessage("GeneratorBlock"); //產生OBJ物件
+                else if (kR) SSR.SendMessage("GeneratorBlock"); //產生OBJ物件
                 else if (kP) ManageCenter.mgCenter.X_PowerMode();
             }
             else if (isLS)

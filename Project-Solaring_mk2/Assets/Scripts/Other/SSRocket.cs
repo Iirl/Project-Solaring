@@ -2,32 +2,35 @@ using solar_a;
 using UnityEngine;
 
 /// <summary>
-/// Debug function.
+/// Secret Specil Rocket.
 /// 除錯用程式，把需要的功能放在這裡，透過控制中控中心的布林值達到操控的效果。
 /// </summary>
-public class DBG : MonoBehaviour
+public class SSRocket : MonoBehaviour
 {
     ManageCenter mgc;
     #region 面板控制效果
     [SerializeField, Tooltip("顯示在遊戲中")]
     private bool showWindows;
     public bool isShowed { get { return showWindows; } }
-    [SerializeField, Header("不會死亡")]
+    [SerializeField, Header("異常狀態"),Tooltip("不會死亡")]
     private bool noDead;
-    [SerializeField, Header("不耗燃料")]
+    [SerializeField, Tooltip("不耗燃料")]
     private bool noFuel;
-    [SerializeField, Header("不耗衝刺")]
+    [SerializeField, Tooltip("不耗衝刺")]
     private bool noRush;
-    [SerializeField, Header("移到終點")]
+    [SerializeField, Tooltip("移到終點")]
     private bool toFinal;
     [SerializeField, Header("燃料物件")]
     private GameObject fuelObj;
+    [SerializeField, Header("飛船物件")]
+    private GameObject[] rockets;
     #endregion
-    private void NoDie(bool on = false) => noDead = on;
-    private void NoFuel(bool on = false) => noFuel = on;
-    private void NoRush(bool on = false) => noRush = on;
-    private void ToFinal(bool on = false) => toFinal = on;
+    public void NoDie(bool on = false) => noDead = on;
+    public void NoFuel(bool on = false) => noFuel = on;
+    public void NoRush(bool on = false) => noRush = on;
+    public void ToFinal(bool on = false) => toFinal = on;
     public void ShowDebug(bool isOpen) => showWindows = isOpen;
+    public void CreateBorkenRocket() => uniGenerator(0);
     private void SendControl() //將控制內容傳給主控中心
     {
         mgc.noDead = noDead ? true : false;
@@ -47,9 +50,16 @@ public class DBG : MonoBehaviour
         obGenerate.destoryTime = 5;
         obGenerate.Generates();
     }
+    private void uniGenerator(int idx)
+    {
+        GameObject player = ManageCenter.rocket_ctl.gameObject;
+        obGenerate = new Object_Generator.Generater(player, rockets[idx]);
+        obGenerate.Create_v3 = player.transform.position + Vector3.back *2;
+        obGenerate.Generates();
+    }
 
-    #region 事件欄位
-    private void Awake()
+        #region 事件欄位
+        private void Awake()
     {
         mgc = FindObjectOfType<ManageCenter>();
         SendControl();

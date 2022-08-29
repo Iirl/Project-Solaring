@@ -8,6 +8,7 @@ using System.Collections;
 /// </summary>
 namespace solar_a
 {
+    [RequireComponent(typeof(SSRocket))]
     public class Rocket_Controll : MonoBehaviour
     {
 
@@ -18,6 +19,8 @@ namespace solar_a
         private bool isBoost;
         #endregion
         #region #序列化屬性
+        [SerializeField, Header("停用玩家操控")]
+        private bool CloseTheControl;
         [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n衝刺倍率(Z)")]
         public Vector3 RocketBasic;
         [SerializeField, Header("單位消耗燃料")]
@@ -65,6 +68,9 @@ namespace solar_a
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
 
         #region 公用方法
+        public void StateToShield(bool state = true) => RocketEffectState(0, state);
+        public void StateToSpeedline(bool state = true) => RocketEffectState(1, state);
+        public void StateToBorken(bool state = true) => RocketEffectState(2, state);
         /// <summary>
         /// 火箭資料變動。
         /// </summary>
@@ -78,7 +84,6 @@ namespace solar_a
             speed_a = z >= 0 ? z : speed_a;
             return RocketS1;
         }
-
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
         /// </summary>
@@ -93,7 +98,7 @@ namespace solar_a
             yield return null;
         }
         #endregion
-
+        //
         private void UpForce()
         {
             if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
@@ -182,7 +187,16 @@ namespace solar_a
                 CancelInvoke("ignix_fire");
             }
         }
-
+        /// <summary>
+        /// 火箭的外觀狀態變化
+        /// </summary>
+        /// <param name="idx">根據子物件的順序決定效果</param>
+        /// <param name="open">開關物件</param>
+        private void RocketEffectState(int idx, bool open)
+        {
+            GameObject status = transform.Find("Effect").GetChild(idx).gameObject;
+            status.SetActive(open);
+        }
         #region 音效
         public void ADOClipControl(AudioClip acp, float vol = 1) => Rocket_sound.PlayOneShot(acp, vol);
         /// <summary>
@@ -279,6 +293,8 @@ namespace solar_a
                 Invoke("ignix_fire", 0.1f);
             }
             else Rocket_Rig.velocity = Vector3.zero;
+            if (CloseTheControl) rc_dtion.onStop(true);
+            else rc_dtion.onStop(false);
         }
         private void OnDrawGizmos()
         {
@@ -287,7 +303,6 @@ namespace solar_a
         }
         private void OnTriggerEnter(Collider other)
         {
-            //CollisionEvent(other.gameObject);
             int idx = ColliderSystem.CollisionPlayerEvent(other.gameObject);
             if (other.tag.Contains("Enemy")) ADOClipControl(1);
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
@@ -296,7 +311,6 @@ namespace solar_a
         private void OnCollisionEnter(Collision collision)
         {
             int idx = ColliderSystem.CollisionPlayerEvent(collision.gameObject);
-            //CollisionEvent(collision.gameObject);
         }
         #endregion
         #region ##
@@ -317,7 +331,7 @@ namespace solar_a
         public void Dead() => state = RocketState.Crashed;
         public void onMove() => state = RocketState.Move;
         public void onStay() => state = RocketState.Stay;
-        public void onStop(bool isStop) => state = (isStop)? RocketState.Stop:0 ;
+        public void onStop(bool isStop) => state = (isStop) ? RocketState.Stop : 0;
         public int GetState() => (int)(state);
         public void SetState(int idx) => state = (RocketState)idx;
 

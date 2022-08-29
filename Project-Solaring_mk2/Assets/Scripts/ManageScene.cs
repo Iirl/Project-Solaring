@@ -17,6 +17,7 @@ namespace solar_a
     public class ManageScene : MonoBehaviour
     {
         public string sceneID = "SceneID";
+        private void SceneChageEvent(bool isNext) => StartCoroutine(LoadScenesPreOrder(isNext));
 
         /// <summary>
         /// 取得目前場景的編號。
