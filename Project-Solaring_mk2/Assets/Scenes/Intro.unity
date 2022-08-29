@@ -348,12 +348,12 @@ PrefabInstance:
     - target: {fileID: 4587356875361899384, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899391, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7680163539781227310, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -376,11 +376,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 4587356875361899391, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
-    - {fileID: 4587356875361899384, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
-    - {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
     - {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
-    - {fileID: 4587356875361899389, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
 --- !u!1 &75898075 stripped
 GameObject:
@@ -1496,7 +1492,7 @@ GameObject:
   - component: {fileID: 1764289923}
   m_Layer: 0
   m_Name: changeLV
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1509,7 +1505,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764289918}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
