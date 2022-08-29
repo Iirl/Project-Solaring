@@ -20,7 +20,8 @@ namespace solar_a
         #endregion
         #region #序列化屬性
         [SerializeField, Header("停用玩家操控")]
-        private bool CloseTheControl;
+        private bool offControl;
+        public bool CloseTheControl { set { offControl = value; rc_dtion.onStop(value); } get { return offControl; } }
         [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n衝刺倍率(Z)")]
         public Vector3 RocketBasic;
         [SerializeField, Header("單位消耗燃料")]
@@ -68,9 +69,15 @@ namespace solar_a
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
 
         #region 公用方法
+        public void StateToOff(bool state = true) => RocketEffectState(-1, state);
         public void StateToShield(bool state = true) => RocketEffectState(0, state);
         public void StateToSpeedline(bool state = true) => RocketEffectState(1, state);
-        public void StateToBorken(bool state = true) => RocketEffectState(2, state);
+        public void StateToBorken(bool state = true)
+        {
+            RocketEffectState(2, state);
+            transform.Find("Rocket_body").gameObject.SetActive(!state);
+            transform.Find("Rocket_glass").gameObject.SetActive(!state);
+        }
         /// <summary>
         /// 火箭資料變動。
         /// </summary>
@@ -167,11 +174,14 @@ namespace solar_a
             Rocket_sound.pitch = 1.5f;
             while (c == rush_counts)
             {
+                StateToSpeedline(rc_dtion.IsBoost);
                 yield return new WaitForSeconds(rush_time);
                 isBoost = false;
                 if (!ManageCenter.mgCenter.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
                 rc_dtion.Previous();
+                StateToSpeedline(rc_dtion.IsBoost);
+
             }
         }
         /// <summary>
@@ -194,7 +204,9 @@ namespace solar_a
         /// <param name="open">開關物件</param>
         private void RocketEffectState(int idx, bool open)
         {
-            GameObject status = transform.Find("Effect").GetChild(idx).gameObject;
+            GameObject status;
+            if (idx >= 0) status = transform.Find("Effect").GetChild(idx).gameObject;
+            else status = transform.Find("Effect").gameObject;
             status.SetActive(open);
         }
         #region 音效
@@ -260,10 +272,12 @@ namespace solar_a
                     if (InputMove()) rc_dtion.Next();
                     break;
                 case RocketState.Move:
+                    //print("移動狀態");
                     if (!InputMove()) rc_dtion.Previous();
                     if (InputBoost() && rush_counts != 0) rc_dtion.Next();
                     break;
                 case RocketState.Boost:
+                    //print(InputBoost());
                     if (!isBoost) Booster();
                     break;
                 case RocketState.Crashed:
@@ -272,9 +286,9 @@ namespace solar_a
                     if (Rocket_Rig.isKinematic) StartCoroutine(ControlChange(false));
                     break;
                 default:
+                    print("狀態失控");
                     break;
             }
-            //print(InputMove());
             //if (StaticSharp.Conditions == State.Finish) rc_dtion.onStop();
             // 火箭正常狀態下的行動。
             if (!rc_dtion.IsStop)
@@ -292,9 +306,9 @@ namespace solar_a
                 }
                 Invoke("ignix_fire", 0.1f);
             }
-            else Rocket_Rig.velocity = Vector3.zero;
-            if (CloseTheControl) rc_dtion.onStop(true);
-            else rc_dtion.onStop(false);
+            else {
+                Rocket_Rig.velocity = Vector3.zero;
+            }
         }
         private void OnDrawGizmos()
         {

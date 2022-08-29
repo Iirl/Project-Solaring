@@ -355,7 +355,8 @@ namespace solar_a
                         rocket_ctl.StateToBorken(true);
                         StateEnd();
                     }
-                    rocket_ctl.rc_dtion.onStop(true);
+                    rocket_ctl.CloseTheControl = true;
+                    rocket_ctl.StateToOff(false);
                     break;
                 case State.Finish:
                     if (Time.timeScale > 0.1f) Time.timeScale = 0f;

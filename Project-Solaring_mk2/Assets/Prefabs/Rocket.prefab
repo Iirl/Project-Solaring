@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708848887579944659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.427, y: 0.087, z: -0.7450002}
-  m_LocalScale: {x: 4.06, y: 7.61, z: 0}
+  m_LocalPosition: {x: 0.3, y: -1.5, z: -0.5}
+  m_LocalScale: {x: 4, y: 7, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7847549304782707937}
@@ -5328,7 +5328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d5fe73f20dfb94b8b9e2030e63c84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseTheControl: 0
+  offControl: 0
   RocketBasic: {x: 100, y: 10, z: 0.2}
   unit_fuel: -0.05
   fuel: 100
