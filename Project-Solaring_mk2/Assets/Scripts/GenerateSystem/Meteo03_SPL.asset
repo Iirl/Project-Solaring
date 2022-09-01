@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
+  m_Name: Meteo03_SPL
+  m_EditorClassIdentifier: 
+  grtClass: 1
+  grtObject: {fileID: 7997089333427939424, guid: 26d7384f0cfb8f249bd53cdfc1b9fbbe,
+    type: 3}
+  grtSubObject:
+  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
+  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
+  grtProb: 0.455
+  grtIntervalTime: 2
+  grtWaitTime: 2
+  grtdestTime: 0
+  grtPos: {x: 20, y: 5, z: 20}
+  grtOffset: 1
+  grtRandomRoation: 1
+  grtRot: {x: 0, y: 0, z: 0, w: 1}
+  grtLimit: 10

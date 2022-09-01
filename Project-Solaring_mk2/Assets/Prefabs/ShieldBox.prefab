@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171895244803154}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 18.229977, z: -4.739994}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.020000022, y: 0.020000063, z: 0.020000087}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4297905125381608}
-  m_RootOrder: 0
+  m_Father: {fileID: 4216326422938356}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &33493233964243032
 MeshFilter:
@@ -83,38 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1479974845134846
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4297905125381608}
-  m_Layer: 0
-  m_Name: CreateCap_0_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4297905125381608
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479974845134846}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.3646, z: -0.094800025}
-  m_LocalScale: {x: 0.02000002, y: 0.020000087, z: 0.020000063}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4103189084058932}
-  m_Father: {fileID: 4216326422938356}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!1 &1893084404789564
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,11 +112,11 @@ Transform:
   m_GameObject: {fileID: 1893084404789564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.96, y: 0.050103307, z: -0.044960976}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4747715911311934}
-  - {fileID: 4297905125381608}
+  - {fileID: 4103189084058932}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,7 +145,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893084404789564}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.37, y: 0.37, z: 0.37}
@@ -196,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMethod: 0
   straightV3: {x: 0, y: -1, z: 0}
-  Orispeed: 3
+  Orispeed: 4
   randomSpd: 1
   stopTracert: 12
 --- !u!54 &120937164557269100
@@ -227,7 +195,7 @@ GameObject:
   - component: {fileID: 33030941187022996}
   - component: {fileID: 23764468257818090}
   - component: {fileID: 95002257046559312}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: ChamferBox001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: MeteoL203
+  m_Name: Box_SPM
   m_EditorClassIdentifier: 
-  grtClass: 1
-  grtObject: {fileID: 7997089333427939424, guid: 26d7384f0cfb8f249bd53cdfc1b9fbbe,
+  grtClass: 0
+  grtObject: {fileID: 2231256598753055803, guid: 921441dbc94f4f24b83b92cffe05cf62,
     type: 3}
-  grtSubObject:
-  - {fileID: 4379541126855630035, guid: 12e7988aa3cc55041af9f4b1cc4cce64, type: 3}
-  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
-  grtProb: 0.455
+  grtSubObject: []
+  grtProb: 0.34
   grtIntervalTime: 2
-  grtWaitTime: 1
+  grtWaitTime: 5
   grtdestTime: 0
-  grtPos: {x: 20, y: 5, z: 20}
-  grtOffset: 1
+  grtPos: {x: 25, y: 3, z: 5}
+  grtOffset: 20
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 30
+  grtLimit: 5

@@ -5361,10 +5361,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offControl: 0
-  RocketBasic: {x: 100, y: 10, z: 0.2}
+  RocketBasic: {x: 100, y: 10, z: 2}
   unit_fuel: -0.05
   fuel: 100
-  rush_time: 0
+  rush_time: 0.2
   rush_counts: 0
   fuel_overcapacity: 105
   fireLenght_min: {x: 0.8, y: 1.5}
@@ -5730,7 +5730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &807809631259942193
 Transform:
   m_ObjectHideFlags: 0
