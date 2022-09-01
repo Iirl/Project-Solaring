@@ -279,7 +279,6 @@ namespace solar_a
                 mgEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
                 // 關閉音效
-                StartCoroutine(rocket_ctl.ControlChange(!isEnd));
                 Simple_move[] simple_s = FindObjectsOfType<Simple_move>();
                 foreach (Simple_move simple in simple_s) StartCoroutine(simple.Mute());
                 condition.Finish();
@@ -355,8 +354,7 @@ namespace solar_a
                         rocket_ctl.StateToBorken(true);
                         StateEnd();
                     }
-                    rocket_ctl.CloseTheControl = true;
-                    rocket_ctl.StateToOff(false);
+                    rocket_ctl.rc_dtion.state = RocketState.Crashed;
                     break;
                 case State.Finish:
                     if (Time.timeScale > 0.1f) Time.timeScale = 0f;

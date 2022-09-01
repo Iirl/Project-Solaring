@@ -9,11 +9,11 @@ public class ColliderSystem : MonoBehaviour
 {
     #region 屬性
     static ColliderSystem collSys;
-    public enum Genertic { Supply, Other }
+    public enum Genertic { Supply,Protect, UnlimitFuel, UnlimitRush, Other }
     #endregion
     [SerializeField, Header("撞擊特效"), NonReorderable]
     EffectGameObject[] effects;
-    [SerializeField, Header("物品效果"), NonReorderable]
+    [SerializeField, Header("物品效果")]
     BlockGameObject[] blocks;
     //
     private bool tmpvar;
@@ -103,15 +103,34 @@ public class ColliderSystem : MonoBehaviour
             //print($"查詢是否匹配 {name}");
             foreach (var block in blocks)
             {
-                if (name.ToLower().Contains(block.label.ToLower()) && block.species == Genertic.Supply)
+                if (name.ToLower().Contains(block.label.ToLower()))
                 {
+                    switch (block.species)
+                    {
+                        case Genertic.Supply:
+                            ManageCenter.mgCenter.FuelReplen(block.plus);
+                            break;
+                        case Genertic.Protect:
+                            ManageCenter.rocket_SSR.StateControaller(0, block.plus);
+                            break;
+                        case Genertic.UnlimitFuel:
+                            ManageCenter.rocket_SSR.StateControaller(1, block.plus);
+                            break;
+                        case Genertic.UnlimitRush:
+                            ManageCenter.rocket_SSR.StateControaller(2, block.plus);
+                            break;
+                        case Genertic.Other:
+                            break;
+                        default:
+                            break;
+                    }
                     //print(block.label);
-                    ManageCenter.mgCenter.FuelReplen(block.plus);
                     if (block.adClip && ManageCenter.mgDsko)
                     {
                         ManageCenter.mgDsko.EffectVolumeAdjust(block.adVol);
                         ManageCenter.mgDsko.OneShotEffect(block.adClip);
                     }
+                    break;
                 }
             }
         }

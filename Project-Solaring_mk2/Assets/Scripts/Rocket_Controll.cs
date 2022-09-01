@@ -72,12 +72,7 @@ namespace solar_a
         public void StateToOff(bool state = true) => RocketEffectState(-1, state);
         public void StateToShield(bool state = true) => RocketEffectState(0, state);
         public void StateToSpeedline(bool state = true) => RocketEffectState(1, state);
-        public void StateToBorken(bool state = true)
-        {
-            RocketEffectState(2, state);
-            transform.Find("Rocket_body").gameObject.SetActive(!state);
-            transform.Find("Rocket_glass").gameObject.SetActive(!state);
-        }
+        public void StateToBorken(bool state = true) => RocketEffectState(2, state);
         /// <summary>
         /// 火箭資料變動。
         /// </summary>
@@ -99,7 +94,8 @@ namespace solar_a
             if (!on) while (Rocket_sound.isPlaying) { Rocket_sound.Stop(); yield return null; }
             else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }
             Rocket_Rig.isKinematic = !on;
-            if (on) rc_dtion.onStay();
+            if (rc_dtion.IsCrashed) rc_dtion.onStop(true); //如果為損毀就優先處理
+            else if(on) rc_dtion.onStay();
             else rc_dtion.onStop(true);
             enabled = on;
             yield return null;
@@ -206,7 +202,8 @@ namespace solar_a
         {
             GameObject status;
             if (idx >= 0) status = transform.Find("Effect").GetChild(idx).gameObject;
-            else status = transform.Find("Effect").gameObject;
+            else status = transform.Find("Effect").gameObject;            
+            if (idx == 2) transform.Find("Normal").gameObject.SetActive(!open);
             status.SetActive(open);
         }
         #region 音效
@@ -281,9 +278,11 @@ namespace solar_a
                     if (!isBoost) Booster();
                     break;
                 case RocketState.Crashed:
+                    //print("損毀處理後進入停止狀態");
+                    StartCoroutine(ControlChange(false));
+
                     break;
                 case RocketState.Stop:
-                    if (Rocket_Rig.isKinematic) StartCoroutine(ControlChange(false));
                     break;
                 default:
                     print("狀態失控");

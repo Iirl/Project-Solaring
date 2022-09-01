@@ -1,3 +1,4 @@
+using System.Collections;
 using solar_a;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 public class SSRocket : MonoBehaviour
 {
     ManageCenter mgc;
+    public delegate void StatusMethod(bool trunOn);
     #region 面板控制效果
     [SerializeField, Tooltip("顯示在遊戲中")]
     private bool showWindows;
@@ -17,8 +19,10 @@ public class SSRocket : MonoBehaviour
     public bool NoDead { set { noDead = value; SendControl(); } get { return noDead; } }
     [SerializeField, Tooltip("不耗燃料")]
     private bool noFuel;
+    public bool NoFuel { set { noFuel = value; SendControl(); } get { return noFuel; } }
     [SerializeField, Tooltip("不耗衝刺")]
     private bool noRush;
+    public bool NoRush { set { noRush = value; SendControl(); } get { return noRush; } }
     [SerializeField, Tooltip("移到終點")]
     private bool toFinal;
     [SerializeField, Header("燃料物件")]
@@ -28,7 +32,40 @@ public class SSRocket : MonoBehaviour
     #endregion
     public void ShowDebug(bool isOpen) => showWindows = isOpen;
     public void CreateBorkenRocket() => uniGenerator(0);
-    private void SendControl() //將控制內容傳給主控中心
+    /// <summary>
+    /// 狀態切換控制器
+    /// </summary>
+    /// <param name="id">異常狀態編號</param>
+    /// <param name="sec">持續時間</param>
+    /// <param name="sm">額外傳入方法</param>
+    public void StateControaller(int id, int sec, StatusMethod sm =null)
+    {
+        switch ((RocketACondition)id)
+        {
+            case RocketACondition.Protect:
+                sm = toNoDead;
+                break;
+            case RocketACondition.FullGage:
+                sm = toFullGage;
+                break;
+            case RocketACondition.FullRush:
+                sm = toFullRushGage;
+                break;
+            default:
+                break;
+        }
+        StartCoroutine(StatusTimer(sm, sec));
+    }
+
+    #region 狀態處理
+    //
+    private void toNoDead(bool funOn = false) => NoDead = funOn;
+    private void toFullGage(bool funOn = false) => NoFuel = funOn;
+    private void toFullRushGage(bool funOn = false) => NoRush = funOn;
+    /// <summary>
+    /// 將控制內容傳給主控中心
+    /// </summary>
+    private void SendControl()
     {
         mgc.noDead = noDead ? true : false;
         mgc.noExhauFuel = noFuel ? true : false;
@@ -54,7 +91,19 @@ public class SSRocket : MonoBehaviour
         obGenerate.Create_v3 = player.transform.position + Vector3.back * 2;
         obGenerate.Generates();
     }
-
+    /// <summary>
+    /// 狀態計時器，會先執行 true 再執行 false.
+    /// </summary>
+    /// <param name="smd">要切換的方法</param>
+    /// <param name="sec">設定秒數</param>
+    /// <returns></returns>
+    private IEnumerator StatusTimer(StatusMethod smd, int sec)
+    {
+        smd(true);
+        yield return new WaitForSeconds(sec);
+        smd(false);
+    }
+    #endregion
     #region 事件欄位
     private void Awake()
     {
