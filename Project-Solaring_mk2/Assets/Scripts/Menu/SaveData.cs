@@ -33,7 +33,10 @@ namespace solar_a
         /// <param name="path">包含檔案名稱的路徑資料</param>
         /// <returns>讀取的字串資料</returns>
         private string DataLoad(string path) => File.ReadAllText(path);
-        private int DataLoadInt(string path) => Convert.ToInt32(File.ReadAllText(path));
+        private int DataLoadInt(string path) { 
+            if (File.ReadAllText(path) != "") return Convert.ToInt32(File.ReadAllText(path));
+            return -1;
+        }
         /// <summary>
         /// 將輸入的資料存到檔案中
         /// </summary>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
@@ -16,10 +17,12 @@ namespace solar_a
     {
         [SerializeField, Header("語言資料")]
         private ScriptData landata;
-        [SerializeField, Header("資料欄位"), NonReorderable]
+        [SerializeField, Header("文字欄位")]
+        private TMP_Text OriganilData;
+        [SerializeField, Header("UI資料欄位"), NonReorderable]
         private TMProClass[] TextField;
         //
-        private string path;
+        private List<string> LoadData = new List<string>();
         [System.Serializable]
         public class TMProClass
         {
@@ -33,19 +36,19 @@ namespace solar_a
         /// </summary>
         private void DataLoad()
         {
-            string tmpdata;
             WWW tmpHeader;
             switch (landata.platform)
             {
                 case ScriptData.Platforms.PC:
                     // 將路徑中的內容讀取出來，在將資料切割
+                    int i = 0;
                     foreach (var data in landata.Language)
                     {
                         if (data.filename == "") continue;
-                        tmpdata = Resources.Load<TextAsset>($"{data.filename}").ToString();
-                        data.datas = tmpdata.Split('\n', System.StringSplitOptions.RemoveEmptyEntries).
+                        LoadData.Add(Resources.Load<TextAsset>($"{data.filename}").ToString());
+                        data.datas = LoadData[i].Split('\n', StringSplitOptions.RemoveEmptyEntries).
                             Where(str => str.Substring(0, 3) != "---").ToArray();
-
+                        i++;
                     }
                     break;
                 case ScriptData.Platforms.Mobile:
@@ -66,19 +69,21 @@ namespace solar_a
         {
             float spices = landata.Language.Length;
             if (lang >= spices) return;     //防止溢位
-            if (landata.Language[lang] != null)
-            {
+            if (landata.Language[lang] != null) { 
                 for (int i = 0; i < TextField.Length; i++)
                 {
-                    if (TextField[i].TmpUGUI != null)
-                    {
-                        TextField[i].TmpUGUI.text = landata.Language[lang].datas[TextField[i].id];
-                    }
+                    if (TextField[i].TmpUGUI != null) TextField[i].TmpUGUI.text = landata.Language[lang].datas[TextField[i].id];
                 }
             }
-
+        }
+        private void DataOrigial(int lang = 0)
+        {
+            float spices = landata.Language.Length;
+            if (lang >= spices) return;     //防止溢位
+            if (LoadData.Count > 0) OriganilData.text = LoadData[lang]; 
 
         }
+
         /// <summary>
         /// 將設定的資料與語言名稱相符時寫上內容
         /// </summary>
@@ -102,6 +107,7 @@ namespace solar_a
         private void Start()
         {
             DataWrite(StaticSharp._LANG_ID);
+            if(OriganilData != null) DataOrigial(StaticSharp._LANG_ID);
         }
     }
 

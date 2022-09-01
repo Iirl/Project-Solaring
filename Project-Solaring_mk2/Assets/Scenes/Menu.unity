@@ -5098,22 +5098,22 @@ MonoBehaviour:
     TmpUGUI: {fileID: 471499096}
   - label: "\u524D\u9032 "
     id: 3
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 995786199}
   - label: "\u5F8C\u9000 "
     id: 4
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 905319265}
   - label: "\u5F80\u5DE6 "
     id: 5
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 868500694}
   - label: "\u5F80\u53F3 "
     id: 6
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 1826124039}
   - label: "\u5DE6\u7FFB\u8F49 "
     id: 7
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 817140762}
   - label: "\u53F3\u7FFB\u8F49 "
     id: 8
-    TmpUGUI: {fileID: 0}
+    TmpUGUI: {fileID: 556608515}
 --- !u!114 &1263648039
 MonoBehaviour:
   m_ObjectHideFlags: 0

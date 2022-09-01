@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
+  m_Name: Intro
+  m_EditorClassIdentifier: 
+  platform: 0
+  Language:
+  - label: Intro_Chinese
+    filename: Intro_CH
+    datas:
+    - "\u5730\u7403\u8CC7\u6E90\u4E0D\u65B7\u8017\u76E1\r"
+    - "\u4EBA\u985E\u60F3\u76E1\u8FA6\u6CD5\u5C0B\u627E\r"
+    - "\u9069\u5408\u751F\u5B58\u7684\u661F\u7403\r"
+    - "\u7D42\u65BC\u5728\u6BD4\u9130\u661F\u9644\u8FD1\r"
+    - "\u767C\u73FE\u4E86\u4E00\u9846\u8D85\u7D1A\u5730\u7403\r"
+    - "\u7D93\u904E\u9577\u671F\u7684\u89C0\u6E2C\u5F8C\r"
+    - "\u78BA\u8A8D\u8A72\u661F\u7403\u9069\u5408\u5C45\u4F4F\r"
+    - "\u65BC\u662F\u7B2C\u4E00\u6279\u79FB\u6C11\u51FA\u767C\r"
+    - "\u4F60\u662F\u661F\u8266\u5718\u6700\u5F8C\u51FA\u767C\u7684"
+  - label: Intro_English
+    filename: Intro_EN
+    datas:
+    - "EN\u5730\u7403\u8CC7\u6E90\u4E0D\u65B7\u8017\u76E1\r"
+    - "EN\u4EBA\u985E\u60F3\u76E1\u8FA6\u6CD5\u5C0B\u627E\r"
+    - "EN\u9069\u5408\u751F\u5B58\u7684\u661F\u7403\r"
+    - "EN\u7D42\u65BC\u5728\u6BD4\u9130\u661F\u9644\u8FD1\r"
+    - "EN\u767C\u73FE\u4E86\u4E00\u9846\u8D85\u7D1A\u5730\u7403\r"
+    - "EN\u7D93\u904E\u9577\u671F\u7684\u89C0\u6E2C\u5F8C\r"
+    - "EN\u78BA\u8A8D\u8A72\u661F\u7403\u9069\u5408\u5C45\u4F4F\r"
+    - "EN\u65BC\u662F\u7B2C\u4E00\u6279\u79FB\u6C11\u51FA\u767C\r"
+    - "EN\u4F60\u662F\u661F\u8266\u5718\u6700\u5F8C\u51FA\u767C\u7684"

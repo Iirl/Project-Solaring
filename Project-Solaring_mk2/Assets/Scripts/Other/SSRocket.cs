@@ -38,7 +38,7 @@ public class SSRocket : MonoBehaviour
     /// <param name="id">異常狀態編號</param>
     /// <param name="sec">持續時間</param>
     /// <param name="sm">額外傳入方法</param>
-    public void StateControaller(int id, int sec, StatusMethod sm =null)
+    public void StateControaller(int id, int sec, StatusMethod sm = null)
     {
         switch ((RocketACondition)id)
         {
@@ -67,10 +67,13 @@ public class SSRocket : MonoBehaviour
     /// </summary>
     private void SendControl()
     {
-        mgc.noDead = noDead ? true : false;
-        mgc.noExhauFuel = noFuel ? true : false;
-        mgc.noExhauRush = noRush ? true : false;
-        mgc.toFinDest = toFinal ? true : false;
+        if (mgc)
+        {
+            mgc.noDead = noDead ? true : false;
+            mgc.noExhauFuel = noFuel ? true : false;
+            mgc.noExhauRush = noRush ? true : false;
+            mgc.toFinDest = toFinal ? true : false;
+        }
     }
     /// <summary>
     /// 額外生成物件
