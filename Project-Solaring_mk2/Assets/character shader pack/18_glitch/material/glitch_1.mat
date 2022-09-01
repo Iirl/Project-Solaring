@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_5CB6B5FB:
-        m_Texture: {fileID: 2800000, guid: 3ba61b963021d884ba2f7266dfdf69ca, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_9C3E50C3:
@@ -107,14 +107,14 @@ Material:
     - Vector1_1D9A2AE: 0.01
     - Vector1_1E66B8A3: 1
     - Vector1_393DE20C: 0.01
-    - Vector1_3AA29E2: 0.1
+    - Vector1_3AA29E2: 0.282
     - Vector1_40249D74: -1
-    - Vector1_598C799B: 0.622
-    - Vector1_63698BA9: -0.5
-    - Vector1_68ED0C3: 7
-    - Vector1_7BE3C3CF: 2.04
-    - Vector1_92F48B48: 0.585
-    - Vector1_B00EF6DA: 0.5
+    - Vector1_598C799B: 0
+    - Vector1_63698BA9: 0.78
+    - Vector1_68ED0C3: 20
+    - Vector1_7BE3C3CF: 1.22
+    - Vector1_92F48B48: 0
+    - Vector1_B00EF6DA: 0
     - Vector1_C663C384: 0.208
     - Vector1_C8B3DF2F: 5
     - Vector1_EFE64959: 100
@@ -153,7 +153,7 @@ Material:
     - float_statue_level: 1
     - float_statue_threhold: 1
     m_Colors:
-    - Color_1EA86684: {r: 7.355526, g: 7.355526, b: 7.355526, a: 0}
+    - Color_1EA86684: {r: 1.8352941, g: 1.8352941, b: 1.8352941, a: 0}
     - Color_6DF76E71: {r: 1024, g: 936.22864, b: 0, a: 0}
     - Color_9BE22665: {r: 50.833168, g: 35.624916, b: 0, a: 0}
     - Color_FB151A2: {r: 3.2490098, g: 2.6536417, b: 1.2587787, a: 0}

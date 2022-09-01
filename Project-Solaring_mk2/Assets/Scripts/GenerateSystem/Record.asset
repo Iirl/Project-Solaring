@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: Box_SPM
+  m_Name: Record
   m_EditorClassIdentifier: 
   grtClass: 0
-  grtObject: {fileID: 2231256598753055803, guid: 921441dbc94f4f24b83b92cffe05cf62,
+  grtObject: {fileID: 7974966873733631547, guid: cd1c47124abc5b8448af831b7dcb2546,
     type: 3}
   grtSubObject: []
-  grtProb: 0.34
-  grtIntervalTime: 2
+  grtProb: 0.5
+  grtIntervalTime: 1
   grtWaitTime: 5
-  grtdestTime: 0
-  grtPos: {x: 25, y: 3, z: 5}
-  grtOffset: 20
+  grtdestTime: 60
+  grtPos: {x: 0, y: 0, z: 0}
+  grtOffset: 0
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 3
+  grtLimit: 1

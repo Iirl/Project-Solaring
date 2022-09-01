@@ -5365,7 +5365,7 @@ MonoBehaviour:
   unit_fuel: -0.05
   fuel: 100
   rush_time: 0.2
-  rush_counts: 0
+  rush_counts: 3
   fuel_overcapacity: 105
   fireLenght_min: {x: 0.8, y: 1.5}
   fireLenght_max: {x: 0.5, y: 3}

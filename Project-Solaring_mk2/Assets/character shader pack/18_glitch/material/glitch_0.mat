@@ -97,13 +97,13 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_1D9A2AE: 0.01
-    - Vector1_3AA29E2: 0
+    - Vector1_3AA29E2: 0.641
     - Vector1_598C799B: 0.745
-    - Vector1_63698BA9: 0
-    - Vector1_68ED0C3: -5
+    - Vector1_63698BA9: 1.4
+    - Vector1_68ED0C3: -164
     - Vector1_7BE3C3CF: 0
     - Vector1_92F48B48: 0.523
-    - Vector1_B00EF6DA: 0
+    - Vector1_B00EF6DA: -0.12
     - Vector1_C8B3DF2F: 4.73
     - Vector1_EFE64959: 100
     - Vector1_F4D3A67B: 6.01
