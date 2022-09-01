@@ -6,5 +6,19 @@ Fword
 Back
 Left
 Right
-LeftSpine
-RightSpine
+Roll Left
+Roll Right
+---Game---
+FUEL
+DISTANCE
+---Pause---
+RESTART
+EXIT GAME
+RESUME
+---Station---
+FUEL
+SPEED
+ACCELERATION
+PARAMETER ADJUSTMENT
+EXIT
+---End---
