@@ -14,6 +14,7 @@ public class StaticSharp
     static public Vector3 Rocket_INFO;
     static public bool isChangeScene;
     static public bool isDialogEvent;
+    static public float DistanceRecord; // 紀錄飛行距離，將該值傳給下一關使用。
     //
     
     #region Shotkey, 快捷鍵設定
@@ -111,6 +112,7 @@ public enum State { Running, Loading, Pause, End, Finish }
 public enum GenerClass { Normal, Meteorite, StaticPoint }
 public enum RocketState { Stay, Move, Boost, Crashed, Stop }
 public enum RocketACondition { Protect,FullGage ,FullRush , Other}
+public enum RocketPreviews { Basic, Outfit1, Outfit2}
 public enum SpacetState { Stay, Setting, Rotate, Stop }
 
 

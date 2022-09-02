@@ -37,7 +37,14 @@ namespace solar_a
         /// 儲存場景的資訊
         /// 當場景轉換時，紀錄要保留的資訊。
         /// </summary>
-        public void SaveLeveInform() => PlayerPrefs.SetInt(sceneID, GetScenes());
+        public void SaveLeveInform(){
+            PlayerPrefs.SetInt(sceneID, GetScenes());
+
+            StaticSharp.Rocket_INFO = ManageCenter.rocket_ctl.RocketS1;         //火箭當前數值
+            StaticSharp.Rocket_BASIC = ManageCenter.rocket_ctl.RocketBasic;     //火箭基本數值
+            //StaticSharp.DistanceRecord = UI_moveDistane;   // 調整成目前距離
+            StaticSharp.DistanceRecord = ManageCenter.ss_ctl.finishDistane;     // 紀錄當前關卡的距離
+        }
         /// <summary>
         /// 根據目前的指標移動到下一關:
         /// 目前只能指定達到關卡上限之後回到標題。

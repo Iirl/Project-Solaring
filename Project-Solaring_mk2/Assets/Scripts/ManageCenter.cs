@@ -11,30 +11,38 @@ namespace solar_a
     /// 目前放在： GameManage_UI
     /// 會將可重複調用的方法放於此處，在其他物件上原有的方法如有需要重複使用也會放在這。
     /// </summary>
+    [RequireComponent(typeof(ManageScene))]
     public class ManageCenter : MonoBehaviour
     {
         #region 管理控制系統
         [Header("中控系統")]
         static public ManageCenter mgCenter;
-        [SerializeField, Header("各程式管理系統"), Tooltip("場景系統")]
-        private ManageScene MgScene;
         static public ManageScene mgScene;
-        [SerializeField, Tooltip("聲音管理")]
-        private ManageDisco MgDisco;
         static public ManageDisco mgDsko;
-        [SerializeField, Tooltip("結束管理")]
-        private ManageEnd MgEnd;
         static public ManageEnd mgEnd;
-        [SerializeField, Tooltip("火箭控制系統")]
-        private Rocket_Controll Rocket_CTL;
         static public Rocket_Controll rocket_ctl;
         static public SSRocket rocket_SSR;
-        [SerializeField, Tooltip("場景控制系統")]
-        private SceneStage_Control SS_CTL;
         static public SceneStage_Control ss_ctl;
-        [SerializeField, Tooltip("空間控制系統")]
-        private Space_Controll Space_CTL;
         static public Space_Controll space_ctl;
+        [SerializeField, Header("各程式管理系統")]
+        private ManageScriptClass ManageSystemController;
+        [System.Serializable]
+        public class ManageScriptClass
+        {
+            [SerializeField, Tooltip("場景系統")]
+            public ManageScene MgScene;
+            [SerializeField, Tooltip("聲音管理")]
+            public ManageDisco MgDisco;
+            [SerializeField, Tooltip("結束管理")]
+            public ManageEnd MgEnd;
+            [SerializeField, Tooltip("火箭控制系統")]
+            public Rocket_Controll Rocket_CTL;
+            [SerializeField, Tooltip("場景控制系統")]
+            public SceneStage_Control SS_CTL;
+            [SerializeField, Tooltip("空間控制系統")]
+            public Space_Controll Space_CTL;
+        }
+
         #endregion
         /// <summary>
         /// GameUI Interface.
@@ -50,6 +58,10 @@ namespace solar_a
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         static public int UI_fuel = 100;
         static public float UI_moveDistane = 0;
+        [SerializeField, Header("玩家資訊")]
+        private GameObject[] RocketModel;
+        [SerializeField, Tooltip("機體外觀設定")]
+        private RocketPreviews RocketOutfit;
         [SerializeField, Tooltip("用盡燃料後的掙扎時間"), Range(0, 10)]
         private float fuelExhaustedTime = 5;
         /// <summary>
@@ -90,13 +102,21 @@ namespace solar_a
         #region 火箭控制與計數相關
         public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
-        //
-        private IEnumerator DeathCounter(float counter = 0)
+        
+        private void PutPlayerOBJ()
         {
-            for (int i = 0; i < counter; i++) yield return new WaitForSeconds(1);
-            if (rocket_ctl.RocketS1.x < 1) condition.Dead();
-            yield return null;
+            //In Awake 事件，判斷是否需要生成玩家物件
+            //或者可以修改 RocketOutfit 後再一次呼叫
+            if (!GameObject.FindGameObjectWithTag("Player"))
+            {
+                //print("需要生成物件");
+                try { Instantiate(RocketModel[(int)RocketOutfit], Vector3.down * 11, Quaternion.identity); }
+                catch (System.IndexOutOfRangeException) { print("找不到物件，請確定MangeUI上是否有設定玩家物件"); }
+                catch (System.Exception) { print("RocketModel 的資料不存在，請放入火箭模型"); }
+            }
+            //else print("不用生成物件");
         }
+
         /// <summary>
         /// 火箭與場景移動。
         /// 舊版：調整場景的 Y軸數值。
@@ -133,6 +153,16 @@ namespace solar_a
             rocket_ctl.PutRocketSyn(f);
             if (StaticSharp.Conditions == State.End && nowFuel > 0) CancelInvoke("GameState");
         }
+        /// <summary>
+        /// 燃料耗盡的倒數
+        /// </summary>
+        /// <param name="counter">設定時間</param>
+        private IEnumerator DeathCounter(float counter = 0)
+        {
+            for (int i = 0; i < counter; i++) yield return new WaitForSeconds(1);
+            if (rocket_ctl.RocketS1.x < 1) condition.Dead();
+            yield return null;
+        }
         #endregion
         #region 物件通用函數
         /// <summary>
@@ -157,8 +187,6 @@ namespace solar_a
         /// </summary>
         public void InToStation()
         {
-            StaticSharp.Rocket_INFO = rocket_ctl.RocketS1;
-            StaticSharp.Rocket_BASIC = rocket_ctl.RocketBasic;
             mgScene.SaveLeveInform();
             mgScene.LoadScenes("Station");
         }
@@ -167,6 +195,7 @@ namespace solar_a
         /// </summary>
         private void StartChageScene()
         {
+            mgScene.SaveLeveInform();
             StartCoroutine(rocket_ctl.ControlChange(false));
             StartCoroutine(mgScene.LoadScenesPreOrder(true));
         }
@@ -299,27 +328,31 @@ namespace solar_a
         private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
 
         #endregion
-        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
 
+        #region 啟動事件
+        StaticSharp.GameCondition condition = new StaticSharp.GameCondition();
         private void Awake()
         {
             mgCenter = GetComponent<ManageCenter>();
+            if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
+            if (ManageSystemController.MgEnd) mgEnd = ManageSystemController.MgEnd;
+            else mgEnd = FindObjectOfType<ManageEnd>();
+            mgScene = ManageSystemController.MgScene ? ManageSystemController.MgScene : FindObjectOfType<ManageScene>();
+            mgDsko = ManageSystemController.MgDisco ? ManageSystemController.MgDisco : FindObjectOfType<ManageDisco>();
+            ss_ctl = ManageSystemController.SS_CTL ? ManageSystemController.SS_CTL : FindObjectOfType<SceneStage_Control>();
+            space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
+            PutPlayerOBJ();
+            rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
+            rocket_SSR =rocket_ctl!=null ? rocket_ctl.GetComponent<SSRocket>(): null;
         }
         private void Start()
-        {
-            if (pauseMenus == null) pauseMenus = pauseUI.GetComponent<CanvasGroup>();
-            if (MgEnd) mgEnd = MgEnd;
-            else mgEnd = FindObjectOfType<ManageEnd>();
-            mgScene = MgScene ? MgScene : FindObjectOfType<ManageScene>();
-            ss_ctl = SS_CTL ? SS_CTL : FindObjectOfType<SceneStage_Control>();
-            rocket_ctl = Rocket_CTL ? Rocket_CTL : FindObjectOfType<Rocket_Controll>();
-            rocket_SSR = rocket_ctl.GetComponent<SSRocket>();
-            space_ctl = Space_CTL ? Space_CTL : FindObjectOfType<Space_Controll>();
-            mgDsko = MgDisco ? MgDisco : FindObjectOfType<ManageDisco>();
+        {           
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
-            UI_moveDistane = 0;
+            // 取得距離數值，如果沒有則從零開始
+            UI_moveDistane = StaticSharp.DistanceRecord>0? StaticSharp.DistanceRecord: 0;
         }
+        #endregion
         private void Update()
         {
             // 狀態機執行功能

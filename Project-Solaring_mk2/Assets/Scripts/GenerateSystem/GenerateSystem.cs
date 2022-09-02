@@ -15,8 +15,8 @@ namespace solar_a
         GeneratorData generData;
         [SerializeField, Header("連續呼叫")]
         private bool continues;
-        [SerializeField, Header("指定距離開始產生物件")]
-        private float generDestan =0;
+        [SerializeField, Header("指定距離開始產生物件(x~y)"),Tooltip("如果為零表示不限制")]
+        private Vector2 generDestan;
 
         // 取得中央控制類別
         ManageCenter mgc;
@@ -241,12 +241,13 @@ namespace solar_a
                         break;
                 }
             }
+            if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0) CancelInvoke("SwitchState");
             //print("呼叫次數");
         }
 
         private IEnumerator IntervalGenerate()
         {
-            while (ManageCenter.UI_moveDistane < generDestan && !preLoadInvoke) yield return null;          // 距離指定
+            while (ManageCenter.UI_moveDistane < generDestan.x && !preLoadInvoke) yield return null;          // 距離指定
             if (continues) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);// 持續與一次性
             else Invoke("SwitchState", generData.grtIntervalTime);           
            
@@ -258,8 +259,8 @@ namespace solar_a
         private void Start()
         {
             preLoadInvoke = IsInvoking();
-            StartCoroutine(IntervalGenerate());
-
+            generDestan.y = generDestan.y!=0 ? Mathf.Clamp(generDestan.y, generDestan.x, generDestan.y):0;
+            if(mgc) StartCoroutine(IntervalGenerate());
         }
         private void Update()
         {

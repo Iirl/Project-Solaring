@@ -264,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 7bb280451393f584e9d1961f1dec622a, type: 2}
   continues: 1
-  generDestan: 1000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &47937555
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +443,7 @@ RectTransform:
   - {fileID: 625386037}
   - {fileID: 795433719}
   - {fileID: 617259659}
+  - {fileID: 716530416}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -475,12 +476,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d01b4ac63e88824fbc6de3e355bacae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MgScene: {fileID: 0}
-  MgDisco: {fileID: 0}
-  MgEnd: {fileID: 0}
-  Rocket_CTL: {fileID: 0}
-  SS_CTL: {fileID: 0}
-  Space_CTL: {fileID: 0}
+  ManageSystemController:
+    MgScene: {fileID: 0}
+    MgDisco: {fileID: 0}
+    MgEnd: {fileID: 0}
+    Rocket_CTL: {fileID: 0}
+    SS_CTL: {fileID: 0}
+    Space_CTL: {fileID: 0}
   ui_Dist: {fileID: 654708608}
   ui_fuel: {fileID: 1810340794}
   ui_fuelbar: {fileID: 47937557}
@@ -489,6 +491,8 @@ MonoBehaviour:
   - {fileID: 1933694744}
   - {fileID: 2008414695}
   - {fileID: 1960453792}
+  RocketModel:
+  - {fileID: 3592277314727565250, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
   fuelExhaustedTime: 0
   pauseUI: {fileID: 307926600}
   pauseMenus: {fileID: 0}
@@ -657,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 37ce5b09e79862f49847136818fd7d63, type: 2}
   continues: 0
-  generDestan: 4000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &152607540 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2503807629574911622, guid: 297f40b505f465a40bc14dfae124f968,
@@ -733,7 +737,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6580311, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -940,7 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: e8c0ab9d966493b49b8d509df65a7133, type: 2}
   continues: 1
-  generDestan: 3000
+  generDestan: {x: 0, y: 0}
 --- !u!1001 &302106264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1371,7 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 8a78ac69f5774a84dabc61a178af9d99, type: 2}
   continues: 0
-  generDestan: 12000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &472888964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,6 +2244,7 @@ GameObject:
   - component: {fileID: 716530416}
   - component: {fileID: 716530418}
   - component: {fileID: 716530417}
+  - component: {fileID: 716530419}
   m_Layer: 5
   m_Name: NextStage
   m_TagString: Finish
@@ -2255,12 +2260,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716530415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 36.8, z: 0}
-  m_LocalScale: {x: 119.78609, y: 8.556149, z: 1.7112298}
+  m_LocalPosition: {x: -640.00006, y: -343.01562, z: 0}
+  m_LocalScale: {x: 151.35136, y: 69.836754, z: 2.162162}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1465962579}
-  m_RootOrder: 0
+  m_Father: {fileID: 62497107}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &716530417
 BoxCollider:
@@ -2283,6 +2288,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716530415}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &716530419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716530415}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836bf85d91a2dc14da94c13421f95001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &723249332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 5a24d30e416d662438da3666d8081ea3, type: 2}
   continues: 1
-  generDestan: 200
+  generDestan: {x: 0, y: 0}
 --- !u!1 &925641388
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,7 +3439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 034a1db9614ea3c478f7580e0aaa17c0, type: 2}
   continues: 1
-  generDestan: 5000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &1072750646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4231,7 +4248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 27fafa779948cc240a67e820d9bd7561, type: 2}
   continues: 1
-  generDestan: 2000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &1334965139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,8 +4901,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.584375, y: 0.584375, z: 0.584375}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 716530416}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5263,7 +5279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: daeb31858c6514e4ca812ff36b45d016, type: 2}
   continues: 0
-  generDestan: 13000
+  generDestan: {x: 0, y: 0}
 --- !u!4 &1644387582
 Transform:
   m_ObjectHideFlags: 0
@@ -5807,7 +5823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 5a24d30e416d662438da3666d8081ea3, type: 2}
   continues: 1
-  generDestan: 200
+  generDestan: {x: 0, y: 0}
 --- !u!1001 &1869804890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5968,7 +5984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 672086d63f5d35447b56b7440b4a672b, type: 2}
   continues: 1
-  generDestan: 2000
+  generDestan: {x: 0, y: 0}
 --- !u!1 &1933694744
 GameObject:
   m_ObjectHideFlags: 0

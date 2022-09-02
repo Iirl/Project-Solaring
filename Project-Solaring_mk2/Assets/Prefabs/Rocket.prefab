@@ -5328,24 +5328,24 @@ MonoBehaviour:
       type: 3}
     ExplodeTime: 2
   blocks:
-  - label: Box
-    species: 0
-    plus: 10
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
   - label: Bottle
     species: 0
     plus: 5
     adClip: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
     adVol: 0.3
   - label: UnlimitedBox
-    species: 0
-    plus: 0
+    species: 2
+    plus: 5
     adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
     adVol: 0.3
   - label: ShieldBox
+    species: 1
+    plus: 5
+    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    adVol: 0.3
+  - label: Box
     species: 0
-    plus: 0
+    plus: 10
     adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
     adVol: 0.3
 --- !u!114 &4587356875361899390
@@ -5364,12 +5364,12 @@ MonoBehaviour:
   RocketBasic: {x: 100, y: 10, z: 2}
   unit_fuel: -0.05
   fuel: 100
-  rush_time: 0.2
+  rush_time: 0.5
   rush_counts: 3
-  fuel_overcapacity: 105
+  fuel_overcapacity: 20
   fireLenght_min: {x: 0.8, y: 1.5}
   fireLenght_max: {x: 0.5, y: 3}
-  fireBoost: {x: 0.1, y: 1}
+  fireBoost: {x: 0.15, y: 1.2}
   fire_volume: 0.6
   rocket_Clip:
   - {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}

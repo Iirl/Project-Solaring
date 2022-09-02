@@ -5,6 +5,13 @@ using UnityEngine.Audio;
 
 namespace solar_a
 {
+    /// <summary>
+    /// 聲音控制中心
+    /// 1. 調整音量
+    /// 透過 *Adjust(float) 改變*的音量。
+    /// 2. 播放音效
+    /// 透過 OneShot*(AuidoClip) 來播放一次聲音，*為聲道。
+    /// </summary>
     public class ManageDisco : MonoBehaviour
     {
         [SerializeField, Header("混音控制系統")]
@@ -12,8 +19,8 @@ namespace solar_a
         [SerializeField, Range(-80, 0)]
         private float mstMixerVolume;
         private string mstName = "MainVolume";
-        [SerializeField,Header("音樂聲道")]
-        private AudioSource MusicPlayer; 
+        [SerializeField, Header("音樂聲道")]
+        private AudioSource MusicPlayer;
         [SerializeField, Range(0, 1)]
         private float micVolume;
         //private string micName = "micVol";
@@ -23,9 +30,17 @@ namespace solar_a
         private float effVolume;
         //private string effName = "effectVol";
         //
-        private float setTime=0.5f;
-        private float varTime;        
 
+        private IEnumerator CallTimer()
+        {
+            bool on = true;
+            while (on)
+            {
+                MainMixer.SetFloat(mstName, mstMixerVolume);
+                if (StaticSharp._VOLUME != mstMixerVolume) StaticSharp._VOLUME = mstMixerVolume;
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
         #region 播放音效方法
         /// <summary>
         /// 播放一次聲音
@@ -45,7 +60,7 @@ namespace solar_a
                     EffectAudio.PlayOneShot(adc, effVolume);
                     break;
                 default:
-                break;
+                    break;
             }
         }
         /// <summary>
@@ -65,32 +80,17 @@ namespace solar_a
         public void MasterVolumeAdjust(float vol) => mstMixerVolume = vol;
         public void MusicVolumeAdjust(float vol) => micVolume = vol;
         public void EffectVolumeAdjust(float vol) => effVolume = vol;
-        public void OneShotMusic(AudioClip audioClip) => PlayClips(audioClip,0);
-        public void OneShotEffect(AudioClip audioClip) => PlayClips(audioClip,1);
+        public void OneShotMusic(AudioClip audioClip) => PlayClips(audioClip, 0);
+        public void OneShotEffect(AudioClip audioClip) => PlayClips(audioClip, 1);
         public void ChangePlayMusic(AudioClip audioClip) => ChangeMusic(audioClip);
-
-
 
         private void Awake()
         {
             mstMixerVolume = StaticSharp._VOLUME;
         }
-
-        private void Update()
-        {            
-            if (setTime > varTime) varTime += Time.deltaTime;
-            else
-            {
-                varTime = 0;
-                MainMixer.SetFloat(mstName, mstMixerVolume);
-            }
-            if (StaticSharp._VOLUME != mstMixerVolume) StaticSharp._VOLUME = mstMixerVolume;
-
-
+        private void Start()
+        {
+            StartCoroutine(CallTimer());
         }
-
-
-
-
     }
 }

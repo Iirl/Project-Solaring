@@ -31,7 +31,7 @@ namespace solar_a
         private float fuel = 100;
         private float speed_v = 4f;
         private float speed_a;
-        [SerializeField, Range(0.1f, 20)]
+        [SerializeField, Range(0.1f, 5.0f)]
         private float rush_time;
         [SerializeField, Range(1, 20)]
         private int rush_counts;
@@ -245,7 +245,6 @@ namespace solar_a
 
         private void Awake()
         {
-            RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             fuel = RocketBasic.x;
             speed_v = RocketBasic.y;
             speed_a = RocketBasic.z;
@@ -255,6 +254,19 @@ namespace solar_a
 
         }
         #region 事件
+        private void Start()
+        {
+            RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
+            if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
+            else
+            {
+                fuel = StaticSharp.Rocket_INFO.x;
+                speed_v = StaticSharp.Rocket_INFO.y;
+                speed_a = StaticSharp.Rocket_INFO.z;
+            }
+        }
+
+        // 火箭狀態方法
         private void Controller() => MoveControll(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetAxis("Force"));
         private bool InputMove() => Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
         private bool InputBoost() => Input.GetAxisRaw("Force") != 0;
