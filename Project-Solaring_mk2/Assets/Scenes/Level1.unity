@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7767857, y: 1}
+    m_SensorSize: {x: 1.6580311, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1679,7 +1679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1174681737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3026,6 +3026,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2070353151}
     m_Modifications:
+    - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: noDead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: noFuel
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: noRush

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: UFOL101
+  m_Name: UFO
   m_EditorClassIdentifier: 
   grtClass: 0
   grtObject: {fileID: 3037491925543192508, guid: 269e7d7004257e54da3b9b47cfd73965,

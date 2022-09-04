@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
   grtProb: 0.455
   grtIntervalTime: 2
-  grtWaitTime: 2
+  grtWaitTime: 3
   grtdestTime: 0
   grtPos: {x: 20, y: 5, z: 20}
   grtOffset: 1
