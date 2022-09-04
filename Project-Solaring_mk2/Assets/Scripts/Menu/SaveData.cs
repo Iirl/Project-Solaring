@@ -90,18 +90,25 @@ namespace solar_a
             langToggle[1].isOn = (datas[2].ToLower().Contains("true") ? true : false);
             for (int i = 0; i < langToggle.Length; i++) if (langToggle[i].isOn) StaticSharp._LANG_ID = i;
         }
+        private void PutSources(string setData)
+        {
+            string[] datas = setData.Split('@');
+            StaticSharp._LEVEL = Convert.ToInt32(datas[0]);
+            StaticSharp._SCORE = Convert.ToInt32(datas[1]);
+            StaticSharp._RECORDPOS = new Vector3(float.Parse(datas[2]), float.Parse(datas[3]), float.Parse( datas[4]));
+        }
         #endregion
         // 公用存取方法
         public void SaveSettingData() => DataSave(TakeSetting(), GetPath(setting));
         public void SaveScoreData(int src) => DataSave(src.ToString(), GetPath(scores));
         public void LoadSettingData() => PutSetting(DataLoad(GetPath(setting))); //從檔案讀取設定資料
-        public void LoadScoreData() => StaticSharp._SCORE = DataLoadInt(GetPath(scores)); //從檔案讀取分數資料
+        public void LoadScoreData() => PutSources(DataLoad(GetPath(scores))); //從檔案讀取分數資料
 
         private void Awake()
         {
             LoadSettingData();
             LoadScoreData();
-            //print(GetPath(setting));
+            print(GetPath(setting));
         }
     }
 }

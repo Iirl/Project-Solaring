@@ -47,7 +47,7 @@ namespace solar_a
         [SerializeField, Header("火焰最大音量"), Range(0.1f, 1f)]
         float fire_volume = 0.6f;
         [SerializeField]
-        List<AudioClip> rocket_Clip = new List<AudioClip>();
+        public List<AudioClip> rocket_Clip = new List<AudioClip>();
         [SerializeField, Header("火箭大小")]
         Vector3 rocketBox = new Vector3(1f, 3f, 0);
         [SerializeField, Tooltip("火箭位移")]
@@ -207,18 +207,13 @@ namespace solar_a
             status.SetActive(open);
         }
         #region 音效
-        public void ADOClipControl(AudioClip acp, float vol = 1) => Rocket_sound.PlayOneShot(acp, vol);
         /// <summary>
         /// 火箭音效設定：
         /// 0. 碰到補給品
         /// 1. 碰到敵人或自爆
         /// 2. 強化性音效
+        //public void ADOClipControl(AudioClip acp, float vol = 1) => Rocket_sound.PlayOneShot(acp, vol);
         /// </summary>
-        public void ADOClipControl(int i)
-        {
-            Rocket_sound.volume = 1;
-            Rocket_sound.PlayOneShot(rocket_Clip[i], 1f);
-        }
         /// <summary>
         /// 火箭音效淡入
         /// </summary>
@@ -329,7 +324,6 @@ namespace solar_a
         private void OnTriggerEnter(Collider other)
         {
             int idx = ColliderSystem.CollisionPlayerEvent(other.gameObject);
-            if (other.tag.Contains("Enemy")) ADOClipControl(1);
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
             //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
         }

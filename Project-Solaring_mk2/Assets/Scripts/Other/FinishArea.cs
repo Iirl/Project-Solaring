@@ -21,6 +21,7 @@ namespace solar_a {
         {
             FinishBox.enabled = true;
         }
+
     }
 
 }

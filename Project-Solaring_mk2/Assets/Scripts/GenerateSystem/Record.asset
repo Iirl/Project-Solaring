@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: Record
   m_EditorClassIdentifier: 
-  grtClass: 0
+  grtClass: 3
   grtObject: {fileID: 7974966873733631547, guid: cd1c47124abc5b8448af831b7dcb2546,
     type: 3}
   grtSubObject: []

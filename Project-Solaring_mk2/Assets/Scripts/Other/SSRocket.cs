@@ -9,10 +9,12 @@ using UnityEngine;
 public class SSRocket : MonoBehaviour
 {
     ManageCenter mgc;
+    Rocket_Controll rct;
     public delegate void StatusMethod(bool trunOn);
     #region 面板控制效果
     [SerializeField, Tooltip("顯示在遊戲中")]
-    private bool showWindows;
+    private bool showWindows, showPassFiled;
+
     public bool isShowed { get { return showWindows; } }
     [SerializeField, Header("異常狀態"), Tooltip("不會死亡")]
     private bool noDead;
@@ -30,7 +32,7 @@ public class SSRocket : MonoBehaviour
     [SerializeField, Header("飛船物件")]
     private GameObject[] rockets;
     #endregion
-    public void ShowDebug(bool isOpen) => showWindows = isOpen;
+    public void ShowDebug(bool isOpen) => showPassFiled = isOpen;
     public void CreateBorkenRocket() => uniGenerator(0);
     /// <summary>
     /// 狀態切換控制器
@@ -43,9 +45,11 @@ public class SSRocket : MonoBehaviour
         switch ((RocketACondition)id)
         {
             case RocketACondition.Protect:
-                sm = toNoDead;
-                Rocket_Controll rct = GetComponent<Rocket_Controll>();
-                StartCoroutine(StatusTimer(rct.StateToShield, sec));
+                if (!noDead)
+                {
+                    sm = toNoDead;
+                    StartCoroutine(StatusTimer(rct.StateToShield, sec));
+                }
                 break;
             case RocketACondition.FullGage:
                 sm = toFullGage;
@@ -113,18 +117,57 @@ public class SSRocket : MonoBehaviour
     private void Awake()
     {
         mgc = FindObjectOfType<ManageCenter>();
+        rct = GetComponent<Rocket_Controll>();
         SendControl();
     }
 
     [Header("顯示功能"), Space]
     GUIStyle focuss = new GUIStyle();
     private Rect windowRect = new Rect(20, 20, 200, 120);
+    private Rect passWindowRect = new Rect(20, 20, 110, 45);
     private Color onColor = Color.green;
     private Color offColor = Color.gray;
     private void OnGUI()
     {
-        if (showWindows) windowRect = GUI.Window(0, windowRect, CheatWindow, "Debug Window");
+        if (showPassFiled) GUI.Window(0, passWindowRect, CodeInWindows, "Code");
+        if (showWindows) windowRect = GUI.Window(1, windowRect, CheatWindow, "Debug Window");
+    }
+    /// <summary>
+    /// 密碼視窗
+    /// </summary>
+    string[] password = { "2", "5", "4", "1" };
+    bool[] inputCheck = new bool[4];
+    bool isPassWindows = false;
+    private void CodeInWindows(int windowID)
+    {
+        if (!isPassWindows) { isPassWindows = true; StartCoroutine(CodeTimer()); }
+        if (GUI.Button(new Rect(90, 5, 10, 10), "X")) { showPassFiled = !showPassFiled; }
+        for (int i = 0; i < password.Length; i++)
+        {
+            GUI.Toggle(new Rect(15 + (i * 20), 20, 50, 25), inputCheck[i], "");
+        }
+    }
+    private void CodeEraser()
+    {
+        for (int i = 0; i < inputCheck.Length; i++) inputCheck[i] = false;
 
+    }
+    private IEnumerator CodeTimer()
+    {
+        int count = 0, fail=0;
+        while (!inputCheck[count])
+        {
+            inputCheck[count] = Input.GetKey(password[count]);
+            fail = Input.anyKey ? fail + 1 : fail;
+            if (fail > 16) {CodeEraser(); fail = 0; count = 0; }
+            if (inputCheck[count] && count < inputCheck.Length - 1) { count++; fail = 0; }
+            yield return null;
+        }
+        yield return null;
+        if (!showWindows) showWindows = inputCheck[0] && inputCheck[1] && inputCheck[2] && inputCheck[3];
+        showPassFiled = false;
+        isPassWindows = false;
+        yield break;
     }
     /// <summary>
     /// 作弊視窗

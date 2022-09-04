@@ -6,8 +6,10 @@ public class StaticSharp
 {
     // 檔案存取資訊
     static public int _LANG_ID;
+    static public int _LEVEL;
     static public int _SCORE;
     static public float _VOLUME;
+    static public Vector3 _RECORDPOS;
     // 遊戲內資訊
     static public State Conditions;
     static public Vector3 Rocket_BASIC;
@@ -109,7 +111,7 @@ public class StaticSharp
 }
 
 public enum State { Running, Loading, Pause, End, Finish }
-public enum GenerClass { Normal, Meteorite, StaticPoint }
+public enum GenerClass { Normal, Meteorite, StaticPoint, PrevRocord }
 public enum RocketState { Stay, Move, Boost, Crashed, Stop }
 public enum RocketACondition { Protect,FullGage ,FullRush , Other}
 public enum RocketPreviews { Basic, Outfit1, Outfit2}

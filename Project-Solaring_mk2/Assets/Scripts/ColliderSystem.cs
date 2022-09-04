@@ -55,6 +55,7 @@ public class ColliderSystem : MonoBehaviour
         {
             i = 1; //結束遊戲處理
             if (ManageCenter.space_ctl.isRotate) return -1;
+            ManageCenter.mgDsko.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
             StaticSharp.Conditions = State.End;
         }
         else if (hitObj.tag.Contains("Block"))
@@ -81,6 +82,7 @@ public class ColliderSystem : MonoBehaviour
                     if (mgScene) mgScene.SendMessage("SceneChageEvent" , true);
                 }
                 print("終點，轉場");
+                loadScene = false;
             }
         }
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);

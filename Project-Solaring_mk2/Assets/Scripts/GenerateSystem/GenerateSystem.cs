@@ -33,6 +33,7 @@ namespace solar_a
         /// </summary>
         private void SubObjGenerate() => Random_gen(generData.grtRandomRoation);
         private void StaticPointGen() => Static_gen(generData.grtRandomRoation, false);
+        private void PreviousRecordPostition() => Static_gen(generData.grtPos, generData.grtRandomRoation);
         public void Test()
         {
             
@@ -125,22 +126,20 @@ namespace solar_a
         /// 如果甚麼都不傳入的話，至少要傳入目前Y的位置，才會在畫面上看到。
         /// </summary>
         /// <param name="worldOffset">目前場景的座標</param>
-        /// <param name="i">指定生成列表的物件</param>
-        /// <param name="isPos">是否隨機位置</param>
         /// <param name="isRoate">是否隨機旋轉</param>
+        /// <param name="randPos">是否隨機位置</param>
         /// <returns></returns>
-        private GameObject Generator_EMP(Vector3 worldOffset, bool isRoate = false ,bool random=true)
+        private GameObject Generator_EMP(Vector3 worldOffset, bool isRoate = false ,bool randPos=true)
         {
             if (generData.grtObject == null) return null;
             DestroysOnBug(worldOffset);
-            //show
-            //Vector3 st_border = mgc.GetStageBorder();
+            worldOffset.y += generData.grtOffset; // Offset 會調整Y軸座標
             Vector3 random_v3 = new(Random.Range(-generData.grtPos.x, generData.grtPos.x),
-                Random.Range(0f, generData.grtPos.y + generData.grtOffset),
+                Random.Range(0f, generData.grtPos.y),
                 Random.Range(-generData.grtPos.z, generData.grtPos.z)
             );
             obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
-            obGenerate.Create_v3 += (random) ? random_v3 + worldOffset : generData.grtPos + worldOffset;                // 物件生成的位置，會依據設定的位置改變。
+            obGenerate.Create_v3 += (randPos) ? random_v3 + worldOffset : generData.grtPos + worldOffset;                // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
             obGenerate.destoryTime = generData.grtdestTime;
             Object created = obGenerate.Generates();            
@@ -159,7 +158,7 @@ namespace solar_a
         /// </summary>
         private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
         private void Static_gen(bool isRot, bool isRnd) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRot, isRnd);
-        private void Static_gen(float locY, bool isRotate) => Generator_EMP(new Vector3(0, locY, 0), isRotate);
+        private void Static_gen(Vector3 setPos, bool isRotate) => Generator_EMP(setPos + Vector3.up * mgc.GetStageBorder().y, isRotate);
 
         /// <summary>
         /// 將物件隨機生成在畫面中
@@ -237,17 +236,26 @@ namespace solar_a
                     case GenerClass.StaticPoint:
                         StaticPointGen();
                         break;
+                    case GenerClass.PrevRocord:
+                        // 設定前一次的失敗的位置
+                        generData.grtPos = StaticSharp._RECORDPOS;
+                        if (generData.grtPos == Vector3.zero) break;
+                        print($"Borken rocket will be generate at {generData.grtPos}.");
+                        PreviousRecordPostition();
+                        break;
                     default:
                         break;
                 }
             }
-            if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0) CancelInvoke("SwitchState");
+            if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0) CancelInvoke("SwitchState"); // 超過指定距離停止產生
             //print("呼叫次數");
         }
 
         private IEnumerator IntervalGenerate()
         {
+            if (generData.grtClass == GenerClass.PrevRocord) generDestan.x = StaticSharp._SCORE;
             while (ManageCenter.UI_moveDistane < generDestan.x && !preLoadInvoke) yield return null;          // 距離指定
+            // 開始呼叫
             if (continues) InvokeRepeating("SwitchState", generData.grtIntervalTime, generData.grtWaitTime);// 持續與一次性
             else Invoke("SwitchState", generData.grtIntervalTime);           
            
@@ -261,6 +269,8 @@ namespace solar_a
             preLoadInvoke = IsInvoking();
             generDestan.y = generDestan.y!=0 ? Mathf.Clamp(generDestan.y, generDestan.x, generDestan.y):0;
             if(mgc) StartCoroutine(IntervalGenerate());
+            
+            
         }
         private void Update()
         {

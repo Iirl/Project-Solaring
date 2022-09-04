@@ -4,33 +4,30 @@ using Cinemachine;
 namespace solar_a
 {
     /// <summary>
-    /// ³õ´º±±¨î¨t²Î¡AÃä¬É§P©w¤Î³õ´º¤º®eªºÅÜ¤Æ¡C
+    /// å ´æ™¯æ§åˆ¶ç³»çµ±ï¼Œé‚Šç•Œåˆ¤å®šåŠå ´æ™¯å…§å®¹çš„è®ŠåŒ–ã€‚
     /// Box Collider limit to Rocket can't over the border.
     /// </summary>
     public class SceneStage_Control : MonoBehaviour
     {
-        #region Äİ©Ê
-        [SerializeField, Header("³õ´º¸ê°T"), Tooltip("³õ´º¤j¤p(Read Only)")]
+        #region å±¬æ€§
+        [SerializeField, Header("å ´æ™¯è³‡è¨Š"), Tooltip("å ´æ™¯å¤§å°(Read Only)")]
         private Vector3 stage_container;
-        [SerializeField, Tooltip("³õ´º¦ì§}(Read Only)")]
+        [SerializeField, Tooltip("å ´æ™¯ä½å€(Read Only)")]
         private Vector3 stage_position;
-        [SerializeField, Header("³õ´º¬ÛÃö¥i½ÕÅÜ¼Æ"), Tooltip("§P©w°Ï°ìÃC¦â")]
+        [SerializeField, Header("å ´æ™¯ç›¸é—œå¯èª¿è®Šæ•¸"), Tooltip("åˆ¤å®šå€åŸŸé¡è‰²")]
         private Color box_color = Color.cyan;
-        [SerializeField, Header("§P©w°Ï°ì¤j¤p")]
+        [SerializeField, Header("åˆ¤å®šå€åŸŸå¤§å°")]
         private Vector3 box_range = Vector3.zero;
-        [SerializeField, Header("§P©w°Ï°ì¦ì²¾")]
+        [SerializeField, Header("åˆ¤å®šå€åŸŸä½ç§»")]
         private Vector3 box_offset = Vector3.zero;
-        [SerializeField,Header("­­¨î¤õ½b²¾°Ê(Clamp)°Ï°ì·L½Õ")]
+        [SerializeField,Header("é™åˆ¶ç«ç®­ç§»å‹•(Clamp)å€åŸŸå¾®èª¿")]
         private Vector2 minBorder;
         [SerializeField]
         private Vector2 maxBorder;
         Vector3 nbox_range;
-        [SerializeField, Header("³õ´º²¾°Ê³t«×")]
-        public float speed;
-        public float finishDistane;
-        [SerializeField, Header("¨ä¥L¼ĞÅÒÄ²µo®ø°£ª«¥ó")]
+        [SerializeField, Header("å…¶ä»–æ¨™ç±¤è§¸ç™¼æ¶ˆé™¤ç‰©ä»¶")]
         private string[] includeTag;
-        [SerializeField, Header("­«¤O½Õ¾ã")]
+        [SerializeField, Header("é‡åŠ›èª¿æ•´")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
         Camera MainCam;
         CinemachineVirtualCamera cinemachine;
@@ -38,9 +35,9 @@ namespace solar_a
         RectTransform Space_Rect;
         #endregion
 
-        #region ¥ş°ì±±¨î¤èªk
+        #region å…¨åŸŸæ§åˆ¶æ–¹æ³•
         /// <summary>
-        /// ¨ú±oµe­±Ãä¬É¡Gµ{¦¡±Ò°Ê®É©ÎªÌ½Õ¾ã¤j¤p®É­n©I¥s¦¹¨ç¼Æ½Õ¾ãÃä¬É¡C
+        /// å–å¾—ç•«é¢é‚Šç•Œï¼šç¨‹å¼å•Ÿå‹•æ™‚æˆ–è€…èª¿æ•´å¤§å°æ™‚è¦å‘¼å«æ­¤å‡½æ•¸èª¿æ•´é‚Šç•Œã€‚
         /// </summary>
         public Vector3 GetBoxborder()
         {
@@ -53,18 +50,18 @@ namespace solar_a
         }
 
         #endregion
-        #region ¤èªk
+        #region æ–¹æ³•
         /// <summary>
-        /// µe­±²¾°Ê
+        /// ç•«é¢ç§»å‹•
         /// </summary>
         private void _auto_move()
         {
         }
         /// <summary>
-        /// ³õ´ºÃä½t§P©w¡Aª±®a¡G¦^±À¡Fª«¥ó¡G¸I¼²¨t²Î=>©µ¿ğ¯}Ãa¡C
+        /// å ´æ™¯é‚Šç·£åˆ¤å®šï¼Œç©å®¶ï¼šå›æ¨ï¼›ç‰©ä»¶ï¼šç¢°æ’ç³»çµ±=>å»¶é²ç ´å£ã€‚
         /// </summary>
-        /// <param name="colliders">¸I¼²°Ï°ì</param>
-        /// <param name="i">½s¸¹¡A¨S¦³¯S§O·N¸q¡A¥u¦³µ{¦¡¤º³¡·|»¡©ú¥Î³~</param>
+        /// <param name="colliders">ç¢°æ’å€åŸŸ</param>
+        /// <param name="i">ç·¨è™Ÿï¼Œæ²’æœ‰ç‰¹åˆ¥æ„ç¾©ï¼Œåªæœ‰ç¨‹å¼å…§éƒ¨æœƒèªªæ˜ç”¨é€”</param>
         private void _borderVelocity(Collider[] colliders, int i)
         {
             foreach (Collider col in colliders)
@@ -81,14 +78,14 @@ namespace solar_a
                     if (i == 1) ColliderSystem.StageColliderEvent(col.gameObject);
                 }
             }
-            //print($"³z¹L {colliders[0].tag}");
+            //print($"é€é {colliders[0].tag}");
 
         }
         #endregion
 
         private void OnTriggerExit(Collider other)
         {
-            // ±`¨£ª¬ºA¥æ¥Ñ¸I¼²¨t²Î³B²z¡AÃB¥~ª«¥ó¼ĞÅÒ«hª½±µ©µ¿ğ¾P·´¡C
+            // å¸¸è¦‹ç‹€æ…‹äº¤ç”±ç¢°æ’ç³»çµ±è™•ç†ï¼Œé¡å¤–ç‰©ä»¶æ¨™ç±¤å‰‡ç›´æ¥å»¶é²éŠ·æ¯€ã€‚
             ColliderSystem.StageColliderEvent(other.gameObject);
             if (includeTag.Length > 0)
             {
@@ -98,7 +95,7 @@ namespace solar_a
             }
             //print(other.tag);
         }
-        #region ¨Æ¥ó
+        #region äº‹ä»¶
         private void Awake()
         {
             MainCam = Camera.main;
@@ -111,14 +108,14 @@ namespace solar_a
             Physics.gravity = gravity3;
             Application.targetFrameRate = 120;
             GetBoxborder();
-            //box_range = stage_container; // ­Y­n§ï¦¨¤â°Ê¤j¤p¡Aµù¸Ñ±¼³o¦æ¡C
-            // ¥ª¥kÀğ¾À§P©w
+            //box_range = stage_container; // è‹¥è¦æ”¹æˆæ‰‹å‹•å¤§å°ï¼Œè¨»è§£æ‰é€™è¡Œã€‚
+            // å·¦å³ç‰†å£åˆ¤å®š
             nbox_range = new Vector3(box_range.y, box_range.x / 2, box_range.z);
 
         }
         private void FixedUpdate()
         {
-            // ³õ´ºÃä½t°Ê§@
+            // å ´æ™¯é‚Šç·£å‹•ä½œ
             _borderVelocity(Physics.OverlapBox(stage_position + Vector3.up * box_offset.y, box_range, Quaternion.identity), 0);
             _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range, Quaternion.identity), 1);
             _borderVelocity(Physics.OverlapBox(stage_position + Vector3.left * box_offset.x, nbox_range, Quaternion.identity), 2);
@@ -129,26 +126,26 @@ namespace solar_a
         private void OnDrawGizmos()
         {
             Gizmos.color = box_color;
-            Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // Åı½s¿è¾¹¼Ò¦¡¤U¤]¯à¬İ¨ìÃä¬É
-            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 0¤WÃä¬É
-            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1¤UÃä¬É
-            // ¥ª¥k§P©w
-            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 2¥kÃä¬É
-            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 3¥ªÃä¬É
+            Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // è®“ç·¨è¼¯å™¨æ¨¡å¼ä¸‹ä¹Ÿèƒ½çœ‹åˆ°é‚Šç•Œ
+            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 0ä¸Šé‚Šç•Œ
+            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1ä¸‹é‚Šç•Œ
+            // å·¦å³åˆ¤å®š
+            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 2å³é‚Šç•Œ
+            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 3å·¦é‚Šç•Œ
         }
         #endregion
     }
 }
 
 /*
- * ­ì¥»¨¾¤î¶W¹LÃä¬É¼gªk¡A·|¦³¦^¼uªº°İÃD¡C
+ * åŸæœ¬é˜²æ­¢è¶…éé‚Šç•Œå¯«æ³•ï¼Œæœƒæœ‰å›å½ˆçš„å•é¡Œã€‚
     Rigidbody c_rig = col.GetComponent<Rigidbody>();
     Vector3 bound = c_rig.velocity;
-    // ®Ú¾Ú½s¸¹¨Ó¨M©w¤Ï¼uªº¤è¦V¡G
-    /// 0 ©¹¤U
-    /// 1 ©¹¤W
-    /// 2 ©¹¥k
-    /// 3 ©¹¥ª
+    // æ ¹æ“šç·¨è™Ÿä¾†æ±ºå®šåå½ˆçš„æ–¹å‘ï¼š
+    /// 0 å¾€ä¸‹
+    /// 1 å¾€ä¸Š
+    /// 2 å¾€å³
+    /// 3 å¾€å·¦
     switch (i)
     {
         case 0: bound.y = -0.1f; break;

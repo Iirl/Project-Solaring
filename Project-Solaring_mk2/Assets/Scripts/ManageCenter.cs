@@ -11,7 +11,7 @@ namespace solar_a
     /// 目前放在： GameManage_UI
     /// 會將可重複調用的方法放於此處，在其他物件上原有的方法如有需要重複使用也會放在這。
     /// </summary>
-    [RequireComponent(typeof(ManageScene))]
+    [RequireComponent(typeof(ManageScene), typeof(ManageEnd))]
     public class ManageCenter : MonoBehaviour
     {
         #region 管理控制系統
@@ -73,6 +73,25 @@ namespace solar_a
         CanvasGroup pauseMenus;
         [SerializeField, Header("畫布淡化速度")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
+        /// <summary>
+        /// 關卡層級控制
+        /// </summary>
+        [SerializeField, Header("關卡設定")]
+        public StageInformation[] stInfo;
+        [SerializeField]
+        private int levelBuildSetting = 2;
+        private int levelNow;
+        [System.Serializable]
+        public class StageInformation
+        {
+
+            [SerializeField, Header("名稱")]
+            public string label;
+            [SerializeField, Header("移動速度")]
+            public float speed;
+            [SerializeField, Header("結束距離")]
+            public float finishDistane;
+        }
         #region 本地調閱欄位 (Private Feild)
         [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         private CanvasGroup canvas_select;
@@ -82,7 +101,7 @@ namespace solar_a
         #endregion
 
 
-        public void X_PowerMode() => noDead = !noDead;
+        public void X_PowerMode() {noDead = !noDead; rocket_ctl.StateToShield(noDead); }
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
@@ -100,6 +119,7 @@ namespace solar_a
         public void GetState() => print(condition.GetState());
 
         #region 火箭控制與計數相關
+        public Vector3 GetRocketPosition() => rocket_ctl.transform.position;
         public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
         
@@ -126,16 +146,16 @@ namespace solar_a
         {
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
-            float unit = Time.deltaTime * ss_ctl.speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。            
-            if (toFinDest) UI_moveDistane = ss_ctl.finishDistane;
+            float unit = Time.deltaTime * stInfo[levelNow].speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。            
+            if (toFinDest) UI_moveDistane = stInfo[levelNow].finishDistane;
             else UI_moveDistane += unit;
-            if (UI_moveDistane >= ss_ctl.finishDistane)
+            if (UI_moveDistane >= stInfo[levelNow].finishDistane)
             {
-                UI_moveDistane = ss_ctl.finishDistane;
+                UI_moveDistane = stInfo[levelNow].finishDistane;
                 if (FinishArea.finishState) FindObjectOfType<FinishArea>().enabled = true;
             }
 
-            float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * ss_ctl.speed;
+            float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * stInfo[levelNow].speed;
             //print(rocket_ctl.rc_dtion.IsBoost);
             if (rocket_ctl.rc_dtion.IsBoost) fueldown += (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
             if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
@@ -187,7 +207,7 @@ namespace solar_a
         /// </summary>
         public void InToStation()
         {
-            mgScene.SaveLeveInform();
+            mgScene.SaveLeveInform(levelNow);
             mgScene.LoadScenes("Station");
         }
         /// <summary>
@@ -195,7 +215,7 @@ namespace solar_a
         /// </summary>
         private void StartChageScene()
         {
-            mgScene.SaveLeveInform();
+            mgScene.SaveLeveInform(levelNow);
             StartCoroutine(rocket_ctl.ControlChange(false));
             StartCoroutine(mgScene.LoadScenesPreOrder(true));
         }
@@ -351,6 +371,9 @@ namespace solar_a
             StaticSharp.isChangeScene = false;
             // 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord>0? StaticSharp.DistanceRecord: 0;
+            //print($"目前關卡:{levelNow}");
+            levelNow = mgScene.GetScenes() - levelBuildSetting;
+            if (levelNow>0) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow-1].finishDistane, stInfo[levelNow].finishDistane);
         }
         #endregion
         private void Update()
@@ -366,7 +389,7 @@ namespace solar_a
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (UI_moveDistane <= ss_ctl.finishDistane) MoveAction();
+                    if (UI_moveDistane <= stInfo[levelNow].finishDistane) MoveAction();
                     break;
                 case State.Loading:
                     Time.timeScale = 0.5f;
@@ -384,6 +407,8 @@ namespace solar_a
                             runtime = false;
                             break;
                         }
+                        StaticSharp._LEVEL = levelNow;
+                        mgEnd.messageLog.text = "";
                         rocket_ctl.StateToBorken(true);
                         StateEnd();
                     }
