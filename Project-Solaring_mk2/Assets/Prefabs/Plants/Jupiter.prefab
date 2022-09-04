@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7885630670827507430
+--- !u!1 &7464562019881101929
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7360205586717807708}
-  - component: {fileID: 2836014407902705531}
+  - component: {fileID: 7844324108468941011}
+  - component: {fileID: 3288644634948260852}
+  - component: {fileID: 790400199268066030}
   m_Layer: 6
   m_Name: Jupiter
   m_TagString: Untagged
@@ -17,30 +18,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7360205586717807708
+--- !u!4 &7844324108468941011
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7885630670827507430}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 7464562019881101929}
+  m_LocalRotation: {x: -0, y: -0.80459684, z: -0, w: -0.59382147}
+  m_LocalPosition: {x: 0, y: 41.42, z: 200}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 4343042203428908000}
-  - {fileID: 1288296978447954120}
+  - {fileID: 3944455172705685359}
+  - {fileID: 1952560636145865799}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2836014407902705531
+  m_LocalEulerAnglesHint: {x: 0, y: -252.857, z: 0}
+--- !u!114 &3288644634948260852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7885630670827507430}
+  m_GameObject: {fileID: 7464562019881101929}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e82dff19163ded409530a3fef64e204, type: 3}
@@ -48,10 +49,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMethod: 0
   straightV3: {x: 0, y: -1, z: 0}
-  Orispeed: 0.15
+  Orispeed: 0.3
   randomSpd: 0
   stopTracert: 12
---- !u!1 &8360763824248033524
+--- !u!95 &790400199268066030
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464562019881101929}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d804a467dff2c84294e90dc5861c6a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &9151163456349959291
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,9 +80,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4343042203428908000}
-  - component: {fileID: 4255725659430394364}
-  - component: {fileID: 8567117715357445297}
+  - component: {fileID: 3944455172705685359}
+  - component: {fileID: 3600433543633108339}
+  - component: {fileID: 8943186653983131710}
   m_Layer: 1
   m_Name: Jupiter
   m_TagString: Untagged
@@ -69,36 +90,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4343042203428908000
+--- !u!4 &3944455172705685359
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360763824248033524}
+  m_GameObject: {fileID: 9151163456349959291}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7360205586717807708}
+  m_Father: {fileID: 7844324108468941011}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &4255725659430394364
+--- !u!33 &3600433543633108339
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360763824248033524}
+  m_GameObject: {fileID: 9151163456349959291}
   m_Mesh: {fileID: 2384782780456473445, guid: e76094a53d9a0354992ec9e579fbfb02, type: 3}
---- !u!23 &8567117715357445297
+--- !u!23 &8943186653983131710
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360763824248033524}
+  m_GameObject: {fileID: 9151163456349959291}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -134,12 +155,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &1615185037037410083
+--- !u!1001 &2058807970013115308
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7360205586717807708}
+    m_TransformParent: {fileID: 7844324108468941011}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 60a0a525e93d7ec4890aa8799ddb2abe,
         type: 3}
@@ -233,9 +254,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a0a525e93d7ec4890aa8799ddb2abe, type: 3}
---- !u!4 &1288296978447954120 stripped
+--- !u!4 &1952560636145865799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60a0a525e93d7ec4890aa8799ddb2abe,
     type: 3}
-  m_PrefabInstance: {fileID: 1615185037037410083}
+  m_PrefabInstance: {fileID: 2058807970013115308}
   m_PrefabAsset: {fileID: 0}

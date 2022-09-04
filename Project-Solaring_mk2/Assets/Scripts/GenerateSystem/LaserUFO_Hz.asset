@@ -17,9 +17,9 @@ MonoBehaviour:
     type: 3}
   grtSubObject: []
   grtProb: 0.5
-  grtIntervalTime: 5
-  grtWaitTime: 10
-  grtdestTime: 0
+  grtIntervalTime: 30
+  grtWaitTime: 30
+  grtdestTime: 20
   grtPos: {x: 0, y: 0, z: 0}
   grtOffset: 0
   grtRandomRoation: 0

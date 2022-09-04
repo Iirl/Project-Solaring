@@ -20,8 +20,8 @@ MonoBehaviour:
   grtIntervalTime: 1
   grtWaitTime: 0
   grtdestTime: 20
-  grtPos: {x: 10, y: -18, z: 0}
+  grtPos: {x: 25, y: 0, z: 0}
   grtOffset: 0
-  grtRandomRoation: 0
+  grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
   grtLimit: 1
