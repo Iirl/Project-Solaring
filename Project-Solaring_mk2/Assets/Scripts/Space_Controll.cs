@@ -88,7 +88,7 @@ namespace solar_a
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime +1;
                 // ¦¬§ô¤èªk
-                if (execute > 300) transform.rotation = target;
+                if (execute > (300f/spine)) transform.rotation = target;
                 else if (Distane2axis < 5 ) iSpine /= 4f;
                 else if (Distane2axis < 10) iSpine /= 2f;
                 iSpine = Mathf.Clamp(iSpine, 0.005f, 0.1f);

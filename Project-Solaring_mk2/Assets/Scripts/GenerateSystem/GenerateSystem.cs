@@ -23,14 +23,10 @@ namespace solar_a
         Object_Generator.Generater obGenerate;
         Object_Generator.ObjectArray gener_list = new();
         bool preLoadInvoke;
-        /// <summary>
-        /// 普通生成：只判斷是否旋轉物件。
-        /// </summary>
-        /// <param name="rotate"></param>
+
+        //普通生成：只判斷是否旋轉物件。
         public void NormalGenerate(bool rotate = false) => Static_gen(generData.grtRandomRoation);
-        /// <summary>
-        /// 子物件生成
-        /// </summary>
+        // 子物件生成
         private void SubObjGenerate() => Random_gen(generData.grtRandomRoation);
         private void StaticPointGen() => Static_gen(generData.grtRandomRoation, false);
         private void PreviousRecordPostition() => Static_gen(generData.grtPos, generData.grtRandomRoation);
@@ -267,9 +263,9 @@ namespace solar_a
         private void Start()
         {
             preLoadInvoke = IsInvoking();
+            if (mgc.GetLevel() >0) generDestan.x += mgc.stInfo[mgc.GetLevel() - 1].finishDistane;
             generDestan.y = generDestan.y!=0 ? Mathf.Clamp(generDestan.y, generDestan.x, generDestan.y):0;
             if(mgc) StartCoroutine(IntervalGenerate());
-            
             
         }
         private void Update()
