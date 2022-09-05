@@ -49,7 +49,7 @@ public class SSRocket : MonoBehaviour
                 {
                     sm = toNoDead;
                     StartCoroutine(StatusTimer(rct.StateToShield, sec));
-                }
+                } else return;
                 break;
             case RocketACondition.FullGage:
                 sm = toFullGage;

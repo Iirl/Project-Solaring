@@ -312,6 +312,7 @@ namespace solar_a
             }
         }
         #endregion
+        public int GetLevel() => levelNow;
         /// <summary>
         /// 遊戲狀態處理情況(需要被Invoke)
         /// 根據目前的狀態切換遊戲進行狀況
