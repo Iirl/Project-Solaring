@@ -262,7 +262,7 @@ Material:
     - Vector1_6AC0FCA: 1
     - Vector1_7834F05F: 0.437
     - Vector1_7FFCBCA4: 0
-    - Vector1_94aff79b61d341788e02fedd5d74b9db: 2
+    - Vector1_94aff79b61d341788e02fedd5d74b9db: 5
     - Vector1_98034DE0: 0
     - Vector1_9CF95ED1: 0.083
     - Vector1_9bc09ea0838f49e7880be330c47ce4c1: 100
@@ -273,7 +273,7 @@ Material:
     - Vector1_D7D2D86: 0.9
     - Vector1_EB08E6A3: 0.428
     - Vector1_FE821E4C: 100
-    - Vector1_dc20169d7dcf40d587ec3dd2e2a9533c: 0.011
+    - Vector1_dc20169d7dcf40d587ec3dd2e2a9533c: 0.08
     - Vector1_ef0e5c5fdba54db4a6b6dde3e6061cc2: 1.85
     - Vector1_f4772977577b40869db4d108a543e197: 1
     - _AORemapMax: 1
@@ -432,13 +432,13 @@ Material:
     - Color_FF25E5FB: {r: 1.8010964, g: 2.670157, b: 2.6636355, a: 0}
     - Color_b0153606524645e3b9fc09543bd160af: {r: 1, g: 1, b: 1, a: 0}
     - Color_b4a7d3a185d74e11857adae50a3cffb2: {r: 766.9961, g: 349.36472, b: 0, a: 0}
-    - Vector2_1: {r: 0, g: 2, b: 0, a: 0}
+    - Vector2_1: {r: 6, g: 6, b: 0, a: 0}
     - Vector2_50c4608f8f064132a61d27b8a45b19be: {r: 0, g: 0.01, b: 0, a: 0}
     - Vector2_7A17492F: {r: 2, g: 2, b: 0, a: 0}
     - Vector2_92E06CBD: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_940cf6d0a8764ce693ca4b7d12a5b7b8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_D0FA5062: {r: 3, g: 2, b: 0, a: 0}
+    - Vector2_D0FA5062: {r: 2, g: 1, b: 0, a: 0}
     - Vector2_E4CA34D5: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
@@ -457,7 +457,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _color_emission: {r: 7.252114, g: 8.509203, b: 41.552654, a: 0}
+    - _color_emission: {r: 8.533334, g: 10.039216, b: 47.937256, a: 0}
     - _color_texture: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5676617978073745963

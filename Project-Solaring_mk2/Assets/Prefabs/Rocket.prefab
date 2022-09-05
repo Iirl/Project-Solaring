@@ -144,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711981221071672157}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.73, z: -0.01}
+  m_LocalPosition: {x: 0, y: -0.76, z: -0.01}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2085,7 +2085,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -20
+      scalar: -10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5391,6 +5391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showWindows: 0
+  showPassFiled: 0
   noDead: 0
   noFuel: 0
   noRush: 0
@@ -5526,7 +5527,7 @@ GameObject:
   - component: {fileID: 5269394437424919269}
   - component: {fileID: 8382220305778816527}
   - component: {fileID: 5142287290754545567}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5542,7 +5543,7 @@ Transform:
   m_GameObject: {fileID: 7344214321387973966}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5750001, z: 0}
-  m_LocalScale: {x: 2.6500008, y: 2.6500008, z: 2.6500008}
+  m_LocalScale: {x: 2.9999998, y: 2.9999998, z: 2.9999998}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7847549304782707937}
@@ -5609,7 +5610,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7846670780412789749
 GameObject:

@@ -1810,10 +1810,22 @@ MonoBehaviour:
     finishDistane: 15000
   - label: L2
     speed: 100
-    finishDistane: 30000
+    finishDistane: 45000
   - label: L3
     speed: 100
-    finishDistane: 45000
+    finishDistane: 75000
+  - label: L4
+    speed: 100
+    finishDistane: 120000
+  - label: L5
+    speed: 100
+    finishDistane: 165000
+  - label: L6
+    speed: 100
+    finishDistane: 225000
+  - label: L7
+    speed: 100
+    finishDistane: 285000
   levelBuildSetting: 2
   noExhauFuel: 0
   noExhauRush: 0
