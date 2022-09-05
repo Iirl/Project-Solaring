@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 33030941187022996}
   - component: {fileID: 23764468257818090}
   - component: {fileID: 95002257046559312}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: ChamferBox001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
