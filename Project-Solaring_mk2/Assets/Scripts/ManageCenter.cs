@@ -268,6 +268,7 @@ namespace solar_a
             {   // 超過 100 的部分用格狀血條顯示
                 ui_fuelbar.fillAmount = 1;
                 int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity) + 1;
+                EnergyAnimator(level-1); //能量動畫控制
                 if (EnergyPlus.Length > 0)
                 {
                     int count = 0;
@@ -282,6 +283,15 @@ namespace solar_a
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
+        private void EnergyAnimator(int i)
+        {
+            string State = "onState";
+            i = (i < EnergyPlus.Length)? i : EnergyPlus.Length-1;
+            if (EnergyPlus[i].activeSelf) if (EnergyPlus[i].GetComponent<Animator>().GetBool(State)) return;
+            for (int j = 0; j <= i; j++) if (EnergyPlus[j].activeSelf) EnergyPlus[j].GetComponent<Animator>().SetBool(State, i == j);
+            //print($"第 {i} 號燃料燃燒中");
+        }
+
         /// <summary>
         /// 暫停選單開關
         /// </summary>

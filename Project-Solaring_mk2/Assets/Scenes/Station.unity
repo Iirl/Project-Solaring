@@ -264,12 +264,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnFuel
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -20
-          m_FloatArgument: 0
+          m_FloatArgument: -20
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -447,9 +447,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u52A0\u901F\u5EA6"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfe6a33bd080e6e4298ef30e2e0633c5, type: 2}
-  m_sharedMaterial: {fileID: -4203767336702796267, guid: bfe6a33bd080e6e4298ef30e2e0633c5,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -829,12 +828,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnFuel
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 20
-          m_FloatArgument: 0
+          m_FloatArgument: 20
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -983,18 +982,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489434312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 68058032}
-  m_Father: {fileID: 554117837}
-  m_RootOrder: 3
+  m_Father: {fileID: 2096007712}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 440, y: 214}
+  m_AnchoredPosition: {x: 2.1999512, y: -60.463623}
   m_SizeDelta: {x: 100, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &489434314
@@ -1242,7 +1241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &542198568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1314,6 +1313,18 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: SaveChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 554117841}
+        m_TargetAssemblyTypeName: solar_a.ManageScene, Assembly-CSharp
+        m_MethodName: LoadScenes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1481,7 +1492,6 @@ RectTransform:
   - {fileID: 483439850}
   - {fileID: 542198568}
   - {fileID: 2096007712}
-  - {fileID: 489434313}
   - {fileID: 2119398232}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1829,12 +1839,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnAce
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
-          m_FloatArgument: 0
+          m_FloatArgument: 0.2
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1936,9 +1946,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u71C3\u6599"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfe6a33bd080e6e4298ef30e2e0633c5, type: 2}
-  m_sharedMaterial: {fileID: -4203767336702796267, guid: bfe6a33bd080e6e4298ef30e2e0633c5,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2236,12 +2245,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnSpd
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
-          m_FloatArgument: 0
+          m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -2343,9 +2352,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u79FB\u52D5\u901F\u5EA6"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfe6a33bd080e6e4298ef30e2e0633c5, type: 2}
-  m_sharedMaterial: {fileID: -4203767336702796267, guid: bfe6a33bd080e6e4298ef30e2e0633c5,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3756,12 +3764,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnAce
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -2
-          m_FloatArgument: 0
+          m_FloatArgument: -0.2
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4761,12 +4769,12 @@ MonoBehaviour:
       - m_Target: {fileID: 554117842}
         m_TargetAssemblyTypeName: DataLoad, Assembly-CSharp
         m_MethodName: BtnSpd
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -5
-          m_FloatArgument: 0
+          m_FloatArgument: -5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4827,7 +4835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2096007712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4844,6 +4852,7 @@ RectTransform:
   - {fileID: 1376206615}
   - {fileID: 1603845274}
   - {fileID: 1588712582}
+  - {fileID: 489434313}
   m_Father: {fileID: 554117837}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4996,7 +5005,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 554117837}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5016,6 +5025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landata: {fileID: 11400000, guid: e899727110d99fd4d8659c5769c3bf4d, type: 2}
+  OriganilData: {fileID: 0}
   TextField:
   - label: "\u71C3\u6599 "
     id: 21

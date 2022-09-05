@@ -1336,6 +1336,7 @@ GameObject:
   - component: {fileID: 993921715199542125}
   - component: {fileID: 993921715199542127}
   - component: {fileID: 993921715199542124}
+  - component: {fileID: 8124931254456242271}
   m_Layer: 5
   m_Name: EnergePlus3
   m_TagString: Untagged
@@ -1402,6 +1403,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &8124931254456242271
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993921715199542114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e483933d2625bd4f8d327f5d666b498, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &993921715223125029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,6 +1434,7 @@ GameObject:
   - component: {fileID: 993921715223125028}
   - component: {fileID: 993921715223125030}
   - component: {fileID: 993921715223125031}
+  - component: {fileID: 7126131782246288503}
   m_Layer: 5
   m_Name: EnergePlus4
   m_TagString: Untagged
@@ -1479,6 +1501,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &7126131782246288503
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993921715223125029}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e483933d2625bd4f8d327f5d666b498, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &993921715282128285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1532,7 @@ GameObject:
   - component: {fileID: 993921715282128284}
   - component: {fileID: 993921715282128286}
   - component: {fileID: 993921715282128287}
+  - component: {fileID: 4244876402159118872}
   m_Layer: 5
   m_Name: EnergePlus2
   m_TagString: Untagged
@@ -1556,6 +1599,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &4244876402159118872
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993921715282128285}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e483933d2625bd4f8d327f5d666b498, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &993921715425533715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3085,6 +3148,7 @@ GameObject:
   - component: {fileID: 993921716217057840}
   - component: {fileID: 993921716217057842}
   - component: {fileID: 993921716217057843}
+  - component: {fileID: 1527918726806733601}
   m_Layer: 5
   m_Name: EnergePlus1
   m_TagString: Untagged
@@ -3151,6 +3215,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1527918726806733601
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993921716217057841}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e483933d2625bd4f8d327f5d666b498, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &993921716276649160
 GameObject:
   m_ObjectHideFlags: 0

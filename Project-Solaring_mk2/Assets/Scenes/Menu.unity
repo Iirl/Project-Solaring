@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1653,6 +1653,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1263648039}
+        m_TargetAssemblyTypeName: solar_a.SaveData, Assembly-CSharp
+        m_MethodName: LoadSettingData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &527326726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2217,6 +2229,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3164509784337591225, guid: 269e7d7004257e54da3b9b47cfd73965,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d,
+        type: 2}
+    - target: {fileID: -253468508414780793, guid: 269e7d7004257e54da3b9b47cfd73965,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d,
+        type: 2}
     - target: {fileID: 240968254318690600, guid: 269e7d7004257e54da3b9b47cfd73965,
         type: 3}
       propertyPath: m_Layer
@@ -6886,6 +6910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1933013345}
   - component: {fileID: 1933013346}
+  - component: {fileID: 1933013347}
   m_Layer: 5
   m_Name: Audio Source
   m_TagString: Untagged
@@ -6922,7 +6947,8 @@ AudioSource:
   m_GameObject: {fileID: 1933013344}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2340403801418709812, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 58dc4f5e1d25a23469ebe1f0aea10573, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -7009,6 +7035,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1933013347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933013344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd8ccc50590e6f41b97bd36fb38e8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d, type: 2}
 --- !u!1 &1946548316
 GameObject:
   m_ObjectHideFlags: 0
