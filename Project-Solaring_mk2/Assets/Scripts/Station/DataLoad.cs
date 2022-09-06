@@ -6,35 +6,35 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// ¤ÓªÅ²î¼Æ­ÈÅÜ¤Æ¨t²Î¡C
+/// å¤ªç©ºèˆ¹æ•¸å€¼è®ŠåŒ–ç³»çµ±ã€‚
 /// The space boat's value will changed in the station.
 /// </summary>
 public class DataLoad : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI Value_engery, Value_speed, Value_acceler;
-    [SerializeField, Header("¤À°tÂI¼Æ")]
+    [SerializeField, Header("åˆ†é…é»æ•¸")]
     private int point = 3;
     private int pointUsed = 0;
-    [SerializeField, Header("¾÷Åé©³­­¼Ğ¥Ü"), Tooltip("¬O§_¦Û°Ê­­¨î")]
+    [SerializeField, Header("æ©Ÿé«”åº•é™æ¨™ç¤º"), Tooltip("æ˜¯å¦è‡ªå‹•é™åˆ¶")]
     private bool autoLimit;
-    [SerializeField, Tooltip("¿U®Æ©³­­")]
+    [SerializeField, Tooltip("ç‡ƒæ–™åº•é™")]
     private float fuelLimit = 100;
-    [SerializeField, Tooltip("³t«×©³­­")]
+    [SerializeField, Tooltip("é€Ÿåº¦åº•é™")]
     private float speedLimit = 1;
-    [SerializeField, Tooltip("¥[³t«×©³­­")]
+    [SerializeField, Tooltip("åŠ é€Ÿåº¦åº•é™")]
     private float aspeedLimit = 0.1f;
-    [SerializeField, Header("­ì©lÃC¦â")]
+    [SerializeField, Header("åŸå§‹é¡è‰²")]
     private Color nor_color = Color.green;
-    [SerializeField, Header("°t¸mÃC¦â")]
+    [SerializeField, Header("é…ç½®é¡è‰²")]
     private Color distrubtion_color = Color.yellow;
-    [SerializeField, Header("Äµ¥ÜÃC¦â")]
+    [SerializeField, Header("è­¦ç¤ºé¡è‰²")]
     private Color alert_color = Color.red;
-    [SerializeField, Header("Äµ¥Ü­È")]
+    [SerializeField, Header("è­¦ç¤ºå€¼")]
     private Vector3 alert_fva;
     private Vector3 local_info;
 
-    #region ¨Æ¥ó
+    #region äº‹ä»¶
     private void Awake()
     {
         local_info = StaticSharp.Rocket_BASIC;
@@ -42,7 +42,7 @@ public class DataLoad : MonoBehaviour
 
     private void Start()
     {
-        if (autoLimit) LimitChange();  // ¦Û°ÊÅª¨ú­­¨î
+        if (autoLimit) LimitChange();  // è‡ªå‹•è®€å–é™åˆ¶
         ShowRocketInfo();
     }
     #endregion
@@ -51,14 +51,14 @@ public class DataLoad : MonoBehaviour
         StaticSharp.Rocket_BASIC = local_info;
     }
     /// <summary>
-    /// ­±ªO¼Æ­ÈÅÜ°Êµ{¦¡
+    /// é¢æ¿æ•¸å€¼è®Šå‹•ç¨‹å¼
     /// </summary>
-    /// <param name="v">¿é¤J¤Tºû¦V¶q</param>
-    /// <param name="i">¿é¤JÅÜ¤Æ¶q</param>
-    public void ChangeRocketInfo(Vector3 v, int i = 0)
+    /// <param name="v">è¼¸å…¥ä¸‰ç¶­å‘é‡</param>
+    /// <param name="i">è¼¸å…¥è®ŠåŒ–é‡</param>
+    public void ChangeRocketInfo(Vector3 v, float i = 0)
     {
         bool plus = i > 0 ? true : false;
-        //print($"{plus} & {point}"); // ÀË¬d¼Æ­È¬O§_¦³°İÃD
+        //print($"{plus} & {point}"); // æª¢æŸ¥æ•¸å€¼æ˜¯å¦æœ‰å•é¡Œ
         if (plus && point == 0) return;
         else if (i < 0 && pointUsed == 0) return;
         //else if (local_info.x * local_info.y * local_info.z <= 0 && !plus) return;
@@ -75,37 +75,37 @@ public class DataLoad : MonoBehaviour
         // TextColor Change
         switch (local_info.x.CompareTo(StaticSharp.Rocket_BASIC.x))
         {
-            case 0: //¬Ûµ¥¡A­ì©lÃC¦â
+            case 0: //ç›¸ç­‰ï¼ŒåŸå§‹é¡è‰²
                 Value_engery.color = nor_color;
                 break;
-            case 1: //¼W­È¡A°t¸mÃC¦â
+            case 1: //å¢å€¼ï¼Œé…ç½®é¡è‰²
                 Value_engery.color = distrubtion_color;
                 break;
-            case -1://§C©ó°ò¥»­È¡AÄµ¥ÜÃC¦â
+            case -1://ä½æ–¼åŸºæœ¬å€¼ï¼Œè­¦ç¤ºé¡è‰²
                 Value_engery.color = alert_color;
                 break;
         }
         switch (local_info.y.CompareTo(StaticSharp.Rocket_BASIC.y))
         {
-            case 0: //¬Ûµ¥¡A­ì©lÃC¦â
+            case 0: //ç›¸ç­‰ï¼ŒåŸå§‹é¡è‰²
                 Value_speed.color = nor_color;
                 break;
-            case 1: //¼W­È¡A°t¸mÃC¦â
+            case 1: //å¢å€¼ï¼Œé…ç½®é¡è‰²
                 Value_speed.color = distrubtion_color;
                 break;
-            case -1://§C©ó°ò¥»­È¡AÄµ¥ÜÃC¦â
+            case -1://ä½æ–¼åŸºæœ¬å€¼ï¼Œè­¦ç¤ºé¡è‰²
                 Value_speed.color = alert_color;
                 break;
         }
         switch (local_info.z.CompareTo(StaticSharp.Rocket_BASIC.z))
         {
-            case 0: //¬Ûµ¥¡A­ì©lÃC¦â
+            case 0: //ç›¸ç­‰ï¼ŒåŸå§‹é¡è‰²
                 Value_acceler.color = nor_color;
                 break;
-            case 1: //¼W­È¡A°t¸mÃC¦â
+            case 1: //å¢å€¼ï¼Œé…ç½®é¡è‰²
                 Value_acceler.color = distrubtion_color;
                 break;
-            case -1://§C©ó°ò¥»­È¡AÄµ¥ÜÃC¦â
+            case -1://ä½æ–¼åŸºæœ¬å€¼ï¼Œè­¦ç¤ºé¡è‰²
                 Value_acceler.color = alert_color;
                 break;
         }
@@ -114,21 +114,21 @@ public class DataLoad : MonoBehaviour
         if (local_info.z < alert_fva.z) Value_acceler.color = alert_color;
         
     }
-    public void BtnFuel(int count)
+    public void BtnFuel(float count)
     {
         Vector3 v3 = Vector3.zero;
         if (local_info.x + count < fuelLimit) return;
         v3.x += count;
         ChangeRocketInfo(v3, count);
     }
-    public void BtnSpd(int count)
+    public void BtnSpd(float count)
     {
         Vector3 v3 = Vector3.zero;
         if (local_info.y + count < speedLimit) return;
         v3.y += count;
         ChangeRocketInfo(v3, count);
     }
-    public void BtnAce(int count)
+    public void BtnAce(float count)
     {
         Vector3 v3 = Vector3.zero;
         if (local_info.z + count < aspeedLimit) return;

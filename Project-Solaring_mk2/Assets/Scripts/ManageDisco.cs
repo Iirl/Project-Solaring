@@ -31,7 +31,7 @@ namespace solar_a
         //private string effName = "effectVol";
         //
 
-        private IEnumerator CallTimer()
+        private IEnumerator MixerVolAdjust()
         {
             bool on = true;
             while (on)
@@ -39,6 +39,7 @@ namespace solar_a
                 MainMixer.SetFloat(mstName, mstMixerVolume);
                 if (StaticSharp._VOLUME != mstMixerVolume) StaticSharp._VOLUME = mstMixerVolume;
                 yield return new WaitForSeconds(0.5f);
+                on = false;
             }
         }
         #region 播放音效方法
@@ -90,7 +91,7 @@ namespace solar_a
         }
         private void Start()
         {
-            StartCoroutine(CallTimer());
+            StartCoroutine(MixerVolAdjust());            
         }
     }
 }

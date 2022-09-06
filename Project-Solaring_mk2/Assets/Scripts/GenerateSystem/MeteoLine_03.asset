@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: MeteoLine_02
+  m_Name: MeteoLine_03
   m_EditorClassIdentifier: 
   grtClass: 1
-  grtObject: {fileID: 7761588369355894776, guid: d7b260d1fc338ee43af4b3515ca3ab65,
+  grtObject: {fileID: 7761588369355894776, guid: 49c735d2bea226f478c2e70a6a776b56,
     type: 3}
   grtSubObject:
   - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
@@ -25,9 +25,9 @@ MonoBehaviour:
   grtProb: 0.3
   grtIntervalTime: 10
   grtWaitTime: 15
-  grtdestTime: 15
+  grtdestTime: 60
   grtPos: {x: 0, y: 0, z: 0}
   grtOffset: 1
   grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 2
+  grtLimit: 3
