@@ -2,12 +2,14 @@
 START
 OPTION
 EXIT
-Fword
-Back
-Left
-Right
-Roll Left
-Roll Right
+Fword：
+Back：
+Left：
+Right：
+Roll Left：
+Roll Right：
+---Intro---
+Press ESC to skip intro
 ---Game---
 FUEL
 DISTANCE
