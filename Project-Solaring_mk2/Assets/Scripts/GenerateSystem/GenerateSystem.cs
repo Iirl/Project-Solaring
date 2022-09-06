@@ -142,7 +142,7 @@ namespace solar_a
             gener_list.Add(created);                                          // 加入生成列表。
                                                                               //Destroys(generob.GetParent());
                                                                               //generob.ObjectMessegeInfo();
-
+            
             // 若有設定銷毀時間，則加上銷毀的計時。            
             //Destroys(created.GetComponent<Transform>().gameObject, true);
             return created.GetComponent<Transform>().gameObject;

@@ -3,27 +3,27 @@ using System;
 using System.Collections;
 
 /// <summary>
-/// ¦¹µ{¦¡©ñ¦bª«¥ó¸s²Õ·í¤¤¡A¥Î¨Ó½Õ¾ãª«¥óªÅ¶¡ªº²¾°Ê¡C
+/// æ­¤ç¨‹å¼æ”¾åœ¨ç‰©ä»¶ç¾¤çµ„ç•¶ä¸­ï¼Œç”¨ä¾†èª¿æ•´ç‰©ä»¶ç©ºé–“çš„ç§»å‹•ã€‚
 /// </summary>
 namespace solar_a
 {
     public class Space_Controll : MonoBehaviour
     {
 
-        [SerializeField, Header("±ÛÂà³]©w")]
+        [SerializeField, Header("æ—‹è½‰è¨­å®š")]
         private Vector3 spaceOffset;
-        [SerializeField, Tooltip("±ÛÂà³t«×"), Range(0f, 50f)]
+        [SerializeField, Tooltip("æ—‹è½‰é€Ÿåº¦"), Range(0f, 50f)]
         private float spine = 2.0f;
-        #region Äæ¦ì
-        private bool rot_left, rot_right, rotate;  //ªÅ¶¡¬O§_±ÛÂà
+        #region æ¬„ä½
+        private bool rot_left, rot_right, rotate;  //ç©ºé–“æ˜¯å¦æ—‹è½‰
         private float Coordinate = 360;
         #endregion
         private SpacetState spstate;
         public bool isRotate { get { return spstate == SpacetState.Rotate; } }
         private void SPNext() => spstate = spstate < SpacetState.Rotate? spstate+1: 0;
-        #region 90«×©T©w±ÛÂàªÅ¶¡
+        #region 90åº¦å›ºå®šæ—‹è½‰ç©ºé–“
         /// <summary>
-        /// 1. ¤è¦V(Âà¦V)§P©w
+        /// 1. æ–¹å‘(è½‰å‘)åˆ¤å®š
         /// </summary>
         private void DirectCheck(bool rL, bool rR)
         {
@@ -31,7 +31,7 @@ namespace solar_a
             {
                 rot_right = rR;
                 rot_left = rL;
-                //print("ÀË¬d¬O§_±ÛÂà");
+                //print("æª¢æŸ¥æ˜¯å¦æ—‹è½‰");
                 if ((rot_right || rot_left) && !rotate)
                 {
                     SPNext();
@@ -39,28 +39,29 @@ namespace solar_a
                     //print("1: "+spstate);
                 }
             }
-            else print("ÁÙ¦b±ÛÂà");
+            else print("é‚„åœ¨æ—‹è½‰");
         }
         /// <summary>
-        /// 2. ¦ì¸m§P©w
+        /// 2. ä½ç½®åˆ¤å®š
         /// </summary>
-        /// <param name="direct">Âà¦V«ü¤Ş¡A­Y¬°¯u«h+90«×¡F°²«h¬O-90«×</param>
+        /// <param name="direct">è½‰å‘æŒ‡å¼•ï¼Œè‹¥ç‚ºçœŸå‰‡+90åº¦ï¼›å‡å‰‡æ˜¯-90åº¦</param>
         /// <returns></returns>
         private float PositionCheck(bool direct)
         {
+            if (isRotate) return -1;
             if (spstate == SpacetState.Setting )
             {
                 rotate = true;
-                //print("¨ú±o¥Ø¼Ğ®y¼Ğ");
-                float y_axis = Mathf.Floor(transform.eulerAngles.y); // ¥Ø«eY¶b¶b¤ß¦ì¸m
-                int quadrant = (Int32.Parse(y_axis.ToString()) / 90);  //©Ò¦b¶H­­
+                //print("å–å¾—ç›®æ¨™åº§æ¨™");
+                float y_axis = Mathf.Floor(transform.eulerAngles.y); // ç›®å‰Yè»¸è»¸å¿ƒä½ç½®
+                int quadrant = (Int32.Parse(y_axis.ToString()) / 90);  //æ‰€åœ¨è±¡é™
                 if (quadrant == 0 && !direct) quadrant = 4;
-                float next_axis = (direct) ? 90 * (quadrant + 1) : 90 * (quadrant - 1); // ¤U¤@­ÓY¶b®y¼Ğ
+                float next_axis = (direct) ? 90 * (quadrant + 1) : 90 * (quadrant - 1); // ä¸‹ä¸€å€‹Yè»¸åº§æ¨™
                 if (quadrant == 3 && direct) next_axis %= 360;
-                //print($"·í«e¶H­­:{quadrant}, ¤U¤@­Ó®y¼Ğ{next_axis}");
+                //print($"ç•¶å‰è±¡é™:{quadrant}, ä¸‹ä¸€å€‹åº§æ¨™{next_axis}");
                 //print($"Y_Now: {y_axis}");
                 SPNext();
-                //print($"¨ú±o«áª¬ºA{spstate}");
+                //print($"å–å¾—å¾Œç‹€æ…‹{spstate}");
                 StartCoroutine(Spine());
                 return Mathf.Round(next_axis);
             }
@@ -68,47 +69,48 @@ namespace solar_a
             return 0;
         }
         /// <summary>
-        /// 3. ±ÛÂàµ{¦¡¡A±Ä½Õ¥Îªk©I¥sµ{¦¡¡C
+        /// 3. æ—‹è½‰ç¨‹å¼ï¼Œæ¡èª¿ç”¨æ³•å‘¼å«ç¨‹å¼ã€‚
         /// </summary>
         private IEnumerator Spine()
         {            
-            //print($"·í«eY¶b:¥Ø¼Ğ¶b {transform.eulerAngles.y}:{Coordinate}");
+            //print($"ç•¶å‰Yè»¸:ç›®æ¨™è»¸ {transform.eulerAngles.y}:{Coordinate}");
             //print($"{Distane2axis}");
             //print("4:" + spstate);
             float execute = 0;
             yield return new WaitForSeconds(0.1f);
             while (isRotate)
             {
-                float y_axis = Mathf.Floor(transform.eulerAngles.y); // ¥Ø«eY¶b¶b¤ß¦ì¸m
-                float Distane2axis = Mathf.Abs(Mathf.DeltaAngle(y_axis, Coordinate)); // ¨ì¹F¤U¤@­ÓY¶b®y¼Ğªº¶ZÂ÷            
+                float y_axis = Mathf.Floor(transform.eulerAngles.y); // ç›®å‰Yè»¸è»¸å¿ƒä½ç½®
+                float Distane2axis = Mathf.Abs(Mathf.DeltaAngle(y_axis, Coordinate)); // åˆ°é”ä¸‹ä¸€å€‹Yè»¸åº§æ¨™çš„è·é›¢            
                 Quaternion target = Quaternion.Euler(0, Coordinate, 0);
                 //Distane2axis = Mathf.Clamp(Distane2axis, 0, 90);
                 StopCheck();
-                // ±ÛÂà¦±½u: x^0-1
+                // æ—‹è½‰æ›²ç·š: x^0-1
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime +1;
-                // ¦¬§ô¤èªk
-                if (execute > (300f/spine)) transform.rotation = target;
+                // æ”¶æŸæ–¹æ³•
+                if (execute > (360f/spine)) transform.rotation = target;
                 else if (Distane2axis < 5 ) iSpine /= 4f;
                 else if (Distane2axis < 10) iSpine /= 2f;
                 iSpine = Mathf.Clamp(iSpine, 0.005f, 0.1f);
-                // °õ¦æ±ÛÂà¨ç¦¡                
+                // åŸ·è¡Œæ—‹è½‰å‡½å¼
                 transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);
                 //if (rot_left) transform.Rotate(Vector3.up * iSpine);
                 //else if (rot_right) //transform.Rotate(Vector3.down * iSpine);
                 //if (iSpine == Mathf.Infinity) print(upper);
-                yield return null;
+                if (transform.rotation == target) yield return new WaitForSeconds(0.5f);
+                else yield return null;
                 execute++;
                 
             }
         }
         /// <summary>
-        /// 4. °±¤î§P©w¡A±Ä©wÂI§PÂ_¡A­YµLªk·Ç½T¨ì©wÂI«h¥i¯àµL­­±ÛÂà¡C
+        /// 4. åœæ­¢åˆ¤å®šï¼Œæ¡å®šé»åˆ¤æ–·ï¼Œè‹¥ç„¡æ³•æº–ç¢ºåˆ°å®šé»å‰‡å¯èƒ½ç„¡é™æ—‹è½‰ã€‚
         /// </summary>
         private void StopCheck()
         {
             //print("4:" + spstate);
-            float y_axis = Mathf.Floor(transform.eulerAngles.y); // ¥Ø«eY¶b¶b¤ß¦ì¸m
+            float y_axis = Mathf.Floor(transform.eulerAngles.y); // ç›®å‰Yè»¸è»¸å¿ƒä½ç½®
             bool stop = !isRotate;
             y_axis = (y_axis == -1) ? 0 : y_axis; 
             y_axis = (y_axis == 360) ? 0 : y_axis;
@@ -134,7 +136,7 @@ namespace solar_a
 
         #endregion
 
-        #region ¨Æ¥óÄ²µo
+        #region äº‹ä»¶è§¸ç™¼
 
         private void Start()
         {
@@ -148,13 +150,13 @@ namespace solar_a
             switch (StaticSharp.Conditions)
             {
                 case State.Running:
-                    // ±ÛÂàªÅ¶¡
-                    //print(spstate);
-                    bool keyLeft = Input.GetAxisRaw("Left_Spine") == 1;
-                    bool keyRight = Input.GetAxisRaw("Right_Spine") == 1;
                     switch (spstate)
                     {
                         case SpacetState.Stay:
+                            // æ—‹è½‰ç©ºé–“
+                            //print(spstate);
+                            bool keyLeft = Input.GetAxisRaw("Left_Spine") == 1;
+                            bool keyRight = Input.GetAxisRaw("Right_Spine") == 1;
                             if (keyLeft || keyRight) DirectCheck(keyLeft, keyRight);
                             break;
                         case SpacetState.Rotate:
@@ -182,69 +184,69 @@ namespace solar_a
 }
 
 
-#region µ§°O
+#region ç­†è¨˜
 /*
-    °jÂà¬yµ{¡G
-    1. «öÁä§P©w¡G¥ª¡B¥kÁä°»´ú
-        «öÁä´ú©wªººc«ä¡G«ö¤U«öÁä«á¡A¶È¥u¬O±Ò°ÊÂà¦V§P©w¡A¯u¥¿°õ¦æ±ÛÂàªº§P©wÀ³¸Ó­n¦b¦ì¸m§P©w¤§«á¡A¤~¤£·|«öÁä¼vÅT±ÛÂà¡C
-        »~°Ï¡G
-        (1) ±ÛÂà§P©w¥u¯à°õ¦æ¤@¦¸¡G¦pªG©ñ¦b§ó·s¨Æ¥ó¤¤¡A·|­«½Æ©I¥s±ÛÂàµ{¦¡¦Ó¥X²{¤£¥²­nªº¿ù»~¡C
-        (2) ±N¦ì¸m§P©w©ñ¦b§ó·s¨Æ¥ó¤¤©Î­«½Æ°õ¦æ¡G¦pªG·|°Ê¨ì©wÂI¡A«h¦n¤£®e©ö³]©wªº©wÂI´N·|¶]±¼¡C
-        (3) ¤Á´«¥ª¥kÂà«ç»ò´«¡H
+    è¿´è½‰æµç¨‹ï¼š
+    1. æŒ‰éµåˆ¤å®šï¼šå·¦ã€å³éµåµæ¸¬
+        æŒ‰éµæ¸¬å®šçš„æ§‹æ€ï¼šæŒ‰ä¸‹æŒ‰éµå¾Œï¼Œåƒ…åªæ˜¯å•Ÿå‹•è½‰å‘åˆ¤å®šï¼ŒçœŸæ­£åŸ·è¡Œæ—‹è½‰çš„åˆ¤å®šæ‡‰è©²è¦åœ¨ä½ç½®åˆ¤å®šä¹‹å¾Œï¼Œæ‰ä¸æœƒæŒ‰éµå½±éŸ¿æ—‹è½‰ã€‚
+        èª¤å€ï¼š
+        (1) æ—‹è½‰åˆ¤å®šåªèƒ½åŸ·è¡Œä¸€æ¬¡ï¼šå¦‚æœæ”¾åœ¨æ›´æ–°äº‹ä»¶ä¸­ï¼Œæœƒé‡è¤‡å‘¼å«æ—‹è½‰ç¨‹å¼è€Œå‡ºç¾ä¸å¿…è¦çš„éŒ¯èª¤ã€‚
+        (2) å°‡ä½ç½®åˆ¤å®šæ”¾åœ¨æ›´æ–°äº‹ä»¶ä¸­æˆ–é‡è¤‡åŸ·è¡Œï¼šå¦‚æœæœƒå‹•åˆ°å®šé»ï¼Œå‰‡å¥½ä¸å®¹æ˜“è¨­å®šçš„å®šé»å°±æœƒè·‘æ‰ã€‚
+        (3) åˆ‡æ›å·¦å³è½‰æ€éº¼æ›ï¼Ÿ
 
-    2. ¦ì¸m§P©w¡G¥Ø«e¦b­ş­Ó®y¼Ğ¤W
-        ³oÃä¥u¦³¤@­Ó­«ÂI¡G¡u¹L¶bÂà¶H­­¡C¡v
-        ¤]³\¦³§ó¦nªº¼gªk¡A¦ı¦pªG¨Ï¥Î¨¤«×­pºâªº¸Ü¡A¦b0«×­n-90«×ªº®É­Ô´N­n¥ı±N0Âà¦¨360«×¡C
-        ¦ı³o¼Ë§ï¤]ªá¶O¤£¤Ö®É¶¡¡C
+    2. ä½ç½®åˆ¤å®šï¼šç›®å‰åœ¨å“ªå€‹åº§æ¨™ä¸Š
+        é€™é‚Šåªæœ‰ä¸€å€‹é‡é»ï¼šã€Œéè»¸è½‰è±¡é™ã€‚ã€
+        ä¹Ÿè¨±æœ‰æ›´å¥½çš„å¯«æ³•ï¼Œä½†å¦‚æœä½¿ç”¨è§’åº¦è¨ˆç®—çš„è©±ï¼Œåœ¨0åº¦è¦-90åº¦çš„æ™‚å€™å°±è¦å…ˆå°‡0è½‰æˆ360åº¦ã€‚
+        ä½†é€™æ¨£æ”¹ä¹ŸèŠ±è²»ä¸å°‘æ™‚é–“ã€‚
 
-    3. ±ÛÂà§P©w¡G¤@¥¹¶}©l±ÛÂà¡A¨S¦³¨ì¥Ø¼ĞÂI¤£·|°±
-        ±ÛÂà¤èªk¡G
-        ³o¦¸ª½±µ°µ±ÛÂàªº¼Ò¦¡¡A¦Ü©ó¬Æ»ò®É­Ô±ÛÂà¡A¬Æ»ò®É­Ô°±¤î«h¤£¦A³o­Óµ{¦¡¤¤¨M©w¡C
-        »İ­n¥Î¨ìªºÅÜ¼Æ¥D­n¦³ Y¶b¥Ø«eªº¦ì¸m »P ¤U¤@­Ó®y¼ĞÂIªº¦ì¸m¡C
-        ¤×¨ä¤U¤@­Ó®y¼Ğ¦ì¸m¤£¯àÀHµ{¦¡°õ¦æ¦ÓÅÜ°Ê¡A¤£µM¤~­è©è¹F´N¤Á¨ì¤U¤@­Ó®y¼Ğ¡A´N·|Âà¤£°±¡C
-        ³t«×¦±½u¡G
-        ¨M©w iSpine ªº¤j¤p°£¤F¤â°Ê½Õ¾ã Spine ¤§¥~¡A­«­nªº¬O iSpine ªºÅÜ¤Æ¡C
-        ¥Ø«e¥ı°µ½u©Êªº³]­p¡A¤§«á¦AÆ[¹î¦p¦ó³]©w¨ä¥L¼Ë¦¡¡C
-        ¥i¥H½T©wªº¬O¡A¦pªG½u©ÊµLªk§¹¬ü°±¤î¡A¨ä¥L¤èµ{¦¡¦ÛµM®e©ö¼É½Ä¡C
+    3. æ—‹è½‰åˆ¤å®šï¼šä¸€æ—¦é–‹å§‹æ—‹è½‰ï¼Œæ²’æœ‰åˆ°ç›®æ¨™é»ä¸æœƒåœ
+        æ—‹è½‰æ–¹æ³•ï¼š
+        é€™æ¬¡ç›´æ¥åšæ—‹è½‰çš„æ¨¡å¼ï¼Œè‡³æ–¼ç”šéº¼æ™‚å€™æ—‹è½‰ï¼Œç”šéº¼æ™‚å€™åœæ­¢å‰‡ä¸å†é€™å€‹ç¨‹å¼ä¸­æ±ºå®šã€‚
+        éœ€è¦ç”¨åˆ°çš„è®Šæ•¸ä¸»è¦æœ‰ Yè»¸ç›®å‰çš„ä½ç½® èˆ‡ ä¸‹ä¸€å€‹åº§æ¨™é»çš„ä½ç½®ã€‚
+        å°¤å…¶ä¸‹ä¸€å€‹åº§æ¨™ä½ç½®ä¸èƒ½éš¨ç¨‹å¼åŸ·è¡Œè€Œè®Šå‹•ï¼Œä¸ç„¶æ‰å‰›æŠµé”å°±åˆ‡åˆ°ä¸‹ä¸€å€‹åº§æ¨™ï¼Œå°±æœƒè½‰ä¸åœã€‚
+        é€Ÿåº¦æ›²ç·šï¼š
+        æ±ºå®š iSpine çš„å¤§å°é™¤äº†æ‰‹å‹•èª¿æ•´ Spine ä¹‹å¤–ï¼Œé‡è¦çš„æ˜¯ iSpine çš„è®ŠåŒ–ã€‚
+        ç›®å‰å…ˆåšç·šæ€§çš„è¨­è¨ˆï¼Œä¹‹å¾Œå†è§€å¯Ÿå¦‚ä½•è¨­å®šå…¶ä»–æ¨£å¼ã€‚
+        å¯ä»¥ç¢ºå®šçš„æ˜¯ï¼Œå¦‚æœç·šæ€§ç„¡æ³•å®Œç¾åœæ­¢ï¼Œå…¶ä»–æ–¹ç¨‹å¼è‡ªç„¶å®¹æ˜“æš´è¡ã€‚
 
-    4. ©wÂI§P©w¡G±ÛÂà¬O§_©è¹F©wÂI¡A©è¹F«áµ²§ôµ{¦¡
-        ¨ì¹F©wÂIªº°µªk¡G
-        (1) Åª¨ú©wÂIªº¦ì¸m
-        (2) ¨ú¶ZÂ÷¤½¦¡:Mathf.DeltaAngle
-        (3) ¦pªG¤p©ó¤@©w­È¡A¦³¨â­Ó°µªk¡A¼vÅTªº¼h¯Å¤£¦P
-            A. °±¤î   B. ³t«×»¼´î
-            ¥Ø«e±Ä B.
-        (4) ¦^¶Ç°±¤î°T¸¹ or «ü©w±ø¥ó°±¤î
-            ±Ä³t«×»¼´îªºÃö«Y¡A©Ò¥H¥i¥H«ü©w±ø¥ó°±¤î
+    4. å®šé»åˆ¤å®šï¼šæ—‹è½‰æ˜¯å¦æŠµé”å®šé»ï¼ŒæŠµé”å¾ŒçµæŸç¨‹å¼
+        åˆ°é”å®šé»çš„åšæ³•ï¼š
+        (1) è®€å–å®šé»çš„ä½ç½®
+        (2) å–è·é›¢å…¬å¼:Mathf.DeltaAngle
+        (3) å¦‚æœå°æ–¼ä¸€å®šå€¼ï¼Œæœ‰å…©å€‹åšæ³•ï¼Œå½±éŸ¿çš„å±¤ç´šä¸åŒ
+            A. åœæ­¢   B. é€Ÿåº¦éæ¸›
+            ç›®å‰æ¡ B.
+        (4) å›å‚³åœæ­¢è¨Šè™Ÿ or æŒ‡å®šæ¢ä»¶åœæ­¢
+            æ¡é€Ÿåº¦éæ¸›çš„é—œä¿‚ï¼Œæ‰€ä»¥å¯ä»¥æŒ‡å®šæ¢ä»¶åœæ­¢
 
-    PS: ¨ç¦¡¸òÅÜ¼Æªº®t²§¡H
-        ¨ç¦¡¥i¥H¶Ç¤J°Ñ¼Æ¡A¤]¥i¥H¦^¶Ç°Ñ¼Æ¡A¥E¬İ¤§¤U¨ä¹ê¸òÅÜ¼Æ¬Û¦P¡A¦ı¬O³Ì¤jªº®t§O´N¦b¨ç¦¡¥u­n©I¥s´N·|°õ¦æ¤º³¡ªºµ{¦¡½X¡AÅÜ¼Æ¥u¦³¦b³]©wÄæ¦ì®É
-        ¤~·|°õ¦æ¤º®e¡C
+    PS: å‡½å¼è·Ÿè®Šæ•¸çš„å·®ç•°ï¼Ÿ
+        å‡½å¼å¯ä»¥å‚³å…¥åƒæ•¸ï¼Œä¹Ÿå¯ä»¥å›å‚³åƒæ•¸ï¼Œä¹çœ‹ä¹‹ä¸‹å…¶å¯¦è·Ÿè®Šæ•¸ç›¸åŒï¼Œä½†æ˜¯æœ€å¤§çš„å·®åˆ¥å°±åœ¨å‡½å¼åªè¦å‘¼å«å°±æœƒåŸ·è¡Œå…§éƒ¨çš„ç¨‹å¼ç¢¼ï¼Œè®Šæ•¸åªæœ‰åœ¨è¨­å®šæ¬„ä½æ™‚
+        æ‰æœƒåŸ·è¡Œå…§å®¹ã€‚
 
 
-//// ¤U­±¬O­ì¥»ªº¼gªk¡A·Q­n¼g¦¨®°§Î±ÛÂà¡A¦ı¨S¦³¦¨¥\¡C
-        #region ªÅ¶¡¤èªk(±Ë±ó)
-        [SerializeField, Tooltip("¥ªÂà¦V¨¤«×(L)"), Range(5f, 90f)]
+//// ä¸‹é¢æ˜¯åŸæœ¬çš„å¯«æ³•ï¼Œæƒ³è¦å¯«æˆæ‰‡å½¢æ—‹è½‰ï¼Œä½†æ²’æœ‰æˆåŠŸã€‚
+        #region ç©ºé–“æ–¹æ³•(æ¨æ£„)
+        [SerializeField, Tooltip("å·¦è½‰å‘è§’åº¦(L)"), Range(5f, 90f)]
         private float Left_angle = 45;
-        [SerializeField, Tooltip("¥kÂà¦V¨¤«×(R)"), Range(0f, 90f)]
+        [SerializeField, Tooltip("å³è½‰å‘è§’åº¦(R)"), Range(0f, 90f)]
         private float Right_angle = 45;
         /// <summary>
-        ///  ¿ïÂà¾ã­ÓªÅ¶¡ +-X«×
+        ///  é¸è½‰æ•´å€‹ç©ºé–“ +-Xåº¦
         /// </summary>
-        /// °Ñ¼Æ½Ğ±qÄİ©Ê­±ªO½Õ¾ã¡A¥ªÂà¦V
+        /// åƒæ•¸è«‹å¾å±¬æ€§é¢æ¿èª¿æ•´ï¼Œå·¦è½‰å‘
         private void _Spine()
         {
-            float center_loc = Mathf.Floor(transform.eulerAngles.y); // Y¶b¶b¤ß¦ì¸m
-            float left_loc = rot_angle > Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle; // Y¶b°f±Û¦ì¸m
-            float right_loc = rot_angle + Right_angle < 360 ? rot_angle + Right_angle : 360 - rot_angle + Right_angle; // Y¶b¥¿±Û¦ì¸m
-            // §PÂ_¬O§_°±¤îÂà°Ê
+            float center_loc = Mathf.Floor(transform.eulerAngles.y); // Yè»¸è»¸å¿ƒä½ç½®
+            float left_loc = rot_angle > Left_angle ? rot_angle - Left_angle : 360 + rot_angle - Left_angle; // Yè»¸é€†æ—‹ä½ç½®
+            float right_loc = rot_angle + Right_angle < 360 ? rot_angle + Right_angle : 360 - rot_angle + Right_angle; // Yè»¸æ­£æ—‹ä½ç½®
+            // åˆ¤æ–·æ˜¯å¦åœæ­¢è½‰å‹•
             if (center_loc >= right_loc && center_loc < 180) rot_right = false;
             if (center_loc <= left_loc && center_loc > 180) rot_left = false;
             if (rotated)  FadeSpine(center_loc, left_loc, right_loc);
         }
         private void _Spine(int vect)
         {
-            // 1 ¥kÂà  -1 ¥ªÂà
+            // 1 å³è½‰  -1 å·¦è½‰
             if (vect != 0)
             {
                 rotated = true;
@@ -261,17 +263,17 @@ namespace solar_a
             }
         }
         /// <summary>
-        /// º¥ÅÜ³t«×¤èªk
+        /// æ¼¸è®Šé€Ÿåº¦æ–¹æ³•
         /// </summary>
-        /// <param name="c">¥Ø«e¶b¤ßªº¨¤«×</param>
-        /// <param name="l">¥ªÃä¬É¨¤«×</param>
-        /// <param name="r">¥kÃä¬É¨¤«×</param>
+        /// <param name="c">ç›®å‰è»¸å¿ƒçš„è§’åº¦</param>
+        /// <param name="l">å·¦é‚Šç•Œè§’åº¦</param>
+        /// <param name="r">å³é‚Šç•Œè§’åº¦</param>
         private void FadeSpine(float c, float l, float r)
         {
             float r_angle = (Mathf.DeltaAngle(c, r));
             float l_angle = (Mathf.DeltaAngle(c, l));
             float i_spine = spine, i = 1;
-            float pos = l_angle + r_angle; // ¨ú±o¥Ø«e¦ì¸m
+            float pos = l_angle + r_angle; // å–å¾—ç›®å‰ä½ç½®
             int r_spine = PosFix(pos, l, r);
             switch (r_spine)
             {
@@ -280,24 +282,24 @@ namespace solar_a
                 case -2: i = l_angle; break;
                 default: break;
             }
-            /// ¿ïÂà³t«×½Õ¾ã¡G
-            /// ¥Ø«e¨Ï¥ÎLog¨ç¼Æ½Õ¾ãÂà³t¡A­Y­n§óÅÜ²¾°Ê¦±½u½Ğ¦b¦¹­×¥¿
+            /// é¸è½‰é€Ÿåº¦èª¿æ•´ï¼š
+            /// ç›®å‰ä½¿ç”¨Logå‡½æ•¸èª¿æ•´è½‰é€Ÿï¼Œè‹¥è¦æ›´è®Šç§»å‹•æ›²ç·šè«‹åœ¨æ­¤ä¿®æ­£
             i_spine *= Mathf.Log(Mathf.Abs(i + 1), spine_log);
             /// ----
             if (i_spine <= 0) i_spine = 1f;
             if (rot_left) transform.Rotate(Vector2.down * i_spine);
             else if (rot_right) transform.Rotate(Vector2.up * i_spine);
             //print(r_angle);
-            //print($"POS:{pos}, spine:{i_spine}"); // ÀË¬d¦ì¸m¡AÂà³t
-            //print($"{rotated} L{rot_left} R{rot_right}"); // ÀË¬d±ÛÂà¶}Ãö
+            //print($"POS:{pos}, spine:{i_spine}"); // æª¢æŸ¥ä½ç½®ï¼Œè½‰é€Ÿ
+            //print($"{rotated} L{rot_left} R{rot_right}"); // æª¢æŸ¥æ—‹è½‰é–‹é—œ
 
         }
         /// <summary>
-        /// ¥Î¨Ó®Õ¥¿²¾°Ê®y¼Ğ¡A½Ğ°Ñ¾\_Spine()¨ç¼Æ
+        /// ç”¨ä¾†æ ¡æ­£ç§»å‹•åº§æ¨™ï¼Œè«‹åƒé–±_Spine()å‡½æ•¸
         /// </summary>
-        /// <param name="p">¥Ø«e¦ì¸m</param>
-        /// <param name="l">¥ª±Û¦ì¸m</param>
-        /// <param name="r">¥k±Û¦ì¸m</param>
+        /// <param name="p">ç›®å‰ä½ç½®</param>
+        /// <param name="l">å·¦æ—‹ä½ç½®</param>
+        /// <param name="r">å³æ—‹ä½ç½®</param>
         private int PosFix(float p, float l, float r)
         {
             p = Mathf.Floor(p);
@@ -309,13 +311,13 @@ namespace solar_a
             }
             else if (p >= Left_angle + Right_angle) // + 
             {
-                //print("¥ªÃä¬É½u");
+                //print("å·¦é‚Šç•Œç·š");
                 rotated = false;
                 n = -1;
             }
             else if (p <= -Left_angle - Right_angle) // -
             {
-                //print("¥kÃä¬É½u");
+                //print("å³é‚Šç•Œç·š");
                 rotated = false;
                 n = 1;
             }
