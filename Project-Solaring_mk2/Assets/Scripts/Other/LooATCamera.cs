@@ -11,20 +11,25 @@ public class LooATCamera : MonoBehaviour
 
     private void Awake()
     {
-        target = GameObject.Find("Main Camera").transform;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        target = Camera.main.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target != null)
         {
             transform.LookAt(target);
             transform.Rotate(angle);
+        } else
+        {
+            try
+            {
+                target = Camera.main.transform;
+            }
+            catch (System.Exception)
+            {
+                print("攝影機消失，或不存在!");
+            }
         }
     }
 }

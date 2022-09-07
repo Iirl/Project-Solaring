@@ -2,10 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class noDestoryInChangeScene : MonoBehaviour
+namespace solar_a
 {
-    private void Start()
+    public class noDestoryInChangeScene : ManageScene
     {
-        DontDestroyOnLoad(gameObject);
+        private bool isHaving;
+        private string preLoadName;
+        private void Awake()
+        {
+            preLoadName = name;
+        }
+
+        private void Start()
+        {
+            int i;
+            i = PlayerPrefs.GetInt(preLoadName);
+            
+
+            isHaving = i == 1;
+            print(isHaving);
+            if (!isHaving)
+            {
+
+                PlayerPrefs.SetInt(preLoadName, 1);
+                DontDestroyOnLoad(gameObject);
+            }
+        }
     }
 }
