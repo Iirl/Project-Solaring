@@ -136,7 +136,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: Show_Menu
+        m_MethodName: ShowCanvas
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2759371003897554157}
@@ -5082,7 +5082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &461884303505089395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6665,7 +6665,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: Show_Menu
+        m_MethodName: ShowCanvas
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2759371003897554157}

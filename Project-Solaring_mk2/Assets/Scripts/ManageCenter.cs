@@ -223,7 +223,7 @@ namespace solar_a
         private IEnumerator PauseFadeEffect(bool visable = true)
         {            
             if (condition.isEnd) {
-                canvas_select = pauseUI.GetComponent<CanvasGroup>();
+                canvas_select = pauseMenus;
                 yield return new WaitForSeconds(1.6f);
             }
             switch (visable)
@@ -302,15 +302,17 @@ namespace solar_a
             //print($"{StaticSharp.Conditions} & {condition.isPause}");
             if (pauseMenus != null)
             {
-                canvas_select = cvs;
+                canvas_select = cvs ;
                 if (condition.isEnd)
                 {
+                    pauseUI.SetActive(true);
                     StartCoroutine(PauseFadeEffect(true));
                 }
                 else if (!condition.isPause)
                 {
                     // 顯現
                     condition.Next();
+                    if (!pauseUI.activeSelf && canvas_select == pauseMenus) pauseUI.SetActive(true);
                     StartCoroutine(PauseFadeEffect(true));
 
                 }
@@ -323,6 +325,11 @@ namespace solar_a
                 }
             }
         }
+        public void ShowCanvas(CanvasGroup cvs)
+        {
+            if (pauseUI.activeSelf) cvs.CanvansFadeControl(!cvs.blocksRaycasts);
+            else Show_Menu(cvs);
+        }
         #endregion
         public int GetLevel() => levelNow;
         /// <summary>
@@ -333,11 +340,12 @@ namespace solar_a
         /// </summary>
         private void GameState()
         {
-            if (pauseUI != null && !pauseUI.activeSelf) pauseUI.SetActive(true);
+            //if (pauseUI != null && !pauseUI.activeSelf) pauseUI.SetActive(true);
             if (condition.GetState() == "End")
             {   // GameOver
                 bool isEnd = true;
                 pauseUI.transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
+                mgEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
                 // 關閉音效
                 Simple_move[] simple_s = FindObjectsOfType<Simple_move>();
@@ -357,7 +365,7 @@ namespace solar_a
         /// 1. 沒有燃料
         /// 2. 撞到任何物體
         /// </summary>
-        private void StateEnd() => StartCoroutine(PauseFadeEffect(true));
+        private void StateEnd() => Show_Menu(pauseMenus);
 
         #endregion
 
@@ -439,7 +447,7 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-            if (Input.GetKeyDown(KeyCode.Escape)) Show_Menu(pauseUI.GetComponent<CanvasGroup>());
+            if (Input.GetKeyDown(KeyCode.Escape)) Show_Menu(pauseMenus);
         }
 
         #region 彩蛋相關

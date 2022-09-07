@@ -134,6 +134,13 @@ static class Extension
         cvsgp.interactable = isIN;
         cvsgp.blocksRaycasts = isIN;
     }
+    /// <summary>
+    /// 畫布淡入出效果偕同程序
+    /// </summary>
+    /// <param name="cvsgp">畫布群組</param>
+    /// <param name="visable">真為淡入，假為淡出</param>
+    /// <param name="fadeSpeed">效果速度</param>
+    /// <returns></returns>
     static public IEnumerator FadeEffect(this CanvasGroup cvsgp, bool visable = true, float fadeSpeed=0.1f)
     {
         switch (visable)
