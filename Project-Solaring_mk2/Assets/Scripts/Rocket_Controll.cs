@@ -194,17 +194,26 @@ namespace solar_a
             }
         }
         /// <summary>
-        /// 火箭的外觀狀態變化
+        /// 火箭的執行狀態變化
         /// </summary>
         /// <param name="idx">根據子物件的順序決定效果</param>
-        /// <param name="open">開關物件</param>
+        /// <param name="open">為真的時候啟動物件</param>
         private void RocketEffectState(int idx, bool open)
         {
             GameObject status;
             if (idx >= 0) status = transform.Find("Effect").GetChild(idx).gameObject;
-            else status = transform.Find("Effect").gameObject;            
-            if (idx == 2) transform.Find("Normal").gameObject.SetActive(!open);
+            else status = transform.Find("Effect").gameObject;
+            if (idx == 2) {
+                transform.Find("Normal").gameObject.SetActive(!open);
+                enabled = !open;
+                if (!open)
+                {
+                    rc_dtion.onStay();
+                    transform.position = new Vector3(0, -11, 0);
+                }
+            }
             status.SetActive(open);
+            
         }
         #region 音效
         /// <summary>
@@ -259,6 +268,7 @@ namespace solar_a
                 speed_v = StaticSharp.Rocket_INFO.y;
                 speed_a = StaticSharp.Rocket_INFO.z;
             }
+            if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
         }
 
         // 火箭狀態方法

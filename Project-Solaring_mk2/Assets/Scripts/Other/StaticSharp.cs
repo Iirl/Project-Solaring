@@ -14,6 +14,7 @@ public class StaticSharp
     static public State Conditions;
     static public Vector3 Rocket_BASIC;
     static public Vector3 Rocket_INFO;
+    static public Vector3 Rocket_POS;
     static public bool isChangeScene;
     static public bool isDialogEvent;
     static public float DistanceRecord; // 紀錄飛行距離，將該值傳給下一關使用。

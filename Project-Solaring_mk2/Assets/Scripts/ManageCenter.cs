@@ -221,9 +221,11 @@ namespace solar_a
         }
         ///////////// 選單變化相關
         private IEnumerator PauseFadeEffect(bool visable = true)
-        {
-            canvas_select = pauseUI.GetComponent<CanvasGroup>();
-            if (condition.isEnd) yield return new WaitForSeconds(1.6f);
+        {            
+            if (condition.isEnd) {
+                canvas_select = pauseUI.GetComponent<CanvasGroup>();
+                yield return new WaitForSeconds(1.6f);
+            }
             switch (visable)
             {
                 case true:
@@ -295,12 +297,12 @@ namespace solar_a
         /// <summary>
         /// 暫停選單開關
         /// </summary>
-        public void show_Menu()
+        public void Show_Menu(CanvasGroup cvs)
         {
             //print($"{StaticSharp.Conditions} & {condition.isPause}");
             if (pauseMenus != null)
             {
-                canvas_select = pauseMenus;
+                canvas_select = cvs;
                 if (condition.isEnd)
                 {
                     StartCoroutine(PauseFadeEffect(true));
@@ -336,7 +338,6 @@ namespace solar_a
             {   // GameOver
                 bool isEnd = true;
                 pauseUI.transform.Find("Btn_Back_en").gameObject.SetActive(!isEnd);
-                mgEnd.enabled = isEnd;
                 ss_ctl.enabled = !isEnd;
                 // 關閉音效
                 Simple_move[] simple_s = FindObjectsOfType<Simple_move>();
@@ -372,12 +373,13 @@ namespace solar_a
             mgDsko = ManageSystemController.MgDisco ? ManageSystemController.MgDisco : FindObjectOfType<ManageDisco>();
             ss_ctl = ManageSystemController.SS_CTL ? ManageSystemController.SS_CTL : FindObjectOfType<SceneStage_Control>();
             space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
-            PutPlayerOBJ();
             rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
             rocket_SSR =rocket_ctl!=null ? rocket_ctl.GetComponent<SSRocket>(): null;
         }
+        
         private void Start()
-        {           
+        {
+            PutPlayerOBJ();  // 放置玩家火箭
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
             // 取得距離數值，如果沒有則從零開始
@@ -437,7 +439,7 @@ namespace solar_a
                 Input.GetKey(KeyCode.LeftAlt),
                 Input.GetKey(KeyCode.LeftShift)
                 );
-            if (Input.GetKeyDown(KeyCode.Escape)) show_Menu();
+            if (Input.GetKeyDown(KeyCode.Escape)) Show_Menu(pauseUI.GetComponent<CanvasGroup>());
         }
 
         #region 彩蛋相關

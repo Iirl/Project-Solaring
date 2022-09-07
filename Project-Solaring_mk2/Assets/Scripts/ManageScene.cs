@@ -17,14 +17,16 @@ namespace solar_a
     public class ManageScene : MonoBehaviour
     {
         public string sceneID = "SceneID";
-        private void SceneChageEvent(bool isNext) => StartCoroutine(LoadScenesPreOrder(isNext));
-
+        public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
+        public void ReloadCurrentScene() => SceneReload();
+        public void SaveLeveInform(int level) => SaveInformation(level);
+        public void SceneChageEvent(bool isNext) => StartCoroutine(LoadScenesPreOrder(isNext));
         /// <summary>
         /// 取得目前場景的編號。
         /// 輸入參數一可以取得目前場景的上限。
         /// </summary>
         /// <returns>回傳一個 int 的 index 。</returns>
-        public int GetScenes(bool isMax = false)
+        private int GetActiveSceneOrBuild(bool isMax = false)
         {
             if (!isMax) return SceneManager.GetActiveScene().buildIndex;
             else return SceneManager.sceneCountInBuildSettings;
@@ -32,16 +34,22 @@ namespace solar_a
         /// <summary>
         /// 重讀場景
         /// </summary>
-        public void ReloadCurrentScene() => SceneManager.LoadScene(GetScenes());
+        private void SceneReload()
+        {
+            ManageCenter.rocket_ctl.StateToBorken(false);
+            SceneManager.LoadScene(GetScenes());
+        }
         /// <summary>
         /// 儲存場景的資訊
         /// 當場景轉換時，紀錄要保留的資訊。
         /// </summary>
-        public void SaveLeveInform(int level){
+        private void SaveInformation(int level)
+        {
             PlayerPrefs.SetInt(sceneID, GetScenes());
 
             StaticSharp.Rocket_INFO = ManageCenter.rocket_ctl.RocketS1;         //火箭當前數值
             StaticSharp.Rocket_BASIC = ManageCenter.rocket_ctl.RocketBasic;     //火箭基本數值
+            StaticSharp.Rocket_POS = ManageCenter.rocket_ctl.transform.position;     //火箭當前位置
             //StaticSharp.DistanceRecord = UI_moveDistane;   // 調整成目前距離
             StaticSharp._LEVEL = level;
             StaticSharp.DistanceRecord = ManageCenter.mgCenter.stInfo[level].finishDistane;     // 紀錄當前關卡的距離
@@ -54,7 +62,7 @@ namespace solar_a
         public void LoadScenes()
         {
             int idx = PlayerPrefs.GetInt(sceneID);
-            idx = (GetScenes(true) == idx+1) ?0:idx+1;
+            idx = (GetScenes(true) == idx + 1) ? 0 : idx + 1;
             SceneManager.LoadScene(idx);
         }
         /// <summary>
@@ -62,7 +70,7 @@ namespace solar_a
         /// </summary>
         /// <param name="idx">請輸入場景編號</param>
         public void LoadScenes(int idx) => SceneManager.LoadScene(idx);
-        public void LoadScenes(string sname)=> SceneManager.LoadScene(sname);
+        public void LoadScenes(string sname) => SceneManager.LoadScene(sname);
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>
@@ -71,10 +79,10 @@ namespace solar_a
             while (StaticSharp.isDialogEvent) yield return new WaitForSeconds(1);
             StaticSharp.isChangeScene = false;
             int now = GetScenes();
-            int nexts = now+1, prevs = now-1;
+            int nexts = now + 1, prevs = now - 1;
             //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");
-            if (next && nexts  != GetScenes(true)) LoadScenes(nexts);
-            else if (prevs >0) LoadScenes(prevs);
+            if (next && nexts != GetScenes(true)) LoadScenes(nexts);
+            else if (prevs > 0) LoadScenes(prevs);
         }
         /// <summary>
         /// 結束程式函數

@@ -57,6 +57,8 @@ public class ColliderSystem : MonoBehaviour
             if (ManageCenter.space_ctl.isRotate) return -1;
             ManageCenter.mgDsko.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
             StaticSharp.Conditions = State.End;
+            //print(hitObj.name);
+            Destroy(hitObj);
         }
         else if (hitObj.tag.Contains("Block"))
         {

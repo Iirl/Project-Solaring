@@ -136,11 +136,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: show_Menu
-        m_Mode: 1
+        m_MethodName: Show_Menu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2759371003897554157}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -979,11 +979,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: show_Menu
-        m_Mode: 1
+        m_MethodName: Show_Menu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 993921715801910474}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1624,11 +1624,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: show_Menu
-        m_Mode: 1
+        m_MethodName: Show_Menu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 993921715801910474}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5075,13 +5075,14 @@ GameObject:
   - component: {fileID: 6892954978193237676}
   - component: {fileID: 4233293889481245909}
   - component: {fileID: 2915365269868343818}
+  - component: {fileID: 2759371003897554157}
   m_Layer: 5
   m_Name: UI_Help
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &461884303505089395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5216,6 +5217,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2759371003897554157
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3014044707184701488}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &3649844063901293094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6652,11 +6665,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 993921715535371216}
         m_TargetAssemblyTypeName: solar_a.ManageCenter, Assembly-CSharp
-        m_MethodName: show_Menu
-        m_Mode: 1
+        m_MethodName: Show_Menu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2759371003897554157}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
