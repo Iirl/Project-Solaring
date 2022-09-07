@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
+  m_Name: FogRed01
+  m_EditorClassIdentifier: 
+  grtClass: 0
+  grtObject: {fileID: 2188324280617901880, guid: 185d4ffabc53ef043b786513ccb94453,
+    type: 3}
+  grtSubObject:
+  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
+  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
+  grtProb: 0.3
+  grtIntervalTime: 3
+  grtWaitTime: 2
+  grtdestTime: 0
+  grtPos: {x: 0, y: 0, z: 0}
+  grtOffset: 0
+  grtRandomRoation: 0
+  grtRot: {x: 0, y: 0, z: 0, w: 1}
+  grtLimit: 1
