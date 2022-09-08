@@ -47,7 +47,7 @@ public class SSRocket : MonoBehaviour
             case RocketACondition.Protect:
                 if (!noDead)
                 {
-                    sm = toNoDead;
+                    sm = toProtect;
                     StartCoroutine(StatusTimer(rct.StateToShield, sec));
                 } else return;
                 break;
@@ -65,6 +65,7 @@ public class SSRocket : MonoBehaviour
 
     #region 狀態處理
     //
+    private void toProtect(bool funOn = false) => ManageCenter.mgCenter.protect = funOn;
     private void toNoDead(bool funOn = false) => NoDead = funOn;
     private void toFullGage(bool funOn = false) => NoFuel = funOn;
     private void toFullRushGage(bool funOn = false) => NoRush = funOn;
