@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: StationSpace
   m_EditorClassIdentifier: 
-  grtClass: 2
+  grtClass: 0
   grtObject: {fileID: 8853699504866694951, guid: 1ae39d405f903894da04ccbbdda23aac,
     type: 3}
   grtSubObject: []

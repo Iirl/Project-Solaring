@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -342,9 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &168153529
 GameObject:
@@ -1254,9 +1254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &832521817
 GameObject:
@@ -1782,9 +1782,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &1174681736
 GameObject:
@@ -2257,9 +2257,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &1465249943
 GameObject:
@@ -2353,9 +2353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!4 &1524725105 stripped
 Transform:
@@ -2637,9 +2637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &1727862380 stripped
 GameObject:
@@ -2666,9 +2666,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &1741432967
 GameObject:
@@ -2911,9 +2911,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &1925019404
 GameObject:
@@ -3148,6 +3148,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250030540915001145, guid: a0716c69ad9fbf849b33ed89eb81222c,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3014044707184701488, guid: a0716c69ad9fbf849b33ed89eb81222c,
         type: 3}

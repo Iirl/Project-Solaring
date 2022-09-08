@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeteoLine_03
   m_EditorClassIdentifier: 
   grtClass: 1
-  grtObject: {fileID: 7761588369355894776, guid: 49c735d2bea226f478c2e70a6a776b56,
+  grtObject: {fileID: 7761588369355894776, guid: 3f0dc68ec499f264b8a2dcea574a5f8c,
     type: 3}
   grtSubObject:
   - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
@@ -23,11 +23,11 @@ MonoBehaviour:
   - {fileID: 4321400938711116941, guid: ef7417e4245c0c141b0838850cc23cdf, type: 3}
   - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
   grtProb: 0.3
-  grtIntervalTime: 10
+  grtIntervalTime: 15
   grtWaitTime: 15
-  grtdestTime: 60
+  grtdestTime: 15
   grtPos: {x: 0, y: 0, z: 0}
   grtOffset: 1
   grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 3
+  grtLimit: 1

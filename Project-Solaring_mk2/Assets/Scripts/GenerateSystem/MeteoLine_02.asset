@@ -24,10 +24,10 @@ MonoBehaviour:
   - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
   grtProb: 0.3
   grtIntervalTime: 10
-  grtWaitTime: 15
+  grtWaitTime: 10
   grtdestTime: 15
   grtPos: {x: 0, y: 0, z: 0}
   grtOffset: 1
   grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 2
+  grtLimit: 1

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7464562019881101929}
   m_LocalRotation: {x: -0, y: -0.80459684, z: -0, w: -0.59382147}
   m_LocalPosition: {x: 0, y: 41.42, z: 200}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3944455172705685359}
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 0.3
   randomSpd: 0
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!95 &790400199268066030
 Animator:
