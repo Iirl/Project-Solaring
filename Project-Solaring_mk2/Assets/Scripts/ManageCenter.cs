@@ -96,12 +96,12 @@ namespace solar_a
         [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         private CanvasGroup canvas_select;
         [HideInInspector] //作弊控制開關
-        public bool noExhauFuel, noExhauRush, noDead, toFinDest;
+        public bool noExhauFuel, noExhauRush, noDead, protect, toFinDest;
         bool runtime = false;
         #endregion
 
 
-        public void X_PowerMode() {noDead = !noDead; rocket_ctl.StateToShield(noDead); }
+        public void X_PowerMode() {protect = !protect; rocket_ctl.StateToShield(protect); }
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
