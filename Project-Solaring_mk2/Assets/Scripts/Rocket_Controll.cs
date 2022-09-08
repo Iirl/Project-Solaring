@@ -69,6 +69,7 @@ namespace solar_a
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
 
         #region 公用方法
+        public void ReGetCOMPON() => SetComponent();
         public void StateToOff(bool state = true) => RocketEffectState(-1, state);
         public void StateToShield(bool state = true) => RocketEffectState(0, state);
         public void StateToSpeedline(bool state = true) => RocketEffectState(1, state);
@@ -104,7 +105,7 @@ namespace solar_a
         //
         private void UpForce()
         {
-            if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
+            if (particle_fire) if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
             Rocket_Rig.AddForce(-Rocket_Rig.velocity, ForceMode.Acceleration);
 
         }
@@ -185,6 +186,7 @@ namespace solar_a
         /// </summary>
         private void ignix_fire()
         {
+            if (!particle_fire) return;
             if (!rc_dtion.IsStay) particle_fire.Play();
             else
             {
@@ -200,12 +202,13 @@ namespace solar_a
         /// <param name="open">為真的時候啟動物件</param>
         private void RocketEffectState(int idx, bool open)
         {
-            GameObject status;
-            if (idx >= 0) status = transform.Find("Effect").GetChild(idx).gameObject;
+            GameObject status = transform.Find("Effect").gameObject;
+            if (idx >= 0) status = status.transform.GetChild(idx).gameObject;
             else status = transform.Find("Effect").gameObject;
             if (idx == 2) {
                 transform.Find("Normal").gameObject.SetActive(!open);
                 enabled = !open;
+                Rocket_sound.enabled = !open;
                 if (!open)
                 {
                     rc_dtion.onStay();
@@ -247,15 +250,20 @@ namespace solar_a
         }
         #endregion
 
+        private void SetComponent()
+        {
+            particle_fire = GetComponentInChildren<ParticleSystem>()?? null;
+            Rocket_Rig = GetComponent<Rigidbody>();
+            Rocket_sound = GetComponent<AudioSource>();
+        }
+
+
         private void Awake()
         {
             fuel = RocketBasic.x;
             speed_v = RocketBasic.y;
             speed_a = RocketBasic.z;
-            particle_fire = GetComponentInChildren<ParticleSystem>();
-            Rocket_Rig = GetComponent<Rigidbody>();
-            Rocket_sound = GetComponent<AudioSource>();
-
+            SetComponent();
         }
         #region 事件
         private void Start()
@@ -269,6 +277,7 @@ namespace solar_a
                 speed_a = StaticSharp.Rocket_INFO.z;
             }
             if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
+            ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
         }
 
         // 火箭狀態方法
@@ -320,7 +329,7 @@ namespace solar_a
                 {
                     if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
                 }
-                Invoke("ignix_fire", 0.1f);
+                if(particle_fire) Invoke("ignix_fire", 0.1f);
             }
             else {
                 Rocket_Rig.velocity = Vector3.zero;

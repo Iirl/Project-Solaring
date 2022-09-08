@@ -33,7 +33,8 @@ public class SSRocket : MonoBehaviour
     private GameObject[] rockets;
     #endregion
     public void ShowDebug(bool isOpen) => showPassFiled = isOpen;
-    public void CreateBorkenRocket() => uniGenerator(0);
+    public void ChangeToBorkenRocket() => PlayerChange(0);
+    public void ChangeToUFO() => PlayerChange(0);
     /// <summary>
     /// 狀態切換控制器
     /// </summary>
@@ -94,12 +95,18 @@ public class SSRocket : MonoBehaviour
         obGenerate.destoryTime = 5;
         obGenerate.Generates();
     }
-    private void uniGenerator(int idx)
+    private void PlayerChange(int idx)
     {
-        GameObject player = ManageCenter.rocket_ctl.gameObject;
-        obGenerate = new Object_Generator.Generater(player, rockets[idx]);
-        obGenerate.Create_v3 = player.transform.position + Vector3.back * 2;
-        obGenerate.Generates();
+        StaticSharp.Rocket_INFO = rct.RocketS1;
+        obGenerate = new Object_Generator.Generater(transform.parent.gameObject, rockets[idx]);
+        obGenerate.Create_v3 = transform.position + Vector3.up;
+        GameObject newPlayer = (GameObject)obGenerate.Generates();
+        //StartCoroutine(LoadCompTimer(newPlayer));
+        ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
+        ManageCenter.rocket_ctl = newPlayer.GetComponent<Rocket_Controll>();
+        rct = newPlayer.GetComponent<Rocket_Controll>();
+       
+        Destroy(gameObject);
     }
     /// <summary>
     /// 狀態計時器，會先執行 true 再執行 false.
@@ -123,15 +130,12 @@ public class SSRocket : MonoBehaviour
     }
 
     [Header("顯示功能"), Space]
-    GUIStyle focuss = new GUIStyle();
-    private Rect windowRect = new Rect(20, 20, 200, 120);
+    private Rect windowRect = new Rect(20, 100, 200, 120);
     private Rect passWindowRect = new Rect(20, 20, 110, 45);
-    private Color onColor = Color.green;
-    private Color offColor = Color.gray;
     private void OnGUI()
     {
         if (showPassFiled) GUI.Window(0, passWindowRect, CodeInWindows, "Code");
-        if (showWindows) windowRect = GUI.Window(1, windowRect, CheatWindow, "Debug Window");
+        if (showWindows) windowRect = GUI.Window(1, windowRect, CheatWindow, "Super Special Rocket");
     }
     /// <summary>
     /// 密碼視窗
@@ -151,8 +155,9 @@ public class SSRocket : MonoBehaviour
     private void CodeEraser()
     {
         for (int i = 0; i < inputCheck.Length; i++) inputCheck[i] = false;
-
     }
+    // 用來處理計算輸入密碼的程式，如果輸入錯誤一定次數會重置。
+    // 次數不宜太低，避免才剛按下去就被重置。
     private IEnumerator CodeTimer()
     {
         int count = 0, fail=0;

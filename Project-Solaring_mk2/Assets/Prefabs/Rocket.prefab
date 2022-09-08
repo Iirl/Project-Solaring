@@ -5396,8 +5396,9 @@ MonoBehaviour:
   noFuel: 0
   noRush: 0
   toFinal: 0
-  fuelObj: {fileID: 0}
-  rockets: []
+  fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
+  rockets:
+  - {fileID: 3037491925543192508, guid: ac52c113bf153b145946ad46a42ebd95, type: 3}
 --- !u!1 &4179556285600123791
 GameObject:
   m_ObjectHideFlags: 0

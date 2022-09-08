@@ -54,6 +54,7 @@ public class ColliderSystem : MonoBehaviour
         if (hitObj.tag.Contains("Enemy"))
         {
             i = 1; //結束遊戲處理
+            StaticSharp._SecretSCORE++;
             if (ManageCenter.space_ctl.isRotate) return -1;
             ManageCenter.mgDsko.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
             if(!ManageCenter.mgCenter.protect) StaticSharp.Conditions = State.End;
@@ -78,11 +79,6 @@ public class ColliderSystem : MonoBehaviour
             {
                 loadScene = true;
                 StaticSharp.isChangeScene = true;
-                if (!ManageCenter.mgCenter)
-                {
-                    ManageScene mgScene = FindObjectOfType<ManageScene>();
-                    if (mgScene) mgScene.SendMessage("SceneChageEvent" , true);
-                }
                 print("終點，轉場");
                 loadScene = false;
             }

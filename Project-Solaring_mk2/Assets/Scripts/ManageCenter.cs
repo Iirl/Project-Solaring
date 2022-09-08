@@ -100,7 +100,6 @@ namespace solar_a
         bool runtime = false;
         #endregion
 
-
         public void X_PowerMode() {protect = !protect; rocket_ctl.StateToShield(protect); }
         /// <summary>
         /// 共用方法 (Public Method)
@@ -207,6 +206,7 @@ namespace solar_a
         /// </summary>
         public void InToStation()
         {
+            mgScene.ReloadToAndClear();
             mgScene.SaveLeveInform(levelNow);
             mgScene.LoadScenes("Station");
         }
@@ -383,8 +383,9 @@ namespace solar_a
             space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
             rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
             rocket_SSR =rocket_ctl!=null ? rocket_ctl.GetComponent<SSRocket>(): null;
+
         }
-        
+
         private void Start()
         {
             PutPlayerOBJ();  // 放置玩家火箭

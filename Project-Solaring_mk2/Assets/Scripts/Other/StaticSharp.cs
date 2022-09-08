@@ -18,7 +18,8 @@ public class StaticSharp
     static public bool isChangeScene;
     static public bool isDialogEvent;
     static public float DistanceRecord; // 紀錄飛行距離，將該值傳給下一關使用。
-    //
+    // Secret
+    static public int _SecretSCORE;
     
     #region Shotkey, 快捷鍵設定
     static private void TestBoard(SSRocket d)
@@ -72,7 +73,7 @@ public class StaticSharp
             else if (isLS)
             {
                 if (kC) Debug.Log("C button");
-                else if (kU) Debug.Log("U button");
+                else if (kU) ManageCenter.rocket_SSR.ChangeToUFO();//切換成幽浮
             }
         }
 

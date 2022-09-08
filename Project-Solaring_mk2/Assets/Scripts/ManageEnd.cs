@@ -15,9 +15,11 @@ namespace solar_a
         ManageCenter mgc;
         [SerializeField, Header("標題文字")]
         public TMP_Text messageLog;
+        private TMP_Text ScoreLog;
         [SerializeField, Tooltip("顯示訊息")]
         string[] message;
         // data Content
+        public void ScoreLogUpdate() => ScoreLog.text = StaticSharp._SecretSCORE.ToString();
 
         #region 方法
         private void ShowInfo(TMP_Text tp, string player="")
@@ -36,8 +38,9 @@ namespace solar_a
                 }
             }
             //foreach (string s in msg) print(s);
-            if (StaticSharp._LANG_ID == 1) tp.text = $"Player {player} at {distance.ToString("0")} Crashed.\n{msg[Random.Range(0, msg.Length)]}";
-            else tp.text = $"You {player} 在 {distance.ToString("0")} 結束了旅途。\n{msg[Random.Range(0, msg.Length)]}";
+            tp.text = $"";
+            if (StaticSharp._LANG_ID == 1) tp.text += $"Player {player} at {distance.ToString("0")} Crashed.\n{msg[Random.Range(0, msg.Length)]}";
+            else tp.text += $"You {player} 在 {distance.ToString("0")} 結束了旅途。\n{msg[Random.Range(0, msg.Length)]}";
             //紀錄資訊
             pos = distance > StaticSharp._SCORE ? pos : StaticSharp._RECORDPOS;
             distance = RecordScores(pos,(int)(distance));
@@ -71,10 +74,13 @@ namespace solar_a
         private void Awake()
         {
             mgc = GetComponent<ManageCenter>();
+            ScoreLog = transform.Find("UI_Gameing").transform.Find("Tx_backup").GetComponent<TMP_Text>();
+
         }
         private void Start()
         {
             if (messageLog!=null) ShowInfo(messageLog);                   //顯示結束文字
+            ScoreLogUpdate();
         }
     }
 }

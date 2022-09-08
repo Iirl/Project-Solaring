@@ -12,6 +12,15 @@ namespace solar_a
         [SerializeField]
         private bool isHaving;
         static private List<string> preLoadName = new List<string>();
+        //
+        public void DestoryOnStageObject() => ClearObject();
+
+        private void ClearObject()
+        {
+            preLoadName.Clear();
+            Destroy(gameObject);
+        }
+
         private void Awake()
         {
             if (preLoadName.Count > 0) foreach (string name in preLoadName) if (name == this.name) isHaving = true;

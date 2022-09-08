@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 namespace solar_a
 {
@@ -19,8 +20,12 @@ namespace solar_a
         public string sceneID = "SceneID";
         public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
         public void ReloadCurrentScene() => SceneReload();
+        public void ReloadToStart() => ClearInformation(true);
+        public void ReloadToAndClear() => ClearInformation();
         public void SaveLeveInform(int level) => SaveInformation(level);
         public void SceneChageEvent(bool isNext) => StartCoroutine(LoadScenesPreOrder(isNext));
+        public void LoadScenes(int idx) => GenericScene(idx);
+        public void LoadScenes(string sname) => GenericScene(sname);
         /// <summary>
         /// 取得目前場景的編號。
         /// 輸入參數一可以取得目前場景的上限。
@@ -55,6 +60,26 @@ namespace solar_a
             StaticSharp.DistanceRecord = ManageCenter.mgCenter.stInfo[level].finishDistane;     // 紀錄當前關卡的距離
         }
         /// <summary>
+        /// 清除所有場上存在過的物件
+        /// </summary>
+        /// <param name="restart">真為重新載入場景</param>
+        private void ClearInformation(bool restart=false)
+        {
+            StaticSharp.Rocket_INFO = Vector3.zero;
+            StaticSharp.Rocket_BASIC = Vector3.zero;     //火箭基本數值
+            StaticSharp.Rocket_POS = Vector3.zero;     //火箭當前位置
+            StaticSharp._LEVEL = 2;
+            StaticSharp.DistanceRecord = 0;     // 紀錄當前關卡的距離
+            StaticSharp._SecretSCORE = 0;
+            //
+            noDestoryInChangeScene[] nDICS = FindObjectsOfType<noDestoryInChangeScene>();
+            for (int i = 0; i < nDICS.Length; i++) nDICS[i].DestoryOnStageObject();
+
+            if (!restart) return;
+            //若需要重新載入場景則執行以下段落
+            GenericScene(2);
+        }
+        /// <summary>
         /// 根據目前的指標移動到下一關:
         /// 目前只能指定達到關卡上限之後回到標題。
         /// 應該要在最後加入結束場景，避免直接跳回標題。
@@ -69,8 +94,11 @@ namespace solar_a
         /// 載入指定編號的場景
         /// </summary>
         /// <param name="idx">請輸入場景編號</param>
-        public void LoadScenes(int idx) => SceneManager.LoadScene(idx);
-        public void LoadScenes(string sname) => SceneManager.LoadScene(sname);
+        private void GenericScene<T> (T value) where T:IComparable
+        {
+            if (typeof(T) == typeof(int)) SceneManager.LoadScene(Convert.ToInt32(value),LoadSceneMode.Single);
+            if (typeof(T) == typeof(string)) SceneManager.LoadScene(value.ToString(), LoadSceneMode.Single);
+        }
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>

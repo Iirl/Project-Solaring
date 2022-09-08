@@ -243,7 +243,11 @@ namespace solar_a
                         break;
                 }
             }
-            if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0) CancelInvoke("SwitchState"); // 超過指定距離停止產生
+            if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0)
+            {// 超過指定距離停止產生
+                CancelInvoke("SwitchState");
+                Destroy(gameObject);
+            }
             //print("呼叫次數");
         }
 
