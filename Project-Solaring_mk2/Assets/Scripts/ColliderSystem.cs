@@ -148,7 +148,7 @@ public class ColliderSystem : MonoBehaviour
         {
             if (gob.name.ToLower().Contains(e.label.ToLower()))
             {
-                print($"爆炸特效 {e.label} 產生");
+                //print($"爆炸特效 {e.label} 產生");
                 Destroy(Instantiate(e.ExplodeObj, transform), e.ExplodeTime);
             }
         }

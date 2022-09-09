@@ -101,6 +101,7 @@ public class SSRocket : MonoBehaviour
         obGenerate = new Object_Generator.Generater(transform.parent.gameObject, rockets[idx]);
         obGenerate.Create_v3 = transform.position + Vector3.up;
         GameObject newPlayer = (GameObject)obGenerate.Generates();
+        newPlayer.MoveComponent(rct.GetComponent<ColliderSystem>());
         //StartCoroutine(LoadCompTimer(newPlayer));
         ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
         ManageCenter.rocket_ctl = newPlayer.GetComponent<Rocket_Controll>();

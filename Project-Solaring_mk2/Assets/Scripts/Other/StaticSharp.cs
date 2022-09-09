@@ -25,7 +25,7 @@ public class StaticSharp
     static private void TestBoard(SSRocket d)
     {
         //print("Debug");
-        //顯示除錯面板        
+        //顯示隱藏面板
         if (d) d.ShowDebug(!d.isShowed);
         if (d) return; 
         CanvasGroup testOB = Object.FindObjectOfType<TestObject>().GetComponent<CanvasGroup>();
@@ -59,14 +59,14 @@ public class StaticSharp
                 if (kLS) Debug.Log("C+S button");
                 else if (kB) Debug.Log("B button");
                 else if (kM) Debug.Log("M button");
-                else if (kO) Debug.Log("O button");
+                //else if (kO) Debug.Log("O button");
                 else if (kP) Debug.Log("P button");
                 else if (kQ) Debug.Log("Q button");
             }
             else if (isAtl)
             {
                 if (kLS) Debug.Log("A+S button");
-                else if (kN) Debug.Log("N button");
+                else if (kN) ManageCenter.rocket_ctl.StateOnVisable();
                 else if (kR) SSR.SendMessage("GeneratorBlock"); //產生OBJ物件
                 else if (kP) ManageCenter.mgCenter.X_PowerMode();
             }

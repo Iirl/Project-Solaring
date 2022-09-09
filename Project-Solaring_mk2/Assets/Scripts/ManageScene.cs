@@ -19,6 +19,7 @@ namespace solar_a
     {
         public string sceneID = "SceneID";
         public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
+        public string GetScenesName() => GetActiveSceneName();
         public void ReloadCurrentScene() => SceneReload();
         public void ReloadToStart() => ClearInformation(true);
         public void ReloadToAndClear() => ClearInformation();
@@ -35,6 +36,10 @@ namespace solar_a
         {
             if (!isMax) return SceneManager.GetActiveScene().buildIndex;
             else return SceneManager.sceneCountInBuildSettings;
+        }
+        private string GetActiveSceneName()
+        {
+            return SceneManager.GetActiveScene().name;
         }
         /// <summary>
         /// 重讀場景

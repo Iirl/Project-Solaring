@@ -393,6 +393,7 @@ namespace solar_a
             StaticSharp.isChangeScene = false;
             // 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord>0? StaticSharp.DistanceRecord: 0;
+            UI_fuel = (int)rocket_ctl.RocketS1.x;
             //print($"目前關卡:{levelNow}");
             levelNow = mgScene.GetScenes() - levelBuildSetting;
             if (levelNow>0) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow-1].finishDistane, stInfo[levelNow].finishDistane);
@@ -454,9 +455,9 @@ namespace solar_a
         #region 彩蛋相關
         /*Ctrl+b 開啟黑洞隨機跳關：需要黑洞生成的動畫或圖片
         Shift+c 火箭換成貨機：需要一架貨機
-        Shift+u 火箭換飛碟
-        Alt+n 火箭隱形
-        Alt+r 重新生成補給與障礙物*/
+        Shift+u 火箭換飛碟ˇ
+        Alt+n 火箭隱形ˇ
+        Alt+r 重新生成補給與障礙物=>原意為清空物件，現改成生成物件ˇ*/
 
         #endregion
     }

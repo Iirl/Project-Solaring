@@ -443,7 +443,6 @@ GameObject:
   - component: {fileID: 1834731831507911449}
   - component: {fileID: -3760415808870449850}
   - component: {fileID: 7497553396463172222}
-  - component: {fileID: -6789291665918827951}
   m_Layer: 0
   m_Name: RocketUFO
   m_TagString: Player
@@ -761,56 +760,6 @@ CapsuleCollider:
   m_Height: 6
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6789291665918827951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3037491925543192508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effects:
-  - label: meteorite
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: state
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: comet
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: ufo
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  blocks:
-  - label: Bottle
-    species: 0
-    plus: 5
-    adClip: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
-    adVol: 0.3
-  - label: UnlimitedBox
-    species: 2
-    plus: 5
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
-  - label: ShieldBox
-    species: 1
-    plus: 5
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
-  - label: Box
-    species: 0
-    plus: 10
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
 --- !u!1 &3847445886582295741
 GameObject:
   m_ObjectHideFlags: 0

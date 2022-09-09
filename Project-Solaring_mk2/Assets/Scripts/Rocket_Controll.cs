@@ -70,6 +70,7 @@ namespace solar_a
 
         #region 公用方法
         public void ReGetCOMPON() => SetComponent();
+        public void StateOnVisable() => RocketNormalState();
         public void StateToOff(bool state = true) => RocketEffectState(-1, state);
         public void StateToShield(bool state = true) => RocketEffectState(0, state);
         public void StateToSpeedline(bool state = true) => RocketEffectState(1, state);
@@ -93,7 +94,7 @@ namespace solar_a
         public IEnumerator ControlChange(bool on = false)
         {
             if (!on) while (Rocket_sound.isPlaying) { Rocket_sound.Stop(); yield return null; }
-            else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }
+            else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }            
             Rocket_Rig.isKinematic = !on;
             if (rc_dtion.IsCrashed) rc_dtion.onStop(true); //如果為損毀就優先處理
             else if(on) rc_dtion.onStay();
@@ -218,6 +219,11 @@ namespace solar_a
             status.SetActive(open);
             
         }
+        private void RocketNormalState()
+        {
+            GameObject normal = transform.Find("Normal").gameObject;
+            normal.SetActive(!normal.activeSelf);
+        }
         #region 音效
         /// <summary>
         /// 火箭音效設定：
@@ -291,7 +297,7 @@ namespace solar_a
             {
                 case RocketState.Stay:
                     UpForce();
-                    if (!Rocket_Rig.isKinematic) StartCoroutine(ControlChange(true));
+                    //if (!Rocket_Rig.isKinematic) StartCoroutine(ControlChange(true));
                     if (InputMove()) rc_dtion.Next();
                     break;
                 case RocketState.Move:
