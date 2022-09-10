@@ -396,7 +396,8 @@ namespace solar_a
             UI_fuel = (int)rocket_ctl.RocketS1.x;
             //print($"目前關卡:{levelNow}");
             levelNow = mgScene.GetScenes() - levelBuildSetting;
-            if (levelNow>0) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow-1].finishDistane, stInfo[levelNow].finishDistane);
+            if (mgScene.GetScenesName().Contains("Tutorail")) levelNow = 0;
+            else if (levelNow > 0) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
         }
         #endregion
         private void Update()
@@ -412,7 +413,8 @@ namespace solar_a
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (UI_moveDistane <= stInfo[levelNow].finishDistane) MoveAction();
+                    if (mgScene.GetScenesName().Contains("Tutorail")) { if(UI_moveDistane <= 2000) MoveAction(); } 
+                    else if(levelNow >= levelBuildSetting) { if (UI_moveDistane <= stInfo[levelNow].finishDistane) MoveAction(); }
                     break;
                 case State.Loading:
                     Time.timeScale = 0.5f;

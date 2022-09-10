@@ -2690,6 +2690,9 @@ MonoBehaviour:
   pauseMenus: {fileID: 0}
   fadeSpeed: {x: 0.01, y: 0.001}
   stInfo:
+  - label: L0
+    speed: 25
+    finishDistane: 2000
   - label: L1
     speed: 100
     finishDistane: 15000
@@ -2711,7 +2714,7 @@ MonoBehaviour:
   - label: L7
     speed: 100
     finishDistane: 285000
-  levelBuildSetting: 2
+  levelBuildSetting: 3
   noExhauFuel: 0
   noExhauRush: 0
   noDead: 0

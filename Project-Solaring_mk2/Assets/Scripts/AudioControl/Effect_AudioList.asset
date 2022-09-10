@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcc7e8a8dfbc5e418c0573b3ec93353, type: 3}
+  m_Name: Effect_AudioList
+  m_EditorClassIdentifier: 
+  listName: "\u97F3\u6548"
+  listAudios:
+  - clip: {fileID: 8300000, guid: 7e1b7b1d8d2ae764d9a46802c394d9ac, type: 3}
+    label: "\u9078\u55AE:\u6309\u9215\u6309\u4E0B"
+  - clip: {fileID: 8300000, guid: 58dc4f5e1d25a23469ebe1f0aea10573, type: 3}
+    label: "\u9078\u55AE:\u9078\u9805\u79FB\u52D5"
+  - clip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    label: "\u5575"
+  - clip: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
+    label: "\u92FC\u74F6\u78B0\u649E"
+  - clip: {fileID: 8300000, guid: 74b9f79095d13b2449e2a65bdaa37a80, type: 3}
+    label: "\u7206\u70B81"
+  - clip: {fileID: 8300000, guid: a9814d5cfa43af84fb3193edee086f45, type: 3}
+    label: Powerup

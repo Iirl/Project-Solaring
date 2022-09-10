@@ -37,6 +37,12 @@ namespace solar_a
             public GameObject gameObject;
         }
         #endregion
+
+
+        private void FontAssetChange()
+        {
+            TextField.font = landata.Language[StaticSharp._LANG_ID].font;
+        }
         /// <summary>
         /// 打字機效果
         /// </summary>
@@ -141,13 +147,14 @@ namespace solar_a
         /// 方法事件：開關火箭
         /// </summary>
         /// <param name="isOn">On為真表示可以控制火箭</param>
-        private void RocketOnOff(bool isOn=true) => ManageCenter.rocket_ctl.rc_dtion.onStop(!isOn);
+        private void RocketOnOff(bool isOn=true) => ManageCenter.rocket_ctl.CloseTheControl = !isOn;
         private void GOBOnOff(GameObject gobj, bool isOn = true) => gobj.SetActive(isOn);
 
         private void Awake()
         {
             dialogCVG = GetComponent<CanvasGroup>();
             evKeyIDs = new List<int>();
+            FontAssetChange();
         }
         private void Start()
         {
@@ -165,11 +172,12 @@ namespace solar_a
         private Rect guiWindows = new Rect(0,0,270,60);
         private void OnGUI()
         {
+            if (guiText !=null) guiWindows.width = guiText.Length*7+10;
             if (guiShow) guiWindows= GUI.Window(0,guiWindows,TipFunction,"Tips");
         }        
         private void TipFunction(int ID) {
-            GUI.color = Color.white;
-            GUI.Label(new Rect(guiWindows.x/2.5f,21,200,30),guiText);            
+            GUI.color = Color.white;            
+            GUI.Label(new Rect(20,25,guiWindows.width, guiWindows.height-25),guiText);            
         }
 
         #endregion

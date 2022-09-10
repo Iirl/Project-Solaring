@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 namespace solar_a
 {
@@ -12,7 +13,7 @@ namespace solar_a
     {
         [SerializeField, Header("平台類型")]
         public Platforms platform;
-        [Header("讀取資料"), NonReorderable]
+        [Header("讀取資料")]
         public LanguageClass[] Language;
         //
         public enum Platforms { PC, Mobile }
@@ -21,6 +22,7 @@ namespace solar_a
         {
             public string label;
             public string filename;
+            public TMP_FontAsset font;
             public string[] datas;
 
         }

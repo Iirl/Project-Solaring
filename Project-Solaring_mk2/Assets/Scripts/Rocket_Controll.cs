@@ -284,6 +284,7 @@ namespace solar_a
             }
             if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
+            if (offControl) CloseTheControl = offControl;
         }
 
         // 火箭狀態方法

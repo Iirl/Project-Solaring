@@ -16,6 +16,7 @@ MonoBehaviour:
   Language:
   - label: Chinese
     filename: CH
+    font: {fileID: 11400000, guid: 98b7200257025da46967e3e52b7d87ad, type: 2}
     datas:
     - "\u958B\u59CB\u904A\u6232\r"
     - "\u8ABF\u6574\u8A2D\u5B9A\r"
@@ -45,6 +46,7 @@ MonoBehaviour:
     - "\u51FA\u53E3\r"
   - label: English
     filename: EN
+    font: {fileID: 11400000, guid: 38c6a565de54ecd4c93ae871a0f9123a, type: 2}
     datas:
     - "START\r"
     - "OPTION\r"
@@ -54,4 +56,21 @@ MonoBehaviour:
     - "Left\r"
     - "Right\r"
     - "LeftSpine\r"
-    - RightSpine
+    - "RightSpine\r"
+    - "\u5730\u7403\u8CC7\u6E90\u4E0D\u65B7\u8017\u76E1\r"
+    - "\u4EBA\u985E\u60F3\u76E1\u8FA6\u6CD5\u5C0B\u627E\u9069\u5408\u751F\u5B58\u7684\u661F\u7403\r"
+    - "\u7D42\u65BC\u5728\u6BD4\u9130\u661F\u9644\u8FD1\u767C\u73FE\u4E86\u4E00\u9846\u8D85\u7D1A\u5730\u7403\r"
+    - "\u7D93\u904E\u9577\u671F\u7684\u89C0\u6E2C\u5F8C\u8A8D\u70BA\u8A72\u661F\u7403\u9069\u5408\u4EBA\u985E\u79FB\u661F\r"
+    - "\u65BC\u662F\u4EBA\u985E\u7684\u7B2C\u4E00\u6279\u79FB\u6C11\u8266\u968A\u51FA\u767C\u4E86\r"
+    - "\u4F60\u662F\u661F\u8266\u5718\u6700\u5F8C\u51FA\u767C\u7684\u8239\u8266\r"
+    - "\u8ACB\u4F9D\u7167\u6307\u793A\u524D\u5F80\u8207\u8266\u968A\u532F\u5408\r"
+    - "E n e r g y\r"
+    - "D i s t a n c e\r"
+    - "RESTART\r"
+    - "END\r"
+    - "BACK\r"
+    - "Energy\r"
+    - "Speed\r"
+    - "Acceleration\r"
+    - "ROCKET ADJSUT\r"
+    - "EXIT\r"

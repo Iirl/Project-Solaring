@@ -73,6 +73,8 @@ namespace solar_a
                 for (int i = 0; i < TextField.Length; i++)
                 {
                     if (TextField[i].TmpUGUI != null) TextField[i].TmpUGUI.text = landata.Language[lang].datas[TextField[i].id];
+                    if (landata.Language[lang].font != null) TextField[i].TmpUGUI.font = landata.Language[lang].font;
+
                 }
             }
         }
@@ -106,8 +108,9 @@ namespace solar_a
         }
         private void Start()
         {
-            DataWrite(StaticSharp._LANG_ID);
-            if(OriganilData != null) DataOrigial(StaticSharp._LANG_ID);
+            int lid = StaticSharp._LANG_ID;
+            DataWrite(lid);
+            if(OriganilData != null) DataOrigial(lid);
         }
     }
 

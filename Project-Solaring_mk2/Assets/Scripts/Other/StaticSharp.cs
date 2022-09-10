@@ -121,7 +121,7 @@ public enum SpacetState { Stay, Setting, Rotate, Stop }
 
 
 
-
+// 自定義延伸方法
 static class Extension
 {
     /// <summary>

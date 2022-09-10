@@ -81,6 +81,8 @@ namespace solar_a
         public void MasterVolumeAdjust(float vol) => mstMixerVolume = vol;
         public void MusicVolumeAdjust(float vol) => micVolume = vol;
         public void EffectVolumeAdjust(float vol) => effVolume = vol;
+        public bool MusicIsPlaying => MusicPlayer.isPlaying;
+        public bool EffectIsPlaying => EffectAudio.isPlaying;
         public void OneShotMusic(AudioClip audioClip) => PlayClips(audioClip, 0);
         public void OneShotEffect(AudioClip audioClip) => PlayClips(audioClip, 1);
         public void ChangePlayMusic(AudioClip audioClip) => ChangeMusic(audioClip);
