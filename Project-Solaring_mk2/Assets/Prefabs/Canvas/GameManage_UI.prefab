@@ -2691,8 +2691,8 @@ MonoBehaviour:
   fadeSpeed: {x: 0.01, y: 0.001}
   stInfo:
   - label: L0
-    speed: 25
-    finishDistane: 2000
+    speed: 2
+    finishDistane: 20
   - label: L1
     speed: 100
     finishDistane: 15000
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   - label: L7
     speed: 100
     finishDistane: 285000
-  levelBuildSetting: 3
+  levelBuildSetting: 1
   noExhauFuel: 0
   noExhauRush: 0
   noDead: 0
@@ -2732,6 +2732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c027022a847194ba62f5caa1493b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
 --- !u!82 &993921715535371218
 AudioSource:
@@ -3840,6 +3841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836bf85d91a2dc14da94c13421f95001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
+  sceneID: SceneID
+  FinishBox: {fileID: 0}
 --- !u!1 &993921716217057841
 GameObject:
   m_ObjectHideFlags: 0

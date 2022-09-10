@@ -17,6 +17,9 @@ namespace solar_a
     /// </summary>
     public class ManageScene : MonoBehaviour
     {
+        [SerializeField]
+        private string lveve1Scene = "Level1";
+        [HideInInspector]
         public string sceneID = "SceneID";
         public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
         public string GetScenesName() => GetActiveSceneName();
@@ -24,7 +27,7 @@ namespace solar_a
         public void ReloadToStart() => ClearInformation(true);
         public void ReloadToAndClear() => ClearInformation();
         public void SaveLeveInform(int level) => SaveInformation(level);
-        public void SceneChageEvent(bool isNext) => StartCoroutine(LoadScenesPreOrder(isNext));
+        public void SceneChageEvent(bool isNext) => StartCoroutine(EnumerLoadScene(isNext));
         public void LoadScenes(int idx) => GenericScene(idx);
         public void LoadScenes(string sname) => GenericScene(sname);
         /// <summary>
@@ -82,7 +85,7 @@ namespace solar_a
 
             if (!restart) return;
             //若需要重新載入場景則執行以下段落
-            GenericScene(2);
+            GenericScene(lveve1Scene);
         }
         /// <summary>
         /// 根據目前的指標移動到下一關:
@@ -107,14 +110,16 @@ namespace solar_a
         /// <summary>
         /// 讀取前一個或下一個場景
         /// </summary>
-        public IEnumerator LoadScenesPreOrder(bool next)
+        private IEnumerator EnumerLoadScene(bool next=true)
         {
+            if (StaticSharp.isChangeScene) yield break;
             while (StaticSharp.isDialogEvent) yield return new WaitForSeconds(1);
             StaticSharp.isChangeScene = false;
             int now = GetScenes();
             int nexts = now + 1, prevs = now - 1;
-            //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");
-            if (next && nexts != GetScenes(true)) LoadScenes(nexts);
+            //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");           
+            if (GetScenes()+1 == GetScenes(true) - 1) ClearInformation(true);
+            else if (next) LoadScenes(nexts);
             else if (prevs > 0) LoadScenes(prevs);
         }
         /// <summary>

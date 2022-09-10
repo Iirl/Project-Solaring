@@ -100,7 +100,7 @@ namespace solar_a
         bool runtime = false;
         #endregion
 
-        public void X_PowerMode() {protect = !protect; rocket_ctl.StateToShield(protect); }
+        public void X_PowerMode() { protect = !protect; rocket_ctl.StateToShield(protect); }
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
@@ -121,7 +121,7 @@ namespace solar_a
         public Vector3 GetRocketPosition() => rocket_ctl.transform.position;
         public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
-        
+
         private void PutPlayerOBJ()
         {
             //In Awake 事件，判斷是否需要生成玩家物件
@@ -216,13 +216,14 @@ namespace solar_a
         private void StartChageScene()
         {
             mgScene.SaveLeveInform(levelNow);
+            mgScene.SceneChageEvent(true);
             StartCoroutine(rocket_ctl.ControlChange(false));
-            StartCoroutine(mgScene.LoadScenesPreOrder(true));
         }
         ///////////// 選單變化相關
         private IEnumerator PauseFadeEffect(bool visable = true)
-        {            
-            if (condition.isEnd) {
+        {
+            if (condition.isEnd)
+            {
                 canvas_select = pauseMenus;
                 yield return new WaitForSeconds(1.6f);
             }
@@ -270,7 +271,7 @@ namespace solar_a
             {   // 超過 100 的部分用格狀血條顯示
                 ui_fuelbar.fillAmount = 1;
                 int level = (int)((UI_fuel - 100) / rocket_ctl.fuel_overcapacity) + 1;
-                EnergyAnimator(level-1); //能量動畫控制
+                EnergyAnimator(level - 1); //能量動畫控制
                 if (EnergyPlus.Length > 0)
                 {
                     int count = 0;
@@ -288,7 +289,7 @@ namespace solar_a
         private void EnergyAnimator(int i)
         {
             string State = "onState";
-            i = (i < EnergyPlus.Length)? i : EnergyPlus.Length-1;
+            i = (i < EnergyPlus.Length) ? i : EnergyPlus.Length - 1;
             if (EnergyPlus[i].activeSelf) if (EnergyPlus[i].GetComponent<Animator>().GetBool(State)) return;
             for (int j = 0; j <= i; j++) if (EnergyPlus[j].activeSelf) EnergyPlus[j].GetComponent<Animator>().SetBool(State, i == j);
             //print($"第 {i} 號燃料燃燒中");
@@ -302,7 +303,7 @@ namespace solar_a
             //print($"{StaticSharp.Conditions} & {condition.isPause}");
             if (pauseMenus != null)
             {
-                canvas_select = cvs ;
+                canvas_select = cvs;
                 if (condition.isEnd)
                 {
                     pauseUI.SetActive(true);
@@ -382,7 +383,7 @@ namespace solar_a
             ss_ctl = ManageSystemController.SS_CTL ? ManageSystemController.SS_CTL : FindObjectOfType<SceneStage_Control>();
             space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
             rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
-            rocket_SSR =rocket_ctl!=null ? rocket_ctl.GetComponent<SSRocket>(): null;
+            rocket_SSR = rocket_ctl != null ? rocket_ctl.GetComponent<SSRocket>() : null;
 
         }
 
@@ -392,12 +393,12 @@ namespace solar_a
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
             // 取得距離數值，如果沒有則從零開始
-            UI_moveDistane = StaticSharp.DistanceRecord>0? StaticSharp.DistanceRecord: 0;
+            UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
             UI_fuel = (int)rocket_ctl.RocketS1.x;
-            //print($"目前關卡:{levelNow}");
+            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
             levelNow = mgScene.GetScenes() - levelBuildSetting;
             if (mgScene.GetScenesName().Contains("Tutorail")) levelNow = 0;
-            else if (levelNow > 0) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
+            else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 2].finishDistane, stInfo[levelNow-1].finishDistane);
         }
         #endregion
         private void Update()
@@ -413,8 +414,8 @@ namespace solar_a
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (mgScene.GetScenesName().Contains("Tutorail")) { if(UI_moveDistane <= 2000) MoveAction(); } 
-                    else if(levelNow >= levelBuildSetting) { if (UI_moveDistane <= stInfo[levelNow].finishDistane) MoveAction(); }
+                    if (mgScene.GetScenesName().Contains("Tutorail")) { if (UI_moveDistane <= 2000) MoveAction(); }
+                    else if (UI_moveDistane <= stInfo[levelNow].finishDistane) { MoveAction(); }
                     break;
                 case State.Loading:
                     Time.timeScale = 0.5f;
