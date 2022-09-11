@@ -43,7 +43,7 @@ namespace solar_a
         /// <param name="datas"></param>
         private void DataSave(string data, string path)
         {
-            FileStream file = new FileStream(path, FileMode.Open); // 開啟檔案
+            FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write); // 開啟檔案
             StreamWriter sw = new StreamWriter(file);   // 寫入模式
             sw.WriteLine(data);  // 寫入資料
             sw.Close();
