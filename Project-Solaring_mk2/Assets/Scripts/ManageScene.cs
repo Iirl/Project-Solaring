@@ -60,7 +60,7 @@ namespace solar_a
         {
             PlayerPrefs.SetInt(sceneID, GetScenes());
 
-            StaticSharp.Rocket_INFO = ManageCenter.rocket_ctl.RocketS1;         //火箭當前數值
+            StaticSharp.Rocket_INFO = ManageCenter.rocket_ctl.RocketVarInfo;         //火箭當前數值
             StaticSharp.Rocket_BASIC = ManageCenter.rocket_ctl.RocketBasic;     //火箭基本數值
             StaticSharp.Rocket_POS = ManageCenter.rocket_ctl.transform.position;     //火箭當前位置
             //StaticSharp.DistanceRecord = UI_moveDistane;   // 調整成目前距離

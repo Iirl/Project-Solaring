@@ -97,7 +97,7 @@ public class SSRocket : MonoBehaviour
     }
     private void PlayerChange(int idx)
     {
-        StaticSharp.Rocket_INFO = rct.RocketS1;
+        StaticSharp.Rocket_INFO = rct.RocketVarInfo;
         obGenerate = new Object_Generator.Generater(transform.parent.gameObject, rockets[idx]);
         obGenerate.Create_v3 = transform.position + Vector3.up;
         GameObject newPlayer = (GameObject)obGenerate.Generates();

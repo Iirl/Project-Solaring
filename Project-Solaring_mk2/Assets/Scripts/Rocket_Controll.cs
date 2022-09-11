@@ -8,12 +8,11 @@ using System.Collections;
 /// </summary>
 namespace solar_a
 {
-    [RequireComponent(typeof(SSRocket))]
+    [RequireComponent(typeof(SSRocket))]    
     public class Rocket_Controll : MonoBehaviour
     {
 
         #region 屬性
-        ParticleSystem particle_fire;
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
         private bool isBoost;
@@ -22,49 +21,46 @@ namespace solar_a
         [SerializeField, Header("停用玩家操控")]
         private bool offControl;
         public bool CloseTheControl { set { offControl = value; rc_dtion.onStop(value); } get { return offControl; } }
-        [SerializeField, Header("火箭的基本資訊\n燃料(X)\n移動速度(Y)\n衝刺倍率(Z)")]
+        [SerializeField, Header("火箭的基本資訊\n燃料(X)    \t移動速度(Y)\t衝刺倍率(Z)")]
         public Vector3 RocketBasic;
-        [SerializeField, Header("單位消耗燃料")]
+        [SerializeField, Header("火箭能力調整")]
         private float unit_fuel;
         public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
         [SerializeField]
-        private float fuel = 100;
-        private float speed_v = 4f;
-        private float speed_a;
+        public float fuel_overcapacity = 20;
         [SerializeField, Range(0.1f, 5.0f)]
         private float rush_time;
         [SerializeField, Range(1, 20)]
         private int rush_counts;
+        [SerializeField, Header("×快速查看"), Tooltip("程式控制項目，設定也沒意義。")]
+        private float fuel = 100;
+        private float speed_v = 4f;
+        private float speed_a;
         Vector3 boostDirect;
         [SerializeField]
-        public float fuel_overcapacity = 20;
-        // 取得火箭資訊的欄位
-        public Vector3 RocketS1 { get { return new Vector3(fuel, speed_v, speed_a); } }
-        [SerializeField, Header("火焰控制項")]
-        Vector2 fireLenght_min = new Vector2(0.5f, 1f);
-        [SerializeField, Tooltip("盡量不要超過預設值太多")]
-        Vector2 fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
-        [SerializeField, Header("火焰最大音量"), Range(0.1f, 1f)]
-        float fire_volume = 0.6f;
-        [SerializeField]
         public List<AudioClip> rocket_Clip = new List<AudioClip>();
-        [SerializeField, Header("火箭大小")]
-        Vector3 rocketBox = new Vector3(1f, 3f, 0);
-        [SerializeField, Tooltip("火箭位移")]
-        Vector3 rocketOffset = new Vector3(0, -1f, 0);
-        [SerializeField, Tooltip("火箭顏色")]
-        Color rocketColor = Color.white;
+        [SerializeField, Header("火焰控制項")]
+        private bool hasParticleFile;
+        [SerializeField, HideInInspector]
+        private ParticleSystem particle_fire;
+        [SerializeField, Tooltip("盡量不要超過預設值太多"), HideInInspector]
+        private Vector2 fireLenght_min = new Vector2(0.5f, 1f), fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
+        [SerializeField, Tooltip("火焰最大音量"), Range(0.1f, 1f), HideInInspector]
+        private float fire_volume = 0.6f;
+        
         [SerializeField, Header("火箭狀態")]
         public RocketCondition rc_dtion = new RocketCondition() { state = RocketState.Stay };
         //
         #endregion
 
+        // 取得火箭資訊的欄位
+        public Vector3 RocketVarInfo => new Vector3(fuel, speed_v, speed_a);
         /// <summary>
         /// 存取火箭資訊方法：
         /// PutRocketSyn 可以修改當前火箭的狀態，能夠限制輸入值，進入中繼站時會讀取 RocketS1 的資料。
-        /// RocketS1 是唯讀欄位，不可以直接修改該數值。
+        /// RocketVarInfo 是唯讀欄位，取得目前變動的數值。
         /// RocketBasic 是火箭的基本素質，重新讀取或換場景時會讀取該資料，改造火箭時不能低於該數值。
-        /// SetBasicInfo 直接修改火箭的基本素質。
+        /// SetBasicInfo 直接修改火箭的基本素質，除了太空站要修改外盡量不要動到這裡。
         /// </summary>
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
 
@@ -86,7 +82,7 @@ namespace solar_a
             else if (fuel < 0) fuel = 0;
             speed_v = y >= 0 ? y : speed_v;
             speed_a = z >= 0 ? z : speed_a;
-            return RocketS1;
+            return RocketVarInfo;
         }
         /// <summary>
         /// 切換運行狀態：關聲音、定在畫面上以及關閉移動控制。
@@ -108,7 +104,6 @@ namespace solar_a
         {
             if (particle_fire) if (particle_fire.isPlaying) Rocket_Rig.AddForce(Vector3.up * Time.deltaTime * 10f);
             Rocket_Rig.AddForce(-Rocket_Rig.velocity, ForceMode.Acceleration);
-
         }
         /// <summary>
         /// 移動控制
@@ -129,7 +124,7 @@ namespace solar_a
             Rocket_Rig.transform.Rotate(transform.rotation.x, transform.rotation.y, 0);
             //print($"H:{horizon}; V:{vertial}; Fire{particle_fire.isPlaying}");        
             //print($"H+V:{Mathf.Abs(horizon) + Mathf.Abs(vertial)};");
-            // 火焰控制
+            #region 火焰控制
             if (particle_fire != null)
             {
                 float x_var = Mathf.Abs(horizon);
@@ -155,7 +150,7 @@ namespace solar_a
 
                 particle_fire.transform.localScale = new Vector2(xFire, yFire);
             }
-            //print(particle_fire.isPlaying);
+            #endregion
         }
         /// <summary>
         /// 衝刺程序
@@ -197,7 +192,10 @@ namespace solar_a
             }
         }
         /// <summary>
-        /// 火箭的執行狀態變化
+        /// 火箭的執行狀態變化，依照火箭上"Effect"物件的內容進行開關，以下內容僅記錄用：
+        /// 0. 開啟護盾：保護罩特效。
+        /// 1. 衝刺：速度線。
+        /// 2. 銷毀：毀壞的外觀。
         /// </summary>
         /// <param name="idx">根據子物件的順序決定效果</param>
         /// <param name="open">為真的時候啟動物件</param>
@@ -216,8 +214,7 @@ namespace solar_a
                     transform.position = new Vector3(0, -11, 0);
                 }
             }
-            status.SetActive(open);
-            
+            status.SetActive(open);            
         }
         private void RocketNormalState()
         {
@@ -256,20 +253,21 @@ namespace solar_a
         }
         #endregion
 
-        private void SetComponent()
-        {
-            particle_fire = GetComponentInChildren<ParticleSystem>()?? null;
-            Rocket_Rig = GetComponent<Rigidbody>();
-            Rocket_sound = GetComponent<AudioSource>();
-        }
-
-
         private void Awake()
         {
             fuel = RocketBasic.x;
             speed_v = RocketBasic.y;
             speed_a = RocketBasic.z;
             SetComponent();
+        }
+        /// <summary>
+        /// 取得火箭上的元件
+        /// </summary>
+        private void SetComponent()
+        {
+            if (hasParticleFile) particle_fire = particle_fire != null ? particle_fire : GetComponentInChildren<ParticleSystem>();
+            Rocket_Rig = GetComponent<Rigidbody>();
+            Rocket_sound = GetComponent<AudioSource>();
         }
         #region 事件
         private void Start()
@@ -341,11 +339,6 @@ namespace solar_a
             else {
                 Rocket_Rig.velocity = Vector3.zero;
             }
-        }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = rocketColor;
-            Gizmos.DrawCube(transform.position + rocketOffset, rocketBox);
         }
         private void OnTriggerEnter(Collider other)
         {

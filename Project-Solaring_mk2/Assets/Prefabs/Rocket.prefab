@@ -5363,21 +5363,20 @@ MonoBehaviour:
   offControl: 0
   RocketBasic: {x: 100, y: 10, z: 2}
   unit_fuel: -0.05
-  fuel: 100
+  fuel_overcapacity: 20
   rush_time: 0.5
   rush_counts: 3
-  fuel_overcapacity: 20
-  fireLenght_min: {x: 0.8, y: 1.5}
-  fireLenght_max: {x: 0.5, y: 3}
-  fireBoost: {x: 0.15, y: 1.2}
-  fire_volume: 0.6
+  fuel: 100
   rocket_Clip:
   - {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
   - {fileID: 8300000, guid: 74b9f79095d13b2449e2a65bdaa37a80, type: 3}
   - {fileID: 8300000, guid: a9814d5cfa43af84fb3193edee086f45, type: 3}
-  rocketBox: {x: 1, y: 2, z: 0}
-  rocketOffset: {x: 0, y: 0.5, z: 0}
-  rocketColor: {r: 1, g: 1, b: 1, a: 1}
+  hasParticleFile: 1
+  particle_fire: {fileID: 0}
+  fireLenght_min: {x: 0.8, y: 1.5}
+  fireLenght_max: {x: 0.5, y: 3}
+  fireBoost: {x: 0.15, y: 1.2}
+  fire_volume: 0.6
 --- !u!114 &511811643254466930
 MonoBehaviour:
   m_ObjectHideFlags: 0

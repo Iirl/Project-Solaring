@@ -119,7 +119,7 @@ namespace solar_a
 
         #region 火箭控制與計數相關
         public Vector3 GetRocketPosition() => rocket_ctl.transform.position;
-        public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketS1.x);
+        public void FuelReplen(int f) => FuelReplens(f, rocket_ctl.RocketVarInfo.x);
         public void RocketStop(bool stop) => rocket_ctl.rc_dtion.onStop(stop);
 
         private void PutPlayerOBJ()
@@ -156,8 +156,8 @@ namespace solar_a
 
             float fueldown = rocket_ctl.Unit_fuel * Time.deltaTime * stInfo[levelNow].speed;
             //print(rocket_ctl.rc_dtion.IsBoost);
-            if (rocket_ctl.rc_dtion.IsBoost) fueldown += (rocket_ctl.RocketS1.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
-            if (rocket_ctl.RocketS1.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
+            if (rocket_ctl.rc_dtion.IsBoost) fueldown += (rocket_ctl.RocketVarInfo.z * rocket_ctl.Unit_fuel) * Time.deltaTime;
+            if (rocket_ctl.RocketVarInfo.x > 0 && !noExhauFuel) rocket_ctl.PutRocketSyn(fueldown);   // 燃料變化
             else if (!noExhauFuel) StartCoroutine(DeathCounter(fuelExhaustedTime));   // 燃料用盡，死亡倒數。
             //print(fueldown);
 
@@ -179,7 +179,7 @@ namespace solar_a
         private IEnumerator DeathCounter(float counter = 0)
         {
             for (int i = 0; i < counter; i++) yield return new WaitForSeconds(1);
-            if (rocket_ctl.RocketS1.x < 1) condition.Dead();
+            if (rocket_ctl.RocketVarInfo.x < 1) condition.Dead();
             yield return null;
         }
         #endregion
@@ -261,7 +261,7 @@ namespace solar_a
             UI_moveDistane = (int)stage_pos.y;  //*/
             // 改放在 MoveAction 中
             // 燃料UI
-            UI_fuel = (int)rocket_ctl.RocketS1.x;
+            UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
             if (UI_fuel <= 100)
             {
                 ui_fuelbar.fillAmount = UI_fuel / 100f;
@@ -394,11 +394,11 @@ namespace solar_a
             StaticSharp.isChangeScene = false;
             // 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
-            UI_fuel = (int)rocket_ctl.RocketS1.x;
-            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
-            levelNow = mgScene.GetScenes() - levelBuildSetting;
+            UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
+            levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
             if (mgScene.GetScenesName().Contains("Tutorail")) levelNow = 0;
-            else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 2].finishDistane, stInfo[levelNow-1].finishDistane);
+            else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
+            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");            
         }
         #endregion
         private void Update()

@@ -2714,7 +2714,7 @@ MonoBehaviour:
   - label: L7
     speed: 100
     finishDistane: 285000
-  levelBuildSetting: 1
+  levelBuildSetting: 2
   noExhauFuel: 0
   noExhauRush: 0
   noDead: 0
