@@ -243,7 +243,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19149453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29, y: -29.8, z: 0}
+  m_LocalPosition: {x: 29, y: -27.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.6580311, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -724,8 +724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 8a78ac69f5774a84dabc61a178af9d99, type: 2}
-  continues: 0
-  generDestan: {x: 10000, y: 0}
+  continues: 1
+  generDestan: {x: 10000, y: 150000}
 --- !u!1 &498821526
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
   isHaving: 0
 --- !u!1 &635480425
@@ -1227,6 +1228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
   isHaving: 0
 --- !u!1 &796679759 stripped
@@ -1357,6 +1359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
   isHaving: 0
 --- !u!1 &966984258
@@ -2720,6 +2723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
   isHaving: 0
 --- !u!4 &1803358158 stripped

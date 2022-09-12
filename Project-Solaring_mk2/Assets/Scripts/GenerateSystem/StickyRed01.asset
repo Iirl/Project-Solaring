@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: StickyL101
+  m_Name: StickyRed01
   m_EditorClassIdentifier: 
-  grtClass: 0
-  grtObject: {fileID: 5748313506695879743, guid: 3b07a775cc7f31e488559aab540b437e,
+  grtClass: 1
+  grtObject: {fileID: 5748313506695879743, guid: 0f4337ac98f34f042bf9f8fc38966d0e,
     type: 3}
-  grtSubObject: []
-  grtProb: 0.5
-  grtIntervalTime: 1
-  grtWaitTime: 2
-  grtdestTime: 50
-  grtPos: {x: 20, y: 5, z: 10}
+  grtLimit: 5
+  grtIntervalTime: 0
+  grtWaitTime: 12
+  grtdestTime: 80
+  grtPos: {x: 25, y: 0, z: 0}
   grtOffset: 0
+  grtSubObject:
+  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
+  grtProb: 1
   grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 10

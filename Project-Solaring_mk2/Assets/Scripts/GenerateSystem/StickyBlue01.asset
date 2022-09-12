@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: MeteoLine_01
+  m_Name: StickyBlue01
   m_EditorClassIdentifier: 
-  grtClass: 1
-  grtObject: {fileID: 6563419989397142073, guid: 837a7032ff122b0488996ca632792f01,
+  grtClass: 0
+  grtObject: {fileID: 5748313506695879743, guid: 3b07a775cc7f31e488559aab540b437e,
     type: 3}
-  grtLimit: 1
+  grtLimit: 15
   grtIntervalTime: 0
-  grtWaitTime: 15
-  grtdestTime: 20
-  grtPos: {x: 0, y: 0, z: 0}
-  grtOffset: 1
-  grtSubObject:
-  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
-  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
-  grtProb: 0.3
+  grtWaitTime: 5
+  grtdestTime: 60
+  grtPos: {x: 25, y: 0, z: 0}
+  grtOffset: 0
+  grtSubObject: []
+  grtProb: 0.5
   grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}

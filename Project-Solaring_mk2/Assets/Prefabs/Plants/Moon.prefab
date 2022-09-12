@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 0.7
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1 &7541505623264995287
 GameObject:
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 7629979052814522717}
   - component: {fileID: 9058434694280098099}
   - component: {fileID: 6364611285588212949}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,6 +225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plantframe
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 60a0a525e93d7ec4890aa8799ddb2abe,
+        type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a0a525e93d7ec4890aa8799ddb2abe, type: 3}

@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 2893043684862037186}
   - component: {fileID: 7823897646715621383}
   - component: {fileID: 3337849164332667823}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rocket_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,6 +1026,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3887b71afe60764fa7ba31ddf014610,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1074,11 +1089,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f3887b71afe60764fa7ba31ddf014610,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f986e302ff6570d4191cee3881c54a14, type: 2}
+    - target: {fileID: -7511558181221131132, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 298609514859bef488b6235970e7b2b4, type: 2}
     - target: {fileID: 919132149155446097, guid: f3887b71afe60764fa7ba31ddf014610,
         type: 3}
       propertyPath: m_Name
@@ -1087,6 +1117,11 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f3887b71afe60764fa7ba31ddf014610,
         type: 3}
       propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3887b71afe60764fa7ba31ddf014610,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
