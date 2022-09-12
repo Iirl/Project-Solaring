@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: wireframe 1
+  m_Name: wireframeGlass
   m_Shader: {fileID: -6465566751694194690, guid: 9f99055c07e3c964faa51100c0e5543c,
     type: 3}
   m_ValidKeywords: []
@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texure:
-        m_Texture: {fileID: 2800000, guid: 09e14167861552942bc51064a4574ecf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0338e944a0be08749baf4ad264a8f048, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -117,11 +117,11 @@ Material:
     m_Colors:
     - Color_741A6013: {r: 28.51895, g: 0, b: 9.028523, a: 0}
     - Color_A32D2F49: {r: 5.992157, g: 5.992157, b: 5.992157, a: 0}
-    - Vector2_D0FA5062: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_D0FA5062: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _color_emission: {r: 177.87642, g: 20.387104, b: 0, a: 1}
-    - _color_texture: {r: 1, g: 1, b: 1, a: 0}
+    - _color_texture: {r: 0.5188679, g: 0.37735432, b: 0.012237449, a: 0}
   m_BuildTextureStacks: []
