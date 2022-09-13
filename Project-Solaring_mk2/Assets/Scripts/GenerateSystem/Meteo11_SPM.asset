@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: Meteo03_SPH
+  m_Name: Meteo11_SPM
   m_EditorClassIdentifier: 
   grtClass: 1
-  grtObject: {fileID: 7997089333427939424, guid: 26d7384f0cfb8f249bd53cdfc1b9fbbe,
+  grtObject: {fileID: 8849459850666384382, guid: d2b8e3a5cab70a540b15f05e1ee0da05,
     type: 3}
   grtSubObject:
   - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
-  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
-  grtProb: 0.455
-  grtIntervalTime: 2
-  grtWaitTime: 3
+  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
+  grtProb: 0.3
+  grtIntervalTime: 3
+  grtWaitTime: 2
   grtdestTime: 0
   grtPos: {x: 20, y: 5, z: 20}
   grtOffset: 1
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 30
+  grtLimit: 20

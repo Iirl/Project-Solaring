@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 1626506284486313849}
   - component: {fileID: 6779596031884489311}
   m_Layer: 0
-  m_Name: meteorite02
+  m_Name: meteorite21
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

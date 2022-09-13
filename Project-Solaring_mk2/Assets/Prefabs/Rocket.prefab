@@ -549,11 +549,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offControl: 0
-  RocketBasic: {x: 100, y: 10, z: 2}
+  RocketBasic: {x: 100, y: 10, z: 1.2}
   unit_fuel: -0.05
   fuel_overcapacity: 20
-  rush_time: 0.5
-  rush_counts: 3
+  rush_time: 0.2
+  rush_counts: 5
   fuel: 100
   rocket_Clip:
   - {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}

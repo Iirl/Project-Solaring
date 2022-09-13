@@ -191,7 +191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7d6a08df2a959a44f9d26ac05b2b571c, type: 2}
+  - {fileID: 2100000, guid: 1ff1ae8d4e57929478295dc373fcf2ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 9126218645573381034}
   - component: {fileID: 2400721037762153967}
   m_Layer: 0
-  m_Name: meteorite07
+  m_Name: meteorite31
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,9 +275,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
+  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1.5
   randomSpd: 1
-  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!54 &9126218645573381034
 Rigidbody:

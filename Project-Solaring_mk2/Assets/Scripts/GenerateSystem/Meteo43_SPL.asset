@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: Meteo07_SPL
+  m_Name: Meteo43_SPL
   m_EditorClassIdentifier: 
   grtClass: 1
-  grtObject: {fileID: 7997089333427939424, guid: b07251a69eb6ae94eb76a790a5bebf76,
+  grtObject: {fileID: 4252843316972449126, guid: cef913d68b2b47f4fbf533689a96aa57,
     type: 3}
-  grtSubObject:
-  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
-  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
-  grtProb: 0.455
+  grtLimit: 15
   grtIntervalTime: 2
   grtWaitTime: 3
   grtdestTime: 0
   grtPos: {x: 20, y: 5, z: 20}
   grtOffset: 1
+  grtSubObject:
+  - {fileID: 5273672730452747357, guid: 70f5ed2a02e56e94eba5fe423d4628ad, type: 3}
+  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
+  grtProb: 0.3
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 10

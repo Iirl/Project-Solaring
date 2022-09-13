@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: Meteo04_SPL
+  m_Name: Meteo41_SPL
   m_EditorClassIdentifier: 
   grtClass: 1
   grtObject: {fileID: 4252843316972449126, guid: 379d35387d0083f478e31a464878065f,
