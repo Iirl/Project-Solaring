@@ -96,8 +96,8 @@ Material:
     - Vector1_CDE92659: 91.6
     - Vector1_DB9741DA: 0.2
     - Vector1_DE4A209B: 0
-    - Vector1_ae6b64536c15474c8dbc78ef0f9c9576: 0.575
-    - Vector1_ae6b64536c15474c8dbc78ef0f9c9576_1: 0.579
+    - Vector1_ae6b64536c15474c8dbc78ef0f9c9576: 0
+    - Vector1_ae6b64536c15474c8dbc78ef0f9c9576_1: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1

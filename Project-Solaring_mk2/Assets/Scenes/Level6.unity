@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1766938, g: 0.1738731, b: 0.18078612, a: 1}
+  m_IndirectSpecularColor: {r: 0.1766992, g: 0.17387432, b: 0.18077977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -317,7 +317,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.9079189, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d1ee64cdf056742a34ba2bc0ff370a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generData: {fileID: 11400000, guid: babbd9e5cc136ab4eb4554f41cdb517e, type: 2}
+  generData: {fileID: 11400000, guid: e1ff004b31563324d8400ea8c3e877e4, type: 2}
   continues: 1
   generDestan: {x: 0, y: 0}
 --- !u!1001 &257465491
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 7f3df476f9fbb6a4f94429a25b520f66, type: 2}
   continues: 1
-  generDestan: {x: 60000, y: 0}
+  generDestan: {x: 5000, y: 0}
 --- !u!1001 &476897772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -877,7 +877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &574443421
 Transform:
   m_ObjectHideFlags: 0
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d1ee64cdf056742a34ba2bc0ff370a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generData: {fileID: 11400000, guid: 72345c554847d6d41a241a1aee322429, type: 2}
+  generData: {fileID: 11400000, guid: e44a871ccd93cdb4b91ec899f9055491, type: 2}
   continues: 1
   generDestan: {x: 0, y: 0}
 --- !u!4 &771447311 stripped
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 0c1890d9565acc94c8370490dcd0e6ed, type: 2}
   continues: 1
-  generDestan: {x: 45000, y: 0}
+  generDestan: {x: 0, y: 0}
 --- !u!1 &925641388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d1ee64cdf056742a34ba2bc0ff370a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generData: {fileID: 11400000, guid: 23c8d4119c4da4e4d97a0b2e3bda4ad2, type: 2}
+  generData: {fileID: 11400000, guid: e9e4b833d50c749489cd20ed2d3c797c, type: 2}
   continues: 1
   generDestan: {x: 0, y: 0}
 --- !u!1 &1072750646
@@ -1484,7 +1484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1157687719
 Transform:
   m_ObjectHideFlags: 0
@@ -1760,7 +1760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1519521248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: e994a6ba521537e40b68f488eebc2fba, type: 2}
   continues: 1
-  generDestan: {x: 65000, y: 0}
+  generDestan: {x: 15000, y: 0}
 --- !u!4 &1524725105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8410025646463962412, guid: a4a8cf460a8b4874db6253cd1fb973fd,
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d1ee64cdf056742a34ba2bc0ff370a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generData: {fileID: 11400000, guid: 330d27f8559771549ab1ca37a494dc63, type: 2}
+  generData: {fileID: 11400000, guid: 385a5e0c14cc2e645a4586b3493406c8, type: 2}
   continues: 1
   generDestan: {x: 0, y: 0}
 --- !u!1 &1552899246
@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 672086d63f5d35447b56b7440b4a672b, type: 2}
   continues: 1
-  generDestan: {x: 47000, y: 0}
+  generDestan: {x: 5000, y: 0}
 --- !u!1 &2070353147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,12 +2294,12 @@ PrefabInstance:
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: noDead
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: noFuel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}

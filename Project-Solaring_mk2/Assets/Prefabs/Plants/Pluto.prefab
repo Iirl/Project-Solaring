@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9175761562665862703}
   - component: {fileID: 4332410801163684186}
   - component: {fileID: 2436205401525843048}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Pluto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 0.2
   randomSpd: 0
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
 --- !u!1001 &7363042777605652038
 PrefabInstance:

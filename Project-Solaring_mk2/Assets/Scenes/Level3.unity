@@ -427,7 +427,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6580311, y: 1}
+    m_SensorSize: {x: 1.8287672, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1845,7 +1845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: daeb31858c6514e4ca812ff36b45d016, type: 2}
   continues: 0
-  generDestan: {x: 73000, y: 0}
+  generDestan: {x: 28000, y: 0}
 --- !u!4 &1644387582
 Transform:
   m_ObjectHideFlags: 0
