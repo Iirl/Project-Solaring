@@ -18,8 +18,9 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -80,8 +81,10 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Cutoff_Height: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -98,7 +101,12 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
+    - _dege_width: 0.05
+    - _noise_scale: 50
+    - _noise_strength: 1
     m_Colors:
     - Color_4B4CE890: {r: 0.8538648, g: 0.6128313, b: 0.4712367, a: 0}
     - Color_4B9AABFA: {r: 0.6933962, g: 1, b: 0.89303344, a: 0}
@@ -108,6 +116,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _edge_color: {r: 0.6698113, g: 0.667586, b: 0.0473923, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4290327957341543705
 MonoBehaviour:

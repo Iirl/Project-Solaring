@@ -81,7 +81,7 @@ MonoBehaviour:
   moveMethod: 0
   Orispeed: 0.8
   randomSpd: 1
-  straightV3: {x: -0.5, y: -1, z: 0}
+  straightV3: {x: -0.4, y: -1, z: 0}
   stopTracert: 12
 --- !u!54 &-6967600864821251839
 Rigidbody:
@@ -211,7 +211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ff1ae8d4e57929478295dc373fcf2ba, type: 2}
+  - {fileID: 2100000, guid: d0fa35de745722d43a986e96c1ec76e3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   grtIntervalTime: 2
   grtWaitTime: 3
   grtdestTime: 20
-  grtPos: {x: 0, y: 10, z: 20}
+  grtPos: {x: 0, y: 10, z: 25}
   grtOffset: 0
   grtSubObject: []
   grtProb: 0.5

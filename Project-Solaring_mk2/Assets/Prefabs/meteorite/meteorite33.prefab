@@ -278,7 +278,7 @@ MonoBehaviour:
   moveMethod: 0
   Orispeed: 6
   randomSpd: 1
-  straightV3: {x: 5, y: -1, z: 0}
+  straightV3: {x: 0.5, y: -1, z: 0}
   stopTracert: 12
 --- !u!54 &9126218645573381034
 Rigidbody:

@@ -671,9 +671,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 1
-  straightV3: {x: 0, y: 0, z: 0}
-  Orispeed: 2
+  Orispeed: 3
   randomSpd: 1
+  straightV3: {x: 0, y: 0, z: 0}
   stopTracert: 5
 --- !u!1 &4903796064171872112
 GameObject:
