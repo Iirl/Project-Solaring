@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: UnlimitedBox
+  m_Name: StickyBlue02
   m_EditorClassIdentifier: 
   grtClass: 0
-  grtObject: {fileID: 1893084404789564, guid: 80fd2cce9b40b014c86e67da5c626713, type: 3}
-  grtLimit: 1
-  grtIntervalTime: 10
-  grtWaitTime: 20
-  grtdestTime: 0
-  grtPos: {x: 25, y: 3, z: 20}
-  grtOffset: 20
+  grtObject: {fileID: 5748313506695879743, guid: 3b07a775cc7f31e488559aab540b437e,
+    type: 3}
+  grtLimit: 15
+  grtIntervalTime: 0
+  grtWaitTime: 30
+  grtdestTime: 60
+  grtPos: {x: 25, y: 0, z: 0}
+  grtOffset: 0
   grtSubObject: []
-  grtProb: 0
-  grtRandomRoation: 1
+  grtProb: 0.5
+  grtRandomRoation: 0
   grtRot: {x: 0, y: 0, z: 0, w: 1}

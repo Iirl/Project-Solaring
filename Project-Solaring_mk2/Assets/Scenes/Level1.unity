@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6580311, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1805,7 +1805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1174681737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2035,53 +2035,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 297f40b505f465a40bc14dfae124f968, type: 3}
---- !u!1 &1314815516
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1314815517}
-  - component: {fileID: 1314815519}
-  m_Layer: 0
-  m_Name: gnSticky
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1314815517
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314815516}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 16.69, z: 10.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2070353151}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1314815519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314815516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d1ee64cdf056742a34ba2bc0ff370a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generData: {fileID: 11400000, guid: 27fafa779948cc240a67e820d9bd7561, type: 2}
-  continues: 1
-  generDestan: {x: 0, y: 0}
 --- !u!1001 &1353769431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2529,7 +2482,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2070353151}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1727714613
 PrefabInstance:
@@ -3231,7 +3184,6 @@ RectTransform:
   - {fileID: 1552899247}
   - {fileID: 1072750647}
   - {fileID: 1803358158}
-  - {fileID: 1314815517}
   - {fileID: 1644387582}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -3254,12 +3206,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage_container: {x: 0, y: 0, z: 0}
-  stage_position: {x: 0, y: 0, z: 0}
+  stage_position: {x: -1.16, y: -1.11, z: 0}
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
-  box_range: {x: 52.57, y: 1.5, z: 30}
-  box_offset: {x: 22.7, y: 14, z: 0}
-  minBorder: {x: 2, y: 1.5}
-  maxBorder: {x: 0, y: 0}
+  box_range: {x: 52, y: 2, z: 30}
+  box_offset: {x: 23, y: 15.14, z: 0}
+  minBorder: {x: 1, y: 0}
+  maxBorder: {x: -1, y: -1.5}
   includeTag: []
   gravity3: {x: 0, y: -0.1, z: 0}
 --- !u!1001 &2098477497
@@ -3458,6 +3410,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
+--- !u!1 &2098477498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3592277314727565250, guid: 328feed0e2028424d8d6a04c029bd7ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2098477497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2098477499
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098477498}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3431cd407313eed46942fb02c2c5adcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &2147468986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 846897999874815185, guid: 124747dfbe3d09e47bf60524181bef14,

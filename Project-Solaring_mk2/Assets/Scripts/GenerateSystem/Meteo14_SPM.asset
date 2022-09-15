@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
-  m_Name: ShieldBox
+  m_Name: Meteo14_SPM
   m_EditorClassIdentifier: 
-  grtClass: 0
-  grtObject: {fileID: 1893084404789564, guid: d68451f3203d3584985dee38d367e02f, type: 3}
-  grtLimit: 1
-  grtIntervalTime: 10
-  grtWaitTime: 20
+  grtClass: 1
+  grtObject: {fileID: 8849459850666384382, guid: b3ea8d7e173daa04b9637e51c92c5d60,
+    type: 3}
+  grtLimit: 20
+  grtIntervalTime: 0
+  grtWaitTime: 2
   grtdestTime: 0
-  grtPos: {x: 25, y: 3, z: 25}
-  grtOffset: 20
-  grtSubObject: []
-  grtProb: 0
+  grtPos: {x: 20, y: 5, z: 20}
+  grtOffset: 1
+  grtSubObject:
+  - {fileID: 4379541126855630035, guid: 12e7988aa3cc55041af9f4b1cc4cce64, type: 3}
+  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
+  grtProb: 0.1
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}

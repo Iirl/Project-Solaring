@@ -317,7 +317,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6580311, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -334,7 +334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168153529}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2862363, y: 1.7732043, z: -63.674393}
+  m_LocalPosition: {x: 2.242641, y: 0.3630173, z: -63.674393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -759,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498821526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2862363, y: 1.7732043, z: -63.674393}
+  m_LocalPosition: {x: 2.242641, y: 0.3630173, z: -63.674393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 1.0435952, y: 1.410187, z: -5.7277884}
+  m_TrackedObjectOffset: {x: 0, y: 0, z: -5.7277884}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -2291,12 +2291,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage_container: {x: 0, y: 0, z: 0}
-  stage_position: {x: 0, y: 0, z: 0}
+  stage_position: {x: -1.16, y: -1.1, z: 0}
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
-  box_range: {x: 52.57, y: 1.5, z: 30}
-  box_offset: {x: 22.7, y: 14, z: 0}
-  minBorder: {x: 2, y: 1.5}
-  maxBorder: {x: 0, y: 0}
+  box_range: {x: 52, y: 2, z: 30}
+  box_offset: {x: 23, y: 15.14, z: 0}
+  minBorder: {x: 1, y: 0}
+  maxBorder: {x: -1, y: -1.5}
   includeTag: []
   gravity3: {x: 0, y: -0.1, z: 0}
 --- !u!1001 &2098477497

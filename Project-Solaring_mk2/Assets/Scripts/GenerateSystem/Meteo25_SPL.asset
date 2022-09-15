@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
+  m_Name: Meteo25_SPL
+  m_EditorClassIdentifier: 
+  grtClass: 1
+  grtObject: {fileID: 7328509441470496313, guid: 96793b7b01d20fe4ba8d6df853f61bc0,
+    type: 3}
+  grtLimit: 10
+  grtIntervalTime: 0
+  grtWaitTime: 2
+  grtdestTime: 0
+  grtPos: {x: 0, y: 20, z: 20}
+  grtOffset: 1
+  grtSubObject:
+  - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
+  - {fileID: 5273672730452747357, guid: 70f5ed2a02e56e94eba5fe423d4628ad, type: 3}
+  - {fileID: 766789422848436792, guid: 7d4ddc159d944b543803321c09307e76, type: 3}
+  - {fileID: 4379541126855630035, guid: 12e7988aa3cc55041af9f4b1cc4cce64, type: 3}
+  - {fileID: 4321400938711116941, guid: ef7417e4245c0c141b0838850cc23cdf, type: 3}
+  - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
+  grtProb: 0.3
+  grtRandomRoation: 1
+  grtRot: {x: 0, y: 0, z: 0, w: 1}

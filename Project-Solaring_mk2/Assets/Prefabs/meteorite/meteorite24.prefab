@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  Orispeed: 3
+  Orispeed: 4
   randomSpd: 1
   straightV3: {x: -0.3, y: -1, z: 0}
   stopTracert: 12
