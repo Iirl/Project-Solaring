@@ -369,7 +369,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.6580311, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -936,7 +936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 3aab9c934bc739a41b60991f1e6fe2b2, type: 2}
   continues: 1
-  generDestan: {x: 0, y: 281000}
+  generDestan: {x: 0, y: 282000}
 --- !u!1 &574443420
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 54ec3754119e438479f7db20cbcde7a9, type: 2}
   continues: 1
-  generDestan: {x: 35000, y: 205000}
+  generDestan: {x: 35000, y: 265000}
 --- !u!1 &612146828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 0c1890d9565acc94c8370490dcd0e6ed, type: 2}
   continues: 1
-  generDestan: {x: 0, y: 283000}
+  generDestan: {x: 0, y: 284000}
 --- !u!1 &913405016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,7 +1644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: 2cd165de386bf1942b7fe9e5d2d222f9, type: 2}
   continues: 1
-  generDestan: {x: 0, y: 280000}
+  generDestan: {x: 0, y: 283000}
 --- !u!1 &1157687718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: f49fbf3de94f6094c84f8f0cb94fdd14, type: 2}
   continues: 1
-  generDestan: {x: 1000, y: 282000}
+  generDestan: {x: 1000, y: 280000}
 --- !u!1 &1465249943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644387579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 25, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []

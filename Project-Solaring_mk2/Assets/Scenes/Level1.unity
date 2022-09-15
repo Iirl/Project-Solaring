@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.6580311, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3224,12 +3224,12 @@ PrefabInstance:
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: noDead
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: noFuel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -3331,7 +3331,7 @@ PrefabInstance:
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: rush_time
-      value: 0.8
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -3341,7 +3341,7 @@ PrefabInstance:
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: rush_counts
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -3350,8 +3350,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
+      propertyPath: RocketBasic.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
       propertyPath: RocketBasic.z
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8066993751729948828, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}

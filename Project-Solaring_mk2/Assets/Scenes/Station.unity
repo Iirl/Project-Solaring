@@ -269,7 +269,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -20
-          m_FloatArgument: -20
+          m_FloatArgument: -5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -834,7 +834,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 20
-          m_FloatArgument: 20
+          m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1553,6 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c027022a847194ba62f5caa1493b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lveve1Scene: Level1
   sceneID: SceneID
 --- !u!114 &554117842
 MonoBehaviour:
@@ -1574,7 +1575,7 @@ MonoBehaviour:
   autoLimit: 1
   fuelLimit: 100
   speedLimit: 1
-  aspeedLimit: 0.1
+  aspeedLimit: 1.2
   nor_color: {r: 1, g: 0.9215687, b: 0.015686275, a: 1}
   distrubtion_color: {r: 0.08395338, g: 1, b: 0, a: 1}
   alert_color: {r: 1, g: 0.015686274, b: 0.015686274, a: 1}
@@ -2024,7 +2025,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
-          m_FloatArgument: 0.2
+          m_FloatArgument: 0.1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -2431,7 +2432,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
-          m_FloatArgument: 5
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3875,7 +3876,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -2
-          m_FloatArgument: -0.2
+          m_FloatArgument: -0.1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4743,7 +4744,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -5
-          m_FloatArgument: -5
+          m_FloatArgument: -1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
