@@ -201,6 +201,7 @@ namespace solar_a
         /// <param name="open">為真的時候啟動物件</param>
         private void RocketEffectState(int idx, bool open)
         {
+            //print("效果開關");
             GameObject status = transform.Find("Effect").gameObject;
             if (idx >= 0) status = status.transform.GetChild(idx).gameObject;
             else status = transform.Find("Effect").gameObject;
