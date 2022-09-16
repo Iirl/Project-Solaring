@@ -111,6 +111,7 @@ public class ColliderSystem : MonoBehaviour
                             ManageCenter.mgCenter.FuelReplen(block.plus);
                             break;
                         case Genertic.Protect:
+                            //print("保護效果");
                             ManageCenter.rocket_SSR.StateControaller(0, block.plus);
                             break;
                         case Genertic.UnlimitFuel:

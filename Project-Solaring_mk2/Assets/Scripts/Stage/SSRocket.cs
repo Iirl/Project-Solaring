@@ -43,6 +43,7 @@ public class SSRocket : MonoBehaviour
     /// <param name="sm">額外傳入方法</param>
     public void StateControaller(int id, int sec, StatusMethod sm = null)
     {
+        //print($"執行編號:{id}, 效果為{((RocketACondition)id)}");
         switch ((RocketACondition)id)
         {
             case RocketACondition.Protect:
@@ -50,7 +51,8 @@ public class SSRocket : MonoBehaviour
                 {
                     sm = toProtect;
                     StartCoroutine(StatusTimer(rct.StateToShield, sec));
-                } else return;
+                }
+                else return;
                 break;
             case RocketACondition.FullGage:
                 sm = toFullGage;
@@ -82,6 +84,7 @@ public class SSRocket : MonoBehaviour
             mgc.noExhauRush = noRush ? true : false;
             mgc.toFinDest = toFinal ? true : false;
         }
+        rct.StateToShield(noDead);
     }
     /// <summary>
     /// 額外生成物件
