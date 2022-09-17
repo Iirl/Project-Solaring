@@ -105,8 +105,8 @@ namespace solar_a
         /// 共用方法 (Public Method)
         /// </summary>
         /// <returns></returns>
-        public Vector3 GetStagePOS() => ss_ctl.transform.position;
-        public Vector3 GetStageBorder() => ss_ctl.GetBoxborder();
+        public Vector3 GetStagePOS() => StageInfo(1);
+        public Vector3 GetStageBorder() => StageInfo(2);
         public void SetRockBasicInfo(float x, float y = 0, float z = 0)
         {
             x = x != 0 ? x : rocket_ctl.RocketBasic.x;
@@ -200,6 +200,18 @@ namespace solar_a
         }
         #endregion
         #region 場 景 相 關
+        /// <summary>
+        /// SS_ctl 參數取得
+        /// </summary>
+        /// <param name="idx"></param>
+        /// <returns></returns>
+        private Vector3 StageInfo(int idx)
+        {
+            if (!ss_ctl) return Vector3.zero;
+            if (idx == 1) return ss_ctl.transform.position;
+            else if (idx == 2) return ss_ctl.GetBoxborder();
+            return Vector3.zero;
+        }
         /// <summary>
         /// 進入中繼站
         /// 儲存火箭的資料

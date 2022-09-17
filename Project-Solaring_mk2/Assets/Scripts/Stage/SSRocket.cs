@@ -27,6 +27,8 @@ public class SSRocket : MonoBehaviour
     public bool NoRush { set { noRush = value; SendControl(); } get { return noRush; } }
     [SerializeField, Tooltip("移到終點")]
     private bool toFinal;
+    [SerializeField, Header("負面效果"),Tooltip("降低速度效果"), Range(0, 1)]
+    private float slowDown = 0.5f;
     [SerializeField, Header("燃料物件")]
     private GameObject fuelObj;
     [SerializeField, Header("飛船物件")]
@@ -63,7 +65,21 @@ public class SSRocket : MonoBehaviour
             default:
                 break;
         }
-        StartCoroutine(StatusTimer(sm, sec));
+        if (sm != null) StartCoroutine(StatusTimer(sm, sec));
+    }
+    public void DebufferController(int id, float sec, StatusMethod sm = null)
+    {
+        switch ((RocketDCondition)id)
+        {
+            case RocketDCondition.Slowdown:
+                if (rct.Speed_slow != 0) break;
+                sm = slowDownSpd;
+                break;
+            default:
+                break;
+        }
+        if(sm != null) StartCoroutine(StatusTimer(sm, sec));
+
     }
 
     #region 狀態處理
@@ -72,6 +88,8 @@ public class SSRocket : MonoBehaviour
     private void toNoDead(bool funOn = false) => NoDead = funOn;
     private void toFullGage(bool funOn = false) => NoFuel = funOn;
     private void toFullRushGage(bool funOn = false) => NoRush = funOn;
+    //
+    private void slowDownSpd(bool dbf= false) => rct.Speed_slow = dbf ? slowDown : 0;
     /// <summary>
     /// 將控制內容傳給主控中心
     /// </summary>
@@ -118,7 +136,7 @@ public class SSRocket : MonoBehaviour
     /// <param name="smd">要切換的方法</param>
     /// <param name="sec">設定秒數</param>
     /// <returns></returns>
-    private IEnumerator StatusTimer(StatusMethod smd, int sec)
+    private IEnumerator StatusTimer(StatusMethod smd, float sec)
     {
         smd(true);
         yield return new WaitForSeconds(sec);

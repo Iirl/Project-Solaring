@@ -246,7 +246,7 @@ namespace solar_a
             if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0)
             {// 超過指定距離停止產生
                 CancelInvoke("SwitchState");
-                Destroy(gameObject);
+                Destroy(gameObject,30); //設定銷毀是避免物件留在場上
             }
             //print("呼叫次數");
         }

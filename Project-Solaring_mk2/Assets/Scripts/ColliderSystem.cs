@@ -9,7 +9,7 @@ public class ColliderSystem : MonoBehaviour
 {
     #region 屬性
     static ColliderSystem collSys;
-    public enum Genertic { Supply,Protect, UnlimitFuel, UnlimitRush, Other }
+    public enum Genertic { Supply, Protect, UnlimitFuel, UnlimitRush, Other }
     #endregion
     [SerializeField, Header("撞擊特效"), NonReorderable]
     EffectGameObject[] effects;
@@ -57,7 +57,7 @@ public class ColliderSystem : MonoBehaviour
             StaticSharp._SecretSCORE++;
             if (ManageCenter.space_ctl.isRotate) return -1;
             ManageCenter.mgDsko.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
-            if(!ManageCenter.mgCenter.protect) StaticSharp.Conditions = State.End;
+            if (!ManageCenter.mgCenter.protect) StaticSharp.Conditions = State.End;
             //print(hitObj.name);
             Destroy(hitObj);
         }
@@ -83,6 +83,11 @@ public class ColliderSystem : MonoBehaviour
                 loadScene = false;
             }
         }
+        else if (hitObj.tag.Contains("Sticky"))
+        {
+            i = 5; // 減速、黏酌
+        }
+
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);
         return i;
     }
@@ -97,7 +102,7 @@ public class ColliderSystem : MonoBehaviour
     /// <param name="name"></param>
     private void BolckEvent(string name)
     {
-        if (!tmpvar && name.Length >0)
+        if (!tmpvar && name.Length > 0)
         {
             tmpvar = true;
             //print($"查詢是否匹配 {name}");

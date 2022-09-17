@@ -116,6 +116,7 @@ public enum State { Running, Loading, Pause, End, Finish }
 public enum GenerClass { Normal, Meteorite, StaticPoint, PrevRocord }
 public enum RocketState { Stay, Move, Boost, Crashed, Stop }
 public enum RocketACondition { Protect,FullGage ,FullRush , Other}
+public enum RocketDCondition { Slowdown }
 public enum RocketPreviews { Basic, Outfit1, Outfit2}
 public enum SpacetState { Stay, Setting, Rotate, Stop }
 

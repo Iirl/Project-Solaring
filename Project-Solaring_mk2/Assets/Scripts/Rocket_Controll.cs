@@ -8,11 +8,12 @@ using System.Collections;
 /// </summary>
 namespace solar_a
 {
-    [RequireComponent(typeof(SSRocket))]    
+    [RequireComponent(typeof(SSRocket))]
     public class Rocket_Controll : MonoBehaviour
     {
 
         #region 屬性
+        ManageCenter mgc;
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
         private bool isBoost;
@@ -47,7 +48,7 @@ namespace solar_a
         private Vector2 fireLenght_min = new Vector2(0.5f, 1f), fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
         [SerializeField, Tooltip("火焰最大音量"), Range(0.1f, 1f), HideInInspector]
         private float fire_volume = 0.6f;
-        
+
         [SerializeField, Header("火箭狀態")]
         public RocketCondition rc_dtion = new RocketCondition() { state = RocketState.Stay };
         //
@@ -63,6 +64,7 @@ namespace solar_a
         /// SetBasicInfo 直接修改火箭的基本素質，除了太空站要修改外盡量不要動到這裡。
         /// </summary>
         public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
+        public float Speed_slow;
 
         #region 公用方法
         public void ReGetCOMPON() => SetComponent();
@@ -90,10 +92,10 @@ namespace solar_a
         public IEnumerator ControlChange(bool on = false)
         {
             if (!on) while (Rocket_sound.isPlaying) { Rocket_sound.Stop(); yield return null; }
-            else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }            
+            else while (!Rocket_sound.isPlaying) { Rocket_sound.Play(); yield return null; }
             Rocket_Rig.isKinematic = !on;
             if (rc_dtion.IsCrashed) rc_dtion.onStop(true); //如果為損毀就優先處理
-            else if(on) rc_dtion.onStay();
+            else if (on) rc_dtion.onStay();
             else rc_dtion.onStop(true);
             enabled = on;
             yield return null;
@@ -114,6 +116,7 @@ namespace solar_a
         {
             if (Mathf.Abs(horizon) < 0.005f) horizon = 0;
             if (Mathf.Abs(vertial) < 0.005f) vertial = 0;
+            float speed_v = this.speed_v * (1-Speed_slow);
             float xSpeed = (speed_v * horizon) * Time.deltaTime;
             float ySpeed = (speed_v * vertial) * Time.deltaTime;
             float aSpeed = speed_v * speed_a * Time.deltaTime;
@@ -158,6 +161,7 @@ namespace solar_a
         /// <returns>等待時間</returns>
         private IEnumerator StartBoost()
         {
+
             isBoost = true;
             float horizon = Input.GetAxis("Horizontal") != 0 ? 1 : 0;
             float vertial = Input.GetAxis("Vertical") != 0 ? 1 : 0;
@@ -170,9 +174,8 @@ namespace solar_a
                 StateToSpeedline(rc_dtion.IsBoost);
                 yield return new WaitForSeconds(rush_time);
                 isBoost = false;
-                if (!ManageCenter.mgCenter.noExhauRush) rush_counts--;
+                if (!mgc.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
-                rc_dtion.Previous();
                 StateToSpeedline(rc_dtion.IsBoost);
 
             }
@@ -205,7 +208,8 @@ namespace solar_a
             GameObject status = transform.Find("Effect").gameObject;
             if (idx >= 0) status = status.transform.GetChild(idx).gameObject;
             else status = transform.Find("Effect").gameObject;
-            if (idx == 2) {
+            if (idx == 2)
+            {
                 transform.Find("Normal").gameObject.SetActive(!open);
                 enabled = !open;
                 Rocket_sound.enabled = !open;
@@ -215,7 +219,7 @@ namespace solar_a
                     transform.position = new Vector3(0, -11, 0);
                 }
             }
-            status.SetActive(open);            
+            status.SetActive(open);
         }
         private void RocketNormalState()
         {
@@ -269,10 +273,12 @@ namespace solar_a
             if (hasParticleFile) particle_fire = particle_fire != null ? particle_fire : GetComponentInChildren<ParticleSystem>();
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
+            mgc = ManageCenter.mgCenter;
         }
         #region 事件
         private void Start()
         {
+            //
             RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
             else
@@ -307,6 +313,8 @@ namespace solar_a
                     break;
                 case RocketState.Boost:
                     //print(InputBoost());
+                    rc_dtion.Previous();
+                    if (!mgc) break;
                     if (!isBoost) Booster();
                     break;
                 case RocketState.Crashed:
@@ -335,9 +343,10 @@ namespace solar_a
                 {
                     if (Rocket_sound.volume > 0.1f) Invoke("SoundFadeOut", 0.2f);
                 }
-                if(particle_fire) Invoke("ignix_fire", 0.1f);
+                if (particle_fire) Invoke("ignix_fire", 0.1f);
             }
-            else {
+            else
+            {
                 Rocket_Rig.velocity = Vector3.zero;
             }
         }
@@ -345,7 +354,7 @@ namespace solar_a
         {
             int idx = ColliderSystem.CollisionPlayerEvent(other.gameObject);
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
-            //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");
+            //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");            
         }
         private void OnCollisionEnter(Collision collision)
         {

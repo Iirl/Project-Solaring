@@ -122,8 +122,8 @@ namespace solar_a
             _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
 
         }
-
-        private void OnDrawGizmos()
+        
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = box_color;
             Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // 讓編輯器模式下也能看到邊界

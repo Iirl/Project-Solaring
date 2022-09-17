@@ -1,9 +1,13 @@
 using System;
+using solar_a;
 using UnityEngine;
 
 [ExecuteAlways]
 public class MetaballParticleManager : MonoBehaviour
 {
+    [SerializeField, Header("±Ò¥Î½w³t­t­±ª¬ºA")]
+    private bool onSlow = true;
+
     ParticleSystem _particleSystem;
     Renderer _renderer;
     MaterialPropertyBlock _materialPropertyBlock;
@@ -58,4 +62,10 @@ public class MetaballParticleManager : MonoBehaviour
         _materialPropertyBlock.SetInt(NumParticles, _numParticles);
         _renderer.SetPropertyBlock(_materialPropertyBlock);
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (onSlow && other.tag.Contains("Player")) ManageCenter.rocket_SSR.DebufferController(0, 0.5f);
+    }
+
 }
