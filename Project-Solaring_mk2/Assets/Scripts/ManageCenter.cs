@@ -148,7 +148,6 @@ namespace solar_a
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
             float unit = Time.deltaTime * stInfo[levelNow].speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
-            print(toFinDest);
             if (toFinDest) { UI_moveDistane = stInfo[levelNow].finishDistane; toFinDest = false; }
             else UI_moveDistane += unit;
             if (UI_moveDistane >= stInfo[levelNow].finishDistane)

@@ -11,6 +11,7 @@ using TMPro;
 /// </summary>
 public class InStationDataLoad : MonoBehaviour
 {
+    EffectPlayer efPlayer;
     [SerializeField]
     TextMeshProUGUI Value_engery, Value_speed, Value_acceler, ValuePoint;
     [SerializeField, Header("分配點數")]
@@ -37,6 +38,8 @@ public class InStationDataLoad : MonoBehaviour
     #region 事件
     private void Awake()
     {
+        efPlayer = transform.Find("AudioBox").GetComponent<EffectPlayer>();
+        // 資料讀取處理
         local_info = StaticSharp.Rocket_BASIC;
         StaticSharp.Rocket_INFO.x = 100;
         ValuePoint.text = point.ToString();
@@ -61,6 +64,8 @@ public class InStationDataLoad : MonoBehaviour
     #region 處理方法
     public void SaveChanged()
     {
+        efPlayer.setNumber = 0;
+        efPlayer.enabled = true;
         StaticSharp.Rocket_BASIC = local_info;
     }
     /// <summary>
@@ -145,6 +150,11 @@ public class InStationDataLoad : MonoBehaviour
         else if (idx == 1) v3.y += count;
         else if (idx == 2) v3.z += count;
         ChangeRocketInfo(v3, count);
+        // 音效處理內容
+        efPlayer.enabled = false;
+        if (count >0) efPlayer.setNumber = 6;
+        else efPlayer.setNumber = 7;
+        if (efPlayer) if (!efPlayer.enabled) efPlayer.enabled = true;
     }
     private void OnPointValue(int i)
     {

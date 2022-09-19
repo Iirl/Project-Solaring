@@ -19,7 +19,7 @@ namespace solar_a
         [SerializeField]
         protected int playNumber;
         [SerializeField]
-        protected bool AllowDulpic;
+        protected bool allowDulpic;
         //
         [SerializeField]
         protected bool playLoop;
@@ -34,7 +34,11 @@ namespace solar_a
         protected virtual void SoundPlayer() {  }
         protected virtual IEnumerator SoundCheck() { yield break; }
         protected virtual void SoundOnStart() { }
-        protected virtual void SoundOnEnd() { }
+        protected virtual void SoundOnEnd() { enabled = false; }
+        // 公開使用方法
+        public int setNumber { set { playNumber = value; } }
+        public bool AllowDulpic { set { allowDulpic = value; } }
+        public bool PlayLoop { set { playLoop = value; } }
 
 
         #region 事件整理
@@ -55,7 +59,7 @@ namespace solar_a
                 SoundPlayer();
                 if (waitTime == 0) break;
                 yield return new WaitForSeconds(waitTime);
-                if (!AllowDulpic) yield return StartCoroutine(SoundCheck());
+                if (!allowDulpic) yield return StartCoroutine(SoundCheck());
             } while (playLoop);
             SoundOnEnd();
         }
