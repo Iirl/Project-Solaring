@@ -66,7 +66,7 @@ public class GenerateEditor :Editor
         // 選轉開關
         EditorGUILayout.PropertyField(spIsRandomRot);
         if (!rot) EditorGUILayout.PropertyField(spRandomRot);
-        if (i != 3) //生成位置設定
+        if (i != 4) //生成位置設定
         {
             EditorGUILayout.PropertyField(spPos);
             EditorGUILayout.PropertyField(spPosOffset);

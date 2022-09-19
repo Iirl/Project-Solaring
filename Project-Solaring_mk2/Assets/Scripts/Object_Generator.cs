@@ -52,7 +52,7 @@ namespace solar_a
             public Object OBTarget, OBCloned;
             //  程式內部變數
             private GameObject Parent;
-            int countGene=0;
+            int countGene = 0;
 
             /// <summary>
             /// 製作物件時會自動指定主物件、生成物以及位置和旋轉狀態
@@ -96,8 +96,19 @@ namespace solar_a
                 }
                 return null;
             }
-
-
+            public Object RootGenerates()
+            {
+                if (OBTarget != null && Parent != null)
+                {
+                    Object cloned = Instantiate(OBTarget, Create_v3, Create_r3);
+                    if (destoryTime > 0) Destroy(cloned, destoryTime);
+                    OBCloned = cloned;
+                    countGene++;
+                    print("生成ROOT物件");
+                    return cloned;
+                }
+                return null;
+            }
             /// <summary>
             /// 物件產生的訊息，除錯用。
             /// </summary>
@@ -113,7 +124,7 @@ namespace solar_a
             {
                 return Parent;
             }
-            
+
             /// <summary>
             /// 取得程式運行的次數。
             /// </summary>
@@ -124,7 +135,7 @@ namespace solar_a
 
         }
         #endregion
-        
+
         #region 陣列清單類別 ObjectArray
         /// <summary>
         /// 修改將物件對清單操作時的一些基本資訊
@@ -328,7 +339,7 @@ namespace solar_a
             return generob;
 
         }
-#region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
+        #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
         /// <summary>
         /// 簡易產生物件方法。
         /// </summary>
@@ -410,7 +421,7 @@ namespace solar_a
                 sub_count += 4; i++;
             }
         }
-#endregion
+        #endregion
 #endif
 
     }

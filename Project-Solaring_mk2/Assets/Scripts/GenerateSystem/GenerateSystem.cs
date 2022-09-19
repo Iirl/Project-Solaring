@@ -30,6 +30,7 @@ namespace solar_a
         private void SubObjGenerate() => Random_gen(generData.grtRandomRoation);
         private void StaticPointGen() => Static_gen(generData.grtRandomRoation, false);
         private void PreviousRecordPostition() => Static_gen(generData.grtPos, generData.grtRandomRoation);
+        private void Root_StaticPoint() => Static_root(generData.grtPos, generData.grtRandomRoation);
         public void Test()
         {
             
@@ -147,6 +148,23 @@ namespace solar_a
             //Destroys(created.GetComponent<Transform>().gameObject, true);
             return created.GetComponent<Transform>().gameObject;
         }
+        /// <summary>
+        /// 物件生成在根路徑，內容從本系統中複製出來
+        /// </summary>
+        /// <param name="worldOffset">輸入座標</param>
+        /// <param name="isRoate">是否旋轉</param>
+        private void Generator_ROOT(Vector3 worldOffset, bool isRoate = false)
+        {
+            if (generData.grtObject == null) return;
+            DestroysOnBug(worldOffset);
+            worldOffset.y += generData.grtOffset; // Offset 會調整Y軸座標
+            obGenerate = new(gameObject, generData.grtObject);
+            obGenerate.Create_v3 = worldOffset;
+            obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
+            obGenerate.destoryTime = generData.grtdestTime;
+            Object created = obGenerate.RootGenerates();
+            gener_list.Add(created);
+        }
         #endregion
         #region 物件產生方法的類型：定點、指定、隨機及帶有子物件生成。
         /// <summary>
@@ -155,6 +173,7 @@ namespace solar_a
         private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
         private void Static_gen(bool isRot, bool isRnd) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRot, isRnd);
         private void Static_gen(Vector3 setPos, bool isRotate) => Generator_EMP(setPos + Vector3.up * mgc.GetStageBorder().y, isRotate);
+        private void Static_root(Vector3 setPos, bool isRot) => Generator_ROOT(setPos + Vector3.up * mgc.GetStagePOS().y ,isRot);
 
         /// <summary>
         /// 將物件隨機生成在畫面中
@@ -231,6 +250,9 @@ namespace solar_a
                         break;
                     case GenerClass.StaticPoint:
                         StaticPointGen();
+                        break;
+                    case GenerClass.RootObject:
+                        Root_StaticPoint();
                         break;
                     case GenerClass.PrevRocord:
                         // 設定前一次的失敗的位置

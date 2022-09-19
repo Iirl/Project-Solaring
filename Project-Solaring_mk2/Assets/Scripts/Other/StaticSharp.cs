@@ -114,7 +114,7 @@ public class StaticSharp
 }
 
 public enum State { Running, Loading, Pause, End, Finish }
-public enum GenerClass { Normal, Meteorite, StaticPoint, PrevRocord }
+public enum GenerClass { Normal, Meteorite, StaticPoint, RootObject, PrevRocord }
 public enum RocketState { Stay, Move, Boost, Crashed, Stop }
 public enum RocketACondition { Protect,FullGage ,FullRush , Other}
 public enum RocketDCondition { Slowdown }
