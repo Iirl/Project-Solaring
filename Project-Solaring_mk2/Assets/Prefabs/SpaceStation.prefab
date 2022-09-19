@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: -4063163527342545469}
   - component: {fileID: 5502605277675320468}
   - component: {fileID: -9128798211310033954}
+  - component: {fileID: -1796001402855746473}
   m_Layer: 0
   m_Name: SpaceStation
   m_TagString: Respawn
@@ -242,7 +243,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 1
   randomSpd: 1
+  straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
+--- !u!114 &-1796001402855746473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8853699504866694951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lveve1Scene: Level1
+  sceneID: SceneID
+  isHaving: 0

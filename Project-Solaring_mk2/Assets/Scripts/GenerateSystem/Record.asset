@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: Record
   m_EditorClassIdentifier: 
-  grtClass: 3
+  grtClass: 4
   grtObject: {fileID: 7974966873733631547, guid: cd1c47124abc5b8448af831b7dcb2546,
     type: 3}
   grtLimit: 1
   grtIntervalTime: 0
   grtWaitTime: 0
   grtdestTime: 0
-  grtPos: {x: 7.314964, y: -1.6829597, z: 0}
+  grtPos: {x: 0, y: 0, z: 0}
   grtOffset: 0
   grtSubObject: []
   grtProb: 0.5

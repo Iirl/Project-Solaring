@@ -9,7 +9,7 @@ namespace solar_a
     /// </summary>
     public class noDestoryInChangeScene : ManageScene
     {
-        [SerializeField]
+        [SerializeField, Header("重複檢查"), HideInInspector]
         private bool isHaving;
         static private List<string> preLoadName = new List<string>();
         //
