@@ -96,11 +96,11 @@ namespace solar_a
         [Tooltip("程式控制選擇目前的畫布，可以不用設定。")]
         private CanvasGroup canvas_select;
         [HideInInspector] //作弊控制開關
-        public bool noExhauFuel, noExhauRush, noDead, protect, toFinDest;
+        public bool noExhauFuel, noExhauRush, protect, toFinDest;
         bool runtime = false;
         #endregion
 
-        public void X_PowerMode() { protect = !protect; rocket_ctl.StateToShield(protect); }
+        public void X_PowerMode() { protect = !protect; rocket_ctl.StateToShield(protect); StaticSharp.isProtected = protect; ; }
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
@@ -133,6 +133,8 @@ namespace solar_a
                 catch (System.IndexOutOfRangeException) { print("找不到物件，請確定MangeUI上是否有設定玩家物件"); }
                 catch (System.Exception) { print("RocketModel 的資料不存在，請放入火箭模型"); }
             }
+            rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
+            rocket_SSR = rocket_ctl != null ? rocket_ctl.GetComponent<SSRocket>() : null;
             //else print("不用生成物件");
         }
 
@@ -145,8 +147,9 @@ namespace solar_a
         {
             //if (!rocket_ctl.rc_dtion.IsStay) 
             //    ss_ctl.transform.position += Vector3.up * unit / 2; // 場景移動1
-            float unit = Time.deltaTime * stInfo[levelNow].speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。            
-            if (toFinDest) UI_moveDistane = stInfo[levelNow].finishDistane;
+            float unit = Time.deltaTime * stInfo[levelNow].speed; // 單位距離，使用 deltaTime 可以移除更新頻率的錯誤。
+            print(toFinDest);
+            if (toFinDest) { UI_moveDistane = stInfo[levelNow].finishDistane; toFinDest = false; }
             else UI_moveDistane += unit;
             if (UI_moveDistane >= stInfo[levelNow].finishDistane)
             {
@@ -229,7 +232,6 @@ namespace solar_a
         {
             mgScene.SaveLeveInform(levelNow);
             mgScene.SceneChageEvent(true);
-            StartCoroutine(rocket_ctl.ControlChange(false));
         }
         ///////////// 選單變化相關
         private IEnumerator PauseFadeEffect(bool visable = true)
@@ -365,11 +367,6 @@ namespace solar_a
                 foreach (Simple_move simple in simple_s) StartCoroutine(simple.Mute());
                 condition.Finish();
             }
-            else if (StaticSharp.Conditions != State.Running)
-            {// 如果不是執行狀態，則暫停空間，並呼叫暫停選單。
-                StartCoroutine(rocket_ctl.ControlChange(false));
-            }
-            else StartCoroutine(rocket_ctl.ControlChange(true));
             CancelInvoke("GameState");
         }
         #region 本地控制方法或事件
@@ -394,16 +391,15 @@ namespace solar_a
             mgDsko = ManageSystemController.MgDisco ? ManageSystemController.MgDisco : FindObjectOfType<ManageDisco>();
             ss_ctl = ManageSystemController.SS_CTL ? ManageSystemController.SS_CTL : FindObjectOfType<SceneStage_Control>();
             space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
-            rocket_ctl = ManageSystemController.Rocket_CTL ? ManageSystemController.Rocket_CTL : FindObjectOfType<Rocket_Controll>();
-            rocket_SSR = rocket_ctl != null ? rocket_ctl.GetComponent<SSRocket>() : null;
+            PutPlayerOBJ();  // 放置玩家火箭
 
         }
 
         private void Start()
         {
-            PutPlayerOBJ();  // 放置玩家火箭
             //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
+            if( StaticSharp.isProtected ) X_PowerMode();
             // 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
             UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
@@ -439,12 +435,6 @@ namespace solar_a
                     if (!runtime)
                     {
                         runtime = true;
-                        if (noDead)
-                        {
-                            condition.Run();
-                            runtime = false;
-                            break;
-                        }
                         StaticSharp._LEVEL = levelNow;
                         mgEnd.messageLog.text = "";
                         rocket_ctl.StateToBorken(true);

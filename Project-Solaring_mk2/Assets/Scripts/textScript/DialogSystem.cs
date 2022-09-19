@@ -15,8 +15,10 @@ namespace solar_a
         private TextMeshProUGUI TextField;
         [SerializeField, Header("等待指標")]
         private GameObject textDelta;
-        [SerializeField, Header("文字效果時間"), Tooltip("等待時間"), Range(0.01f, 0.2f)]
-        private float textWait=0.05f;
+        [SerializeField]
+        private KeyCode KeyInput;
+        [SerializeField, Header("文字效果時間"), Tooltip("等待時間"), Range(0.1f, 5f)]
+        private float textWait=0.5f;
         [SerializeField, Tooltip("打字時間"),Range(0.01f,0.2f)]
         private float textTypeEffect=0.0625f;
         [SerializeField, Header("事件處理")]
@@ -54,6 +56,7 @@ namespace solar_a
             StartCoroutine(dialogCVG.FadeEffect(true));
             bool skip = false;
             int line = 0;
+            float setTime = 0;
             wait = true;
             foreach (var e in landata.Language[lang].datas)
             {
@@ -69,16 +72,18 @@ namespace solar_a
 
                 // 等待使用者回應事件
                 textDelta.SetActive(true);
-                yield return new WaitForSeconds(textWait);
                 while (wait)
                 {
-                    if (Input.GetKey("z")) wait = false;
-                    yield return StartCoroutine(EventDitect(line));
+                    setTime += Time.deltaTime;
+                    if(eventData.Count>0) yield return StartCoroutine(EventDitect(line));
+                    if (Input.GetKey(KeyInput) || setTime > textWait) wait = false;
+                    else yield return null;
                 }
                 // 段落結束處理
                 textDelta.SetActive(false);
                 yield return null;
                 wait = true;
+                setTime = 0;
                 line++;
             }
             //文字輸出結束

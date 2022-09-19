@@ -78,13 +78,13 @@ namespace solar_a
             StaticSharp.Rocket_POS = Vector3.zero;     //火箭當前位置
             StaticSharp._LEVEL = 2;
             StaticSharp.DistanceRecord = 0;     // 紀錄當前關卡的距離
-            StaticSharp._SecretSCORE = 0;
-            //
+            // 淨空場景物件
             noDestoryInChangeScene[] nDICS = FindObjectsOfType<noDestoryInChangeScene>();
             for (int i = 0; i < nDICS.Length; i++) nDICS[i].DestoryOnStageObject();
 
             if (!restart) return;
             //若需要重新載入場景則執行以下段落
+            StaticSharp._SecretSCORE = 0;
             GenericScene(lveve1Scene);
         }
         /// <summary>
@@ -96,7 +96,7 @@ namespace solar_a
         {
             int idx = PlayerPrefs.GetInt(sceneID);
             idx = (GetScenes(true) == idx + 1) ? 0 : idx + 1;
-            SceneManager.LoadScene(idx);
+            GenericScene(idx);
         }
         /// <summary>
         /// 載入指定編號的場景

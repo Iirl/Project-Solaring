@@ -38,6 +38,7 @@ public class InStationDataLoad : MonoBehaviour
     private void Awake()
     {
         local_info = StaticSharp.Rocket_BASIC;
+        StaticSharp.Rocket_INFO.x = 100;
         ValuePoint.text = point.ToString();
     }
 

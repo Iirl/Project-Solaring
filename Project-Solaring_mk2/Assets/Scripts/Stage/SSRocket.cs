@@ -17,8 +17,8 @@ public class SSRocket : MonoBehaviour
 
     public bool isShowed { get { return showWindows; } }
     [SerializeField, Header("異常狀態"), Tooltip("不會死亡")]
-    private bool noDead;
-    public bool NoDead { set { noDead = value; SendControl(); } get { return noDead; } }
+    private bool protectx;
+    public bool NoDead { set { protectx = value; SendControl(); } get { return protectx; } }
     [SerializeField, Tooltip("不耗燃料")]
     private bool noFuel;
     public bool NoFuel { set { noFuel = value; SendControl(); } get { return noFuel; } }
@@ -49,7 +49,7 @@ public class SSRocket : MonoBehaviour
         switch ((RocketACondition)id)
         {
             case RocketACondition.Protect:
-                if (!noDead)
+                if (!protectx)
                 {
                     sm = toProtect;
                     StartCoroutine(StatusTimer(rct.StateToShield, sec));
@@ -95,14 +95,15 @@ public class SSRocket : MonoBehaviour
     /// </summary>
     private void SendControl()
     {
+        if (!mgc) mgc = FindObjectOfType<ManageCenter>();
         if (mgc)
         {
-            mgc.noDead = noDead ? true : false;
+            mgc.protect = protectx ? true : false;
             mgc.noExhauFuel = noFuel ? true : false;
             mgc.noExhauRush = noRush ? true : false;
             mgc.toFinDest = toFinal ? true : false;
         }
-        rct.StateToShield(noDead);
+        rct.StateToShield(protectx);
     }
     /// <summary>
     /// 額外生成物件
@@ -206,15 +207,17 @@ public class SSRocket : MonoBehaviour
         // This will make the window be resizable by the top
         // title bar - no matter how wide it gets.
         if (GUI.Button(new Rect(180, 5, 10, 10), "X")) showWindows = !showWindows;
-        noDead = GUI.Toggle(new Rect(10, 25, 80, 25), noDead, "不會死亡");
+        protectx = GUI.Toggle(new Rect(10, 25, 80, 25), protectx, "不會死亡");
         noFuel = (GUI.Toggle(new Rect(10, 55, 80, 25), noFuel, "不耗燃料"));
         noRush = (GUI.Toggle(new Rect(100, 25, 80, 25), noRush, "不耗衝刺"));
-        toFinal = (GUI.Toggle(new Rect(100, 55, 80, 25), toFinal, "移到終點"));
+        //toFinal = (GUI.Toggle(new Rect(100, 55, 80, 25), toFinal, ""));
         if (GUI.Button(new Rect(10, 85, 80, 25), "+20燃料")) mgc.FuelReplen(20);
-        if (fuelObj) if (GUI.Button(new Rect(100, 85, 80, 25), "燃料箱")) GeneratorBlock();
+        if (fuelObj) if (GUI.Button(new Rect(100, 85, 80, 25), "移到終點")) toFinal = true;
         if (GUI.changed) SendControl();
         //
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
+        // 設定歸零
+        toFinal = false;
     }
     #endregion
 }

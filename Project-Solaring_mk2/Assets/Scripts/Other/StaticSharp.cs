@@ -20,6 +20,7 @@ public class StaticSharp
     static public float DistanceRecord; // 紀錄飛行距離，將該值傳給下一關使用。
     // Secret
     static public int _SecretSCORE;
+    static public bool isProtected;
     
     #region Shotkey, 快捷鍵設定
     static private void TestBoard(SSRocket d)
