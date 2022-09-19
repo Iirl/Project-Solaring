@@ -183,12 +183,12 @@ Material:
     - Vector1_7FFCBCA4: 0
     - Vector1_9CF95ED1: 0.083
     - Vector1_A7AE73F0: 5
-    - Vector1_ABD1713E: 0.019
+    - Vector1_ABD1713E: 0.098
     - Vector1_B4FDD9B: 0.274
     - Vector1_C0D1572: 0.686
     - Vector1_D7D2D86: 0.9
     - Vector1_EB08E6A3: 0.32
-    - Vector1_F4D3A67B: -1.8
+    - Vector1_F4D3A67B: -1.1
     - Vector1_FE821E4C: 100
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -313,7 +313,7 @@ Material:
     - _ZWrite: 1
     - _metallic: 0
     - _smooth: 0
-    - float_alpha: 0.0044
+    - float_alpha: 0.0011
     - ice_level: 0
     - is_selected: 1
     m_Colors:
