@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
+  m_Name: ProductionList
+  m_EditorClassIdentifier: 
+  platform: 0
+  Language:
+  - label: Chinese
+    filename: ProductionList_zh
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    datas:
+    - "\u3010\u7A0B\u5F0F\u3011\u6D2A\u7FCA\u7406\r"
+    - "\u3010\u7F8E\u8853\u3011\u90B1\u5EFA\u6587\r"
+    - "\u3010\u4F01\u5283\u3011\u90B1\u5EFA\u6587\r"
+    - "\u3000\u3000\u3000\r"
+    - "\u7279\u5225\u611F\u8B1D\r"
+    - "\u3010\u88FD\u4F5C\u6307\u5C0E\u3011\u8607\u5F0B\u9E9F\u3000\u8001\u5E2B\r"
+    - "\u3010\u88FD\u4F5C\u6307\u5C0E\u3011\u5289\u54C1\u5982\u3000\u8001\u5E2B\r"
+    - "\u3010\u7A0B\u5F0F\u6307\u5C0E\u3011\u6E38\u6587\u7AE0\u3000\u8001\u5E2B\r"
+    - "\u3010\u7A0B\u5F0F\u6307\u5C0E\u3011\u8521\u5B8F\u677E\u3000\u8001\u5E2B\r"
+    - "\u3000\u3000\u3000\r"
+    - "\u606D\u559C\u4F60\u904E\u95DC\r"
+    - "\u73FE\u5728\u958B\u59CB\u4F60\u53EF\u4EE5\u4F7F\u7528\u5BC6\u6280\u4E86\r"
+    - "Shift+U \u4F7F\u7528\u98DB\u789F\r"
+    - "Shift+C \u4F7F\u7528\u8CA8\u6A5F\r"
+    - "Alt+N \u96B1\u5F62\r"
+    - "Alt+R \u91CD\u65B0\u751F\u6210\u88DC\u7D66\u8207\u969C\u7919\u7269\r"
+    - "Ctrl+B \u958B\u555F\u9ED1\u6D1E\r"
+    - "\u3000\u3000\u3000\r"
+    - "\u611F\u8B1D\u4F60\u7684\u904A\u73A9\uFF5E"
+  - label: English
+    filename: ProductionList_en
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    datas:
+    - "START\r"
+    - "OPTION\r"
+    - "EXIT\r"
+    - "Fword\r"
+    - "Back\r"
+    - "Left\r"
+    - "Right\r"
+    - "LeftSpine\r"
+    - "RightSpine\r"
+    - "\u5730\u7403\u8CC7\u6E90\u4E0D\u65B7\u8017\u76E1\r"
+    - "\u4EBA\u985E\u60F3\u76E1\u8FA6\u6CD5\u5C0B\u627E\u9069\u5408\u751F\u5B58\u7684\u661F\u7403\r"
+    - "\u7D42\u65BC\u5728\u6BD4\u9130\u661F\u9644\u8FD1\u767C\u73FE\u4E86\u4E00\u9846\u8D85\u7D1A\u5730\u7403\r"
+    - "\u7D93\u904E\u9577\u671F\u7684\u89C0\u6E2C\u5F8C\u8A8D\u70BA\u8A72\u661F\u7403\u9069\u5408\u4EBA\u985E\u79FB\u661F\r"
+    - "\u65BC\u662F\u4EBA\u985E\u7684\u7B2C\u4E00\u6279\u79FB\u6C11\u8266\u968A\u51FA\u767C\u4E86\r"
+    - "\u4F60\u662F\u661F\u8266\u5718\u6700\u5F8C\u51FA\u767C\u7684\u8239\u8266\r"
+    - "\u8ACB\u4F9D\u7167\u6307\u793A\u524D\u5F80\u8207\u8266\u968A\u532F\u5408\r"
+    - "E n e r g y\r"
+    - "D i s t a n c e\r"
+    - "RESTART\r"
+    - "END\r"
+    - "BACK\r"
+    - "Energy\r"
+    - "Speed\r"
+    - "Acceleration\r"
+    - "ROCKET ADJSUT\r"
+    - "EXIT\r"
