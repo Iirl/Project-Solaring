@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.01541006, g: 0.0014973845, b: 0.038918983, a: 1}
+  m_IndirectSpecularColor: {r: 0.015399809, g: 0.0014914743, b: 0.038952317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7780821, y: 1}
+    m_SensorSize: {x: 1.7783985, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3378,7 +3378,7 @@ PrefabInstance:
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: rush_time
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
@@ -3476,7 +3476,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098477498}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3431cd407313eed46942fb02c2c5adcb, type: 2}
   m_CullingMode: 0

@@ -167,4 +167,14 @@ static class Extension
         }
     }
 
+    /// <summary>
+    /// 觸發銷毀物件事件，直接讀取中控系統的銷毀事件。
+    /// </summary>
+    /// <param name="hitObj">觸發的物件</param>
+    /// <param name="hasDest">是否有銷毀等待時間</param>
+    static public void StageColliderEvent(this Collider col, bool hasDest = true)
+    {
+        //Debug.Log("場景邊緣觸發");
+        if (!col.tag.Contains("Player")) ManageCenter.mgCenter.ObjectDestory(col.gameObject, hasDest);
+    }
 }

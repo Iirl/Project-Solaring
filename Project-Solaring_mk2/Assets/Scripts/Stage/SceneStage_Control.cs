@@ -20,7 +20,7 @@ namespace solar_a
         private Vector3 box_range = Vector3.zero;
         [SerializeField, Header("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
-        [SerializeField,Header("限制火箭移動(Clamp)區域微調")]
+        [SerializeField, Header("限制火箭移動(Clamp)區域微調")]
         private Vector2 minBorder;
         [SerializeField]
         private Vector2 maxBorder;
@@ -69,13 +69,13 @@ namespace solar_a
                 if (col.tag.Contains("Player"))
                 {
                     col.transform.position = new Vector3(
-                        Mathf.Clamp(col.transform.position.x, -stage_container.x/2+ minBorder.x, stage_container.x/2 + maxBorder.x),
-                        Mathf.Clamp(col.transform.position.y , -stage_container.y / 2+ minBorder.y + transform.position.y, stage_container.y / 2 + transform.position.y + + maxBorder.y)
+                        Mathf.Clamp(col.transform.position.x, -stage_container.x / 2 + minBorder.x, stage_container.x / 2 + maxBorder.x),
+                        Mathf.Clamp(col.transform.position.y, -stage_container.y / 2 + minBorder.y + transform.position.y, stage_container.y / 2 + transform.position.y + +maxBorder.y)
                         );
                 }
                 else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
                 {
-                    if (i == 1) ColliderSystem.StageColliderEvent(col.gameObject);
+                    if (i == 1) col.StageColliderEvent(); //ColliderSystem.StageColliderEvent(col.gameObject);
                 }
             }
             //print($"透過 {colliders[0].tag}");
@@ -86,12 +86,11 @@ namespace solar_a
         private void OnTriggerExit(Collider other)
         {
             // 常見狀態交由碰撞系統處理，額外物件標籤則直接延遲銷毀。
-            ColliderSystem.StageColliderEvent(other.gameObject);
             if (includeTag.Length > 0)
             {
                 foreach (var e in includeTag)
                     if (other.tag.Contains(e))
-                        ManageCenter.mgCenter.ObjectDestory(other.gameObject, true);
+                        other.StageColliderEvent();
             }
             //print(other.tag);
         }
@@ -122,11 +121,11 @@ namespace solar_a
             _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
 
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = box_color;
-            Vector3 nbox_range = new Vector3(box_range.y, box_range.x/2, box_range.z); // 讓編輯器模式下也能看到邊界
+            Vector3 nbox_range = new Vector3(box_range.y, box_range.x / 2, box_range.z); // 讓編輯器模式下也能看到邊界
             Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 0上邊界
             Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1下邊界
             // 左右判定

@@ -552,7 +552,7 @@ MonoBehaviour:
   RocketBasic: {x: 100, y: 10, z: 1.2}
   unit_fuel: -0.05
   fuel_overcapacity: 20
-  rush_time: 0.2
+  rush_time: 0.7
   rush_counts: 5
   fuel: 100
   rocket_Clip:
@@ -580,7 +580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showWindows: 0
   showPassFiled: 0
-  noDead: 0
+  protectx: 0
   noFuel: 0
   noRush: 0
   toFinal: 0

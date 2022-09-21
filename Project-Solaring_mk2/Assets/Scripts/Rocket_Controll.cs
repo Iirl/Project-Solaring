@@ -16,6 +16,8 @@ namespace solar_a
         ManageCenter mgc;
         Rigidbody Rocket_Rig;
         AudioSource Rocket_sound;
+        // 動畫控制
+        Animator Rocket_ani;
         private bool isBoost;
         #endregion
         #region #序列化屬性
@@ -162,23 +164,23 @@ namespace solar_a
         private IEnumerator StartBoost()
         {
 
-            isBoost = true;
             float horizon = Input.GetAxis("Horizontal") != 0 ? 1 : 0;
             float vertial = Input.GetAxis("Vertical") != 0 ? 1 : 0;
             int c = rush_counts;
             // 加速度控制
             //增加推力
             Rocket_sound.pitch = 1.5f;
-            while (c == rush_counts)
+            while (!isBoost)
             {
-                StateToSpeedline(rc_dtion.IsBoost);
+                rc_dtion.Previous();
+                StateToSpeedline(true);
                 yield return new WaitForSeconds(rush_time);
-                isBoost = false;
                 if (!mgc.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
-                StateToSpeedline(rc_dtion.IsBoost);
-
+                StateToSpeedline(false);
             }
+            yield return new WaitForSeconds(1);
+            isBoost = false;
         }
         /// <summary>
         ///  點火控制
@@ -208,6 +210,7 @@ namespace solar_a
             GameObject status = transform.Find("Effect").gameObject;
             if (idx >= 0) status = status.transform.GetChild(idx).gameObject;
             else status = transform.Find("Effect").gameObject;
+            if (idx == 1) isBoost = true;
             if (idx == 2)
             {
                 transform.Find("Normal").gameObject.SetActive(!open);
@@ -257,6 +260,8 @@ namespace solar_a
 
         }
         #endregion
+        private void CloseAnimator() => Rocket_ani.enabled = false;
+
 
         private void Awake()
         {
@@ -273,12 +278,13 @@ namespace solar_a
             if (hasParticleFile) particle_fire = particle_fire != null ? particle_fire : GetComponentInChildren<ParticleSystem>();
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
-            mgc = ManageCenter.mgCenter;
+            Rocket_ani = GetComponent<Animator>();
         }
         #region 事件
         private void Start()
         {
-            //
+            mgc = ManageCenter.mgCenter;
+            // 檢查暫存器中是否有資料，如果有就讀取 => 如果從中繼站出來的火箭需要重讀資料。
             RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
             else
@@ -288,7 +294,11 @@ namespace solar_a
                 speed_a = StaticSharp.Rocket_INFO.z;
             }
             if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
+            // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
+            // 如果動畫內容是開啟的狀態，則在一定時間後關閉
+            if (Rocket_ani.isActiveAndEnabled) Invoke("CloseAnimator", 1);
+            // 其他項目
             if (offControl) CloseTheControl = offControl;
         }
 
@@ -299,6 +309,7 @@ namespace solar_a
         private void Booster() => StartCoroutine(StartBoost());
         void Update()
         {
+            //print(rc_dtion.state);
             switch (rc_dtion.state)
             {
                 case RocketState.Stay:
@@ -309,13 +320,12 @@ namespace solar_a
                 case RocketState.Move:
                     //print("移動狀態");
                     if (!InputMove()) rc_dtion.Previous();
-                    if (InputBoost() && rush_counts != 0) rc_dtion.Next();
+                    if (InputBoost() && rush_counts > 0 && !isBoost) rc_dtion.Next();
                     break;
                 case RocketState.Boost:
-                    //print(InputBoost());
-                    rc_dtion.Previous();
-                    if (!mgc) break;
-                    if (!isBoost) Booster();
+                    //print(InputBoost());                    
+                    if (!mgc) rc_dtion.Previous();
+                    else Booster();
                     break;
                 case RocketState.Crashed:
                     //print("損毀處理後進入停止狀態");

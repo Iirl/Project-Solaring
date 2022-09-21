@@ -64,8 +64,8 @@ public class ColliderSystem : MonoBehaviour
         else if (hitObj.tag.Contains("Block"))
         {
             i = 2; //當火箭碰到補品時
-            ManageCenter.mgCenter.ObjectDestory(hitObj, false);
             if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);
+            ManageCenter.mgCenter.ObjectDestory(hitObj, false);
         }
         else if (hitObj.tag.Contains("Respawn"))
         {
@@ -90,11 +90,6 @@ public class ColliderSystem : MonoBehaviour
 
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);
         return i;
-    }
-    static public void StageColliderEvent(GameObject hitObj, bool hasDest = true)
-    {
-        //print("場景邊緣觸發");
-        if (!hitObj.tag.Contains("Player")) ManageCenter.mgCenter.ObjectDestory(hitObj, hasDest);
     }
     /// <summary>
     /// 方塊碰撞事件
