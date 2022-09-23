@@ -26,7 +26,7 @@ public class GeneratorData :ScriptableObject
     [SerializeField, Tooltip("生成距離調整"), Range(0, 100), HideInInspector]
     public float grtOffset;
     [SerializeField, Header("隨機產生子物件"), HideInInspector]
-    public List<UnityEngine.Object> grtSubObject;
+    public List<GameObject> grtSubObject;
     [SerializeField, Tooltip("Create SubObject probablity"), Range(0, 1), HideInInspector]
     public float grtProb = 0.5f;
     [SerializeField, Header("是否隨機旋轉"), HideInInspector]

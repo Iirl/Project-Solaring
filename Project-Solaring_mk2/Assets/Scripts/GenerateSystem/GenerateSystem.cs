@@ -21,11 +21,13 @@ namespace solar_a
         // 取得中央控制類別
         ManageCenter mgc;
         Object_Generator.Generater obGenerate;
-        Object_Generator.ObjectArray gener_list = new();
+        Object_Generator.ObjectArray gener_list;
         bool preLoadInvoke;
+        int activeCount;
 
         //普通生成：只判斷是否旋轉物件。
         public void NormalGenerate(bool rotate = false) => Static_gen(generData.grtRandomRoation);
+        public void RealseTheObject(GameObject obj) => obGenerate.GenerateOff(obj);
         // 子物件生成
         private void SubObjGenerate() => Random_gen(generData.grtRandomRoation);
         private void StaticPointGen() => Static_gen(generData.grtRandomRoation, false);
@@ -60,8 +62,8 @@ namespace solar_a
                 // 移除清單內容
                 gener_list.RemoveAt(key);
                 // 執行物件刪除
-                if (destTime) Destroy(target, 1f);
-                else Destroy(target);
+                //if (destTime) Destroy(target, 1f);
+                //else Destroy(target);
             }
             else
             {
@@ -135,34 +137,32 @@ namespace solar_a
                 Random.Range(0f, generData.grtPos.y),
                 Random.Range(-generData.grtPos.z, generData.grtPos.z)
             );
-            obGenerate = new(gameObject, generData.grtObject);                      // 在指定的位置[M]產生指定的物件[G]
+            obGenerate = new(gameObject, generData.grtObject, generData.grtLimit);                      // 在指定的位置[M]產生指定的物件[G]
             obGenerate.Create_v3 += (randPos) ? random_v3 + worldOffset : generData.grtPos + worldOffset;                // 物件生成的位置，會依據設定的位置改變。
             obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
             obGenerate.destoryTime = generData.grtdestTime;
-            Object created = obGenerate.Generates();            
+            GameObject created = obGenerate.GenerateOut();            
             gener_list.Add(created);                                          // 加入生成列表。
                                                                               //Destroys(generob.GetParent());
                                                                               //generob.ObjectMessegeInfo();
-            
+
             // 若有設定銷毀時間，則加上銷毀的計時。            
             //Destroys(created.GetComponent<Transform>().gameObject, true);
-            return created.GetComponent<Transform>().gameObject;
+            return created;
         }
         /// <summary>
         /// 物件生成在根路徑，內容從本系統中複製出來
         /// </summary>
         /// <param name="worldOffset">輸入座標</param>
         /// <param name="isRoate">是否旋轉</param>
-        private void Generator_ROOT(Vector3 worldOffset, bool isRoate = false)
+        private void Generator_ROOT(Vector3 worldOffset, Quaternion rotations)
         {
             if (generData.grtObject == null) return;
             DestroysOnBug(worldOffset);
-            worldOffset.y += generData.grtOffset; // Offset 會調整Y軸座標
-            obGenerate = new(gameObject, generData.grtObject);
-            obGenerate.Create_v3 = worldOffset;
-            obGenerate.Create_r3 = (isRoate) ? Random.rotation : generData.grtRot;  // 物件生成方向是否隨機，預設為否。
+            worldOffset.y += generData.grtOffset; // Offset 會調整Y軸座標 
+            obGenerate = new(gameObject, generData.grtObject, worldOffset, rotations);
             obGenerate.destoryTime = generData.grtdestTime;
-            Object created = obGenerate.RootGenerates();
+            GameObject created = obGenerate.GenerateOut();
             gener_list.Add(created);
         }
         #endregion
@@ -173,7 +173,7 @@ namespace solar_a
         private void Static_gen(bool isRot) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0),isRot);
         private void Static_gen(bool isRot, bool isRnd) => Generator_EMP(new Vector3(0, mgc.GetStagePOS().y, 0), isRot, isRnd);
         private void Static_gen(Vector3 setPos, bool isRotate) => Generator_EMP(setPos + Vector3.up * mgc.GetStageBorder().y, isRotate);
-        private void Static_root(Vector3 setPos, bool isRot) => Generator_ROOT(setPos + Vector3.up * mgc.GetStagePOS().y ,isRot);
+        private void Static_root(Vector3 setPos, bool isRot) => Generator_ROOT(setPos + Vector3.up * mgc.GetStagePOS().y ,isRot ? Random.rotation: Quaternion.identity);
 
         /// <summary>
         /// 將物件隨機生成在畫面中
@@ -193,7 +193,7 @@ namespace solar_a
         /// </summary>
         /// <param name="parent">父物件的ID</param>
         /// <param name="TG">要生成的物件</param>
-        private void Random_Metro(GameObject parent, List<Object> TG)
+        private void Random_Metro(GameObject parent, List<GameObject> TG)
         {
             // 
             try
@@ -224,8 +224,10 @@ namespace solar_a
                 // 生成物件
                 if (Random.value < generData.grtProb)
                 {
-                    Object_Generator.Generater sgen = new(PAOB, TG[rnd], PAOB.transform.position, PAOB.transform.rotation * Quaternion.AngleAxis(30, Vector3.right));
-                    sgen.Generates();
+                    Object_Generator.Generater sgen = new(PAOB, TG[rnd]);
+                    sgen.Create_v3 = PAOB.transform.position;
+                    sgen.Create_r3 = PAOB.transform.rotation * Quaternion.AngleAxis(30, Vector3.right);
+                    sgen.Generates(); // 子物件不須回收
                 }
                 sub_count++;
             }
@@ -238,8 +240,10 @@ namespace solar_a
         /// </summary>
         private void SwitchState()
         {
-            if (transform.childCount < generData.grtLimit)
+
+            if (activeCount < generData.grtLimit)
             {
+
                 switch (generData.grtClass)
                 {
                     case GenerClass.Normal:
@@ -267,6 +271,7 @@ namespace solar_a
             }
             if (ManageCenter.UI_moveDistane > generDestan.y && generDestan.y != 0)
             {// 超過指定距離停止產生
+                print($"結束產生{gameObject.name}");
                 CancelInvoke("SwitchState");
                 Destroy(gameObject,30); //設定銷毀是避免物件留在場上
             }
@@ -285,6 +290,7 @@ namespace solar_a
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
+            gener_list = new();
         }
         private void Start()
         {

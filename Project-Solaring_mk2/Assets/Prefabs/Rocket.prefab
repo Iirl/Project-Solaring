@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 8066993751729948828}
   - component: {fileID: 4587356875361899390}
   - component: {fileID: 511811643254466930}
+  - component: {fileID: 8349909292034458043}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -588,6 +589,26 @@ MonoBehaviour:
   fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   rockets:
   - {fileID: 3037491925543192508, guid: ac52c113bf153b145946ad46a42ebd95, type: 3}
+--- !u!95 &8349909292034458043
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592277314727565250}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3431cd407313eed46942fb02c2c5adcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4179556285600123791
 GameObject:
   m_ObjectHideFlags: 0

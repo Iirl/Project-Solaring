@@ -1,6 +1,7 @@
 //#define OldMethod;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Pool;
 
 /// <summary>
 /// 此為在區域空間中產生物件的程式。
@@ -49,46 +50,58 @@ namespace solar_a
             public float Z_rot_gen { get { return zr; } set { zr = value; Create_r3 = new Quaternion(xr, yr, zr, 0); } }
             public Vector3 Create_v3 = Vector3.zero;
             public Quaternion Create_r3 = Quaternion.identity;
-            public Object OBTarget, OBCloned;
+            public Object OBTarget => Target;
+            public Object OBCloned ;
+            public ObjectPool<GameObject> GenerPool;
             //  程式內部變數
-            private GameObject Parent;
+            private GameObject Parent, Target;
             int countGene = 0;
 
             /// <summary>
-            /// 製作物件時會自動指定主物件、生成物以及位置和旋轉狀態
+            /// 製作物件時會放在父物件當中，然後再依此設定方向與轉向。
             /// </summary>
             /// <param name="parent">主物件，要在哪個物件上生成</param>
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
-            public Generater(GameObject parent, Object target)
+            public Generater(GameObject parent, GameObject target, int max=100)
             {
-                OBTarget = target;
+                Target = target;
                 Parent = parent;
                 Create_v3 = parent.transform.position;
+                GenerPool = new ObjectPool<GameObject>(CreatePoolOnParent, SpawnTake, SpawnRelease, SpawnDestory, false, 10, max);
             }
             /// <summary>
-            /// 製作物件時手動指定主物件、生成物以及位置和旋轉狀態
+            /// 製作物件時手動指定主物件、生成物以及位置和旋轉狀態，不會生在父物件當中。
             /// </summary>
             /// <param name="parent">主物件，要在哪個物件上生成</param>
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
             /// <param name="pos">目標物件的三維座標</param>
             /// <param name="rot">目標物件的旋轉座標，輸入0表示套用預設值</param>
-            public Generater(GameObject parent, Object target, Vector3 pos, Quaternion rot)
+            public Generater(GameObject parent, GameObject target, Vector3 pos, Quaternion rot, int max = 100)
             {
-                OBTarget = target;
+                Target = target;
                 Parent = parent;
                 Create_v3 = pos;
                 Create_r3 = rot;
-
+                GenerPool = new ObjectPool<GameObject>(CreatePool, SpawnTake, SpawnRelease, SpawnDestory, false, 10, max);
             }
+
+            private GameObject CreatePool() => Instantiate(Target, Create_v3, Create_r3);
+            private GameObject CreatePoolOnParent() => Instantiate(Target, Create_v3, Create_r3, Parent.transform);
+            protected virtual void SpawnDestory(GameObject obj) => Destroy(obj);        //設定破壞物件的條件
+            protected virtual void SpawnRelease(GameObject obj) => obj.SetActive(false);//Release 物件
+            protected virtual void SpawnTake(GameObject obj) => obj.SetActive(true);    //Get 物件
+            public GameObject GenerateOut() => GenerPool.Get();
+            public void GenerateOff(GameObject obj) => GenerPool.Release(obj);
 
             /// <summary>
             /// 自動產生物件，會根據既有欄位決定生成的內容
             /// </summary>
-            public Object Generates()
+            public GameObject Generates()
             {
                 if (OBTarget != null && Parent != null)
                 {
-                    Object cloned = Instantiate(OBTarget, Create_v3, Create_r3, Parent.transform);
+                    //print("舊版生成方式1");
+                    GameObject cloned = Instantiate(Target, Create_v3, Create_r3, Parent.transform);
                     if (destoryTime > 0) Destroy(cloned, destoryTime);
                     OBCloned = cloned;
                     countGene++;
@@ -96,15 +109,15 @@ namespace solar_a
                 }
                 return null;
             }
-            public Object RootGenerates()
+            public GameObject RootGenerates()
             {
                 if (OBTarget != null && Parent != null)
                 {
-                    Object cloned = Instantiate(OBTarget, Create_v3, Create_r3);
+                    //print("舊版生成方式2");
+                    GameObject cloned = Instantiate(Target, Create_v3, Create_r3);
                     if (destoryTime > 0) Destroy(cloned, destoryTime);
                     OBCloned = cloned;
                     countGene++;
-                    print("生成ROOT物件");
                     return cloned;
                 }
                 return null;
@@ -120,19 +133,6 @@ namespace solar_a
                 print($"Will be generate in the {parent.name}.");
 
             }
-            public GameObject GetParent()
-            {
-                return Parent;
-            }
-
-            /// <summary>
-            /// 取得程式運行的次數。
-            /// </summary>
-            public int GetGeneCount()
-            {
-                return countGene;
-            }
-
         }
         #endregion
 
@@ -158,13 +158,13 @@ namespace solar_a
             /// <returns></returns>
             public override int Add(object o)
             {
-                Object uo = (Object)o;
+                GameObject uo = (GameObject)o;
                 Transform uot = FindObjectOfType<Transform>();
                 // 加入 Object 為一陣列。
                 ArrayList newlist = new();
                 newlist.Add(uot.GetInstanceID());
-                newlist.Add(uo);
-                newlist.Add(uot.gameObject);
+                if (uo.transform.parent) newlist.Add(uo.transform.parent.gameObject);
+                else newlist.Add(uo);
                 newlist.Add(uo.name);
                 newlist.Add(uot.localPosition);
                 newlist.Add(uot.localRotation);
@@ -182,6 +182,14 @@ namespace solar_a
                 if (al != null)
                 {
                     length--;
+                    try
+                    { // 將儲存的物件釋放
+
+                    }
+                    catch (System.Exception)
+                    {
+                        print("找不到物件喔");
+                    }
                 }
 
                 base.RemoveAt(i);
@@ -437,6 +445,10 @@ namespace solar_a
     程式問題提出：
     Q 當程式離開預設的生成位置時，就無法自動產生物件？
     A 清除多餘物件程式的Y軸判定設錯，應該要取產生物及「場景Y軸」的距離。
+    物件池系統：
+    每次生成會從物件池取出物件，碰到物件時不是直接銷毀而是回收。
+    這樣的好處是可以減少系統頻繁的使用生成與銷毀函數，減少系統的負擔。
+    似乎系統的崩潰是因為沒有使用物件池的關係。
 
 */
 #endregion
