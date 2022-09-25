@@ -551,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offControl: 0
   RocketBasic: {x: 100, y: 10, z: 1.2}
-  unit_fuel: -0.05
+  unit_fuel: -0.02
   fuel_overcapacity: 20
   rush_time: 0.7
   rush_counts: 5

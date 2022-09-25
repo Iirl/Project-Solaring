@@ -23,5 +23,6 @@ namespace solar_a
         }
         public void VolumeResset() => MainVolume(0);
         public void VolumeSlider() => MainVolume(slider.value);
+        public void VolumeSlider(float f) => MainVolume(f);
     }
 }

@@ -2717,7 +2717,6 @@ MonoBehaviour:
   levelBuildSetting: 2
   noExhauFuel: 0
   noExhauRush: 0
-  noDead: 0
   protect: 0
   toFinDest: 0
 --- !u!114 &993921715535371219
@@ -2732,8 +2731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c027022a847194ba62f5caa1493b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  lveve1Scene: 2
 --- !u!82 &993921715535371218
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3841,8 +3840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836bf85d91a2dc14da94c13421f95001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  lveve1Scene: 0
   FinishBox: {fileID: 0}
 --- !u!1 &993921716217057841
 GameObject:

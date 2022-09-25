@@ -10,23 +10,27 @@ namespace solar_a
     public class SceneStage_Control : MonoBehaviour
     {
         #region 屬性
-        [SerializeField, Header("場景資訊"), Tooltip("場景大小(Read Only)")]
-        private Vector3 stage_container;
-        [SerializeField, Tooltip("場景位址(Read Only)")]
-        private Vector3 stage_position;
-        [SerializeField, Header("場景相關可調變數"), Tooltip("判定區域顏色")]
+        [SerializeField, Header("場景資訊(Read Only)"), Tooltip("場景大小")]
+        private Vector3 stage_boxCollider;
+        [SerializeField, Header("場景碰撞器微調")]
+        private Vector3 stage_boxOffset = Vector3.forward *5;
+        [SerializeField, Header("使用Gizmos大小")]
+        private bool stageInGizmos;
+        [SerializeField, Header("手繪物理碰撞區域"), Tooltip("判定區域顏色")]
         private Color box_color = Color.cyan;
-        [SerializeField, Header("判定區域大小")]
-        private Vector3 box_range = Vector3.zero;
-        [SerializeField, Header("判定區域位移")]
+        [SerializeField, Tooltip("場景位址")]
+        private Vector3 box_position = Vector3.one * -1;
+        [SerializeField, Tooltip("判定區域位移")]
         private Vector3 box_offset = Vector3.zero;
+        [SerializeField, Tooltip("判定區域大小")]
+        private Vector3 box_range = Vector3.zero;
         [SerializeField, Header("限制火箭移動(Clamp)區域微調")]
         private Vector2 minBorder;
         [SerializeField]
         private Vector2 maxBorder;
         Vector3 nbox_range;
         [SerializeField, Header("其他標籤觸發消除物件")]
-        private string[] includeTag;
+        private string[] includeTags = { "Enemy", "Block" };
         [SerializeField, Header("重力調整")]
         private Vector3 gravity3 = new(0, -9.8f, 0);
         Camera MainCam;
@@ -41,22 +45,21 @@ namespace solar_a
         /// </summary>
         public Vector3 GetBoxborder()
         {
-            stage_container.x = Mathf.Round(MainCam.aspect * cinemachine.m_Lens.OrthographicSize * 2);     //width
-            stage_container.y = Mathf.Round((1 / MainCam.aspect) * stage_container.x) - 1; //heigh
-            stage_container.z = stage_container.x;
-            Stage_boxBorder.size = stage_container;
-            Space_Rect.sizeDelta = stage_container;
-            return stage_container;
+            stage_boxCollider.x = Mathf.Round(MainCam.aspect * cinemachine.m_Lens.OrthographicSize * 2) + stage_boxOffset.x;     //width
+            stage_boxCollider.y = Mathf.Round((1 / MainCam.aspect) * stage_boxCollider.x) + stage_boxOffset.y; //heigh
+            stage_boxCollider.z = stage_boxCollider.x + stage_boxOffset.z;
+            if (stageInGizmos)
+            {
+                stage_boxCollider.x = box_range.x;
+                stage_boxCollider.z = box_range.z;
+            }
+            Stage_boxBorder.size = stage_boxCollider;
+            Space_Rect.sizeDelta = stage_boxCollider;
+            return stage_boxCollider;
         }
 
         #endregion
         #region 方法
-        /// <summary>
-        /// 畫面移動
-        /// </summary>
-        private void _auto_move()
-        {
-        }
         /// <summary>
         /// 場景邊緣判定，玩家：回推；物件：碰撞系統=>延遲破壞。
         /// </summary>
@@ -69,13 +72,9 @@ namespace solar_a
                 if (col.tag.Contains("Player"))
                 {
                     col.transform.position = new Vector3(
-                        Mathf.Clamp(col.transform.position.x, -stage_container.x / 2 + minBorder.x, stage_container.x / 2 + maxBorder.x),
-                        Mathf.Clamp(col.transform.position.y, -stage_container.y / 2 + minBorder.y + transform.position.y, stage_container.y / 2 + transform.position.y + +maxBorder.y)
+                        Mathf.Clamp(col.transform.position.x, -stage_boxCollider.x / 2 + minBorder.x, stage_boxCollider.x / 2 + maxBorder.x),
+                        Mathf.Clamp(col.transform.position.y, -stage_boxCollider.y / 2 + minBorder.y + transform.position.y, stage_boxCollider.y / 2 + transform.position.y + +maxBorder.y)
                         );
-                }
-                else if (col.tag.Contains("Enemy") || col.tag.Contains("Block"))
-                {
-                    if (i == 1) col.StageColliderEvent(); //ColliderSystem.StageColliderEvent(col.gameObject);
                 }
             }
             //print($"透過 {colliders[0].tag}");
@@ -85,13 +84,18 @@ namespace solar_a
 
         private void OnTriggerExit(Collider other)
         {
+            if (other.name.Contains("Player")) { 
+                Collider[] colliders = { other };
+                _borderVelocity(colliders, 0);
+            }
             // 常見狀態交由碰撞系統處理，額外物件標籤則直接延遲銷毀。
-            if (includeTag.Length > 0)
+            if (includeTags.Length > 0)
             {
-                foreach (var e in includeTag)
+                foreach (var e in includeTags)
                     if (other.tag.Contains(e))
                         other.StageColliderEvent();
             }
+
             //print(other.tag);
         }
         #region 事件
@@ -115,10 +119,10 @@ namespace solar_a
         private void FixedUpdate()
         {
             // 場景邊緣動作
-            _borderVelocity(Physics.OverlapBox(stage_position + Vector3.up * box_offset.y, box_range, Quaternion.identity), 0);
-            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range, Quaternion.identity), 1);
-            _borderVelocity(Physics.OverlapBox(stage_position + Vector3.left * box_offset.x, nbox_range, Quaternion.identity), 2);
-            _borderVelocity(Physics.OverlapBox(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
+            _borderVelocity(Physics.OverlapBox(box_position + Vector3.up * box_offset.y, box_range, Quaternion.identity), 0);
+            _borderVelocity(Physics.OverlapBox(box_position - (Vector3.up * box_offset.y * 0.85f), box_range, Quaternion.identity), 1);
+            _borderVelocity(Physics.OverlapBox(box_position + Vector3.left * box_offset.x, nbox_range, Quaternion.identity), 2);
+            _borderVelocity(Physics.OverlapBox(box_position - (Vector3.left * box_offset.x * 1.1f), nbox_range, Quaternion.identity), 3);
 
         }
 
@@ -126,11 +130,11 @@ namespace solar_a
         {
             Gizmos.color = box_color;
             Vector3 nbox_range = new Vector3(box_range.y, box_range.x / 2, box_range.z); // 讓編輯器模式下也能看到邊界
-            Gizmos.DrawCube(stage_position + Vector3.up * box_offset.y, box_range);             // 0上邊界
-            Gizmos.DrawCube(stage_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1下邊界
+            Gizmos.DrawCube(box_position + Vector3.up * box_offset.y, box_range);             // 0上邊界
+            Gizmos.DrawCube(box_position - (Vector3.up * box_offset.y * 0.85f), box_range);   // 1下邊界
             // 左右判定
-            Gizmos.DrawCube(stage_position + Vector3.left * box_offset.x, nbox_range);          // 2右邊界
-            Gizmos.DrawCube(stage_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 3左邊界
+            Gizmos.DrawCube(box_position + Vector3.left * box_offset.x, nbox_range);          // 2右邊界
+            Gizmos.DrawCube(box_position - (Vector3.left * box_offset.x * 1.1f), nbox_range); // 3左邊界
         }
         #endregion
     }

@@ -21,7 +21,7 @@ public class GeneratorData :ScriptableObject
     [SerializeField, Tooltip("自動消滅時間")]
     public float grtdestTime = 5f;
     //
-    [SerializeField, Header("指定物件範圍"), Tooltip("若為定點則指定位置"), HideInInspector]
+    [SerializeField, Tooltip("指定生成的三維座標"), HideInInspector]
     public Vector3 grtPos = Vector3.zero;
     [SerializeField, Tooltip("生成距離調整"), Range(0, 100), HideInInspector]
     public float grtOffset;
@@ -68,6 +68,9 @@ public class GenerateEditor :Editor
         if (!rot) EditorGUILayout.PropertyField(spRandomRot);
         if (i != 4) //生成位置設定
         {
+            EditorGUILayout.Space();
+            if (i == 3 || i == 2)EditorGUILayout.PrefixLabel("指定物件生成定點");
+            else EditorGUILayout.LabelField("指定物件生成範圍");
             EditorGUILayout.PropertyField(spPos);
             EditorGUILayout.PropertyField(spPosOffset);
 

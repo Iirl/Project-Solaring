@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace solar_a
 {
@@ -16,11 +17,11 @@ namespace solar_a
     /// - Quit the application
     /// </summary>
     public class ManageScene : MonoBehaviour
-    {
-        [SerializeField]
-        private string lveve1Scene = "Level1";
+    {        
         [HideInInspector]
         public string sceneID = "SceneID";
+        [SerializeField]
+        public int level1Scene = 2;
         public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
         public string GetScenesName() => GetActiveSceneName();
         public void ReloadCurrentScene() => SceneReload();
@@ -59,13 +60,12 @@ namespace solar_a
         private void SaveInformation(int level)
         {
             PlayerPrefs.SetInt(sceneID, GetScenes());
-
             StaticSharp.Rocket_INFO = ManageCenter.rocket_ctl.RocketVarInfo;         //火箭當前數值
             StaticSharp.Rocket_BASIC = ManageCenter.rocket_ctl.RocketBasic;     //火箭基本數值
             StaticSharp.Rocket_POS = ManageCenter.rocket_ctl.transform.position;     //火箭當前位置
             //StaticSharp.DistanceRecord = UI_moveDistane;   // 調整成目前距離
             StaticSharp._LEVEL = level;
-            StaticSharp.DistanceRecord = ManageCenter.mgCenter.stInfo[level].finishDistane;     // 紀錄當前關卡的距離
+            StaticSharp.DistanceRecord = ManageCenter.UI_moveDistane;     // 紀錄當前關卡的距離
         }
         /// <summary>
         /// 清除所有場上存在過的物件
@@ -73,10 +73,11 @@ namespace solar_a
         /// <param name="restart">真為重新載入場景</param>
         private void ClearInformation(bool restart=false)
         {
+            PlayerPrefs.SetInt(sceneID, 2);
             StaticSharp.Rocket_INFO = Vector3.zero;
             StaticSharp.Rocket_BASIC = Vector3.zero;     //火箭基本數值
             StaticSharp.Rocket_POS = Vector3.zero;     //火箭當前位置
-            StaticSharp._LEVEL = 2;
+            StaticSharp._LEVEL = 1;
             StaticSharp.DistanceRecord = 0;     // 紀錄當前關卡的距離
             // 淨空場景物件
             noDestoryInChangeScene[] nDICS = FindObjectsOfType<noDestoryInChangeScene>();
@@ -85,7 +86,7 @@ namespace solar_a
             if (!restart) return;
             //若需要重新載入場景則執行以下段落
             StaticSharp._SecretSCORE = 0;
-            GenericScene(lveve1Scene);
+            GenericScene(level1Scene);
         }
         /// <summary>
         /// 根據目前的指標移動到下一關:
@@ -95,7 +96,10 @@ namespace solar_a
         public void LoadScenes()
         {
             int idx = PlayerPrefs.GetInt(sceneID);
-            idx = (GetScenes(true) == idx + 1) ? 0 : idx + 1;
+            float nextdist = ManageCenter.mgCenter.stInfo[idx-1].finishDistane;
+            float inDist =  StaticSharp.DistanceRecord += 1000f;
+            //print($"{inDist} -> {idx}:{nextdist}");
+            if (inDist > nextdist) idx += 1;
             GenericScene(idx);
         }
         /// <summary>
@@ -131,6 +135,7 @@ namespace solar_a
         {
             //print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
             //print($"最大場景數量為：{GetScenes(true)}");
+
         }
     }
 }

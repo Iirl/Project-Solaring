@@ -83,8 +83,9 @@ namespace solar_a
         /// <param name="setData">要讀進的資料，可以配合 DataLoad 使用。</param>
         private void PutSetting(string setData)
         {
+            if (setData.Length < 1) return;
             string[] datas = setData.Split('@');
-            StaticSharp._VOLUME = float.Parse(datas[0]);
+            StaticSharp._VOLUME = float.Parse(datas[0]);            
             volSlider.value = StaticSharp._VOLUME;
             langToggle[0].isOn = (datas[1].ToLower().Contains("true") ? true : false);
             langToggle[1].isOn = (datas[2].ToLower().Contains("true") ? true : false);
@@ -92,6 +93,7 @@ namespace solar_a
         }
         private void PutSources(string setData)
         {
+            if (setData.Length < 1) return;
             string[] datas = setData.Split('@');
             StaticSharp._LEVEL = Convert.ToInt32(datas[0]);
             StaticSharp._SCORE = Convert.ToInt32(datas[1]);
@@ -106,9 +108,13 @@ namespace solar_a
 
         private void Awake()
         {
+        }
+        private void Start()
+        {
             LoadSettingData();
             LoadScoreData();
             print(GetPath(setting));
+
         }
     }
 }

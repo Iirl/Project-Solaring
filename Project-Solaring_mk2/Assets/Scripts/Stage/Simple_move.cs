@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,8 +34,13 @@ namespace solar_a
         [SerializeField, Header("停止追蹤距離"), Tooltip("If your Screen size less than 12, recommend to fix it."), HideInInspector]
         protected float stopTracert = 12;
         private float dist;
+        float stageDict => ManageCenter.mgCenter.GetStagePOS().y;
+        float stageyBorder => ManageCenter.mgCenter.GetStageBorder().y;
         //
         private AudioSource[] audios;
+        // 公開方法
+        public delegate void delegateGameObject(GameObject obj);
+        public delegateGameObject releaseObj;
 
         /// <summary>
         /// 持續移動方法：依據 direct 的方向移動
@@ -63,6 +69,7 @@ namespace solar_a
             transform.position = Vector3.Lerp(transform.position, target_v3, speed);
             if (dist < 1) moveMethod = MoveMethod.Direction;
         }
+        //
         #region 物件啟動事件
         /// <summary>
         /// 將物件的聲音執行或停止
@@ -92,7 +99,7 @@ namespace solar_a
         {
             target_v3 = target ? target.transform.position : straightV3;                // 設定目標的座標
             direct = (transform.position - target_v3).normalized; // 設定目標的方向
-            if (randomSpd) Orispeed = Random.Range(Orispeed, Orispeed * 2);
+            if (randomSpd) Orispeed = UnityEngine.Random.Range(Orispeed, Orispeed * 2);
         }
 
         // Update is called once per frame

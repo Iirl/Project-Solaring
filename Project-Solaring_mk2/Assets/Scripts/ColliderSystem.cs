@@ -8,6 +8,7 @@ using UnityEngine;
 public class ColliderSystem : MonoBehaviour
 {
     #region 屬性
+    static ManageCenter mgc;
     static ColliderSystem collSys;
     public enum Genertic { Supply, Protect, UnlimitFuel, UnlimitRush, Other }
     #endregion
@@ -49,28 +50,31 @@ public class ColliderSystem : MonoBehaviour
     static public int CollisionPlayerEvent(GameObject hitObj)
     {
         if (!hitObj) return -1;
+        ManageDisco mgDsco =  ManageCenter.mgDsko;
+        Space_Controll spc = ManageCenter.space_ctl;
         //print(hitObj.name);
         int i = 0;
         if (hitObj.tag.Contains("Enemy"))
         {
+            if (spc.isRotate) return -1;
             i = 1; //結束遊戲處理
             StaticSharp._SecretSCORE++;
-            if (ManageCenter.space_ctl.isRotate) return -1;
-            ManageCenter.mgDsko.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
-            if (!ManageCenter.mgCenter.protect) StaticSharp.Conditions = State.End;
+            mgDsco.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
+            if (!mgc.protect) StaticSharp.Conditions = State.End;
+            mgc.ObjectDestory(hitObj, false);
             //print(hitObj.name);
-            Destroy(hitObj);
+            //Destroy(hitObj);
         }
         else if (hitObj.tag.Contains("Block"))
         {
             i = 2; //當火箭碰到補品時
             if (collSys) collSys.SendMessage("BolckEvent", hitObj.name);
-            ManageCenter.mgCenter.ObjectDestory(hitObj, false);
+            mgc.ObjectDestory(hitObj, false);
         }
         else if (hitObj.tag.Contains("Respawn"))
         {
             i = 3; // 碰到太空站
-            ManageCenter.mgCenter.InToStation();
+            mgc.InToStation();
         }
         else if (hitObj.tag.Contains("Finish"))
         {
@@ -162,5 +166,6 @@ public class ColliderSystem : MonoBehaviour
     private void Awake()
     {
         collSys = GetComponent<ColliderSystem>();
+        mgc = ManageCenter.mgCenter ? ManageCenter.mgCenter : FindObjectOfType<ManageCenter>();
     }
 }

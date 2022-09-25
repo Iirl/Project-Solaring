@@ -192,13 +192,20 @@ namespace solar_a
         /// </summary>
         /// <param name="obj">碰撞區域回傳的物件</param>
         GenerateSystem objGS;
+        GenerateSystem[] generateSystems;
         public void ObjectDestory(GameObject obj, bool hasDesTime = false)
         {
             objGS = obj.transform.GetComponentInParent<GenerateSystem>();
             //print($"名稱: {objGS.name} hasdes:{hasDesTime}");  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
             if (!objGS) { Destroy(obj); return; }
-            objGS.Destroys(obj, hasDesTime);
+            objGS.ReleaseObj(obj, hasDesTime);
+            //StartCoroutine(ReleaseTimer(objGS, obj, 1.2f, hasDesTime));
             //gener_class.Destroys(obj);
+        }
+        public void ObjectDestoryAll()
+        {
+            generateSystems = FindObjectsOfType<GenerateSystem>();
+            foreach (GenerateSystem e in generateSystems) e.RenewObjAll(true);
         }
         #endregion
         #region 場 景 相 關
@@ -396,16 +403,18 @@ namespace solar_a
 
         private void Start()
         {
-            //print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+            // 全域變數設定
+            /// print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
             StaticSharp.isChangeScene = false;
             if( StaticSharp.isProtected ) X_PowerMode();
-            // 取得距離數值，如果沒有則從零開始
+            /// 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
             UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
             levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
             if (mgScene.GetScenesName().Contains("Tutorail")) levelNow = 0;
             else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
-            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");            
+            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
+            // 場景控制變數設定
         }
         #endregion
         private void Update()

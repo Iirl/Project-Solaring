@@ -52,10 +52,13 @@ namespace solar_a
             public Quaternion Create_r3 = Quaternion.identity;
             public Object OBTarget => Target;
             public Object OBCloned ;
-            public ObjectPool<GameObject> GenerPool;
             //  程式內部變數
+            private ObjectPool<GameObject> GenerPool;
             private GameObject Parent, Target;
-            int countGene = 0;
+            private int numList = -1;
+            public int countAll => GenerPool.CountAll;
+            public int countAct => GenerPool.CountActive;
+            public int countInact => GenerPool.CountInactive;
 
             /// <summary>
             /// 製作物件時會放在父物件當中，然後再依此設定方向與轉向。
@@ -64,6 +67,7 @@ namespace solar_a
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
             public Generater(GameObject parent, GameObject target, int max=100)
             {
+                numList = 0;
                 Target = target;
                 Parent = parent;
                 Create_v3 = parent.transform.position;
@@ -78,6 +82,7 @@ namespace solar_a
             /// <param name="rot">目標物件的旋轉座標，輸入0表示套用預設值</param>
             public Generater(GameObject parent, GameObject target, Vector3 pos, Quaternion rot, int max = 100)
             {
+                numList = 1;
                 Target = target;
                 Parent = parent;
                 Create_v3 = pos;
@@ -89,10 +94,35 @@ namespace solar_a
             private GameObject CreatePoolOnParent() => Instantiate(Target, Create_v3, Create_r3, Parent.transform);
             protected virtual void SpawnDestory(GameObject obj) => Destroy(obj);        //設定破壞物件的條件
             protected virtual void SpawnRelease(GameObject obj) => obj.SetActive(false);//Release 物件
-            protected virtual void SpawnTake(GameObject obj) => obj.SetActive(true);    //Get 物件
-            public GameObject GenerateOut() => GenerPool.Get();
-            public void GenerateOff(GameObject obj) => GenerPool.Release(obj);
+            protected virtual void SpawnTake(GameObject obj) => obj.SetActive(true);   //Get 物件
+            // 使用物件池方法
+            public GameObject GenerateOut() => SetCheck();
+            public void GenerateOff(GameObject obj) => OutCheck(obj);
+            public void GenerateOffClear(GameObject obj) => OutCheck(obj,true);
 
+
+            private GameObject SetCheck()
+            {
+                GameObject gob = GenerPool.Get();
+                gob.transform.position = Create_v3;
+                gob.transform.rotation = Create_r3;
+                try
+                {
+                    gob.GetComponent<Simple_move>().enabled = true;
+                }
+                catch (System.Exception) { }
+                return gob;
+            }
+
+            private void OutCheck(GameObject obj, bool isClear =false)
+            {
+                if (obj)
+                {
+                    obj.transform.position = Vector3.zero;
+                }
+                if (isClear) { GenerPool.Clear(); } 
+                else GenerPool.Release(obj);
+            }
             /// <summary>
             /// 自動產生物件，會根據既有欄位決定生成的內容
             /// </summary>
@@ -104,7 +134,6 @@ namespace solar_a
                     GameObject cloned = Instantiate(Target, Create_v3, Create_r3, Parent.transform);
                     if (destoryTime > 0) Destroy(cloned, destoryTime);
                     OBCloned = cloned;
-                    countGene++;
                     return cloned;
                 }
                 return null;
@@ -117,7 +146,6 @@ namespace solar_a
                     GameObject cloned = Instantiate(Target, Create_v3, Create_r3);
                     if (destoryTime > 0) Destroy(cloned, destoryTime);
                     OBCloned = cloned;
-                    countGene++;
                     return cloned;
                 }
                 return null;
@@ -137,6 +165,7 @@ namespace solar_a
         #endregion
 
         #region 陣列清單類別 ObjectArray
+        public delegate void degGOB(GameObject obj);
         /// <summary>
         /// 修改將物件對清單操作時的一些基本資訊
         /// </summary>
@@ -147,8 +176,8 @@ namespace solar_a
             /// 追加第二維陣列
             /// 相關資訊如下：
             /// 0   InstanceID
-            /// 1   Parent Object self
-            /// 2   Parent Game Object self
+            /// 1   Parent Game Object self
+            /// 2   Game Object self
             /// 3   Object'name
             /// 4   Position
             /// 5   Rotation
@@ -159,12 +188,13 @@ namespace solar_a
             public override int Add(object o)
             {
                 GameObject uo = (GameObject)o;
-                Transform uot = FindObjectOfType<Transform>();
+                Transform uot = uo.GetComponent<Transform>();
                 // 加入 Object 為一陣列。
                 ArrayList newlist = new();
                 newlist.Add(uot.GetInstanceID());
                 if (uo.transform.parent) newlist.Add(uo.transform.parent.gameObject);
-                else newlist.Add(uo);
+                else newlist.Add("0");
+                newlist.Add(uo);
                 newlist.Add(uo.name);
                 newlist.Add(uot.localPosition);
                 newlist.Add(uot.localRotation);
@@ -184,16 +214,45 @@ namespace solar_a
                     length--;
                     try
                     { // 將儲存的物件釋放
-
+                        GameObject obj;
+                        obj = al[2].GetType() == typeof(GameObject) ? (GameObject)al[2]: null;
+                        if(obj) Destroy(obj);
                     }
                     catch (System.Exception)
                     {
-                        print("找不到物件喔");
+                        Destroy((GameObject)al[2],1f);
                     }
                 }
 
                 base.RemoveAt(i);
 
+            }
+            public void ReleaseAt(int i)
+            {
+                ArrayList al = (ArrayList)this[i];
+                GameObject gob = (GameObject)al[2];
+                try
+                {
+                    gob.GetComponent<Simple_move>().releaseObj(gob);
+                }
+                catch (System.Exception)
+                {
+                    RemoveAt(i);
+                    print("釋放失敗，直接銷毀。");
+                }
+            }
+            public void RemoveAll()
+            {
+                foreach (var list in this)
+                {
+                    ArrayList listA = (ArrayList)list;
+                    GameObject listA_Gob = (GameObject)listA[2];
+                    try
+                    {
+                        listA_Gob.GetComponent<Simple_move>().releaseObj(listA_Gob);
+                    }
+                    catch (System.Exception) { }
+                }
             }
             /// <summary>
             /// 測試用讀取清單函數
@@ -243,7 +302,6 @@ namespace solar_a
                 //print((GameObject)item[2]);
                 return (GameObject)item[2];
             }
-
         }
         #endregion
 

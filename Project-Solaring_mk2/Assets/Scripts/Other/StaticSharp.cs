@@ -66,9 +66,10 @@ public class StaticSharp
             }
             else if (isAtl)
             {
+                //SSR.SendMessage("GeneratorBlock"); //產生OBJ物件
                 if (kLS) Debug.Log("A+S button");
                 else if (kN) ManageCenter.rocket_ctl.StateOnVisable();
-                else if (kR) SSR.SendMessage("GeneratorBlock"); //產生OBJ物件
+                else if (kR) ManageCenter.mgCenter.ObjectDestoryAll();
                 else if (kP) ManageCenter.mgCenter.X_PowerMode();
             }
             else if (isLS)
