@@ -1,4 +1,4 @@
-//#define OldMethod;
+﻿//#define OldMethod;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -55,7 +55,6 @@ namespace solar_a
             //  程式內部變數
             private ObjectPool<GameObject> GenerPool;
             private GameObject Parent, Target;
-            private int numList = -1;
             public int countAll => GenerPool.CountAll;
             public int countAct => GenerPool.CountActive;
             public int countInact => GenerPool.CountInactive;
@@ -67,7 +66,6 @@ namespace solar_a
             /// <param name="target">目標物件，甚麼 Object 會被生成</param>
             public Generater(GameObject parent, GameObject target, int max=100)
             {
-                numList = 0;
                 Target = target;
                 Parent = parent;
                 Create_v3 = parent.transform.position;
@@ -82,8 +80,7 @@ namespace solar_a
             /// <param name="rot">目標物件的旋轉座標，輸入0表示套用預設值</param>
             public Generater(GameObject parent, GameObject target, Vector3 pos, Quaternion rot, int max = 100)
             {
-                numList = 1;
-                Target = target;
+	            Target = target;
                 Parent = parent;
                 Create_v3 = pos;
                 Create_r3 = rot;

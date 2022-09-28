@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -23,23 +23,10 @@ namespace solar_a
             spStraight = serializedObject.FindProperty("straightV3");
             spStopTracert = serializedObject.FindProperty("stopTracert");
 
-            if (spMethod.enumValueFlag == 0)
-            {
-                EditorGUILayout.PropertyField(spStraight);
-
-            }
-            else if (spMethod.enumValueFlag == 1)
-            {
-
-            }
-            else if (spMethod.enumValueFlag == 2)
-            {
-                EditorGUILayout.PropertyField(spStopTracert);
-            }
-            else if (spMethod.enumValueFlag == 3)
-            {
-
-            }
+	        if (spMethod.enumValueFlag == 0) EditorGUILayout.PropertyField(spStraight);
+            else if (spMethod.enumValueFlag == 1) {}
+            else if (spMethod.enumValueFlag == 2) EditorGUILayout.PropertyField(spStopTracert);
+            else if (spMethod.enumValueFlag == 3) {}
 
             serializedObject.ApplyModifiedProperties();
         }
