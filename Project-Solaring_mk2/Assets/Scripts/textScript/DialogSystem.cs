@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace solar_a
         private GameObject textDelta;
         [SerializeField]
         private KeyCode KeyInput;
-        [SerializeField, Header("文字效果時間"), Tooltip("等待時間"), Range(0.1f, 5f)]
+        [SerializeField, Header("文字效果時間"), Tooltip("等待時間"), Range(0f, 5f)]
         private float textWait=0.5f;
         [SerializeField, Tooltip("打字時間"),Range(0.01f,0.2f)]
         private float textTypeEffect=0.0625f;
@@ -26,8 +26,11 @@ namespace solar_a
         private List<int> evKeyIDs ;
         //
         #region 內部資料欄位
-        private CanvasGroup dialogCVG;
-        bool wait=true;
+	    private CanvasGroup dialogCVG;
+	    private IEnumerator ItypeEffect;
+	    TextMeshProUGUI langText;
+	    bool wait=true, evDown=false;
+	    int line;
         [System.Serializable]
         public class EventData
         {
@@ -39,50 +42,62 @@ namespace solar_a
             public GameObject gameObject;
         }
         #endregion
-
-
-        private void FontAssetChange()
-        {
-            TextField.font = landata.Language[StaticSharp._LANG_ID].font;
-        }
+		
+	    /// <summary>
+	    /// 重新讀取
+	    /// </summary>
+	    private void ReloadDialog(){
+	    	int lid = StaticSharp._LANG_ID;
+	    	StartCoroutine(dialogCVG.FadeEffect(false));
+	    	StopCoroutine(ItypeEffect);
+	    	ItypeEffect = TypeEffect(lid, line);
+	    	FontAssetChange(lid);
+	    	StartCoroutine(ItypeEffect);
+	    }
+	    private void FontAssetChange(int langID) => TextField.font = landata.Language[langID].font; //更換字型
         /// <summary>
         /// 打字機效果
         /// </summary>
         /// <param name="lang">輸入語言編號會切換資料語言</param>
         /// <returns></returns>
-        private IEnumerator TypeEffect(int lang)
+        private IEnumerator TypeEffect(int lang,int setLine = 0)
         {
             StaticSharp.isDialogEvent = true;
-            StartCoroutine(dialogCVG.FadeEffect(true));
+	        StartCoroutine(dialogCVG.FadeEffect(true));
+	        textDelta.SetActive(false);
             bool skip = false;
-            int line = 0;
+            line = 0;
             float setTime = 0;
-            wait = true;
+	        wait = true;
             foreach (var e in landata.Language[lang].datas)
             {
                 TextField.text = "";
                 foreach (var content in e)
                 {
+                	if (setLine != 0) if (line < setLine) {line++; continue;}
                     if(content.Equals('<')) skip = true;
                     else if(content.Equals('>')) skip = false;
                     TextField.text += content;
                     if (!skip) yield return new WaitForSeconds(textTypeEffect);
                     else if (Input.GetKeyUp("x")) { TextField.text = e; break; }
                 }
-
-                // 等待使用者回應事件
-                textDelta.SetActive(true);
+	            //print("//等待使用者回應事件");
+	            textDelta.SetActive(true);
                 while (wait)
-                {
-                    setTime += Time.deltaTime;
-                    if(eventData.Count>0) yield return StartCoroutine(EventDitect(line));
-                    if (Input.GetKey(KeyInput) || setTime > textWait) wait = false;
-                    else yield return null;
+                {	                
+                	if(eventData.Count>0 && !evDown) yield return StartCoroutine(EventDitect(line));
+	                if (textWait > 0) {
+		                setTime += Time.deltaTime;
+	                	if (setTime > textWait) wait = false;
+	                }
+	                else if (Input.GetKey(KeyInput) || Input.GetKey(KeyInput.ToString().ToLower())) wait = false; 
+	                yield return null;
                 }
                 // 段落結束處理
                 textDelta.SetActive(false);
                 yield return null;
-                wait = true;
+	            wait = true;
+	            evDown = false;
                 setTime = 0;
                 line++;
             }
@@ -123,6 +138,9 @@ namespace solar_a
                         break;
                 }
             }
+	        evDown = true;	        
+	        if (!textDelta.activeSelf) 
+		        textDelta.SetActive(true);
             yield return null;
         }
         /// <summary>
@@ -159,14 +177,15 @@ namespace solar_a
         {
             dialogCVG = GetComponent<CanvasGroup>();
             evKeyIDs = new List<int>();
-            FontAssetChange();
+	        FontAssetChange(0);
         }
         private void Start()
-        {
-            StartCoroutine(TypeEffect(StaticSharp._LANG_ID));
+	    {		    
+		    StaticSharp.isDialogEvent = false;
+	        if (!StaticSharp.isDialogEvent) {ItypeEffect = TypeEffect(StaticSharp._LANG_ID); StartCoroutine(ItypeEffect);}
             for (int i = 0; i < eventData.Count; i++) evKeyIDs.Add(eventData[i].eventKeyID);
             guiWindows.x = Screen.width / 3.33f;
-            guiWindows.y= Screen.height / 10;
+	        guiWindows.y= Screen.height / 10;
         }
 
         #region GUI 顯現

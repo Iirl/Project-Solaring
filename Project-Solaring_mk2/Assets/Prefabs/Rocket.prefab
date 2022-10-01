@@ -566,6 +566,7 @@ MonoBehaviour:
   fireLenght_max: {x: 0.5, y: 3}
   fireBoost: {x: 0.15, y: 1.2}
   fire_volume: 0.6
+  aniCloseTime: 1
   Speed_slow: 0
 --- !u!114 &511811643254466930
 MonoBehaviour:

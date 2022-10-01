@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -18,7 +18,7 @@ namespace solar_a
         AudioSource Rocket_sound;
         // 動畫控制
         Animator Rocket_ani;
-        private bool isBoost;
+	    private bool isBoost;
         #endregion
         #region #序列化屬性
         [SerializeField, Header("停用玩家操控")]
@@ -50,7 +50,8 @@ namespace solar_a
         private Vector2 fireLenght_min = new Vector2(0.5f, 1f), fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
         [SerializeField, Tooltip("火焰最大音量"), Range(0.1f, 1f), HideInInspector]
         private float fire_volume = 0.6f;
-
+	    [SerializeField, Header("火箭控制項"),Tooltip("火箭動畫關閉時間")]
+	    private float aniCloseTime = 1;
         [SerializeField, Header("火箭狀態")]
         public RocketCondition rc_dtion = new RocketCondition() { state = RocketState.Stay };
         //
@@ -65,8 +66,9 @@ namespace solar_a
         /// RocketBasic 是火箭的基本素質，重新讀取或換場景時會讀取該資料，改造火箭時不能低於該數值。
         /// SetBasicInfo 直接修改火箭的基本素質，除了太空站要修改外盡量不要動到這裡。
         /// </summary>
-        public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
-        public float Speed_slow;
+	    public Vector3 SetBasicInfo(float x, float y, float z) => RocketBasic = new Vector3(x, y, z);
+	    [Header("減速效果"), HideInInspector]
+        public float Speed_slow; 
 
         #region 公用方法
         public void ReGetCOMPON() => SetComponent();
@@ -297,7 +299,7 @@ namespace solar_a
             // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
             // 如果動畫內容是開啟的狀態，則在一定時間後關閉
-            if (Rocket_ani.isActiveAndEnabled) Invoke("CloseAnimator", 1);
+	        if (Rocket_ani.isActiveAndEnabled) Invoke("CloseAnimator", aniCloseTime);
             // 其他項目
             if (offControl) CloseTheControl = offControl;
         }

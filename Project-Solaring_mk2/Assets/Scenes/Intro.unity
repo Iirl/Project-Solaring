@@ -355,6 +355,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4587356875361899390, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: aniCloseTime
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 4587356875361899391, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: m_Enabled
@@ -1528,8 +1533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fe46687061c844d80e0719f12f48a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
 --- !u!1 &1234056260
 GameObject:
   m_ObjectHideFlags: 0
