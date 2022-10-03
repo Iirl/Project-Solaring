@@ -376,15 +376,19 @@ namespace solar_a
             }
         }
         private void OnTriggerEnter(Collider other)
-        {
-            int idx = ColliderSystem.CollisionPlayerEvent(other.gameObject);
+	    {
+		    ColEvent(other.gameObject, transform.position);
             //print($"(Rocket_Controll)發生碰撞的位置:{other.transform.position}");
             //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");            
         }
         private void OnCollisionEnter(Collision collision)
         {
-            int idx = ColliderSystem.CollisionPlayerEvent(collision.gameObject);
+	        ColEvent(collision.gameObject, transform.position);
         }
+        
+	    private void ColEvent(GameObject gob, Vector3 pos){
+	    	int idx = ColliderSystem.CollisionPlayerEvent(gob);
+	    }
         #endregion
         #region ##
         #endregion

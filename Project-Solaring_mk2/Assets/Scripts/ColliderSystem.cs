@@ -1,4 +1,4 @@
-using solar_a;
+﻿using solar_a;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -100,7 +100,7 @@ public class ColliderSystem : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     private void BolckEvent(string name)
-    {
+	{
         if (!tmpvar && name.Length > 0)
         {
             tmpvar = true;

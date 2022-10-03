@@ -532,10 +532,10 @@ GameObject:
   - component: {fileID: 4587356875361899389}
   - component: {fileID: 4587356875361899391}
   - component: {fileID: 4587356875361899384}
-  - component: {fileID: 8066993751729948828}
   - component: {fileID: 4587356875361899390}
   - component: {fileID: 511811643254466930}
   - component: {fileID: 8349909292034458043}
+  - component: {fileID: 4655201717595910019}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -702,56 +702,6 @@ CapsuleCollider:
   m_Height: 300
   m_Direction: 2
   m_Center: {x: 0, y: -0.15, z: 0}
---- !u!114 &8066993751729948828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3592277314727565250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effects:
-  - label: meteorite
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: state
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: comet
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  - label: ufo
-    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
-      type: 3}
-    ExplodeTime: 2
-  blocks:
-  - label: Bottle
-    species: 0
-    plus: 5
-    adClip: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
-    adVol: 0.3
-  - label: UnlimitedBox
-    species: 2
-    plus: 5
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
-  - label: ShieldBox
-    species: 1
-    plus: 5
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
-  - label: Box
-    species: 0
-    plus: 10
-    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
-    adVol: 0.3
 --- !u!114 &4587356875361899390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,7 +756,8 @@ MonoBehaviour:
   fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   rockets:
   - {fileID: 3037491925543192508, guid: ac52c113bf153b145946ad46a42ebd95, type: 3}
-  - {fileID: 8452828532879085149, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
+  - {fileID: 232480540849074456, guid: 8a72eb01b61a89d42962448ccf5cfc08, type: 3}
+  rocketIndex: -1
 --- !u!95 &8349909292034458043
 Animator:
   serializedVersion: 4
@@ -827,6 +778,56 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4655201717595910019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592277314727565250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1494c01027912c44181cf1d25acbb763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - label: meteorite
+    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
+      type: 3}
+    ExplodeTime: 2
+  - label: state
+    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
+      type: 3}
+    ExplodeTime: 2
+  - label: comet
+    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
+      type: 3}
+    ExplodeTime: 2
+  - label: ufo
+    ExplodeObj: {fileID: 6192724089161036641, guid: e17d9a3f04750764c8c0a7a0461e4c3b,
+      type: 3}
+    ExplodeTime: 2
+  blocks:
+  - label: Bottle
+    species: 0
+    plus: 20
+    adClip: {fileID: 8300000, guid: 03117a5d6ffc1b449921c04d98bb851a, type: 3}
+    adVol: 0.3
+  - label: UnlimitedBox
+    species: 2
+    plus: 5
+    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    adVol: 0.3
+  - label: ShieldBox
+    species: 1
+    plus: 5
+    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    adVol: 0.3
+  - label: Box
+    species: 0
+    plus: 10
+    adClip: {fileID: 8300000, guid: 2b336531fb7ea534fb7e38637dceddba, type: 3}
+    adVol: 0.3
 --- !u!1 &4179556285600123791
 GameObject:
   m_ObjectHideFlags: 0

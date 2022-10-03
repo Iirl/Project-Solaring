@@ -35,12 +35,14 @@ public class SSRocket : MonoBehaviour
     private GameObject fuelObj;
     [SerializeField, Header("飛船物件")]
 	private GameObject[] rockets;
+	private string pfRocketIdx = "pfabRocketIndex";
     #endregion
 	public int rocketIndex =-1;
     public void ShowDebug(bool isOpen) => showPassFiled = isOpen;
 	public void ChangeSkin(int i) => PlayerChange(i);
     public void ChangeToUFO() => PlayerChange(0);
 	public void ChangeToCargo() => PlayerChange(1);
+	public Vector3 DefaultBasicStatus => rocketIndex < 0 ? rct.RocketBasic : rockets[rocketIndex].GetComponent<Rocket_Controll>().RocketBasic;
     /// <summary>
     /// 狀態切換控制器
     /// </summary>
@@ -134,13 +136,13 @@ public class SSRocket : MonoBehaviour
 		} catch (System.Exception e) { print($"超過上限{idx}:{e.ToString()}"); return; }
 		obGenerate.Create_v3 = transform.position + Vector3.up;
 		GameObject newPlayer = (GameObject)obGenerate.Generates();
-        newPlayer.MoveComponent(rct.GetComponent<ColliderSystem>());
+		newPlayer.MoveComponent(rct.GetComponent<ColliderSystem>());
         //StartCoroutine(LoadCompTimer(newPlayer));
         ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
         ManageCenter.rocket_ctl = newPlayer.GetComponent<Rocket_Controll>();
 		rct = newPlayer.GetComponent<Rocket_Controll>();
 		rocketIndex = rocketIndex != idx ? idx : -1;
-		print(rocketIndex);
+		PlayerPrefs.SetInt(pfRocketIdx, rocketIndex);
         Destroy(gameObject);
     }
     /// <summary>
@@ -164,6 +166,12 @@ public class SSRocket : MonoBehaviour
 	    rootLink = GameObject.Find("Record");
         SendControl();
     }
+    
+	// Start is called on the frame when a script is enabled just before any of the Update methods is called the first time.
+	protected void Start()
+	{
+		rocketIndex = PlayerPrefs.GetInt(pfRocketIdx, -1);
+	}
 
     [Header("顯示功能"), Space]
     private Rect windowRect = new Rect(20, 100, 200, 120);

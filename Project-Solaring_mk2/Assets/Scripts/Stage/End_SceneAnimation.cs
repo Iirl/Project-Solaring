@@ -19,7 +19,7 @@ namespace solar_a
 		protected void Update()
 		{
 			deltaTime+=Time	.deltaTime;
-			if (deltaTime >= endTime) {
+			if (deltaTime >= endTime || Input.GetKeyDown(KeyCode.Escape)) {
 				deltaTime = 0;
 				ReloadToMenuAndClear();
 			}

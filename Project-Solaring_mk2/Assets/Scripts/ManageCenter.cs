@@ -80,7 +80,8 @@ namespace solar_a
         public StageInformation[] stInfo;
         [SerializeField]
         private int levelBuildSetting = 2;
-        private int levelNow;
+	    private int levelNow;
+	    private string senceName;
         [System.Serializable]
         public class StageInformation
         {
@@ -227,7 +228,7 @@ namespace solar_a
         /// </summary>
         public void InToStation()
 	    {
-		    if (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
+		    //if (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
 		    mgScene.ReloadToAndClear();
             mgScene.SaveLeveInform(levelNow);
             mgScene.LoadScenes("Station");
@@ -237,7 +238,7 @@ namespace solar_a
         /// </summary>
         private void StartChageScene()
 	    {
-		    if (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
+		    //sif (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
             mgScene.SaveLeveInform(levelNow);
             mgScene.SceneChageEvent(true);
         }
@@ -412,8 +413,9 @@ namespace solar_a
             /// 取得距離數值，如果沒有則從零開始
             UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
             UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
-            levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
-            if (mgScene.GetScenesName().Contains("Tutorail")) levelNow = 0;
+	        levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
+	        senceName = mgScene.GetScenesName();
+            if (senceName.Contains("Tutorail")) levelNow = 0;
             else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
             //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
             // 場景控制變數設定
@@ -432,7 +434,7 @@ namespace solar_a
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (mgScene.GetScenesName().Contains("Tutorail")) { if (UI_moveDistane <= 2000) MoveAction(); }
+                    if (senceName.Contains("Tutorail")) { if (UI_moveDistane <= 2000) MoveAction(); }
                     else if (UI_moveDistane <= stInfo[levelNow].finishDistane) { MoveAction(); }
                     break;
                 case State.Loading:
@@ -459,11 +461,13 @@ namespace solar_a
                     break;
             }
             //print(StaticSharp.Conditions);  //狀態機檢查
-            // 按鍵輸入偵測
-            StaticSharp.SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
-                Input.GetKey(KeyCode.LeftAlt),
-                Input.GetKey(KeyCode.LeftShift)
-                );
+	        // 按鍵輸入偵測
+	        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.LeftShift)){
+		        StaticSharp.SpecialistKeyInput(Input.GetKey(KeyCode.LeftControl),
+			        Input.GetKey(KeyCode.LeftAlt),
+			        Input.GetKey(KeyCode.LeftShift)
+		        );
+	        }
             if (Input.GetKeyDown(KeyCode.Escape)) Show_Menu(pauseMenus);
         }
 
