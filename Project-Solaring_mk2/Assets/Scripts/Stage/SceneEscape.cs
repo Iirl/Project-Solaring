@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,8 +15,9 @@ namespace solar_a
         public IEnumerator LoadNextScenesEmtor()
         {
             while (!StaticSharp.isChangeScene) yield return new WaitForSeconds(0.1f);
-            StaticSharp.isChangeScene =false;
-            SceneChageEvent(true);
+	        StaticSharp.isChangeScene =false;
+	        Time.timeScale = 1;
+	        SceneChageEvent(true);
             yield return null;
         }
         private void Start()
@@ -26,11 +27,11 @@ namespace solar_a
         }
 
         private void Update()
-        {
+	    {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                StaticSharp.isChangeScene =false;
-                SceneChageEvent(true);
+	            StaticSharp.isChangeScene =false;
+	            SceneChageEvent(true);
             }
         }
     }

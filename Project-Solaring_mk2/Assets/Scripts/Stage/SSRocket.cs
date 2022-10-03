@@ -34,10 +34,11 @@ public class SSRocket : MonoBehaviour
     [SerializeField, Header("燃料物件")]
     private GameObject fuelObj;
     [SerializeField, Header("飛船物件")]
-    private GameObject[] rockets;
+	private GameObject[] rockets;
     #endregion
+	public int rocketIndex =-1;
     public void ShowDebug(bool isOpen) => showPassFiled = isOpen;
-    public void ChangeToBorkenRocket() => PlayerChange(0);
+	public void ChangeSkin(int i) => PlayerChange(i);
     public void ChangeToUFO() => PlayerChange(0);
 	public void ChangeToCargo() => PlayerChange(1);
     /// <summary>
@@ -124,8 +125,9 @@ public class SSRocket : MonoBehaviour
 	{
 		GameObject parobj = rootLink ? rootLink : transform.parent.gameObject;
 		// 將基本資料寫入暫存區中
-	    StaticSharp.Rocket_INFO = rct.RocketVarInfo;
-		//StaticSharp.Rocket_INFO.x = 0; //假如需要變換後改成當前的資料，就設定為0讓系統重抓資料。
+		StaticSharp.Rocket_INFO = Vector3.zero;
+		StaticSharp.Rocket_INFO.x = rct.RocketVarInfo.x; //假如需要變換後改成當前的資料，就設定為0讓系統重抓資料。
+		StaticSharp.Rocket_rushCount = rct.RushCounts;
 		// 讀取模型資料（在火箭物件上）
 		try {
 			obGenerate = new Object_Generator.Generater(parobj, rockets[idx]);
@@ -136,8 +138,9 @@ public class SSRocket : MonoBehaviour
         //StartCoroutine(LoadCompTimer(newPlayer));
         ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
         ManageCenter.rocket_ctl = newPlayer.GetComponent<Rocket_Controll>();
-        rct = newPlayer.GetComponent<Rocket_Controll>();
-       
+		rct = newPlayer.GetComponent<Rocket_Controll>();
+		rocketIndex = rocketIndex != idx ? idx : -1;
+		print(rocketIndex);
         Destroy(gameObject);
     }
     /// <summary>

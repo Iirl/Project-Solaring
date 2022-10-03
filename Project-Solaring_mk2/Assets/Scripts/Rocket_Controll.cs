@@ -34,7 +34,8 @@ namespace solar_a
         [SerializeField, Range(0.1f, 5.0f)]
         private float rush_time;
         [SerializeField, Range(1, 20)]
-        private int rush_counts;
+	    private int rush_counts;
+	    public int RushCounts => rush_counts;
         [SerializeField, Header("×快速查看"), Tooltip("程式控制項目，設定也沒意義。")]
         private float fuel = 100;
         private float speed_v = 4f;
@@ -291,17 +292,23 @@ namespace solar_a
         private void Start()
         {
             mgc = ManageCenter.mgCenter;
-            // 檢查暫存器中是否有資料，如果有就讀取 => 如果從中繼站出來的火箭需要重讀資料。
-            RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
+	        // 檢查暫存器中是否有資料，如果有就讀取 => 如果從中繼站出來的火箭需要重讀資料。
+	        RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
             else
             { 
 	            fuel = StaticSharp.Rocket_INFO.x;
                 speed_v = StaticSharp.Rocket_INFO.y;
 	            speed_a = StaticSharp.Rocket_INFO.z;
-	            fuel = fuel <= 0 ? fuel: RocketBasic.x;
+	            fuel = fuel > 0 ? fuel: RocketBasic.x;
+	            speed_v = speed_v > 0 ? speed_v: RocketBasic.y;
+	            speed_a = speed_a > 0 ? speed_a: RocketBasic.z;
             }
-            if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
+	        if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
+	        if (StaticSharp.Rocket_rushCount != -1)  {
+	        	rush_counts = StaticSharp.Rocket_rushCount;
+	        	StaticSharp.Rocket_rushCount = -1;
+	        }
             // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
             // 如果動畫內容是開啟的狀態，則在一定時間後關閉
@@ -328,7 +335,7 @@ namespace solar_a
                 case RocketState.Move:
                     //print("移動狀態");
                     if (!InputMove()) rc_dtion.Previous();
-                    if (InputBoost() && rush_counts > 0 && !isBoost) rc_dtion.Next();
+	                if(Input.anyKeyDown) if (InputBoost() && rush_counts > 0 && !isBoost) rc_dtion.Next();
                     break;
                 case RocketState.Boost:
                     //print(InputBoost());                    

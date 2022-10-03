@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using solar_a;
@@ -41,7 +41,7 @@ public class InStationDataLoad : MonoBehaviour
         efPlayer = transform.Find("AudioBox").GetComponent<EffectPlayer>();
         // 資料讀取處理
         local_info = StaticSharp.Rocket_BASIC;
-        StaticSharp.Rocket_INFO.x = 100;
+	    StaticSharp.Rocket_INFO.x = StaticSharp.Rocket_INFO.x < 100 ? 100 : StaticSharp.Rocket_INFO.x;
         ValuePoint.text = point.ToString();
     }
 

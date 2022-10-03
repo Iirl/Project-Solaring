@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -226,8 +226,9 @@ namespace solar_a
         /// 儲存火箭的資料
         /// </summary>
         public void InToStation()
-        {
-            mgScene.ReloadToAndClear();
+	    {
+		    if (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
+		    mgScene.ReloadToAndClear();
             mgScene.SaveLeveInform(levelNow);
             mgScene.LoadScenes("Station");
         }
@@ -235,7 +236,8 @@ namespace solar_a
         /// 切換到下一關的檢查
         /// </summary>
         private void StartChageScene()
-        {
+	    {
+		    if (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
             mgScene.SaveLeveInform(levelNow);
             mgScene.SceneChageEvent(true);
         }
@@ -284,8 +286,8 @@ namespace solar_a
             UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
             if (UI_fuel <= 100)
             {
-                ui_fuelbar.fillAmount = UI_fuel / 100f;
-                if (EnergyPlus[0].activeSelf) EnergyPlus[0].SetActive(false);
+	            ui_fuelbar.fillAmount = UI_fuel / 100f;
+	            foreach (GameObject g in EnergyPlus) if (g.activeSelf) g.SetActive(false);
             }
             else
             {   // 超過 100 的部分用格狀血條顯示

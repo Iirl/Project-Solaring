@@ -21,7 +21,8 @@ namespace solar_a
         [HideInInspector]
         public string sceneID = "SceneID";
         [SerializeField]
-        public int level1Scene = 2;
+	    public int level1Scene = 2;
+	    // 場景公開使用方法
         public int GetScenes(bool isMax = false) => GetActiveSceneOrBuild(isMax);
         public string GetScenesName() => GetActiveSceneName();
         public void ReloadCurrentScene() => SceneReload();
@@ -31,7 +32,8 @@ namespace solar_a
         public void SaveLeveInform(int level) => SaveInformation(level);
         public void SceneChageEvent(bool isNext) => StartCoroutine(EnumerLoadScene(isNext));
         public void LoadScenes(int idx) => GenericScene(idx);
-        public void LoadScenes(string sname) => GenericScene(sname);
+	    public void LoadScenes(string sname) => GenericScene(sname);
+	    public void Quit() => Application.Quit(); // 結束程式函數
         /// <summary>
         /// 取得目前場景的編號。
         /// 輸入參數一可以取得目前場景的上限。
@@ -80,9 +82,15 @@ namespace solar_a
             StaticSharp.Rocket_POS = Vector3.zero;     //火箭當前位置
             StaticSharp._LEVEL = 1;
             StaticSharp.DistanceRecord = 0;     // 紀錄當前關卡的距離
-            // 淨空場景物件
-            noDestoryInChangeScene[] nDICS = FindObjectsOfType<noDestoryInChangeScene>();
-            for (int i = 0; i < nDICS.Length; i++) nDICS[i].DestoryOnStageObject();
+	        // 淨空場景物件
+	        try {
+		        noDestoryInChangeScene[] nDICS = FindObjectsOfType<noDestoryInChangeScene>();
+		        int len = nDICS.Length;
+		        if (len > 0)
+		        	for (int i = 0; i < len	; i++) nDICS[i].DestoryOnStageObject();
+	        } catch (System.Exception e) {
+	        	print("清除物件失敗");
+	        }
 
             if (!restart) return;
             //若需要重新載入場景則執行以下段落
@@ -123,21 +131,10 @@ namespace solar_a
             StaticSharp.isChangeScene = false;
             int now = GetScenes();
             int nexts = now + 1, prevs = now - 1;
-            //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");           
+	        //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");
             if (GetScenes()+1 == GetScenes(true) - 1) ClearInformation(true);
             else if (next) LoadScenes(nexts);
             else if (prevs > 0) LoadScenes(prevs);
-        }
-        /// <summary>
-        /// 結束程式函數
-        /// </summary>
-        public void Quit() => Application.Quit();
-
-        private void Start()
-        {
-            //print($"原場景編號為：{PlayerPrefs.GetInt(sceneID)}");
-            //print($"最大場景數量為：{GetScenes(true)}");
-
         }
     }
 }

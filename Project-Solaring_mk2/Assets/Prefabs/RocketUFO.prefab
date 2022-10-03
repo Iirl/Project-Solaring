@@ -702,6 +702,7 @@ MonoBehaviour:
   fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   rockets:
   - {fileID: 3592277314727565250, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
+  - {fileID: 232480540849074456, guid: 8a72eb01b61a89d42962448ccf5cfc08, type: 3}
 --- !u!114 &1834731831507911449
 MonoBehaviour:
   m_ObjectHideFlags: 0

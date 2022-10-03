@@ -1,14 +1,14 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace solar_a
 {
-    /// <summary>
-    /// «ü©w²¾°Ê³õ´º
-    /// °w¹ï«ü©w«ö¶sªş¥[Âà¸õ¦Û InputField ¤º®eªº³õ´º
-    /// ¸Ó«öÁä¤£»İ­nÃB¥~ªş¥[Âà³õ¨Æ¥ó¡A§_«h·|¦³½Ä¬ğ
+	/// <summary>
+	/// æŒ‡å®šç§»å‹•å ´æ™¯
+	/// é‡å°æŒ‡å®šæŒ‰éˆ•é™„åŠ è½‰è·³è‡ª InputField å…§å®¹çš„å ´æ™¯
+	/// è©²æŒ‰éµä¸éœ€è¦é¡å¤–é™„åŠ è½‰å ´äº‹ä»¶ï¼Œå¦å‰‡æœƒæœ‰è¡çª
     /// </summary>
     public class SignScene : MonoBehaviour
     {
