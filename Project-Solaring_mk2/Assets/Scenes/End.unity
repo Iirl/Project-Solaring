@@ -1800,11 +1800,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 911627726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c027022a847194ba62f5caa1493b64, type: 3}
+  m_Script: {fileID: 11500000, guid: 789d72fea4584d149b5ffc049d31f0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
+  endWhite: {fileID: 525216749}
 --- !u!1 &966984258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2873,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1934196758331206387, guid: 7d1aedf2a22fa124485603d72631de88,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3300339106217777271, guid: 7d1aedf2a22fa124485603d72631de88,
         type: 3}
       propertyPath: m_RootOrder
@@ -2972,34 +2978,12 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6180926072282356710, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
+    - {fileID: -5450219604103931565, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
+    - {fileID: 7146448142192504297, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
+    - {fileID: 5360550776076312101, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
---- !u!1 &1735108523 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8452828532879085149, guid: 7d1aedf2a22fa124485603d72631de88,
-    type: 3}
-  m_PrefabInstance: {fileID: 1735108522}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1735108524
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735108523}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 574e0d70307271f4f808983d10c56736, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1741432967
 GameObject:
   m_ObjectHideFlags: 0

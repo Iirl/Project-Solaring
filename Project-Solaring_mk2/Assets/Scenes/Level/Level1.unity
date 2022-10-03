@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.015399809, g: 0.0014914743, b: 0.038952317, a: 1}
+  m_IndirectSpecularColor: {r: 0.01541006, g: 0.0014973845, b: 0.038918983, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -392,7 +392,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7783985, y: 1}
+    m_SensorSize: {x: 1.7780173, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -967,8 +967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
   isHaving: 0
 --- !u!1 &635480425
 GameObject:
@@ -1228,8 +1228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
   isHaving: 0
 --- !u!1 &796679759 stripped
 GameObject:
@@ -1359,8 +1359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
   isHaving: 0
 --- !u!1 &966984258
 GameObject:
@@ -2246,8 +2246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
   isHaving: 0
 --- !u!4 &1445246882
 Transform:
@@ -2724,8 +2724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51816ddc09a236240a6cd7906ab6f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lveve1Scene: Level1
   sceneID: SceneID
+  level1Scene: 2
   isHaving: 0
 --- !u!4 &1803358158 stripped
 Transform:
@@ -3252,14 +3252,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c33bcb49ac3e8f41b7fa45413680914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage_container: {x: 0, y: 0, z: 0}
-  stage_position: {x: -1.16, y: -1.11, z: 0}
+  stage_boxCollider: {x: 0, y: 0, z: 0}
+  stage_boxOffset: {x: 0, y: 0, z: 5}
+  stageInGizmos: 0
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
-  box_range: {x: 52, y: 2, z: 30}
+  box_position: {x: -1, y: -1, z: -1}
   box_offset: {x: 23, y: 15.14, z: 0}
+  box_range: {x: 52, y: 2, z: 30}
   minBorder: {x: 1, y: 0}
   maxBorder: {x: -1, y: -1.5}
-  includeTag: []
+  includeTags:
+  - Enemy
+  - Block
   gravity3: {x: 0, y: -0.1, z: 0}
 --- !u!1001 &2098477497
 PrefabInstance:
@@ -3297,13 +3301,19 @@ PrefabInstance:
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: rockets.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}
       propertyPath: rockets.Array.data[0]
       value: 
       objectReference: {fileID: 3037491925543192508, guid: ac52c113bf153b145946ad46a42ebd95,
+        type: 3}
+    - target: {fileID: 511811643254466930, guid: 328feed0e2028424d8d6a04c029bd7ef,
+        type: 3}
+      propertyPath: rockets.Array.data[1]
+      value: 
+      objectReference: {fileID: 8452828532879085149, guid: 7d1aedf2a22fa124485603d72631de88,
         type: 3}
     - target: {fileID: 588603289948032033, guid: 328feed0e2028424d8d6a04c029bd7ef,
         type: 3}

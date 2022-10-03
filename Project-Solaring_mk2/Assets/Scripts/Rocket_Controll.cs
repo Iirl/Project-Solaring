@@ -46,6 +46,7 @@ namespace solar_a
         private bool hasParticleFile;
         [SerializeField, HideInInspector]
         private ParticleSystem particle_fire;
+	    private ParticleSystem particle_fire2;
         [SerializeField, Tooltip("盡量不要超過預設值太多"), HideInInspector]
         private Vector2 fireLenght_min = new Vector2(0.5f, 1f), fireLenght_max = new Vector2(1f, 3f), fireBoost = new Vector2(0f, 1f);
         [SerializeField, Tooltip("火焰最大音量"), Range(0.1f, 1f), HideInInspector]
@@ -155,7 +156,10 @@ namespace solar_a
                 //// set Horizon Move yFire.
                 if (yFire < fireLenght_min.y && x_var > 0) yFire += Mathf.Abs(Mathf.Pow(fireLenght_min.y, x_var));
 
-                particle_fire.transform.localScale = new Vector2(xFire, yFire);
+	            particle_fire.transform.localScale = new Vector2(xFire, yFire);
+	            if (particle_fire2) {
+	            	particle_fire2.transform.localScale = particle_fire.transform.localScale;
+	            }
             }
             #endregion
         }
@@ -278,6 +282,7 @@ namespace solar_a
         private void SetComponent()
         {
             if (hasParticleFile) particle_fire = particle_fire != null ? particle_fire : GetComponentInChildren<ParticleSystem>();
+	        if (hasParticleFile) if(name.Contains("Cargo")) particle_fire2 = GetComponentsInChildren<ParticleSystem>()[1];
             Rocket_Rig = GetComponent<Rigidbody>();
             Rocket_sound = GetComponent<AudioSource>();
             Rocket_ani = GetComponent<Animator>();
@@ -290,16 +295,17 @@ namespace solar_a
             RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
             else
-            {
-                fuel = StaticSharp.Rocket_INFO.x;
+            { 
+	            fuel = StaticSharp.Rocket_INFO.x;
                 speed_v = StaticSharp.Rocket_INFO.y;
-                speed_a = StaticSharp.Rocket_INFO.z;
+	            speed_a = StaticSharp.Rocket_INFO.z;
+	            fuel = fuel <= 0 ? fuel: RocketBasic.x;
             }
             if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
             // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
             // 如果動畫內容是開啟的狀態，則在一定時間後關閉
-	        if (Rocket_ani.isActiveAndEnabled) Invoke("CloseAnimator", aniCloseTime);
+	        if (Rocket_ani) if (Rocket_ani.isActiveAndEnabled && aniCloseTime > 0) Invoke("CloseAnimator", aniCloseTime);
             // 其他項目
             if (offControl) CloseTheControl = offControl;
         }

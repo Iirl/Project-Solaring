@@ -457,7 +457,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3037491925543192508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -466,7 +466,7 @@ Transform:
   - {fileID: 646986377617586500}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!95 &3931932470824440413
 Animator:
   serializedVersion: 4
@@ -477,7 +477,7 @@ Animator:
   m_GameObject: {fileID: 3037491925543192508}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7f902abd311702846b70432f859a0da4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2985f69d096bfef43afd7b8294d60df1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -693,10 +693,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showWindows: 0
   showPassFiled: 0
-  noDead: 0
+  rootLink: {fileID: 0}
+  protectx: 0
   noFuel: 0
   noRush: 0
   toFinal: 0
+  slowDown: 0.5
   fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   rockets:
   - {fileID: 3592277314727565250, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
@@ -729,6 +731,8 @@ MonoBehaviour:
   fireLenght_max: {x: 0.5, y: 3}
   fireBoost: {x: 0.15, y: 1.2}
   fire_volume: 0.6
+  aniCloseTime: 0
+  Speed_slow: 0
 --- !u!54 &-3760415808870449850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -755,9 +759,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 3
-  m_Height: 6
-  m_Direction: 0
+  m_Radius: 2.85
+  m_Height: 120
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3847445886582295741
 GameObject:

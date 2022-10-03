@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using solar_a;
 using UnityEngine;
 
@@ -74,7 +74,7 @@ public class StaticSharp
             }
             else if (isLS)
             {
-                if (kC) Debug.Log("C button");
+	            if (kC) ManageCenter.rocket_SSR.ChangeToCargo();
                 else if (kU) ManageCenter.rocket_SSR.ChangeToUFO();//切換成幽浮
             }
         }

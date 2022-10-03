@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using solar_a;
 using UnityEngine;
 
@@ -13,7 +13,9 @@ public class SSRocket : MonoBehaviour
     public delegate void StatusMethod(bool trunOn);
     #region 面板控制效果
     [SerializeField, Tooltip("顯示在遊戲中")]
-    private bool showWindows, showPassFiled;
+	private bool showWindows, showPassFiled;
+	[SerializeField]
+	private GameObject rootLink;
 
     public bool isShowed { get { return showWindows; } }
     [SerializeField, Header("異常狀態"), Tooltip("不會死亡")]
@@ -37,6 +39,7 @@ public class SSRocket : MonoBehaviour
     public void ShowDebug(bool isOpen) => showPassFiled = isOpen;
     public void ChangeToBorkenRocket() => PlayerChange(0);
     public void ChangeToUFO() => PlayerChange(0);
+	public void ChangeToCargo() => PlayerChange(1);
     /// <summary>
     /// 狀態切換控制器
     /// </summary>
@@ -118,11 +121,17 @@ public class SSRocket : MonoBehaviour
         obGenerate.Generates();
     }
     private void PlayerChange(int idx)
-    {
-        StaticSharp.Rocket_INFO = rct.RocketVarInfo;
-        obGenerate = new Object_Generator.Generater(transform.parent.gameObject, rockets[idx]);
-        obGenerate.Create_v3 = transform.position + Vector3.up;
-        GameObject newPlayer = (GameObject)obGenerate.Generates();
+	{
+		GameObject parobj = rootLink ? rootLink : transform.parent.gameObject;
+		// 將基本資料寫入暫存區中
+	    StaticSharp.Rocket_INFO = rct.RocketVarInfo;
+		//StaticSharp.Rocket_INFO.x = 0; //假如需要變換後改成當前的資料，就設定為0讓系統重抓資料。
+		// 讀取模型資料（在火箭物件上）
+		try {
+			obGenerate = new Object_Generator.Generater(parobj, rockets[idx]);
+		} catch (System.Exception e) { print($"超過上限{idx}:{e.ToString()}"); return; }
+		obGenerate.Create_v3 = transform.position + Vector3.up;
+		GameObject newPlayer = (GameObject)obGenerate.Generates();
         newPlayer.MoveComponent(rct.GetComponent<ColliderSystem>());
         //StartCoroutine(LoadCompTimer(newPlayer));
         ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
@@ -148,7 +157,8 @@ public class SSRocket : MonoBehaviour
     private void Awake()
     {
         mgc = FindObjectOfType<ManageCenter>();
-        rct = GetComponent<Rocket_Controll>();
+	    rct = GetComponent<Rocket_Controll>();
+	    rootLink = GameObject.Find("Record");
         SendControl();
     }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
@@ -26,6 +26,7 @@ namespace solar_a
         public string GetScenesName() => GetActiveSceneName();
         public void ReloadCurrentScene() => SceneReload();
         public void ReloadToStart() => ClearInformation(true);
+	    public void ReloadToMenuAndClear() => ClearInformation(true, 0);
         public void ReloadToAndClear() => ClearInformation();
         public void SaveLeveInform(int level) => SaveInformation(level);
         public void SceneChageEvent(bool isNext) => StartCoroutine(EnumerLoadScene(isNext));
@@ -71,7 +72,7 @@ namespace solar_a
         /// 清除所有場上存在過的物件
         /// </summary>
         /// <param name="restart">真為重新載入場景</param>
-        private void ClearInformation(bool restart=false)
+	    private void ClearInformation(bool restart=false, int sceneid = -1)
         {
             PlayerPrefs.SetInt(sceneID, 2);
             StaticSharp.Rocket_INFO = Vector3.zero;
@@ -85,8 +86,9 @@ namespace solar_a
 
             if (!restart) return;
             //若需要重新載入場景則執行以下段落
-            StaticSharp._SecretSCORE = 0;
-            GenericScene(level1Scene);
+	        StaticSharp._SecretSCORE = 0;
+	        if (sceneid >= 0) GenericScene(sceneid);
+	        else GenericScene(level1Scene);
         }
         /// <summary>
         /// 根據目前的指標移動到下一關:

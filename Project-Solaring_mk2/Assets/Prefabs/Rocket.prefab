@@ -582,6 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showWindows: 0
   showPassFiled: 0
+  rootLink: {fileID: 0}
   protectx: 0
   noFuel: 0
   noRush: 0
@@ -590,6 +591,7 @@ MonoBehaviour:
   fuelObj: {fileID: 2231256598753055803, guid: 2a1f16cf00e5cd648801b915e02041ee, type: 3}
   rockets:
   - {fileID: 3037491925543192508, guid: ac52c113bf153b145946ad46a42ebd95, type: 3}
+  - {fileID: 8452828532879085149, guid: 7d1aedf2a22fa124485603d72631de88, type: 3}
 --- !u!95 &8349909292034458043
 Animator:
   serializedVersion: 4
