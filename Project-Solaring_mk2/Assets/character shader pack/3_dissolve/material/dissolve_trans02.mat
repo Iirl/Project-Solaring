@@ -19,8 +19,7 @@ Material:
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -114,9 +113,9 @@ Material:
     - _Surface: 1
     - _WorkflowMode: 1
     - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
-    - _dege_width: 0.05
+    - _ZWrite: 1
+    - _ZWriteControl: 1
+    - _dege_width: 0.06
     - _disslove_edge_wdth: 0.0136
     - _float_alpha: 1
     - _float_alpha_clip_threshold: 0
