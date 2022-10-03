@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 5360550776076312101}
   - component: {fileID: 1015953083444478869}
   m_Layer: 0
-  m_Name: Cargo
+  m_Name: Cargo_Ani
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8452828532879085149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a97b69f05bb96478352367347d94af, type: 3}
   m_Name: 
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8452828532879085149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5d5fe73f20dfb94b8b9e2030e63c84a, type: 3}
   m_Name: 
@@ -923,7 +923,7 @@ BoxCollider:
   m_GameObject: {fileID: 8452828532879085149}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 5, y: 10, z: 100}
   m_Center: {x: 0, y: 1, z: 0}

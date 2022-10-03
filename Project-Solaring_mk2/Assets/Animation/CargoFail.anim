@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fail
+  m_Name: CargoFail
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -27,11 +27,30 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._QueueOffset
+    path: 
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 6
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.5
-        value: 1
+        value: -6
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -41,7 +60,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._threshold
+    attribute: material._Cutoff_Height
     path: 
     classID: 23
     script: {fileID: 0}
@@ -55,7 +74,14 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 2263255947
+      attribute: 2380200567
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 0
+      attribute: 2294552882
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -92,11 +118,30 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._QueueOffset
+    path: 
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 6
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.5
-        value: 1
+        value: -6
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -106,7 +151,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._threshold
+    attribute: material._Cutoff_Height
     path: 
     classID: 23
     script: {fileID: 0}

@@ -711,6 +711,32 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &516183857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8452828532879085149, guid: 7d1aedf2a22fa124485603d72631de88,
+    type: 3}
+  m_PrefabInstance: {fileID: 1735108522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &516183861
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516183857}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 574e0d70307271f4f808983d10c56736, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &521162483
 GameObject:
   m_ObjectHideFlags: 0

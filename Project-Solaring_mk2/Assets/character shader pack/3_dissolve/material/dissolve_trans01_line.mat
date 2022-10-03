@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: dissolve_trans01
+  m_Name: dissolve_trans01_line
   m_Shader: {fileID: -6465566751694194690, guid: fdd5688a88cde9e4fa7bc7b980199f2d,
     type: 3}
   m_ValidKeywords:
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_C8C9609E:
-        m_Texture: {fileID: 2800000, guid: 0e119da675c4f7e4aabbc54df588aab7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -87,9 +87,9 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_1D9A2AE: 0.01
-    - Vector1_4C850B07: 0.25
-    - Vector1_64B788AD: 5.9
-    - Vector1_67744406: 0.462
+    - Vector1_4C850B07: 0.1
+    - Vector1_64B788AD: 32
+    - Vector1_67744406: 0.7
     - Vector1_EFE64959: 100
     - Vector1_FEFF47F1: 0.44
     - _AlphaClip: 0
@@ -131,10 +131,10 @@ Material:
     m_Colors:
     - Color_2BEA265B: {r: 1, g: 1, b: 1, a: 0}
     - Color_4B4CE890: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 0}
-    - Color_4B9AABFA: {r: 1, g: 1, b: 1, a: 0}
+    - Color_4B9AABFA: {r: 0, g: 0, b: 0, a: 0}
     - Color_6DF76E71: {r: 1024, g: 936.22864, b: 0, a: 0}
     - Color_A96C309B: {r: 1, g: 1, b: 1, a: 0}
-    - Color_F150E237: {r: 0, g: 1, b: 0.27450982, a: 0}
+    - Color_F150E237: {r: 0, g: 1, b: 0.2762072, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
