@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 
@@ -25,12 +25,20 @@ namespace solar_a
         /// <summary>
         /// 1. 方向(轉向)判定
         /// </summary>
-        private void DirectCheck(bool rL, bool rR)
+        private void DirectCheck(bool rL)
         {
             if (spstate == 0)
             {
-                rot_right = rR;
-                rot_left = rL;
+            	if (rL) {
+            		//print("左轉");
+            		rot_left = true;
+            		rot_right = false;
+            	}
+            	else {
+            		//print("右轉");
+            		rot_left = false;
+            		rot_right = true;
+            	}
                 //print("檢查是否旋轉");
                 if ((rot_right || rot_left) && !rotate)
                 {
@@ -78,13 +86,12 @@ namespace solar_a
             //print("4:" + spstate);
             float execute = 0;
             yield return new WaitForSeconds(0.1f);
-            while (isRotate)
+	        while (isRotate && rotate)
             {
                 float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
                 float Distane2axis = Mathf.Abs(Mathf.DeltaAngle(y_axis, Coordinate)); // 到達下一個Y軸座標的距離            
                 Quaternion target = Quaternion.Euler(0, Coordinate, 0);
                 //Distane2axis = Mathf.Clamp(Distane2axis, 0, 90);
-                StopCheck();
                 // 旋轉曲線: x^0-1
                 float upper = (Mathf.Abs(Distane2axis)) / 90;
                 float iSpine = Mathf.Pow(spine, upper) * Time.deltaTime +1;
@@ -97,8 +104,12 @@ namespace solar_a
                 transform.rotation = Quaternion.Lerp(transform.rotation, target, iSpine);
                 //if (rot_left) transform.Rotate(Vector3.up * iSpine);
                 //else if (rot_right) //transform.Rotate(Vector3.down * iSpine);
-                //if (iSpine == Mathf.Infinity) print(upper);
-                if (transform.rotation == target) yield return new WaitForSeconds(0.5f);
+	            //if (iSpine == Mathf.Infinity) print(upper);
+	            
+		        if (transform.rotation == target) {
+		        	yield return new WaitForSeconds(0.5f);
+		        	StopCheck();
+		        }
                 else yield return null;
                 execute++;
                 
@@ -138,44 +149,39 @@ namespace solar_a
 
         #region 事件觸發
 
+	    // Awake is called when the script instance is being loaded.
+	    protected void Awake()
+	    {
+		    transform.position += spaceOffset;
+	    	
+	    }
         private void Start()
         {
             rot_left = false; rot_right = false;
-            transform.position += spaceOffset;
             spstate = 0;
         }
 
         private void FixedUpdate()
         {
-            switch (StaticSharp.Conditions)
+	        if (StaticSharp.Conditions.ToString().Contains("Running"))
             {
-                case State.Running:
-                    switch (spstate)
-                    {
-                        case SpacetState.Stay:
-                            // 旋轉空間
-                            //print(spstate);
-                            bool keyLeft = Input.GetAxisRaw("Left_Spine") == 1;
-                            bool keyRight = Input.GetAxisRaw("Right_Spine") == 1;
-                            if (keyLeft || keyRight) DirectCheck(keyLeft, keyRight);
-                            break;
-                        case SpacetState.Rotate:
-
-                            break;
-                        case SpacetState.Stop:
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case State.Pause:
-                    break;
-                case State.End:
-                    break;
-                case State.Finish:
-                    break;
-                default:
-                    break;
+	            switch (spstate)
+	            {
+	                case SpacetState.Stay:
+	                    // 旋轉空間
+		                //print(spstate);
+		                if (Input.GetKeyDown("q") || Input.GetKeyDown("e")) {
+		                	DirectCheck(Input.GetKey("q"));
+		                }
+	                    break;
+	                case SpacetState.Rotate:
+	
+	                    break;
+	                case SpacetState.Stop:
+	                    break;
+	                default:
+	                    break;
+	            }
             }
 
         }

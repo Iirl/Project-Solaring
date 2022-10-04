@@ -89,7 +89,7 @@ namespace solar_a
 		        if (len > 0)
 		        	for (int i = 0; i < len	; i++) nDICS[i].DestoryOnStageObject();
 	        } catch (System.Exception e) {
-	        	print("清除物件失敗");
+	        	print($"清除物件失敗 {e.GetType().Name}");
 	        }
 
             if (!restart) return;
