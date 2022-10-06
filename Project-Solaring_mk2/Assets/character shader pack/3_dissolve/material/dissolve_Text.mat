@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: robot_dissolve_3
+  m_Name: dissolve_Text
   m_Shader: {fileID: -6465566751694194690, guid: 9e89095076c4d23479a72b105d77ec63,
     type: 3}
   m_ValidKeywords: []
@@ -22,7 +22,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_982C21A7:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 4745898558804441743, guid: 8218e2fce75669d4db2490e8d608be67,
+          type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_E4B17A71:
@@ -87,14 +88,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_1D234653: 0.1
+    - Vector1_1D234653: 0.2
     - Vector1_1D9A2AE: 0.01
-    - Vector1_21F17588: 100
+    - Vector1_21F17588: 200
     - Vector1_93814C7D: 0.01
-    - Vector1_9EC7B5A0: 0.4
+    - Vector1_9EC7B5A0: 0.456
     - Vector1_A5921027: 0.36
     - Vector1_EFE64959: 100
-    - Vector1_F0141E8D: 0.752
+    - Vector1_F0141E8D: 1
     - Vector1_FEFF47F1: 0.44
     - _AlphaClip: 0
     - _Blend: 0
@@ -125,7 +126,7 @@ Material:
     - _metallic: 0.153
     - _noise_scale: 100
     - _smooth: 0
-    - _threshold: 3
+    - _threshold: -1
     m_Colors:
     - Color_2BEA265B: {r: 1, g: 1, b: 1, a: 0}
     - Color_6DF76E71: {r: 1024, g: 936.22864, b: 0, a: 0}

@@ -427,7 +427,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7770898, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2162,6 +2162,91 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0716c69ad9fbf849b33ed89eb81222c, type: 3}
+--- !u!1001 &1865438246
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2070353151}
+    m_Modifications:
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 200979618260837318, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_Name
+      value: Describe
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111987875261963734, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_text
+      value: "\u7B2C\u4E09\u95DC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111987875261963734, guid: 724cfe140e763f641a62fb3abcaa7d13,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 9.05
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 724cfe140e763f641a62fb3abcaa7d13, type: 3}
+--- !u!4 &1865438247 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 200979618260837313, guid: 724cfe140e763f641a62fb3abcaa7d13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1865438246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1925019404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2347,7 @@ RectTransform:
   - {fileID: 1072750647}
   - {fileID: 1314815517}
   - {fileID: 1644387582}
+  - {fileID: 1865438247}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2282,14 +2368,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c33bcb49ac3e8f41b7fa45413680914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage_container: {x: 0, y: 0, z: 0}
-  stage_position: {x: -1.16, y: -1.1, z: 0}
+  stage_boxCollider: {x: 0, y: 0, z: 0}
+  stage_boxOffset: {x: 0, y: 0, z: 5}
+  stageInGizmos: 0
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
-  box_range: {x: 52, y: 2, z: 30}
+  box_position: {x: -1, y: -1, z: -1}
   box_offset: {x: 23, y: 15.14, z: 0}
+  box_range: {x: 52, y: 2, z: 30}
   minBorder: {x: 1, y: 0}
   maxBorder: {x: -1, y: -1.5}
-  includeTag: []
+  includeTags:
+  - Enemy
+  - Block
   gravity3: {x: 0, y: -0.1, z: 0}
 --- !u!1 &2073599010 stripped
 GameObject:
