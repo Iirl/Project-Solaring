@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
+  m_Name: LevelNamebk
+  m_EditorClassIdentifier: 
+  platform: 0
+  Language:
+  - label: Chinese
+    filename: 
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    datas:
+    - "\u7B2C\u4E00\u5EA7\uFF1A\u5B87\u5B99\u884C\u661F"
+    - "\u7B2C\u4E8C\u5EA7\uFF1A\u5929\u99AC\u6D41\u661F\u7FA4"
+    - "\u7B2C\u4E09\u5EA7\uFF1A\u661F\u5875\u98A8\u66B4"
+    - "\u7B2C\u56DB\u5EA7\uFF1A\u5929\u7136\u6CB3\u661F"
+    - "\u7B2C\u4E94\u5EA7\uFF1A\u65AF\u62C9\u592B\u53EF\u592B\u7981\u5340"
+    - "\u7B2C\u516D\u5EA7\uFF1A\u661F\u7206\u6C23\u65CB\u6D41"
+    - "\uFF0D\u5916\u661F\u7CFB\uFF0D"
+  - label: English
+    filename: 
+    font: {fileID: 0}
+    datas:
+    - 'First: Cosmic Planet'
+    - "Second\uFF1APegasus Meteor Swarm"
+    - "Third\uFF1AStar Burst Storm"
+    - "Fourth\uFF1ANatural Star-River "
+    - "Fivith\uFF1A\u0421\u043B\u0430\u045E\u043A\u043E\u045E Death-Zone"
+    - "Sixth\uFF1AStar Burst Stream Wave"
+    - "\uFF0DOuter Galaxy\uFF0D"
+  - label: 
+    filename: 
+    font: {fileID: 0}
+    datas: []

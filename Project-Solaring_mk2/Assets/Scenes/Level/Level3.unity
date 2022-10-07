@@ -427,7 +427,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7786407, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1814,6 +1814,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1586029849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9111987875261963734, guid: 724cfe140e763f641a62fb3abcaa7d13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1865438246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1644387579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,6 +2172,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7052610249211576484, guid: a0716c69ad9fbf849b33ed89eb81222c,
+        type: 3}
+      propertyPath: TextField.Array.data[0].id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052610249211576484, guid: a0716c69ad9fbf849b33ed89eb81222c,
+        type: 3}
+      propertyPath: TextField.Array.data[0].TmpUGUI
+      value: 
+      objectReference: {fileID: 1586029849}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0716c69ad9fbf849b33ed89eb81222c, type: 3}
 --- !u!1001 &1865438246

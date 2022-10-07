@@ -16,6 +16,7 @@ public class StaticSharp
     static public Vector3 Rocket_INFO;
     static public Vector3 Rocket_POS;
 	static public int Rocket_rushCount = -1;
+	static public bool isFirstPlay;
     static public bool isChangeScene;
     static public bool isDialogEvent;
     static public float DistanceRecord; // 紀錄飛行距離，將該值傳給下一關使用。
@@ -58,9 +59,9 @@ public class StaticSharp
             if (isCtrl)
             {
                 if (kAtl && kO) TestBoard(SSR);
-                if (kLS) Debug.Log("C+S button");
-                else if (kB) Debug.Log("B button");
-                else if (kM) Debug.Log("M button");
+	            if (kLS) Debug.Log("C+S button");
+	            // 黑洞跳關
+	            else if (kM) ManageCenter.mgCenter.X_BlockHole(); //Debug.Log("M button");
                 //else if (kO) Debug.Log("O button");
                 else if (kP) Debug.Log("P button");
                 else if (kQ) Debug.Log("Q button");
@@ -69,14 +70,14 @@ public class StaticSharp
             {
                 //SSR.SendMessage("GeneratorBlock"); //產生OBJ物件
                 if (kLS) Debug.Log("A+S button");
-                else if (kN) ManageCenter.rocket_ctl.StateOnVisable();
-                else if (kR) ManageCenter.mgCenter.ObjectDestoryAll();
-                else if (kP) ManageCenter.mgCenter.X_PowerMode();
+                else if (kN) ManageCenter.rocket_ctl.StateOnVisable();	// 飛碟隱形
+                else if (kR) ManageCenter.mgCenter.ObjectDestoryAll();	// 清空並重新生成
+                else if (kP) ManageCenter.mgCenter.X_PowerMode();		// 無敵模式
             }
             else if (isLS)
             {
-	            if (kC) ManageCenter.rocket_SSR.ChangeToCargo();
-                else if (kU) ManageCenter.rocket_SSR.ChangeToUFO();//切換成幽浮
+	            if (kC) ManageCenter.rocket_SSR.ChangeToCargo();		// 切換成貨機
+                else if (kU) ManageCenter.rocket_SSR.ChangeToUFO();		//切換成幽浮
             }
         }
 

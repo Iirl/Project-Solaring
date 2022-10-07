@@ -8,7 +8,9 @@ using UnityEngine;
 public class ColliderSystem : MonoBehaviour
 {
     #region 屬性
-    static ManageCenter mgc;
+	static ManageCenter mgc;
+	static ManageDisco mgDsco;
+	static Space_Controll spc;
     static ColliderSystem collSys;
     public enum Genertic { Supply, Protect, UnlimitFuel, UnlimitRush, Other }
     #endregion
@@ -48,20 +50,19 @@ public class ColliderSystem : MonoBehaviour
     /// </summary>
     /// <param name="hitObj"></param>
     static public int CollisionPlayerEvent(GameObject hitObj)
-    {
+	{
+		if (!mgc || !mgDsco || !spc)GetCMP();
         if (!hitObj) return -1;
-        ManageDisco mgDsco =  ManageCenter.mgDsko;
-        Space_Controll spc = ManageCenter.space_ctl;
         //print(hitObj.name);
         int i = 0;
         if (hitObj.tag.Contains("Enemy"))
         {
             if (spc.isRotate) return -1;
             i = 1; //結束遊戲處理
-            StaticSharp._SecretSCORE++;
+	        StaticSharp._SecretSCORE++;
             mgDsco.OneShotEffect(ManageCenter.rocket_ctl.rocket_Clip[1]);
-            if (!mgc.protect) StaticSharp.Conditions = State.End;
             mgc.ObjectDestory(hitObj, false);
+	        if (!mgc.protect) StaticSharp.Conditions = State.End;
             //print(hitObj.name);
             //Destroy(hitObj);
         }
@@ -162,10 +163,13 @@ public class ColliderSystem : MonoBehaviour
     /// 轉場事件:當中控器不存在時使用
     /// </summary>
     #endregion
-
+	static private void GetCMP(){
+		mgc = ManageCenter.mgCenter ? ManageCenter.mgCenter : FindObjectOfType<ManageCenter>();
+		mgDsco =  ManageCenter.mgDsko? ManageCenter.mgDsko : FindObjectOfType<ManageDisco>();
+		spc = ManageCenter.space_ctl ? ManageCenter.space_ctl : FindObjectOfType<Space_Controll>();
+	}
     private void Awake()
     {
         collSys = GetComponent<ColliderSystem>();
-        mgc = ManageCenter.mgCenter ? ManageCenter.mgCenter : FindObjectOfType<ManageCenter>();
     }
 }

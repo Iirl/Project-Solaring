@@ -55,10 +55,12 @@ namespace solar_a
         Image ui_fuelbar;
         [SerializeField]
         GameObject[] EnergyPlus;
+        [SerializeField]
+        GameObject BlackHoleFX;
         [SerializeField, Tooltip("UI 相關(Read Only)")]
         static public int UI_fuel = 100;
         static public float UI_moveDistane = 0;
-        [SerializeField, Header("玩家資訊")]
+	    [SerializeField, Header("玩家資訊")]
         private GameObject[] RocketModel;
         [SerializeField, Tooltip("機體外觀設定")]
         private RocketPreviews RocketOutfit;
@@ -101,11 +103,21 @@ namespace solar_a
         bool runtime = false;
         #endregion
 
-        public void X_PowerMode() { protect = !protect; rocket_ctl.StateToShield(protect); StaticSharp.isProtected = protect; ; }
+	    public void X_PowerMode() { protect = !protect; rocket_ctl.StateToShield(protect); StaticSharp.isProtected = protect; ; }
+	    public void X_BlockHole() {
+	    	Vector3 rndPos = new Vector3();
+	    	Vector3 border = GetStageBorder();
+	    	rndPos.x = Mathf.Clamp(Random.value* border.x/2,-border.x,border.x);
+	    	rndPos.y = Mathf.Clamp(Random.value* border.y/2,-border.y,border.y);
+	    	rndPos.z = Mathf.Clamp(Random.value* border.z/2,-border.z,border.z);
+	    	Destroy(Instantiate(BlackHoleFX, rndPos, Quaternion.identity),5);
+	    	print("Black holo!");
+	    }
         /// <summary>
         /// 共用方法 (Public Method)
         /// </summary>
-        /// <returns></returns>
+	    /// <returns></returns>
+	    public void SetOutFit() => OutfitSetting();
         public Vector3 GetStagePOS() => StageInfo(1);
         public Vector3 GetStageBorder() => StageInfo(2);
         public void SetRockBasicInfo(float x, float y = 0, float z = 0)
@@ -185,29 +197,38 @@ namespace solar_a
             if (rocket_ctl.RocketVarInfo.x < 1) condition.Dead();
             yield return null;
         }
+        
+	    private void OutfitSetting(){
+		    int outfitIndex =0; // 將外觀設定指回中控中心
+		    if (rocket_ctl.name.Contains("UFO")) outfitIndex = 1;
+		    else if(rocket_ctl.name.Contains("Cargo")) outfitIndex = 2;
+		    RocketOutfit = (RocketPreviews)outfitIndex;
+	    }
         #endregion
         #region 物件通用函數
-        /// <summary>
-        /// 清除物件函數。
-        /// 所有物件從畫面上移除都要經過這個函式。
-        /// </summary>
-        /// <param name="obj">碰撞區域回傳的物件</param>
         GenerateSystem objGS;
         GenerateSystem[] generateSystems;
-        public void ObjectDestory(GameObject obj, bool hasDesTime = false)
-        {
-            objGS = obj.transform.GetComponentInParent<GenerateSystem>();
-            //print($"名稱: {objGS.name} hasdes:{hasDesTime}");  // 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
-            if (!objGS) { Destroy(obj); return; }
-            objGS.ReleaseObj(obj, hasDesTime);
-            //StartCoroutine(ReleaseTimer(objGS, obj, 1.2f, hasDesTime));
-            //gener_class.Destroys(obj);
-        }
-        public void ObjectDestoryAll()
-        {
-            generateSystems = FindObjectsOfType<GenerateSystem>();
-            foreach (GenerateSystem e in generateSystems) e.RenewObjAll(true);
-        }
+	    public void ObjectDestory(GameObject obj, bool hasDesTime = false) => ObjRemove(false, obj, hasDesTime);
+	    public void ObjectDestoryAll() => ObjRemove(true);
+	    /// <summary>
+	    /// 清除物件函數。
+	    /// 所有物件從畫面上移除都要經過這個函式。
+	    /// </summary>
+	    /// <param name="all">是否為全部清除</param>
+	    /// <param name="obj">碰撞區域回傳的物件</param>
+	    private void ObjRemove(bool all=false,GameObject obj=null,bool hasDesTime = false){
+	    	if (all) {
+		    	generateSystems = FindObjectsOfType<GenerateSystem>();
+		    	foreach (GenerateSystem e in generateSystems) e.RenewObjAll(true);
+	    	} else {
+		    	objGS = obj.transform.GetComponentInParent<GenerateSystem>();
+		    	// 測試是否有讀取到物件，讀不到則直接銷毀避免錯誤。
+		    	//print($"名稱: {objGS.name} hasdes:{hasDesTime}");  
+		    	if (!objGS) { Destroy(obj); return; }
+		    	objGS.ReleaseObj(obj, hasDesTime);
+	    	}
+	    }
+	    
         #endregion
         #region 場 景 相 關
         /// <summary>
@@ -240,7 +261,8 @@ namespace solar_a
 	    {
 		    //sif (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
             mgScene.SaveLeveInform(levelNow);
-            mgScene.SceneChageEvent(true);
+		    if (mgScene.GetScenesName().Contains("Tutorial")) mgScene.ReloadToStart();
+		    else mgScene.SceneChageEvent(true);
         }
         ///////////// 選單變化相關
         private IEnumerator PauseFadeEffect(bool visable = true)
@@ -415,7 +437,7 @@ namespace solar_a
             UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
 	        levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
 	        senceName = mgScene.GetScenesName();
-            if (senceName.Contains("Tutorail")) levelNow = 0;
+            if (senceName.Contains("Tutorial")) levelNow = 0;
             else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
             //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
             // 場景控制變數設定
@@ -426,15 +448,15 @@ namespace solar_a
             // 狀態機執行功能
             switch (StaticSharp.Conditions)
             {
-                case State.Running:
-                    if (StaticSharp.isChangeScene)
+            case State.Running:
+	            	if (StaticSharp.isChangeScene)
                     {
                         StaticSharp.isChangeScene = false;
                         StartChageScene();
                     }
                     if (Time.timeScale != 1) Time.timeScale = 1;
                     show_UI();
-                    if (senceName.Contains("Tutorail")) { if (UI_moveDistane <= 2000) MoveAction(); }
+                    if (senceName.Contains("Tutorial")) { if (UI_moveDistane <= 2000) MoveAction(); }
                     else if (UI_moveDistane <= stInfo[levelNow].finishDistane) { MoveAction(); }
                     break;
                 case State.Loading:

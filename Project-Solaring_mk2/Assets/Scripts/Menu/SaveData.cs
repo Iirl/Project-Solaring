@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +24,8 @@ namespace solar_a
         private Button[] moveBTN;
         [SerializeField]
         private Button[] spineBTN;
-        // 本地屬性
+	    // 本地屬性
+	    private bool isCreate;
         private string path;
         #region 存取方法
         /// <summary>
@@ -58,11 +59,14 @@ namespace solar_a
             path = Application.persistentDataPath + "/" + filename;
             if (!File.Exists(path))
             {
-                FileStream file = new FileStream(path, FileMode.Create); // 沒有檔案就建一個
+	            // 沒有檔案就建一個
+	            if (filename.Contains(scores)) isCreate = true;
+                FileStream file = new FileStream(path, FileMode.Create);
                 file.Close();
             }
             return path;
         }
+	    private bool CheckPath(string filename) => GetPath(filename).Length > 0; 
         /// <summary>
         /// 取得目前選單的設定
         /// </summary>
@@ -82,8 +86,11 @@ namespace solar_a
         /// </summary>
         /// <param name="setData">要讀進的資料，可以配合 DataLoad 使用。</param>
         private void PutSetting(string setData)
-        {
-            if (setData.Length < 1) return;
+	    {
+		    // 第一次執行時會檢查是否首次執行
+		    if (!StaticSharp.isFirstPlay && (isCreate || !ISFileContent(scores))) StaticSharp.isFirstPlay = true;
+	        // 讀取設定資料檔內容
+	        if (setData.Length < 1) return;
             string[] datas = setData.Split('@');
             StaticSharp._VOLUME = float.Parse(datas[0]);            
             volSlider.value = StaticSharp._VOLUME;
@@ -100,7 +107,8 @@ namespace solar_a
             StaticSharp._RECORDPOS = new Vector3(float.Parse(datas[2]), float.Parse(datas[3]), float.Parse( datas[4]));
         }
         #endregion
-        // 公用存取方法
+	    // 公用存取方法
+	    public bool ISFileContent(string filename) => DataLoad(GetPath(filename)).Length > 0;
         public void SaveSettingData() => DataSave(TakeSetting(), GetPath(setting));
         public void SaveScoreData(int src) => DataSave(src.ToString(), GetPath(scores));
         public void LoadSettingData() => PutSetting(DataLoad(GetPath(setting))); //從檔案讀取設定資料
@@ -111,10 +119,10 @@ namespace solar_a
         }
         private void Start()
         {
+	        LoadScoreData(); //要先讀分數檔才能判斷是否第一次執行
             LoadSettingData();
-            LoadScoreData();
-            print(GetPath(setting));
-
+	        print(GetPath(setting));
+	        //print(StaticSharp.isFirstPlay);
         }
     }
 }

@@ -141,9 +141,11 @@ public class SSRocket : MonoBehaviour
         ManageCenter.rocket_SSR = newPlayer.GetComponent<SSRocket>();
         ManageCenter.rocket_ctl = newPlayer.GetComponent<Rocket_Controll>();
 		rct = newPlayer.GetComponent<Rocket_Controll>();
+		//
 		rocketIndex = rocketIndex != idx ? idx : -1;
 		PlayerPrefs.SetInt(pfRocketIdx, rocketIndex);
-        Destroy(gameObject);
+		Destroy(gameObject);
+		mgc.SetOutFit();
     }
     /// <summary>
     /// 狀態計時器，會先執行 true 再執行 false.
