@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -51,7 +51,8 @@ namespace solar_a
         /// <param name="adc">輸入聲音</param>
         /// <param name="idx">選擇聲道</param>
         private void PlayClips(AudioClip adc, int idx)
-        {
+	    {
+		    if (!adc) return; 
             switch (idx)
             {
                 case 0: //musicPlayer

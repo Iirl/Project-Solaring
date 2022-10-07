@@ -324,7 +324,8 @@ namespace solar_a
         private void Booster() => StartCoroutine(StartBoost());
         void Update()
         {
-            //print(rc_dtion.state);
+	        //print(rc_dtion.state);
+	        if (!mgc) mgc = FindObjectOfType<ManageCenter>();
             switch (rc_dtion.state)
             {
                 case RocketState.Stay:

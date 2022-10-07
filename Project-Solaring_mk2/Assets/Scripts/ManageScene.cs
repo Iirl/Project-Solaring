@@ -130,7 +130,7 @@ namespace solar_a
             while (StaticSharp.isDialogEvent) yield return new WaitForSeconds(1);
             StaticSharp.isChangeScene = false;
             int now = GetScenes();
-            int nexts = now + 1, prevs = now - 1;
+	        int nexts = now + 1, prevs = now - 1;
 	        //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");
             if (GetScenes()+1 == GetScenes(true) - 1) ClearInformation(true);
             else if (next) LoadScenes(nexts);

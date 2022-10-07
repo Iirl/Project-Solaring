@@ -262,8 +262,8 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 3114472124933280462}
@@ -406,8 +406,8 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 8452435134048966529}
@@ -2681,6 +2681,8 @@ MonoBehaviour:
   - {fileID: 993921715282128285}
   - {fileID: 993921715199542114}
   - {fileID: 993921715223125029}
+  BlackHoleFX: {fileID: 5249411085825693276, guid: 582a2758380246649b8f67cc848371ca,
+    type: 3}
   RocketModel:
   - {fileID: 3592277314727565250, guid: 328feed0e2028424d8d6a04c029bd7ef, type: 3}
   RocketOutfit: 0
@@ -3633,6 +3635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 993921716029446158}
   - component: {fileID: 993921716029446153}
+  - component: {fileID: 7052610249211576484}
   m_Layer: 5
   m_Name: TextSystem
   m_TagString: Untagged
@@ -3690,6 +3693,24 @@ MonoBehaviour:
   - label: "\u8FD4\u56DE"
     id: 20
     TmpUGUI: {fileID: 993921716508056132}
+--- !u!114 &7052610249211576484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993921716029446159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26778faf14878dc42b64698a015c28b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landata: {fileID: 11400000, guid: 108a92249e78e0d40bc2ee531450fc75, type: 2}
+  OriganilData: {fileID: 0}
+  TextField:
+  - label: "\u63D0\u793A\u6587\u5B57"
+    id: 0
+    TmpUGUI: {fileID: 0}
 --- !u!1 &993921716189436010
 GameObject:
   m_ObjectHideFlags: 0
@@ -4541,8 +4562,8 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 5546547379441032273}
@@ -4685,8 +4706,8 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 7151541768505882767}
@@ -7804,8 +7825,8 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6330251673885543337}

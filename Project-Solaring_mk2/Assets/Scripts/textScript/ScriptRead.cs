@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -110,7 +110,8 @@ namespace solar_a
         {
             int lid = StaticSharp._LANG_ID;
             DataWrite(lid);
-            if(OriganilData != null) DataOrigial(lid);
+	        if(OriganilData != null) DataOrigial(lid);
+            
         }
     }
 
