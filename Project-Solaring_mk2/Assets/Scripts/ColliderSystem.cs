@@ -91,6 +91,17 @@ public class ColliderSystem : MonoBehaviour
         else if (hitObj.tag.Contains("Sticky"))
         {
             i = 5; // 減速、黏酌
+        } else if (hitObj.name.Contains("BlackHole")) {
+        	i = 101; // 黑洞
+	        if (!loadScene)
+	        {
+		        loadScene = true;
+		        int rndLevel  = Random.Range(3, 8);
+		        print($"前往第{rndLevel}關");
+		        ManageCenter.mgScene.LoadScenes(rndLevel);
+		        loadScene = false;
+	        }
+        	
         }
 
         if (collSys) collSys.SendMessage("ExploderEvent", hitObj);

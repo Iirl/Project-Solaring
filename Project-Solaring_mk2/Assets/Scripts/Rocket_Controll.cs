@@ -383,7 +383,8 @@ namespace solar_a
             //print($"(Rocket_Controll)飛船所在的位置:{transform.position}, N:{other.tag}");            
         }
         private void OnCollisionEnter(Collision collision)
-        {
+	    {
+		    //print(collision.transform.name);
 	        ColEvent(collision.gameObject, transform.position);
         }
         

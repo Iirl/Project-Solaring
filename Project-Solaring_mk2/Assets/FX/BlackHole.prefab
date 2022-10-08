@@ -33833,7 +33833,7 @@ GameObject:
   - component: {fileID: 5249411085721539166}
   - component: {fileID: 5249411085721539167}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: BlackHoleCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

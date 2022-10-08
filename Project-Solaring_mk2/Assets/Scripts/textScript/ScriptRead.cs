@@ -68,7 +68,7 @@ namespace solar_a
         private void DataWrite(int lang = 0)
         {
             float spices = landata.Language.Length;
-            if (lang >= spices) return;     //防止溢位
+            if (lang >= spices) lang = 0;     //防止溢位
             if (landata.Language[lang] != null) { 
                 for (int i = 0; i < TextField.Length; i++)
                 {
@@ -77,6 +77,7 @@ namespace solar_a
 
                 }
             }
+	        StaticSharp._LANG_ID = lang;
         }
         private void DataOrigial(int lang = 0)
         {
@@ -98,7 +99,8 @@ namespace solar_a
         #endregion
 
         // 公用方法
-        public void LoadTextToData() => DataLoad();
+	    public void LoadTextToData() => DataLoad();
+	    public void ChangeLanguage() => DataWrite(StaticSharp._LANG_ID +1);
         public void ChangeLanguage(int i) => DataWrite(i);
         public void ChangeLanguage(string label) => DataWrite(label);
 

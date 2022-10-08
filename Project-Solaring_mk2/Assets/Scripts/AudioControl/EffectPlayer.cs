@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +12,9 @@ namespace solar_a
     {
         protected override void SoundPlayer()
         {
-            mds.OneShotEffect(dataAdo.listAudios[playNumber].clip);
+	        mds.OneShotEffect(dataAdo.listAudios[playNumber].clip);
         }
+	    // 複寫檢查撥放的位置
         protected override IEnumerator SoundCheck()
         {
             bool runtime = true;
@@ -23,5 +24,10 @@ namespace solar_a
                 runtime = mds.EffectIsPlaying;
             }
         }
+	    protected override void OnDisable()
+	    {
+	    	base.OnDisable();
+		    mds.stopEffect();
+	    }
     }
 }

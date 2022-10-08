@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +34,9 @@ namespace solar_a
         protected virtual void SoundPlayer() {  }
         protected virtual IEnumerator SoundCheck() { yield break; }
         protected virtual void SoundOnStart() { }
-        protected virtual void SoundOnEnd() { enabled = false; }
+	    protected virtual void SoundOnEnd() { enabled = false; }
+	    // 共用私人
+	    private IEnumerator player;
         // 公開使用方法
         public int setNumber { set { playNumber = value; } }
         public bool AllowDulpic { set { allowDulpic = value; } }
@@ -50,32 +52,35 @@ namespace solar_a
         {
             int count = 0;
 
-            SoundOnStart();
+	        SoundOnStart(); // 1
             yield return new WaitForSeconds(0.1f);
             do
             {
                 count++;
                 if (playTimes < count && playTimes > 0) break;
-                SoundPlayer();
+	            SoundPlayer(); // 2
                 if (waitTime == 0) break;
                 yield return new WaitForSeconds(waitTime);
-                if (!allowDulpic) yield return StartCoroutine(SoundCheck());
+	            if (!allowDulpic) yield return StartCoroutine(SoundCheck()); //3
             } while (playLoop);
-            SoundOnEnd();
+	        SoundOnEnd(); // 4
         }
 
 
         private void OnEnable()
         {
-            if (mds) StartCoroutine(PlayerTimer());
+	        if (mds) { player = PlayerTimer(); StartCoroutine(player); }
+	        //print(player);
         }
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            playLoop = false;
+	        playLoop = false;
+        	StopCoroutine(player);
         }
         private void Awake()
         {
-            mds = FindObjectOfType<ManageDisco>();
+	        mds = FindObjectOfType<ManageDisco>();
+	        if(!dataAdo) print($"物件 {gameObject.name} 沒有聲音資料檔。");
         }
         #endregion
     }

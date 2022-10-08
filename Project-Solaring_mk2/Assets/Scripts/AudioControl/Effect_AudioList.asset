@@ -30,3 +30,11 @@ MonoBehaviour:
     label: Point+
   - clip: {fileID: 8300000, guid: a217eeb3a13fb3d48afd75f8ad303b23, type: 3}
     label: Point-
+  - clip: {fileID: 8300000, guid: aa3f8893135dd714aa2308041bcddbaa, type: 3}
+    label: SOS
+  - clip: {fileID: 8300000, guid: f2ae834319524f34cb5e321de81c5434, type: 3}
+    label: David
+  - clip: {fileID: 8300000, guid: 00509a074e9e3a048852e82e34aac62f, type: 3}
+    label: Long messege
+  - clip: {fileID: 8300000, guid: 4536ffa8e550dc144a20336c5e68ebfd, type: 3}
+    label: "Radio\u96DC\u8A0A1"

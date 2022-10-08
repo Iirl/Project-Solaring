@@ -84,8 +84,10 @@ namespace solar_a
         public void EffectVolumeAdjust(float vol) => effVolume = vol;
         public bool MusicIsPlaying => MusicPlayer.isPlaying;
         public bool EffectIsPlaying => EffectAudio.isPlaying;
-        public void OneShotMusic(AudioClip audioClip) => PlayClips(audioClip, 0);
+	    public void OneShotMusic(AudioClip audioClip) => PlayClips(audioClip, 0);
+	    public void stopMusic() => MusicPlayer.Stop();
         public void OneShotEffect(AudioClip audioClip) => PlayClips(audioClip, 1);
+	    public void stopEffect() => EffectAudio.Stop();
         public void ChangePlayMusic(AudioClip audioClip) => ChangeMusic(audioClip);
 
         private void Awake()

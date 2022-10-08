@@ -42,16 +42,20 @@ namespace solar_a
             public GameObject gameObject;
         }
         #endregion
-		
+	    // Public Function
+	    public void ChangeLangOutPut() => ReloadDialog(StaticSharp._LANG_ID);
 	    /// <summary>
 	    /// 重新讀取
 	    /// </summary>
-	    private void ReloadDialog(){
-	    	int lid = StaticSharp._LANG_ID;
+	    private void ReloadDialog(int lanID){
+	    	TextMeshProUGUI langText = GameObject.Find("Btn_lng").transform.Find("Tx_lng").GetComponent<TextMeshProUGUI>();
+	    	langText.text = lanID == 0 ? "C" : "J";
+	    	TextField.font = landata.Language[lanID].font;
 	    	StartCoroutine(dialogCVG.FadeEffect(false));
 	    	StopCoroutine(ItypeEffect);
-	    	ItypeEffect = TypeEffect(lid, line);
-	    	FontAssetChange(lid);
+	    	// 
+	    	FontAssetChange(lanID);
+	    	ItypeEffect = TypeEffect(lanID, line);
 	    	StartCoroutine(ItypeEffect);
 	    }
 	    private void FontAssetChange(int langID) => TextField.font = landata.Language[langID].font; //更換字型
@@ -71,10 +75,10 @@ namespace solar_a
 	        wait = true;
             foreach (var e in landata.Language[lang].datas)
             {
+	            if (setLine != 0) if (line < setLine) {line++; continue;}
                 TextField.text = "";
                 foreach (var content in e)
                 {
-                	if (setLine != 0) if (line < setLine) {line++; continue;}
                     if(content.Equals('<')) skip = true;
                     else if(content.Equals('>')) skip = false;
                     TextField.text += content;
