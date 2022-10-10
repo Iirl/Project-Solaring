@@ -25,7 +25,7 @@ namespace solar_a
         protected bool playLoop;
         [SerializeField, Header("時間設定"), Range(0, 1000), HideInInspector]
         protected int playTimes;
-        [SerializeField, Range(0.01f, 10), HideInInspector]
+	    [SerializeField, Range(0.01f, 300), HideInInspector]
         protected float waitTime = 0.5f;
         //
         protected ManageDisco mds;

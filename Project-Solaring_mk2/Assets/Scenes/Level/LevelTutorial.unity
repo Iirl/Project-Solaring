@@ -1766,7 +1766,7 @@ MonoBehaviour:
     - on
     gameObject: {fileID: 612146828}
   - eventName: "\u7D42\u9EDE\u958B\u555F"
-    eventKeyID: 27
+    eventKeyID: 28
     method: 2
     values:
     - on
@@ -4195,6 +4195,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142248029}
   m_CullTransparentMesh: 1
+--- !u!1 &1193821705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4537159549117500588, guid: 9fc22ea5053830945b3dd94598b24980,
+    type: 3}
+  m_PrefabInstance: {fileID: 993921715583638348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1193821709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193821705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035e864bb1568144baf2980045c20a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataAdo: {fileID: 11400000, guid: b8557e36f84e9424cada6bae158c6f0c, type: 2}
+  playNumber: 0
+  allowDulpic: 0
+  playLoop: 1
+  playTimes: 0
+  waitTime: 115
 --- !u!1001 &1213282048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9312,103 +9336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneID: SceneID
   level1Scene: 2
---- !u!82 &993921716176036077
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993921716176036085}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 761715145362427860, guid: 9e6dccb3fd62e1d44a2ee547b6223d6d,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: e8852ed464a1b9342ae5daf78264b674, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!225 &993921716176036078
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9502,7 +9429,6 @@ GameObject:
   - component: {fileID: 993921716176036078}
   - component: {fileID: 993921716176036079}
   - component: {fileID: 993921716176036076}
-  - component: {fileID: 993921716176036077}
   - component: {fileID: 993921716176036066}
   m_Layer: 5
   m_Name: GameManage_UI

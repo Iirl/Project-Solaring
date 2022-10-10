@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +15,11 @@ namespace solar_a
         }
         protected override IEnumerator SoundCheck()
         {
-            bool runtime=true;
+            bool runtime= mds.MusicIsPlaying;
             while (runtime)
             {
                 yield return null;
-                runtime = mds.MusicIsPlaying;
+	            runtime = mds.MusicIsPlaying;
             }
         }
     }

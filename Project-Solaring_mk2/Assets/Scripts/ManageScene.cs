@@ -126,9 +126,9 @@ namespace solar_a
         /// </summary>
         private IEnumerator EnumerLoadScene(bool next=true)
         {
-            if (StaticSharp.isChangeScene) yield break;
+	        if (StaticSharp.isChangeScene) yield break;
+	        else StaticSharp.isChangeScene = false;
             while (StaticSharp.isDialogEvent) yield return new WaitForSeconds(1);
-            StaticSharp.isChangeScene = false;
             int now = GetScenes();
 	        int nexts = now + 1, prevs = now - 1;
 	        //print($"目前場景編號為：{now}, Next:{nexts}, Previous:{prevs}");

@@ -83,7 +83,8 @@ public class ColliderSystem : MonoBehaviour
             if (!loadScene)
             {
                 loadScene = true;
-                StaticSharp.isChangeScene = true;
+	            StaticSharp.isChangeScene = true;
+	            StaticSharp.isDialogEvent = false;
                 print("終點，轉場");
                 loadScene = false;
             }

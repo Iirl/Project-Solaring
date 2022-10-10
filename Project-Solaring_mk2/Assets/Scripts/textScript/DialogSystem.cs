@@ -69,10 +69,11 @@ namespace solar_a
             StaticSharp.isDialogEvent = true;
 	        StartCoroutine(dialogCVG.FadeEffect(true));
 	        textDelta.SetActive(false);
-            bool skip = false;
-            line = 0;
-            float setTime = 0;
+	        line = 0;
 	        wait = true;
+            bool skip = false;
+	        float setTime = 0;
+	        setLine = 23;
             foreach (var e in landata.Language[lang].datas)
             {
 	            if (setLine != 0) if (line < setLine) {line++; continue;}
@@ -105,10 +106,12 @@ namespace solar_a
                 setTime = 0;
                 line++;
             }
-            //文字輸出結束
-            while (!Input.anyKey) yield return null;
-            TextField.text = "";
-            yield return StartCoroutine(dialogCVG.FadeEffect(false));
+	        //文字輸出結束
+	        do {
+	        	yield return null;
+	        } while (!Input.anyKey); 
+	        TextField.text = "";
+	        yield return StartCoroutine(dialogCVG.FadeEffect(false));
             StaticSharp.isDialogEvent = false;
         }
         /// <summary>
