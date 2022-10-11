@@ -107,10 +107,10 @@ namespace solar_a
 	    public void X_BlockHole() {
 	    	Vector3 rndPos = new Vector3();
 	    	Vector3 border = GetStageBorder();
-	    	rndPos.x = Mathf.Clamp(Random.value* border.x/2,-border.x,border.x);
-	    	rndPos.y = Mathf.Clamp(Random.value* border.y/2,-border.y,border.y);
-	    	rndPos.z = Mathf.Clamp(Random.value* border.z/2,-border.z,border.z);
-	    	Destroy(Instantiate(BlackHoleFX, rndPos, Quaternion.identity),5);
+	    	rndPos.x = Mathf.Clamp(Random.Range(-border.x/2,border.x/2),-19,19);
+	    	rndPos.y = Mathf.Clamp(Random.Range(-border.y/2,border.y/2),-9,9);
+	    	rndPos.z = Random.value;
+	    	Destroy(Instantiate(BlackHoleFX, rndPos, BlackHoleFX.transform.rotation),5);
 	    	print("Black holo!");
 	    }
         /// <summary>

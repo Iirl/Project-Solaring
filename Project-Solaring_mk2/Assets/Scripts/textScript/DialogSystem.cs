@@ -73,7 +73,7 @@ namespace solar_a
 	        wait = true;
             bool skip = false;
 	        float setTime = 0;
-	        setLine = 23;
+	        //setLine = 23; // 測試行數
             foreach (var e in landata.Language[lang].datas)
             {
 	            if (setLine != 0) if (line < setLine) {line++; continue;}

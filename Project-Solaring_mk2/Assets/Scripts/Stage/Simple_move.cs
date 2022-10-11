@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -128,6 +128,11 @@ namespace solar_a
             //print("碰到物件");
             if (other.tag.Contains("Player")) if (!ManageCenter.space_ctl.isRotate) enabled = false;
         }
+	    // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
+	    protected void OnCollisionEnter(Collision collisionInfo)
+	    {
+	    	if (collisionInfo.gameObject.name.Contains("BlackHole")) ManageCenter.mgCenter.ObjectDestory(gameObject);
+	    }
         #endregion
 
 
