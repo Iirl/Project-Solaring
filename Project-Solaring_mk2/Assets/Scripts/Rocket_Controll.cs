@@ -28,14 +28,12 @@ namespace solar_a
         public Vector3 RocketBasic;
         [SerializeField, Header("火箭能力調整")]
         private float unit_fuel;
-        public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
         [SerializeField]
         public float fuel_overcapacity = 20;
         [SerializeField, Range(0.1f, 5.0f)]
         private float rush_time;
         [SerializeField, Range(1, 20)]
 	    private int rush_counts;
-	    public int RushCounts => rush_counts;
         [SerializeField, Header("×快速查看"), Tooltip("程式控制項目，設定也沒意義。")]
         private float fuel = 100;
         private float speed_v = 4f;
@@ -60,7 +58,9 @@ namespace solar_a
         #endregion
 
         // 取得火箭資訊的欄位
-        public Vector3 RocketVarInfo => new Vector3(fuel, speed_v, speed_a);
+	    public Vector3 RocketVarInfo => new Vector3(fuel, speed_v, speed_a);
+	    public int RushCounts => rush_counts;
+	    public float Unit_fuel { get { return unit_fuel; } set { unit_fuel = value; } }
         /// <summary>
         /// 存取火箭資訊方法：
         /// PutRocketSyn 可以修改當前火箭的狀態，能夠限制輸入值，進入中繼站時會讀取 RocketS1 的資料。

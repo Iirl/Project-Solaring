@@ -31,6 +31,7 @@ namespace solar_a
         public void ReloadToAndClear() => ClearInformation();
         public void SaveLeveInform(int level) => SaveInformation(level);
         public void SceneChageEvent(bool isNext) => StartCoroutine(EnumerLoadScene(isNext));
+	    public void LoadFirst() => GenericScene(level1Scene);
         public void LoadScenes(int idx) => GenericScene(idx);
 	    public void LoadScenes(string sname) => GenericScene(sname);
 	    public void Quit() => Application.Quit(); // 結束程式函數

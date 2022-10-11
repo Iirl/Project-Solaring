@@ -33,9 +33,12 @@ namespace solar_a
         protected Vector3 straightV3;
         [SerializeField, Header("停止追蹤距離"), Tooltip("If your Screen size less than 12, recommend to fix it."), HideInInspector]
         protected float stopTracert = 12;
+	    [SerializeField, Header("自動停止距離"), Tooltip("If gameobject over it, it will be disable self.")]
+	    protected float atuoDisableDistance = 100;
         private float dist;
         float stageDict => ManageCenter.mgCenter.GetStagePOS().y;
-        float stageyBorder => ManageCenter.mgCenter.GetStageBorder().y;
+	    float stageyBorder => ManageCenter.mgCenter.GetStageBorder().y;
+	    private float DistanceCheck => Vector3.Distance(Vector3.zero, gameObject.transform.position);
         //
         private AudioSource[] audios;
         // 公開方法
@@ -69,6 +72,7 @@ namespace solar_a
             transform.position = Vector3.Lerp(transform.position, target_v3, speed);
             if (dist < 1) moveMethod = MoveMethod.Direction;
         }
+        
         //
         #region 物件啟動事件
         /// <summary>
@@ -121,6 +125,7 @@ namespace solar_a
                 default:
                     break;
             }
+	        if (DistanceCheck > atuoDisableDistance) gameObject.SetActive(false);
         }
 
         private void OnTriggerEnter(Collider other)

@@ -52,7 +52,11 @@ namespace solar_a
         [SerializeField, Tooltip("UI 燃料文字")]
         TMP_Text ui_fuel;
         [SerializeField, Tooltip("UI 燃料條")]
-        Image ui_fuelbar;
+	    Image ui_fuelbar;
+	    [SerializeField, Tooltip("UI 衝刺條")]
+	    Image ui_rushBar;
+	    [SerializeField, Tooltip("衝刺上限")]
+	    private float rushMax = 5;
         [SerializeField]
         GameObject[] EnergyPlus;
         [SerializeField]
@@ -261,7 +265,11 @@ namespace solar_a
 	    {
 		    //sif (rocket_SSR.rocketIndex != -1) rocket_SSR.ChangeSkin(rocket_SSR.rocketIndex);
             mgScene.SaveLeveInform(levelNow);
-		    if (mgScene.GetScenesName().Contains("Tutorial")) mgScene.ReloadToStart();
+		    if (mgScene.GetScenesName().Contains("Tutorial")) {
+		    	StaticSharp.Rocket_INFO = Vector3.zero;
+		    	StaticSharp.Rocket_BASIC = Vector3.zero;
+		    	mgScene.LoadFirst();
+		    }
 		    else mgScene.SceneChageEvent(true);
         }
         ///////////// 選單變化相關
@@ -327,6 +335,9 @@ namespace solar_a
                     }
                 }
             }
+	        // RUSH 次數顯示
+	        if (rocket_ctl.RushCounts == 0) ui_rushBar.fillAmount = 0;
+	        else if (rocket_ctl.RushCounts < rushMax) ui_rushBar.fillAmount = rocket_ctl.RushCounts / rushMax ;
             // 標示文字UI內容
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
