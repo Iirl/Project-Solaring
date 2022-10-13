@@ -16,6 +16,7 @@ MonoBehaviour:
   Language:
   - label: Chinese
     filename: CH
+    font: {fileID: 0}
     datas:
     - "\u958B\u59CB\u904A\u6232\r"
     - "\u8ABF\u6574\u8A2D\u5B9A\r"
@@ -45,6 +46,7 @@ MonoBehaviour:
     - "\u51FA\u53E3\r"
   - label: English
     filename: EN
+    font: {fileID: 0}
     datas:
     - "START\r"
     - "OPTION\r"
