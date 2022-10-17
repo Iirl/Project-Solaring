@@ -30,3 +30,4 @@ Acceleration
 ROCKET ADJSUT
 EXIT
 ---End---
+<color=red>←Click (✕) to close</color>
