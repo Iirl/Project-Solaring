@@ -1,16 +1,16 @@
----Production List---
+---ProductionList---
 【Programing】Hong Yili
 【Game Art 】Chiu Jianwen
 【GamePlanner】Chiu Jianwen
 ​
----Special thanks to---
+---Specialthanksto---
 Special thanks to
 【Production Instruction】Mr. Su Yilin
 【Production Instruction】Mr. Liu Pinru
 【Programing Instruction】You Article Teacher
 【Programing Instruction】Teacher Cai Hongsong
 ​
----Cheat Code---
+---CheatCode---
 Congratulations
 Now you can use cheat code
 Shift+U use UFO
@@ -18,6 +18,3 @@ Shift+C use cargo plane
 Alt+N Invisibility
 Alt+R Regenerate supplies and obstacles
 Ctrl+B open black hole
-​
----Thank you---
-Thank you for playing~
