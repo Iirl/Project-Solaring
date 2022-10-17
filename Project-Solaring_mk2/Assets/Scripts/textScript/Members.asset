@@ -10,15 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
-  m_Name: ProductionList
+  m_Name: Members
   m_EditorClassIdentifier: 
   platform: 0
   Language:
   - label: Chinese
     filename: EndMembers_zh
     font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
-    datas: []
+    datas:
+    - "\u88FD\u4F5C\u4EBA\u54E1\r"
+    - "\u7A0B\u5F0F\uFF1A\u6D2A\u7FCA\u7406\r"
+    - "\u7F8E\u8853\uFF1A\u90B1\u5EFA\u6587\r"
+    - "\u4F01\u5283\uFF1A\u90B1\u5EFA\u6587\r"
   - label: English
     filename: EndMembers_en
     font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
-    datas: []
+    datas:
+    - "Programing\uFF1AHong Yili\r"
+    - "Artist\uFF1AChiu Jianwen\r"
+    - "Designer\uFF1AChiu Jianwen"

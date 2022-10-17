@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f692b48366de50d4e9af133b0c7bd065, type: 3}
+  m_Name: Cheat
+  m_EditorClassIdentifier: 
+  platform: 0
+  Language:
+  - label: Chinese
+    filename: Cheat_zh
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    datas:
+    - "\u606D\u559C\u4F60\u904E\u95DC\r"
+    - "\u73FE\u5728\u958B\u59CB\u4F60\u53EF\u4EE5\u4F7F\u7528\u5BC6\u6280\u4E86\r"
+    - "Shift+U \u4F7F\u7528\u98DB\u789F\r"
+    - "Shift+C \u4F7F\u7528\u8CA8\u6A5F\r"
+    - "Alt+N \u96B1\u5F62\r"
+    - "Alt+R \u91CD\u65B0\u751F\u6210\u88DC\u7D66\u8207\u969C\u7919\u7269\r"
+    - "Ctrl+B \u958B\u555F\u9ED1\u6D1E"
+  - label: English
+    filename: Cheat_en
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    datas:
+    - "Congratulations\r"
+    - "Now you can use cheat code\r"
+    - "Shift+U use UFO\r"
+    - "Shift+C use cargo plane\r"
+    - "Alt+N Invisibility\r"
+    - "Alt+R Regenerate supplies and obstacles\r"
+    - Ctrl+B open black hole

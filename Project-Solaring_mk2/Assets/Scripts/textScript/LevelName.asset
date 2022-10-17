@@ -19,7 +19,7 @@ MonoBehaviour:
     font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
     datas:
     - "\u8ACB\u52AA\u529B\u6D3B\u4E0B\u4F86"
-    - "\u7B2C\u4E00\u5EA7\uFF1A\u5B87\u5B99\u884C\u661F"
+    - "\u8ACB\u52AA\u529B\u6D3B\u4E0B\u4F86"
     - "\u7B2C\u4E8C\u5EA7\uFF1A\u5929\u99AC\u6D41\u661F\u7FA4"
     - "\u7B2C\u4E09\u5EA7\uFF1A\u661F\u5875\u98A8\u66B4"
     - "\u7B2C\u56DB\u5EA7\uFF1A\u5929\u7136\u6CB3\u661F"
@@ -31,7 +31,7 @@ MonoBehaviour:
     font: {fileID: 0}
     datas:
     - Good Luck!
-    - 'First: Cosmic Planet'
+    - Good Luck!
     - "Second\uFF1APegasus Meteor Swarm"
     - "Third\uFF1AStar Burst Storm"
     - "Fourth\uFF1ANatural Star-River "
