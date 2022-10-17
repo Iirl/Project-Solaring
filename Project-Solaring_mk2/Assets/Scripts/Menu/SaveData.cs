@@ -63,6 +63,7 @@ namespace solar_a
 	            if (filename.Contains(scores)) isCreate = true;
                 FileStream file = new FileStream(path, FileMode.Create);
                 file.Close();
+	            if (filename.Contains(setting)) SaveSettingData();
             }
             return path;
         }
@@ -90,7 +91,7 @@ namespace solar_a
 		    // 第一次執行時會檢查是否首次執行
 		    if (!StaticSharp.isFirstPlay && (isCreate || !ISFileContent(scores))) StaticSharp.isFirstPlay = true;
 	        // 讀取設定資料檔內容
-	        if (setData.Length < 1) return;
+		    if (setData.Length < 1) return;
             string[] datas = setData.Split('@');
             StaticSharp._VOLUME = float.Parse(datas[0]);            
             volSlider.value = StaticSharp._VOLUME;
@@ -106,13 +107,23 @@ namespace solar_a
             StaticSharp._SCORE = Convert.ToInt32(datas[1]);
             StaticSharp._RECORDPOS = new Vector3(float.Parse(datas[2]), float.Parse(datas[3]), float.Parse( datas[4]));
         }
+	    /// <summary>
+	    /// 清除存檔資料
+	    /// </summary>
+	    private void CealrData(){
+	    	string dataPath = GetPath(setting);
+	    	if (File.Exists(dataPath)) File.Delete(dataPath);
+	    	dataPath = GetPath(scores);
+	    	if (File.Exists(dataPath)) File.Delete(dataPath);
+	    }
         #endregion
 	    // 公用存取方法
 	    public bool ISFileContent(string filename) => DataLoad(GetPath(filename)).Length > 0;
         public void SaveSettingData() => DataSave(TakeSetting(), GetPath(setting));
         public void SaveScoreData(int src) => DataSave(src.ToString(), GetPath(scores));
         public void LoadSettingData() => PutSetting(DataLoad(GetPath(setting))); //從檔案讀取設定資料
-        public void LoadScoreData() => PutSources(DataLoad(GetPath(scores))); //從檔案讀取分數資料
+	    public void LoadScoreData() => PutSources(DataLoad(GetPath(scores))); //從檔案讀取分數資料
+	    public void CelarAllSaveData() => CealrData();
 
         private void Awake()
         {

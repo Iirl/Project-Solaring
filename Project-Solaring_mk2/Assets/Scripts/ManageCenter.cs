@@ -75,8 +75,10 @@ namespace solar_a
         /// </summary>
         [SerializeField, Header("暫停選單")]
         GameObject pauseUI;
-        [SerializeField, Tooltip("暫停選單畫布系統")]
-        CanvasGroup pauseMenus;
+	    [SerializeField, Tooltip("暫停選單畫布群組")]
+	    CanvasGroup pauseMenus;
+	    [SerializeField, Tooltip("教學畫布群組")]
+	    CanvasGroup helpMenus;
         [SerializeField, Header("畫布淡化速度")]
         Vector2 fadeSpeed = Vector2.zero + Vector2.one * 0.01f;
         /// <summary>
@@ -356,11 +358,12 @@ namespace solar_a
         /// </summary>
         public void Show_Menu(CanvasGroup cvs)
         {
-            //print($"{StaticSharp.Conditions} & {condition.isPause}");
-            if (pauseMenus != null)
+	        //print($"{StaticSharp.Conditions} & {condition.isPause}");
+	        if (condition.isLoading) return;
+	        else if (pauseMenus != null)
             {
                 canvas_select = cvs;
-                if (condition.isEnd)
+	            if (condition.isEnd) //如果已經結束遊戲，不進行狀態變化
                 {
                     pauseUI.SetActive(true);
                     StartCoroutine(PauseFadeEffect(true));
@@ -451,7 +454,14 @@ namespace solar_a
             if (senceName.Contains("Tutorial")) levelNow = 0;
             else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
             //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
-            // 場景控制變數設定
+	        // 場景控制變數設定
+	        /// 如果是初次執行則執行以下內容
+	        if (!StaticSharp.isFirstPlay) return;
+	        //print("顯示教學");
+	        helpMenus.gameObject.SetActive(true);
+	        helpMenus.transform.Find("Tx_FirstHint").gameObject.SetActive(true);
+	        ShowCanvas(helpMenus);
+	        StaticSharp.isFirstPlay = false;
         }
         #endregion
         private void Update()

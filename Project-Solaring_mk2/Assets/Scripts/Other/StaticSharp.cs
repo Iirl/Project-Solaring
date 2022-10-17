@@ -93,6 +93,7 @@ public class StaticSharp
     {
         private State state { get { return Conditions; } set { Conditions = value; } }
         public bool isPause { get { return Conditions == State.Pause; } }
+	    public bool isLoading { get { return Conditions == State.Loading; } }
         public bool isEnd  { get { return Conditions == State.End; } }
 
         public GameCondition()
