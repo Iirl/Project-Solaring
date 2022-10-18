@@ -2689,8 +2689,9 @@ MonoBehaviour:
   ui_Dist: {fileID: 993921716016641285}
   ui_fuel: {fileID: 993921715137831231}
   ui_fuelbar: {fileID: 993921715525026448}
-  ui_rushBar: {fileID: 0}
-  rushMax: 5
+  rushBarGOB: {fileID: 6688547006908497010}
+  ui_rushEnergy: {r: 0, g: 1, b: 0, a: 1}
+  ui_rushExhaust: {r: 1, g: 0, b: 0, a: 1}
   EnergyPlus:
   - {fileID: 993921716217057841}
   - {fileID: 993921715282128285}

@@ -180,7 +180,8 @@ namespace solar_a
             while (!isBoost)
             {
                 rc_dtion.Previous();
-                StateToSpeedline(true);
+	            StateToSpeedline(true);
+	            mgc.UIRushChange();
                 yield return new WaitForSeconds(rush_time);
                 if (!mgc.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
@@ -305,10 +306,12 @@ namespace solar_a
 	            speed_a = speed_a > 0 ? speed_a: RocketBasic.z;
             }
 	        if (StaticSharp.Rocket_POS != Vector3.zero) transform.position = StaticSharp.Rocket_POS;
+	        // 將保存的衝刺次數取出後歸零
 	        if (StaticSharp.Rocket_rushCount != -1)  {
 	        	rush_counts = StaticSharp.Rocket_rushCount;
 	        	StaticSharp.Rocket_rushCount = -1;
 	        }
+	        if (rush_counts > mgc.rushMax) rush_counts = mgc.rushMax;
             // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
             // 如果動畫內容是開啟的狀態，則在一定時間後關閉

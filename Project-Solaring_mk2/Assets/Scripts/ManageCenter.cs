@@ -54,9 +54,14 @@ namespace solar_a
         [SerializeField, Tooltip("UI 燃料條")]
 	    Image ui_fuelbar;
 	    [SerializeField, Tooltip("UI 衝刺條")]
-	    Image ui_rushBar;
+	    GameObject rushBarGOB;
+	    List<Image> ui_rushBar;
+	    [SerializeField]
+	    Color ui_rushEnergy = Color.green;
+	    [SerializeField]
+	    Color ui_rushExhaust = Color.red;
 	    [SerializeField, Tooltip("衝刺上限")]
-	    private float rushMax = 5;
+	    public int rushMax => rushBarGOB.transform.childCount;
         [SerializeField]
         GameObject[] EnergyPlus;
         [SerializeField]
@@ -120,7 +125,7 @@ namespace solar_a
 	    	print("Black holo!");
 	    }
         /// <summary>
-        /// 共用方法 (Public Method)
+	    /// 公用方法 (Public Method)
         /// </summary>
 	    /// <returns></returns>
 	    public void SetOutFit() => OutfitSetting();
@@ -134,7 +139,9 @@ namespace solar_a
             rocket_ctl.SetBasicInfo(x, y, z);
         }
         //除錯功能
-        public void GetState() => print(condition.GetState());
+	    public void GetState() => print(condition.GetState());
+	    //UI相關變數
+	    public void UIRushChange() => RushUIAnimator();
 
         #region 火箭控制與計數相關
         public Vector3 GetRocketPosition() => rocket_ctl.transform.position;
@@ -337,13 +344,26 @@ namespace solar_a
                     }
                 }
             }
-	        // RUSH 次數顯示
-	        if (rocket_ctl.RushCounts == 0) ui_rushBar.fillAmount = 0;
-	        else if (rocket_ctl.RushCounts < rushMax) ui_rushBar.fillAmount = rocket_ctl.RushCounts / rushMax ;
             // 標示文字UI內容
             if (ui_Dist != null) ui_Dist.text = $"{UI_moveDistane.ToString("0")}";
             if (ui_fuel != null) ui_fuel.text = $"{UI_fuel}";
         }
+        
+	    private void RushUIAnimator(){
+		    // RUSH 次數顯示
+		    if (rocket_ctl.RushCounts > 0) {
+			    for (int i = rushMax, j = rocket_ctl.RushCounts; i > 0 ; i--) {
+				    ui_rushBar[i-1].color = i >= j  ? ui_rushExhaust : ui_rushEnergy;
+			    }
+		    }
+	    }
+	    private void RushUIGetChild(){
+	    	ui_rushBar = new List<Image>();
+	    	for (int i =0; i < rushMax; i++) {
+	    		ui_rushBar.Add(rushBarGOB.transform.GetChild(i).GetChild(0).gameObject.GetComponent<Image>());
+	    	}
+	    }
+        
         private void EnergyAnimator(int i)
         {
             string State = "onState";
@@ -436,8 +456,9 @@ namespace solar_a
             mgDsko = ManageSystemController.MgDisco ? ManageSystemController.MgDisco : FindObjectOfType<ManageDisco>();
             ss_ctl = ManageSystemController.SS_CTL ? ManageSystemController.SS_CTL : FindObjectOfType<SceneStage_Control>();
             space_ctl = ManageSystemController.Space_CTL ? ManageSystemController.Space_CTL : FindObjectOfType<Space_Controll>();
-            PutPlayerOBJ();  // 放置玩家火箭
-
+	        PutPlayerOBJ();  // 放置玩家火箭
+	        RushUIGetChild();
+	        UIRushChange();
         }
 
         private void Start()
