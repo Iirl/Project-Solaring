@@ -16,7 +16,7 @@ MonoBehaviour:
   Language:
   - label: Chinese
     filename: tutorial_zh
-    font: {fileID: 11400000, guid: d3fc7cfa6287f5f41a8a981d666af796, type: 2}
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
     datas:
     - "\u9019\u88E1\u662F\u822A\u592A\u5C0E\u5F15\u7CFB\u7D71<color=blue> AK4700\u4E48\u5169</color>\uFF0C\u4F60\u503C\u5F97\u4FE1\u8CF4\u7684\u5925\u4F34\u3002\r"
     - "\u9084\u8A18\u5F97\u8A13\u7DF4\u904E\u7684\u5167\u5BB9\u55CE\uFF1F\u6C92\u95DC\u4FC2\uFF0C\u512A\u79C0\u7684\u4F60\u61C9\u8A72\u4E0D\u6703\u5FD8\u8A18\u600E\u9EBC\u64CD\u4F5C\u7684\u3002\r"
@@ -48,7 +48,7 @@ MonoBehaviour:
     - ... ...
   - label: Isekaimonn
     filename: tutorial_po
-    font: {fileID: 11400000, guid: f945f3d237072ad4ca515006659ee9b9, type: 2}
+    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
     datas:
     - "\u306F\u3053\u3061\u3089\u822A\u592A\u30CA\u30D3\u30B2\u30FC\u30BF\u30FC\u30B7\u30B9\u30C6\u30E0<color=blue>
       AK4700\u30D2\u30C8\u30D5\u30BF</color>\uFF0C\u541B\u306E\u30A2\u30A4\u30DC\u30A6\u3060\u3002\r"

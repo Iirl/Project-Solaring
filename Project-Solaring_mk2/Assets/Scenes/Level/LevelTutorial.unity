@@ -676,7 +676,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7782102, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -693,7 +693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168153529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2862363, y: 1.7732043, z: -63.674393}
+  m_LocalPosition: {x: 2.242641, y: 0.3630173, z: -63.674393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1516,12 +1516,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1773580331, guid: 0e08e1c86f8d7884c801570a64d0a209,
+      objectReference: {fileID: 1638439557, guid: 0e08e1c86f8d7884c801570a64d0a209,
         type: 3}
     - target: {fileID: 751860791888052098, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.19607843
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 751860791888052098, guid: 1f527e0045430c04991ec52736a202eb,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 751860791888052098, guid: 1f527e0045430c04991ec52736a202eb,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 751860791888052098, guid: 1f527e0045430c04991ec52736a202eb,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 751860791888052099, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
@@ -1662,13 +1677,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 38c6a565de54ecd4c93ae871a0f9123a,
+      objectReference: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67,
         type: 2}
     - target: {fileID: 751860792304972156, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 7410412825413194375, guid: 38c6a565de54ecd4c93ae871a0f9123a,
+      objectReference: {fileID: 4299380946882986124, guid: 8218e2fce75669d4db2490e8d608be67,
         type: 2}
     - target: {fileID: 751860792304972158, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
@@ -1693,7 +1708,7 @@ PrefabInstance:
     - target: {fileID: 914287885958715612, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
       propertyPath: m_Alpha
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914287885958715612, guid: 1f527e0045430c04991ec52736a202eb,
         type: 3}
@@ -2049,7 +2064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498821526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2862363, y: 1.7732043, z: -63.674393}
+  m_LocalPosition: {x: 2.242641, y: 0.3630173, z: -63.674393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2352,7 +2367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 1.0435952, y: 1.410187, z: -5.7277884}
+  m_TrackedObjectOffset: {x: 0, y: 0, z: -5.7277884}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -5922,7 +5937,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1651783551
 Canvas:
   m_ObjectHideFlags: 0
