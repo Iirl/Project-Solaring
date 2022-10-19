@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.015399809, g: 0.0014914743, b: 0.038952317, a: 1}
+  m_IndirectSpecularColor: {r: 0.01541006, g: 0.0014973845, b: 0.038918983, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -405,7 +405,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.778291, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1836,8 +1836,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151514478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 56, z: 420.3}
-  m_LocalScale: {x: 50, y: 70, z: 1}
+  m_LocalPosition: {x: 0, y: 45.6, z: 420.3}
+  m_LocalScale: {x: 50, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1741432968}
@@ -1856,7 +1856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  Orispeed: 0.1
+  Orispeed: 0.2
   randomSpd: 1
   straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
@@ -2655,7 +2655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644387579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 38, z: 0}
+  m_LocalPosition: {x: 0, y: 19.58, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2943,7 +2943,7 @@ PrefabInstance:
     - target: {fileID: 1001852029528172821, guid: c1cdd17bef779bb49ab8e53cdc3aa752,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 39.3
+      value: 36.8
       objectReference: {fileID: 0}
     - target: {fileID: 1001852029528172821, guid: c1cdd17bef779bb49ab8e53cdc3aa752,
         type: 3}
@@ -2984,6 +2984,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469091898752744569, guid: c1cdd17bef779bb49ab8e53cdc3aa752,
+        type: 3}
+      propertyPath: Orispeed
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3469091898752744569, guid: c1cdd17bef779bb49ab8e53cdc3aa752,
         type: 3}
