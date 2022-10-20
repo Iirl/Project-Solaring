@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000016127551, g: 0.00043164406, b: 0.0004986035,
+  m_IndirectSpecularColor: {r: 0.000016052663, g: 0.00043172672, b: 0.00049855176,
     a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -5387,9 +5387,9 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_Spacing: -7
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 1
@@ -11982,8 +11982,6 @@ MonoBehaviour:
   ui_fuel: {fileID: 993921714434218496}
   ui_fuelbar: {fileID: 993921716161542575}
   rushBarGOB: {fileID: 1140891335}
-  ui_rushEnergy: {r: 0.36862746, g: 0.5529412, b: 0.8980392, a: 1}
-  ui_rushExhaust: {r: 0.36779106, g: 0.55397356, b: 0.8962264, a: 1}
   EnergyPlus:
   - {fileID: 993921715511388430}
   - {fileID: 993921714842785442}

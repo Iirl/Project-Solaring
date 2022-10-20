@@ -173,7 +173,6 @@ namespace solar_a
 
             float horizon = Input.GetAxis("Horizontal") != 0 ? 1 : 0;
             float vertial = Input.GetAxis("Vertical") != 0 ? 1 : 0;
-            int c = rush_counts;
             // 加速度控制
             //增加推力
             Rocket_sound.pitch = 1.5f;
@@ -181,7 +180,7 @@ namespace solar_a
             {
                 rc_dtion.Previous();
 	            StateToSpeedline(true);
-	            mgc.UIRushChange();
+	            mgc.UIRushChange(rush_counts - 1);
                 yield return new WaitForSeconds(rush_time);
                 if (!mgc.noExhauRush) rush_counts--;
                 Rocket_sound.pitch = 1;
