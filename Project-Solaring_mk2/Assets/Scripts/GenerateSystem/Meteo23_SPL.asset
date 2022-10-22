@@ -18,9 +18,9 @@ MonoBehaviour:
   grtLimit: 15
   grtIntervalTime: 3
   grtWaitTime: 2
-  grtdestTime: 0
+  grtdestTime: 20
   grtPos: {x: 25, y: 0, z: 25}
-  grtOffset: 1
+  grtOffset: 0
   grtSubObject:
   - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
   - {fileID: 4321400938711116941, guid: ef7417e4245c0c141b0838850cc23cdf, type: 3}

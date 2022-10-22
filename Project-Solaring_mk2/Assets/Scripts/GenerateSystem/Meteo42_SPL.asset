@@ -15,15 +15,15 @@ MonoBehaviour:
   grtClass: 1
   grtObject: {fileID: 4252843316972449126, guid: 7fe8a7bdd80d9f442b2db5eb5cd6f564,
     type: 3}
+  grtLimit: 10
+  grtIntervalTime: 2
+  grtWaitTime: 3
+  grtdestTime: 20
+  grtPos: {x: 20, y: 5, z: 20}
+  grtOffset: 0
   grtSubObject:
   - {fileID: 5273672730452747357, guid: 70f5ed2a02e56e94eba5fe423d4628ad, type: 3}
   - {fileID: 4517450970814944372, guid: 487b392203b5c9248a49d09bd17195c8, type: 3}
   grtProb: 0.455
-  grtIntervalTime: 2
-  grtWaitTime: 3
-  grtdestTime: 0
-  grtPos: {x: 20, y: 5, z: 20}
-  grtOffset: 1
   grtRandomRoation: 1
   grtRot: {x: 0, y: 0, z: 0, w: 1}
-  grtLimit: 10

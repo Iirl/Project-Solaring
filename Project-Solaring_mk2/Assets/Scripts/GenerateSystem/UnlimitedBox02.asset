@@ -15,11 +15,11 @@ MonoBehaviour:
   grtClass: 0
   grtObject: {fileID: 1893084404789564, guid: 80fd2cce9b40b014c86e67da5c626713, type: 3}
   grtLimit: 4
-  grtIntervalTime: 0
-  grtWaitTime: 10
-  grtdestTime: 0
+  grtIntervalTime: 5
+  grtWaitTime: 5
+  grtdestTime: 20
   grtPos: {x: 25, y: 3, z: 20}
-  grtOffset: 20
+  grtOffset: 0
   grtSubObject: []
   grtProb: 0
   grtRandomRoation: 1

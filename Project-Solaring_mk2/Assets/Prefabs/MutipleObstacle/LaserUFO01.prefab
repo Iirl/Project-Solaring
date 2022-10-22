@@ -52,6 +52,7 @@ MonoBehaviour:
   randomSpd: 1
   straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
+  atuoDisableDistance: 30
 --- !u!1001 &5520850825495618385
 PrefabInstance:
   m_ObjectHideFlags: 0

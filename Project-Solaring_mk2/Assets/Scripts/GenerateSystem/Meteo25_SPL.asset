@@ -16,11 +16,11 @@ MonoBehaviour:
   grtObject: {fileID: 7328509441470496313, guid: 96793b7b01d20fe4ba8d6df853f61bc0,
     type: 3}
   grtLimit: 10
-  grtIntervalTime: 0
-  grtWaitTime: 2
-  grtdestTime: 0
-  grtPos: {x: 0, y: 20, z: 20}
-  grtOffset: 1
+  grtIntervalTime: 1
+  grtWaitTime: 1
+  grtdestTime: 20
+  grtPos: {x: 0, y: 5, z: 20}
+  grtOffset: 0
   grtSubObject:
   - {fileID: 7674847114549064924, guid: a427c99a5e57edb429950353e6d1f1ad, type: 3}
   - {fileID: 5273672730452747357, guid: 70f5ed2a02e56e94eba5fe423d4628ad, type: 3}
