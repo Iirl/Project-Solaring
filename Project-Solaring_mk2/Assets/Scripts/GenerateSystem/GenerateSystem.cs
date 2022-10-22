@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -156,7 +156,7 @@ namespace solar_a
                 // 生成物件
                 if (Random.value < generData.grtProb)
                 {
-                    Object_Generator.Generater sgen = new(PAOB, TG[rnd]);
+	                Object_Generator.Generater sgen = new Object_Generator.Generater(PAOB, TG[rnd]);
                     sgen.Create_v3 = PAOB.transform.position;
                     sgen.Create_r3 = PAOB.transform.rotation * Quaternion.AngleAxis(30, Vector3.right);
                     sgen.Generates(); // 子物件不須回收
@@ -187,9 +187,9 @@ namespace solar_a
         private void Awake()
         {
             mgc = FindObjectOfType<ManageCenter>();
-            gener_list = new();
-            if (GenerClass.RootObject != generData.grtClass) obGenerate = new(gameObject, generData.grtObject, generData.grtLimit);
-            else obGenerate = new(gameObject, generData.grtObject, Vector3.zero, Quaternion.identity, generData.grtLimit);
+	        gener_list = new Object_Generator.ObjectArray();
+	        if (GenerClass.RootObject != generData.grtClass) obGenerate = new	Object_Generator.Generater(gameObject, generData.grtObject, generData.grtLimit);
+            else obGenerate = new	Object_Generator.Generater(gameObject, generData.grtObject, Vector3.zero, Quaternion.identity, generData.grtLimit);
         }
         private void Start()
         {
@@ -214,8 +214,9 @@ namespace solar_a
         {
             if (timeCounter < generData.grtWaitTime) return;
             else timeCounter = 0;
-            //print($"物件池數量監視器\n<color=green>啟用</color>:{activeCount}<color=red>未啟用</color>:{inActiveCount}<color=yellow>總數:{CountAll}</color>");
-            if (obGenerate.countAct < generData.grtLimit)
+	        //print($"物件池數量監視器\n<color=green>啟用</color>:{activeCount}<color=red>未啟用</color>:{inActiveCount}<color=yellow>總數:{CountAll}</color>");
+	        //print($"{gameObject.name}執行次數");
+	        if (obGenerate.countAct < generData.grtLimit)
             {
 
                 switch (generData.grtClass)
@@ -258,8 +259,9 @@ namespace solar_a
         {
             if (generData.grtClass == GenerClass.PrevRocord) generDestan.x = StaticSharp._SCORE;
             while (ManageCenter.UI_moveDistane < generDestan.x && !preLoadInvoke) yield return null;// 距離指定
-            // 開始呼叫
-            if (continues) InvokeRepeating("SwitchState", 0, generData.grtIntervalTime);            // 持續與一次性
+	        // 開始呼叫，設定避免有0的數值
+	        float setInterval = generData.grtIntervalTime > 0 ? generData.grtIntervalTime : 0.001f;
+	        if (continues) InvokeRepeating("SwitchState", 0, setInterval);            // 持續與一次性
             else Invoke("SwitchState", generData.grtIntervalTime);
 
         }
