@@ -405,7 +405,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7782102, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3318,6 +3318,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4524214175102998284, guid: a0716c69ad9fbf849b33ed89eb81222c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4776324715785297918, guid: a0716c69ad9fbf849b33ed89eb81222c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3328,6 +3333,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 39.30005
       objectReference: {fileID: 0}
+    - target: {fileID: 5546547379441032273, guid: a0716c69ad9fbf849b33ed89eb81222c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1287042882, guid: 0e08e1c86f8d7884c801570a64d0a209,
+        type: 3}
     - target: {fileID: 6334099949300221464, guid: a0716c69ad9fbf849b33ed89eb81222c,
         type: 3}
       propertyPath: m_AnchoredPosition.x

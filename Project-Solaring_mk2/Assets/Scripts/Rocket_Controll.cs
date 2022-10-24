@@ -291,7 +291,10 @@ namespace solar_a
         #region 事件
         private void Start()
         {
-            mgc = ManageCenter.mgCenter;
+	        mgc = ManageCenter.mgCenter;
+	        if (mgc) {
+		        if (rush_counts > mgc.rushMax) rush_counts = mgc.rushMax;
+	        }
 	        // 檢查暫存器中是否有資料，如果有就讀取 => 如果從中繼站出來的火箭需要重讀資料。
 	        RocketBasic = StaticSharp.Rocket_BASIC != Vector3.zero ? StaticSharp.Rocket_BASIC : RocketBasic;
             if (StaticSharp.Rocket_INFO == Vector3.zero) StaticSharp.Rocket_INFO = RocketBasic;
@@ -310,7 +313,6 @@ namespace solar_a
 	        	rush_counts = StaticSharp.Rocket_rushCount;
 	        	StaticSharp.Rocket_rushCount = -1;
 	        }
-	        if (rush_counts > mgc.rushMax) rush_counts = mgc.rushMax;
             // 重新設定火箭控制器的資料
             ManageCenter.rocket_ctl = GetComponent<Rocket_Controll>();
             // 如果動畫內容是開啟的狀態，則在一定時間後關閉
