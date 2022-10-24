@@ -133,10 +133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  Orispeed: 0.2
+  Orispeed: 0.3
   randomSpd: 0
   straightV3: {x: 0, y: -1, z: 0}
   stopTracert: 12
+  atuoDisableDistance: 500
 --- !u!1 &6566077668750188476
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +315,7 @@ GameObject:
   - component: {fileID: 9139093074611714809}
   - component: {fileID: 2403754867359156575}
   - component: {fileID: 6118554048790972725}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Mars
   m_TagString: Untagged
   m_Icon: {fileID: 0}

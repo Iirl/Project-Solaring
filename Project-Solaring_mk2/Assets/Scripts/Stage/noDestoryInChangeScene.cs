@@ -12,6 +12,8 @@ namespace solar_a
         [SerializeField, Header("重複檢查"), HideInInspector]
         private bool isHaving;
         static private List<string> preLoadName = new List<string>();
+        [SerializeField]
+        private int starLevel;
         //
         public void DestoryOnStageObject() => ClearObject();
 
@@ -29,6 +31,13 @@ namespace solar_a
             {
                 preLoadName.Add(name);
                 DontDestroyOnLoad(gameObject);
+            }
+        }
+        private void Update()
+        {
+            if (starLevel > 0)
+            {
+                //if( ManageCenter.mgScene.GetScenes() != starLevel && ManageCenter.mgScene.GetScenes() != starLevel - 1) Destroy(gameObject);
             }
         }
     }
