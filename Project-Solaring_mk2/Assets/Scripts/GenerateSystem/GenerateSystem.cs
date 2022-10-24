@@ -94,8 +94,10 @@ namespace solar_a
             GameObject created =null;
             try
             {
-                created = obGenerate.GenerateOut();
-                created.GetComponent<Simple_move>().releaseObj = RealseTheObject;
+	            created = obGenerate.GenerateOut();
+	            try {
+		            created.GetComponent<Simple_move>().releaseObj = RealseTheObject;
+	            } catch (System.Exception) {}
                 gener_list.Add(created);
                 if (generData.grtdestTime > 0) StartCoroutine(RealseTimer(created, generData.grtdestTime));
 
