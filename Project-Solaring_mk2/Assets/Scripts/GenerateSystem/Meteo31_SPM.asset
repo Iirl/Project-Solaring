@@ -18,7 +18,7 @@ MonoBehaviour:
   grtLimit: 20
   grtIntervalTime: 2
   grtWaitTime: 3
-  grtdestTime: 20
+  grtdestTime: 30
   grtPos: {x: 20, y: 5, z: 20}
   grtOffset: 0
   grtSubObject:

@@ -2690,8 +2690,6 @@ MonoBehaviour:
   ui_fuel: {fileID: 993921715137831231}
   ui_fuelbar: {fileID: 993921715525026448}
   rushBarGOB: {fileID: 6688547006908497010}
-  ui_rushEnergy: {r: 0, g: 1, b: 0, a: 1}
-  ui_rushExhaust: {r: 1, g: 0, b: 0, a: 1}
   EnergyPlus:
   - {fileID: 993921716217057841}
   - {fileID: 993921715282128285}
@@ -4536,7 +4534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1329715340, guid: 0e08e1c86f8d7884c801570a64d0a209, type: 3}
+  m_Sprite: {fileID: -1287042882, guid: 0e08e1c86f8d7884c801570a64d0a209, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5221,7 +5219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &461884303505089395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5302,7 +5300,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6892954978193237676
 MonoBehaviour:
   m_ObjectHideFlags: 0

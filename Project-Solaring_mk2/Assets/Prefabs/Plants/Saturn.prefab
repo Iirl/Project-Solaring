@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4485059937680725347}
   - component: {fileID: 8978349667386513935}
   - component: {fileID: 3656260387732290193}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Saturn.Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4618581720487495038}
   - component: {fileID: -1018392274618528834}
+  - component: {fileID: 2073599012}
   m_Layer: 0
   m_Name: Saturn
   m_TagString: Untagged
@@ -109,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 5427874623003123652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6036190629364461138}
@@ -131,10 +132,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  straightV3: {x: 0, y: -1, z: 0}
   Orispeed: 0.3
   randomSpd: 0
+  straightV3: {x: -0.2, y: -1, z: 0}
   stopTracert: 12
+  atuoDisableDistance: 250
+--- !u!95 &2073599012
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427874623003123652}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1e78e818b04d95f48a0e150dc46e0f10, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7269167658031374690
 GameObject:
   m_ObjectHideFlags: 0

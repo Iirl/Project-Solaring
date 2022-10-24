@@ -179,10 +179,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMethod: 0
-  Orispeed: 5
+  Orispeed: 6
   randomSpd: 1
   straightV3: {x: -0.3, y: -1, z: 0}
   stopTracert: 12
+  atuoDisableDistance: 100
 --- !u!54 &1626506284486313849
 Rigidbody:
   m_ObjectHideFlags: 0

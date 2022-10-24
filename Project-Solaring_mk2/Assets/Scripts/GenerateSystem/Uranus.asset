@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: Uranus
   m_EditorClassIdentifier: 
-  grtClass: 4
+  grtClass: 0
   grtObject: {fileID: 6507688377126678355, guid: 728689d3e26c8f64d8e31c20065d46c6,
     type: 3}
   grtLimit: 1
   grtIntervalTime: 1
   grtWaitTime: 1
-  grtdestTime: 300
-  grtPos: {x: 0, y: 0, z: 0}
+  grtdestTime: 500
+  grtPos: {x: 10, y: 0, z: 0}
   grtOffset: 0
   grtSubObject: []
   grtProb: 0.5

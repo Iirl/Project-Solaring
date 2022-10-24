@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e1a241448c94085c794b9bab7c05, type: 3}
   m_Name: Jupiter
   m_EditorClassIdentifier: 
-  grtClass: 4
+  grtClass: 0
   grtObject: {fileID: 7464562019881101929, guid: 7d6fc2e41e62f3944a9f21aff7a0406a,
     type: 3}
   grtLimit: 1
   grtIntervalTime: 1
   grtWaitTime: 1
-  grtdestTime: 300
-  grtPos: {x: 0, y: 0, z: 0}
+  grtdestTime: 500
+  grtPos: {x: 20, y: 0, z: 0}
   grtOffset: 0
   grtSubObject: []
   grtProb: 0.5

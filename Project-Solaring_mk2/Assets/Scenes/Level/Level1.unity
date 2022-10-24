@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generData: {fileID: 11400000, guid: daeb31858c6514e4ca812ff36b45d016, type: 2}
   continues: 0
-  generDestan: {x: 13000, y: 0}
+  generDestan: {x: 12500, y: 0}
 --- !u!4 &1644387582
 Transform:
   m_ObjectHideFlags: 0

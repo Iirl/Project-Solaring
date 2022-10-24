@@ -85,7 +85,7 @@ namespace solar_a
             //print($"{Distane2axis}");
             //print("4:" + spstate);
             float execute = 0;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
 	        while (isRotate && rotate)
             {
                 float y_axis = Mathf.Floor(transform.eulerAngles.y); // 目前Y軸軸心位置
@@ -107,7 +107,7 @@ namespace solar_a
 	            //if (iSpine == Mathf.Infinity) print(upper);
 	            
 		        if (transform.rotation == target) {
-		        	yield return new WaitForSeconds(0.5f);
+		        	yield return new WaitForSeconds(0.2f);
 		        	StopCheck();
 		        }
                 else yield return null;
