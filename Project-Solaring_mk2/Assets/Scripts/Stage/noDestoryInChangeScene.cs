@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +12,9 @@ namespace solar_a
         [SerializeField, Header("重複檢查"), HideInInspector]
         private bool isHaving;
         static private List<string> preLoadName = new List<string>();
-        [SerializeField]
-        private int starLevel;
+	    [SerializeField, Header("背景物件調整")]
+	    private int starLevel;
+	    private int nowLevel => ManageCenter.mgScene.GetScenes();
         //
         public void DestoryOnStageObject() => ClearObject();
 
@@ -34,11 +35,12 @@ namespace solar_a
             }
         }
         private void Update()
-        {
+	    {
             if (starLevel > 0)
             {
-                //if( ManageCenter.mgScene.GetScenes() != starLevel && ManageCenter.mgScene.GetScenes() != starLevel - 1) Destroy(gameObject);
+	            if( nowLevel != starLevel && nowLevel != starLevel + 1) Destroy(gameObject);
             }
-        }
+		    
+	    }
     }
 }
