@@ -139,6 +139,7 @@ namespace solar_a
         //除錯功能
 	    public void GetState() => print(condition.GetState());
 	    //UI相關變數
+	    public void UIRushInitial() => RushUIAnimator();
 	    public void UIRushChange(int idx) => RushUIAnimator(idx);
 
         #region 火箭控制與計數相關
@@ -279,7 +280,15 @@ namespace solar_a
 		    }
 		    else mgScene.SceneChageEvent(true);
         }
-        ///////////// 選單變化相關
+	    ///////////// 選單變化相關
+	    private void UInitial(){
+	    	// 取得距離數值，如果沒有則從零開始
+		    UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
+		    UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
+		    // 設定衝刺條的現況
+		    UIRushInitial();
+		    
+	    }
         private IEnumerator PauseFadeEffect(bool visable = true)
         {
             if (condition.isEnd)
@@ -351,14 +360,17 @@ namespace solar_a
 	    /// </summary>
 	    private void RushUIAnimator(){
 		    // RUSH 次數顯示
-		    if (rocket_ctl.RushCounts > 0) {
-		        for (int i = rushMax, j = rocket_ctl.RushCounts; i > 0 ; i--) {
-		    	    //ui_rushBar[i-1].color = i >= j  ? ui_rushExhaust : ui_rushEnergy; // 顏色時的設定
-		        }
-		    }
+		    int barLen = ui_rushBar.Count -1;
+		    int rushLen= rocket_ctl.RushCounts;
+		    if (rushLen > 0) {
+			    for (int i = barLen, j = rushLen; i > 0 ; i--) {
+				    //ui_rushBar[i-1].color = i >= j  ? ui_rushExhaust : ui_rushEnergy; // 顏色時的設定
+				    ui_rushBar[i].SetActive(i < j);
+			    }
+		    } else if (ui_rushBar[0].activeInHierarchy){ foreach(var g in ui_rushBar) g.SetActive(false); }
 	    }
 	    private void RushUIAnimator(int index){
-		    ui_rushBar[index].SetActive(false);
+		    if (ui_rushBar[index].activeInHierarchy) ui_rushBar[index].SetActive(false);
 	    }
 	    /// <summary>
 	    /// 取得衝刺能量的數量，並設定元件清單的初始化
@@ -472,20 +484,19 @@ namespace solar_a
         {
             // 全域變數設定
             /// print($"目前場景編號為：{PlayerPrefs.GetInt(ss_mag.sceneID)}");
+	        //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
             StaticSharp.isChangeScene = false;
-            if( StaticSharp.isProtected ) X_PowerMode();
-            /// 取得距離數值，如果沒有則從零開始
-            UI_moveDistane = StaticSharp.DistanceRecord > 0 ? StaticSharp.DistanceRecord : 0;
-            UI_fuel = (int)rocket_ctl.RocketVarInfo.x;
+	        if( StaticSharp.isProtected ) X_PowerMode();
+	        //UI顯示初始化
+	        UInitial();
+	        // 場景控制變數設定
 	        levelNow = mgScene.GetScenes() - levelBuildSetting + 1;
 	        senceName = mgScene.GetScenesName();
             if (senceName.Contains("Tutorial")) levelNow = 0;
             else if (levelNow > 1) UI_moveDistane = Mathf.Clamp(UI_moveDistane, stInfo[levelNow - 1].finishDistane, stInfo[levelNow].finishDistane);
-            //print($"目前關卡:{mgScene.GetScenes()}/ BuildSetting: {levelBuildSetting}");
-	        // 場景控制變數設定
 	        /// 如果是初次執行則執行以下內容
+	        // print("顯示教學");
 	        if (!StaticSharp.isFirstPlay) return;
-	        //print("顯示教學");
 	        helpMenus.gameObject.SetActive(true);
 	        helpMenus.transform.Find("Tx_FirstHint").gameObject.SetActive(true);
 	        ShowCanvas(helpMenus);

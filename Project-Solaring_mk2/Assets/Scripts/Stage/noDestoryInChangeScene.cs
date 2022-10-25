@@ -40,10 +40,12 @@ namespace solar_a
         }
         private void Update()
 	    {
-            if (starLevel > 0)
+	    	if (nowLevel == 9) Destroy(gameObject);
+		    else if (starLevel > 0)
             {
 	            if( nowLevel != starLevel && nowLevel != starLevel + 1) Destroy(gameObject);
-            }
+            } 
+            
 		    
 	    }
     }
