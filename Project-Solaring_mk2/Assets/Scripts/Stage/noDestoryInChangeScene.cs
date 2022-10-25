@@ -26,6 +26,7 @@ namespace solar_a
 
         private void Awake()
         {
+	        if (starLevel > 0)gameObject.name = gameObject.name + starLevel;
             if (preLoadName.Count > 0) foreach (string name in preLoadName) if (name == this.name) isHaving = true;
             if (isHaving) Destroy(gameObject);
             else
@@ -33,6 +34,7 @@ namespace solar_a
                 preLoadName.Add(name);
                 DontDestroyOnLoad(gameObject);
             }
+	        starLevel +=  1;
         }
         private void Update()
 	    {

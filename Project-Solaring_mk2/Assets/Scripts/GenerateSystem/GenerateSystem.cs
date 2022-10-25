@@ -104,8 +104,9 @@ namespace solar_a
             }
             catch (System.Exception)
             {
-                print("物件池物件清空或遺失，重新生成喔~");
-                obGenerate.GenerateOffClear(created);
+	            //print("物件池物件清空或遺失，重新生成喔~");
+	            //obGenerate.GenerateOffClear(created);
+	            return null;
             }
             return created;
         }
@@ -171,9 +172,15 @@ namespace solar_a
         /// </summary>
         private IEnumerator RealseTimer(GameObject obj, float time)
         {
-            //print($"{name}會在{time}秒後銷毀");
-            yield return new WaitForSeconds(time);
-            RealseTheObject(obj);
+	        //print($"{name}會在{time}秒後銷毀");
+	        float f = 0;
+	        while (f < time) {
+	        	yield return new WaitForSeconds(1);
+	        	if (!obj) yield break;
+	        	else if(!obj.activeInHierarchy) yield break;
+	        	f+=1;
+	        }
+	        if(obj.activeInHierarchy) RealseTheObject(obj);
         }
         #endregion
         #region 物件產生方法的應用：定點、指定、隨機及帶有子物件生成。
@@ -185,23 +192,28 @@ namespace solar_a
         private void Static_gen(Vector3 setPos, bool isRotate) => Generator_EMP(Vector3.up * mgc.GetStageBorder().y, isRotate, false);
 
         #endregion
-
+		
+	    private void FindOBJ(){
+	    	mgc = FindObjectOfType<ManageCenter>();
+	    }
+		
         private void Awake()
-        {
-            mgc = FindObjectOfType<ManageCenter>();
+	    {
+		    FindOBJ();
 	        gener_list = new Object_Generator.ObjectArray();
 	        if (GenerClass.RootObject != generData.grtClass) obGenerate = new	Object_Generator.Generater(gameObject, generData.grtObject, generData.grtLimit);
             else obGenerate = new	Object_Generator.Generater(gameObject, generData.grtObject, Vector3.zero, Quaternion.identity, generData.grtLimit);
         }
         private void Start()
-        {
+	    {
+		    if (!mgc) FindOBJ();
             preLoadInvoke = IsInvoking();
             if (mgc.GetLevel() > 0) generDestan.x += mgc.stInfo[mgc.GetLevel() - 1].finishDistane;
             generDestan.y = generDestan.y != 0 ? Mathf.Clamp(generDestan.y, generDestan.x, generDestan.y) : 0;
-            if (mgc) StartCoroutine(IntervalGenerate());
             // 資料輸入
-            obGenerate.destoryTime = generData.grtdestTime;
-
+		    obGenerate.destoryTime = generData.grtdestTime;
+		    // 開始產生
+		    StartCoroutine(IntervalGenerate());
         }
         private void Update()
         {
@@ -258,13 +270,14 @@ namespace solar_a
         }
 
         private IEnumerator IntervalGenerate()
-        {
+	    {
+		    yield return new WaitForSeconds(0.01f);
             if (generData.grtClass == GenerClass.PrevRocord) generDestan.x = StaticSharp._SCORE;
             while (ManageCenter.UI_moveDistane < generDestan.x && !preLoadInvoke) yield return null;// 距離指定
 	        // 開始呼叫，設定避免有0的數值
 	        float setInterval = generData.grtIntervalTime > 0 ? generData.grtIntervalTime : 0.001f;
 	        if (continues) InvokeRepeating("SwitchState", 0, setInterval);            // 持續與一次性
-            else Invoke("SwitchState", generData.grtIntervalTime);
+            else Invoke("SwitchState", setInterval);
 
         }
     }
