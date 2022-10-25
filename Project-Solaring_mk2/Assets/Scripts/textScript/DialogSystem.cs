@@ -49,11 +49,15 @@ namespace solar_a
 	    /// </summary>
 	    private void ReloadDialog(int lanID){
 	    	TextMeshProUGUI langText = GameObject.Find("Btn_lng").transform.Find("Tx_lng").GetComponent<TextMeshProUGUI>();
-	    	langText.text = lanID == 0 ? "C" : "J";
-	    	TextField.font = landata.Language[lanID].font;
-	    	StartCoroutine(dialogCVG.FadeEffect(false));
+		    langText.text = lanID == 0 ? "C" : "E";
+	    	// 判斷是否有對話，沒有則跳過
+	    	if (!StaticSharp.isDialogEvent) {
+	    		dialogCVG.alpha = 0;
+	    		return;
+	    	}
 	    	StopCoroutine(ItypeEffect);
-	    	// 
+	    	StaticSharp.isDialogEvent = false;
+	    	// 讀取語言資訊並開始輸出效果
 	    	FontAssetChange(lanID);
 	    	ItypeEffect = TypeEffect(lanID, line);
 	    	StartCoroutine(ItypeEffect);
@@ -65,26 +69,30 @@ namespace solar_a
         /// <param name="lang">輸入語言編號會切換資料語言</param>
         /// <returns></returns>
         private IEnumerator TypeEffect(int lang,int setLine = 0)
-        {
-            StaticSharp.isDialogEvent = true;
+	    {
+		    if (StaticSharp.isDialogEvent) yield break;
+		    else StaticSharp.isDialogEvent = true;
+		    if (dialogCVG.alpha <= 0) yield return new WaitForSeconds(1);
+	    	TextField.font = landata.Language[lang].font;
 	        StartCoroutine(dialogCVG.FadeEffect(true));
 	        textDelta.SetActive(false);
 	        line = 0;
 	        wait = true;
             bool skip = false;
 	        float setTime = 0;
-	        //setLine = 23; // 測試行數
+		    //etLine = 23; // 測試行數
             foreach (var e in landata.Language[lang].datas)
             {
 	            if (setLine != 0) if (line < setLine) {line++; continue;}
-                TextField.text = "";
+	            TextField.text = "";
+	            // 將每一段內容的文字一個一個讀取
                 foreach (var content in e)
                 {
                     if(content.Equals('<')) skip = true;
                     else if(content.Equals('>')) skip = false;
                     TextField.text += content;
                     if (!skip) yield return new WaitForSeconds(textTypeEffect);
-                    else if (Input.GetKeyUp("x")) { TextField.text = e; break; }
+	                if (Input.GetKeyUp(KeyInput)) { TextField.text = e; break; }
                 }
 	            //print("//等待使用者回應事件");
 	            textDelta.SetActive(true);
@@ -106,13 +114,15 @@ namespace solar_a
                 setTime = 0;
                 line++;
             }
-	        //文字輸出結束
-	        do {
-	        	yield return null;
-	        } while (!Input.anyKey); 
-	        TextField.text = "";
-	        yield return StartCoroutine(dialogCVG.FadeEffect(false));
-            StaticSharp.isDialogEvent = false;
+		    if (StaticSharp.isDialogEvent) {
+			    //文字輸出結束
+			    do {
+				    yield return null;
+			    } while (!Input.anyKey); 
+			    TextField.text = "";
+		        StaticSharp.isDialogEvent = false;
+		        if (dialogCVG.alpha >= 0.01f) yield return StartCoroutine(dialogCVG.FadeEffect(false));
+	        }
         }
         /// <summary>
         /// 偵測事件系統

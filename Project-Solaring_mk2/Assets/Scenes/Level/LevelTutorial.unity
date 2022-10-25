@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000016052663, g: 0.00043172672, b: 0.00049855176,
-    a: 1}
+  m_IndirectSpecularColor: {r: 0.000016127551, g: 0.00043173, b: 0.00049863156, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -851,7 +850,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7782102, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -8681,10 +8680,10 @@ MonoBehaviour:
   stageInGizmos: 0
   box_color: {r: 0, g: 1, b: 1, a: 0.039215688}
   box_position: {x: -1, y: -1, z: -1}
-  box_offset: {x: 22.7, y: 14, z: 0}
-  box_range: {x: 52.57, y: 1.5, z: 30}
-  minBorder: {x: 2, y: 1.5}
-  maxBorder: {x: 0, y: 0}
+  box_offset: {x: 23, y: 15.14, z: 0}
+  box_range: {x: 52, y: 2, z: 30}
+  minBorder: {x: 1, y: 1}
+  maxBorder: {x: -1, y: -2}
   includeTags:
   - Enemy
   - Block

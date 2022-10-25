@@ -73,6 +73,7 @@ namespace solar_a
         public float Speed_slow; 
 
         #region 公用方法
+	    public void StopMove() => Rocket_Rig.velocity = Vector3.zero;
         public void ReGetCOMPON() => SetComponent();
         public void StateOnVisable() => RocketNormalState();
         public void StateToOff(bool state = true) => RocketEffectState(-1, state);

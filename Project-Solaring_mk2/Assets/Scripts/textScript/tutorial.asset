@@ -48,7 +48,7 @@ MonoBehaviour:
     - ... ...
   - label: Isekaimonn
     filename: tutorial_po
-    font: {fileID: 11400000, guid: 8218e2fce75669d4db2490e8d608be67, type: 2}
+    font: {fileID: 11400000, guid: f945f3d237072ad4ca515006659ee9b9, type: 2}
     datas:
     - "\u306F\u3053\u3061\u3089\u822A\u592A\u30CA\u30D3\u30B2\u30FC\u30BF\u30FC\u30B7\u30B9\u30C6\u30E0<color=blue>
       AK4700\u30D2\u30C8\u30D5\u30BF</color>\uFF0C\u541B\u306E\u30A2\u30A4\u30DC\u30A6\u3060\u3002\r"
